@@ -1,25 +1,4 @@
-# React learning
-
- ## tools/libs used
-
-React 
-
-Express.js framework
-
-React-router
-
-Webpack v1
-
-SCSS 
-
-Babel
-
-Foundation
-
-jQuery
-
-Axios
-
+# React learning app
 
 ### How to run
 
