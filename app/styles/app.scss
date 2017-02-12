@@ -1,0 +1,28 @@
+$primaryColor : #00E676;
+$secondaryColor: #EDF8F5;
+$tertiaryColor: #66D7E6;
+$fourthColor: #D0E9EA;
+
+
+p
+{
+    color: #555;
+}
+
+img
+{
+        width: 115px;
+    padding: 0rem 0rem;
+
+}
+.top-bar, .top-bar ul
+{
+
+
+    background-color: $secondaryColor;
+}
+
+
+body{
+font-family: 'Roboto', sans-serif;
+}
