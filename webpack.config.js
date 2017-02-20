@@ -24,6 +24,12 @@ jquery: 'jQuery'
     alias: {
       Main: "app/components/main.jsx",
       Nav: "app/components/nav.jsx",
+      FirstPage: "app/components/firstpage.jsx",
+      LeftSide: "app/components/leftside.jsx",
+      ListMessages: "app/components/ListMessages.jsx",
+      LoginModal: "app/components/loginmodal.jsx",
+      Toolbar: "app/components/toolbar.jsx",
+      NewNav: "app/components/newnav.jsx",
       applicationStyles: 'app/styles/app.scss'
     },
     extensions: ["", ".js", ".jsx"]

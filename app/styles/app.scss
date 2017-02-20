@@ -9,6 +9,12 @@ p
     color: #555;
 }
 
+.scrollableDiv
+{
+    overflow-y: auto;
+
+}
+
 img
 {
         width: 115px;
@@ -21,7 +27,6 @@ img
 
     background-color: $secondaryColor;
 }
-
 
 body{
 font-family: 'Roboto', sans-serif;
