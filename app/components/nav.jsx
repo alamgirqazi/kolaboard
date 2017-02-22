@@ -5,34 +5,34 @@ import RaisedButton from 'material-ui/RaisedButton';
 import LoginModal from 'app/components/loginmodal.jsx';
 import FirstPage from 'app/components/firstpage.jsx';
 
- var Nav = (props) =>
- 
-{
-var partial = "";
+
+  var Nav = (props) =>
+ {
+
 const style = {
   margin: 12,
 }; 
 
-function handleClick(e) {
-     e.preventDefault();
-    console.log('The link was clicked.');
-  var isLogged = props.isLoggedIn;
+// function handleClick(e) {
+//      e.preventDefault();
+//     console.log('The link was clicked.');
+//   var isLogged = props.isLoggedIn;
 
-  console.log(isLogged);
-  if (isLogged) {
-    // return <FirstPage />;
- partial = <h2>heyyysss</h2>;
+//   console.log(isLogged);
+//   if (isLogged) {
+//     // return <FirstPage />;
+//  partial = <h2>heyyysss</h2>;
 
-  }
+//   }
 
-  else
-  {
-  alert('yo');
-  partial = <h2>he123123123yyysss</h2>;
+//   else
+//   {
+//   alert('yo');
+//   partial = <h2>he123123123yyysss</h2>;
 
-  };
+//   };
 
-  }
+//   }
 
 
 return (
@@ -48,11 +48,7 @@ return (
             </li>
           */}
 
-{/*          
-          <li>   
 
-        <a href=""><img src="Klogo.png" alt="icon" className="alignnone size-full wp-image-156" /></a>
-           </li>*/}
        <li>
                      <RaisedButton label="Sign Up" primary={false}  labelColor="#FFF" style={style} backgroundColor="#00E676" />
 
@@ -86,8 +82,6 @@ return (
 
 
 </div>
-      </MuiThemeProvider>
-
-  )};
-
-module.exports = Nav;
+      </MuiThemeProvider>  
+)
+};

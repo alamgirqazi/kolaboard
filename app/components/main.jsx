@@ -16,7 +16,7 @@ return (
        <MuiThemeProvider>
 
      <div>
-  <Nav isLoggedIn={false}/>
+  {/*<Nav isLoggedIn={false}/>*/}
 
 {/*<FirstPage/>*/}
 {/*<ListMessages/>*/}
