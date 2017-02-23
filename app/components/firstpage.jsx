@@ -9,8 +9,6 @@ return (
 <div>
 <h2>A collaboration app for teams|
 </h2>
-<p id="test">0</p>
-
 
 <p>Kolaboard lets you organize and prioritize your tasks making collaboration easier and more fun.</p>
 

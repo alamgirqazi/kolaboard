@@ -27,9 +27,11 @@ jquery: 'jQuery'
       FirstPage: "app/components/firstpage.jsx",
       LeftSide: "app/components/leftside.jsx",
       ListMessages: "app/components/ListMessages.jsx",
-      LoginModal: "app/components/loginmodal.jsx",
+      LoginDialog: "app/components/loginmodal.jsx",
+      SignupDialog: "app/components/signupmodal.jsx",
       Toolbar: "app/components/toolbar.jsx",
       NewNav: "app/components/newnav.jsx",
+      DrawerOpenRightExample: "app/components/drawer.jsx",
       applicationStyles: 'app/styles/app.scss'
     },
     extensions: ["", ".js", ".jsx"]

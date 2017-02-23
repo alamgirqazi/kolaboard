@@ -2,8 +2,11 @@ var React = require('react');
 var {Link, IndexLink} = require("react-router");
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-import LoginModal from 'app/components/loginmodal.jsx';
+import LoginDialog from 'app/components/loginmodal.jsx';
+import SignupDialog from 'app/components/signupmodal.jsx';
 import FirstPage from 'app/components/firstpage.jsx';
+import Drawer from 'app/components/drawer.jsx';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
 export default class NewNav extends React.Component {
   constructor(props) {
@@ -31,6 +34,11 @@ export default class NewNav extends React.Component {
       margin: 12,
     };
 
+    const colormodal = 
+    {
+       backgroundColor: '#00E676'
+    }
+
     return (
       <MuiThemeProvider>
 
@@ -53,7 +61,7 @@ export default class NewNav extends React.Component {
 
             <ul className="menu">
 
-              <li>
+              {/*<li>
                 <RaisedButton
                   label="Log In"
                   primary={true}
@@ -61,23 +69,32 @@ export default class NewNav extends React.Component {
                   className="btnLogin"
                   backgroundColor="#3AAA35"></RaisedButton>
 
-              </li>
+              </li>*/}
 
-              <li>
+<li>
+
+<LoginDialog title = "Log In!"  />
+
+
+</li>
+
+<li><SignupDialog title="Sign Up!"/>
+</li>
+              {/*<li>
                 <RaisedButton
                   label="Sign Up"
                   primary={false}
                   labelColor="#FFF"
                   style={style}
                   backgroundColor="#00E676"/>
-              </li>
+              </li>*/}
 
             </ul>
           </div> 
  <div>
 
         {this.state.login
-              ? <LoginModal/>
+              ? <Drawer/>
               : null
 }
 
