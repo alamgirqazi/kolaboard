@@ -8,11 +8,20 @@ p
 {
     color: #555;
 }
-
+.my-div {
+  overflow-y: scroll;
+}
 .scrollableDiv
 {
     overflow-y: auto;
+    max-height: 150px;
 
+}
+.fullWidth {
+   width: 100%;
+   margin-left: auto;
+   margin-right: auto;
+   max-width: initial;
 }
 
 .abc

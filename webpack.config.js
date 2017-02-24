@@ -32,6 +32,8 @@ jquery: 'jQuery'
       Toolbar: "app/components/toolbar.jsx",
       NewNav: "app/components/newnav.jsx",
       DrawerOpenRightExample: "app/components/drawer.jsx",
+      Chat: "app/components/chat.jsx",
+      Board: "app/components/board.jsx",
       applicationStyles: 'app/styles/app.scss'
     },
     extensions: ["", ".js", ".jsx"]

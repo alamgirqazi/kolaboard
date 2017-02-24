@@ -3,6 +3,9 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
+const style = {
+  margin: 12,
+};
 /**
  * Dialog with action buttons. The actions are passed in as an array of React objects,
  * in this example [FlatButtons](/#/components/flat-button).
@@ -51,12 +54,14 @@ export default class LoginDialog extends React.Component {
           onRequestClose={this.handleClose}
         >
 
-<form>
+
+        <RaisedButton label="Log In with Facebook"  style={style}/>
+
+              <RaisedButton label="Log In with Google" style={style} />
 
   <input placeholder="hu"/>
 
 
-</form>
         </Dialog>
         
       </div>

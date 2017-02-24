@@ -13,26 +13,7 @@ const style = {
   margin: 12,
 }; 
 
-// function handleClick(e) {
-//      e.preventDefault();
-//     console.log('The link was clicked.');
-//   var isLogged = props.isLoggedIn;
 
-//   console.log(isLogged);
-//   if (isLogged) {
-//     // return <FirstPage />;
-//  partial = <h2>heyyysss</h2>;
-
-//   }
-
-//   else
-//   {
-//   alert('yo');
-//   partial = <h2>he123123123yyysss</h2>;
-
-//   };
-
-//   }
 
 
 return (
