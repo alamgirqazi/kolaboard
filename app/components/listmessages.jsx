@@ -9,6 +9,7 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+var Infinite = require('react-infinite');
 
 const iconButtonElement = (
   <IconButton
@@ -29,8 +30,10 @@ const rightIconMenu = (
 );
 
 const ListMessages = () => (
-  <div className="scollableDiv">
+  <div className="">
     <MobileTearSheet>
+<Infinite containerHeight={500} elementHeight={4}>
+
       <List>
         <Subheader>Today</Subheader>
         <ListItem
@@ -134,7 +137,9 @@ const ListMessages = () => (
           secondaryTextLines={2}
         />
       </List>
+  </Infinite>
     </MobileTearSheet>
+
   </div>
 );
 

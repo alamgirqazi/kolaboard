@@ -1,6 +1,6 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-
+var Infinite = require('react-infinite');
 const style = {
   margin: 12,
 };
@@ -10,7 +10,10 @@ export default class Chat extends React.Component {
   render() {
 
     return (
-      <div className="my-div">
+
+      <div className="">
+      <Infinite containerHeight={500} elementHeight={4}>
+
         <RaisedButton label="Chat" primary={true}/>
         <RaisedButton label="Chat" primary={true}/>
         <RaisedButton label="Chat" primary={true}/>
@@ -63,6 +66,7 @@ export default class Chat extends React.Component {
                 </ul>
 
             </div>
+</Infinite>
       </div>
     );
   }
