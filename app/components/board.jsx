@@ -12,7 +12,7 @@ export default class Board extends React.Component {
 
     return (
       <div className="">
-      <Infinite containerHeight={500} elementHeight={4}>
+      <Infinite containerHeight={500} elementHeight={10} displayBottomUpwards >
 
         <RaisedButton label="Board" primary={true}/>
           
