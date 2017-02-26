@@ -3,6 +3,28 @@ $secondaryColor: #EDF8F5;
 $tertiaryColor: #66D7E6;
 $fourthColor: #D0E9EA;
 
+.margin
+{
+    padding-left: 0px;
+    padding: 0px;
+    margin: 0;
+}
+html, body {
+  overflow: hidden;
+}
+
+.padding
+
+{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.paddingleft
+
+{
+    padding-left: 0px;
+    padding-right: 1px;
+}
 
 p
 {

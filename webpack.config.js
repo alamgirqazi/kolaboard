@@ -50,3 +50,18 @@ jquery: 'jQuery'
   },
   devtool: 'cheap-module-eval-source-map'
 };
+
+
+
+//   module: {
+//     loaders: [
+//       {
+//         loaders:['react-hot','babel-loader'],
+//         query: {presets: ["react", "es2015", "stage-0"]},
+//         test: /\.jsx?$/,
+//         exclude: /(node_modules|bower_components)/
+//       }
+//     ]
+//   },
+//   devtool: 'cheap-module-eval-source-map'
+// };

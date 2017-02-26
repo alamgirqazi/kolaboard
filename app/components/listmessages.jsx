@@ -30,7 +30,7 @@ const rightIconMenu = (
 );
 
 const ListMessages = () => (
-  <div className="">
+  <div className="margin">
     <MobileTearSheet>
 <Infinite containerHeight={500} elementHeight={4}>
 

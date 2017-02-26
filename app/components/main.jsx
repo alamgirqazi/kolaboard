@@ -9,8 +9,8 @@ import ListMessages from 'app/components/listmessages.jsx';
 import LoginDialog from 'app/components/loginmodal.jsx';
 import NewNav from 'app/components/newnav.jsx';
 import Toolbar from 'app/components/toolbar.jsx';
-import Board from 'app/components/chat.jsx';
-import Chat from 'app/components/board.jsx';
+import Chat from 'app/components/chat.jsx';
+import Board from 'app/components/board.jsx';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {cyan500} from 'material-ui/styles/colors';
 import {greenA400} from 'material-ui/styles/colors';
@@ -55,15 +55,15 @@ return (
 
 <div className="fullWidth row expanded">
 
-<div className="columns medium-3 large-3">
+<div className="columns medium-3 large-3 paddingleft">
 <ListMessages/>
 </div>
 
-<div className="columns medium-4 large-4">
+<div className="columns medium-4 large-4 padding">
 
 <Chat/></div>
 
-<div className="columns medium-5 large-5">
+<div className="columns medium-5 large-5 paddingleft">
 <Board/>
 </div>
 
