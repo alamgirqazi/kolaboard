@@ -59,11 +59,11 @@ return (
 <ListMessages/>
 </div>
 
-<div className="columns medium-4 large-4 padding">
+<div className="columns medium-4 large-4 padding"   >
 
 <Chat/></div>
 
-<div className="columns medium-5 large-5 paddingleft">
+<div className="columns medium-5 large-5 paddingleft ">
 <Board/>
 </div>
 

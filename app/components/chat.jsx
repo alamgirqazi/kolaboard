@@ -12,35 +12,8 @@ export default class Chat extends React.Component {
     return (
 
       <div className="">
-      <Infinite containerHeight={500} elementHeight={4}>
+      <Infinite containerHeight={500} elementHeight={4} displayBottomUpwards>
 
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
-        <RaisedButton label="Chat" primary={true}/>
         <RaisedButton label="Chat" primary={true}/>
         <RaisedButton label="Chat" primary={true}/>
         <RaisedButton label="Chat" primary={true}/>
