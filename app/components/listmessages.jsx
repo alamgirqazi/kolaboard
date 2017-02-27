@@ -2,9 +2,11 @@ import React from 'react';
 import MobileTearSheet from 'app/api/MobileTearSheet.js';
 import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
+import FileFolder from 'material-ui/svg-icons/file/folder';
+
 import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
-import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
+import {grey400, darkBlack, lightBlack,blue300} from 'material-ui/styles/colors';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
@@ -34,12 +36,20 @@ const ListMessages = () => (
     <MobileTearSheet>
 <Infinite containerHeight={500} elementHeight={4}>
 
+<input type="search"/>
       <List>
         <Subheader>Today</Subheader>
         <ListItem
-          leftAvatar={<Avatar src="images/ok-128.jpg" />}
-          rightIconButton={rightIconMenu}
-          primaryText="Brendan Lim"
+            leftAvatar={
+        <Avatar
+          color={blue300}
+          backgroundColor={darkBlack}
+          size={40}
+        >
+        U
+        </Avatar>
+      } rightIconButton={rightIconMenu}
+          primaryText="Umar Farooq"
           secondaryText={
             <p>
               <span style={{color: darkBlack}}>Brunch this weekend?</span><br />
@@ -50,9 +60,17 @@ const ListMessages = () => (
         />
         <Divider inset={true} />
         <ListItem
-          leftAvatar={<Avatar src="images/kolage-128.jpg" />}
+            leftAvatar={
+        <Avatar
+          color={blue300}
+          backgroundColor={darkBlack}
+          size={40}
+        >
+        Q
+        </Avatar>
+      }
           rightIconButton={rightIconMenu}
-          primaryText="me, Scott, Jennifer"
+          primaryText="Qamar Abbas"
           secondaryText={
             <p>
               <span style={{color: darkBlack}}>Summer BBQ</span><br />
@@ -63,9 +81,17 @@ const ListMessages = () => (
         />
         <Divider inset={true} />
         <ListItem
-          leftAvatar={<Avatar src="images/uxceo-128.jpg" />}
+            leftAvatar={
+        <Avatar
+          color={blue300}
+          backgroundColor={darkBlack}
+          size={40}
+        >
+        T
+        </Avatar>
+      }
           rightIconButton={rightIconMenu}
-          primaryText="Grace Ng"
+          primaryText="Tarique Ali"
           secondaryText={
             <p>
               <span style={{color: darkBlack}}>Oui oui</span><br />
@@ -76,7 +102,27 @@ const ListMessages = () => (
         />
         <Divider inset={true} />
         <ListItem
-          leftAvatar={<Avatar src="images/kerem-128.jpg" />}
+          leftAvatar={
+        <Avatar
+          color={blue300}
+          backgroundColor={darkBlack}
+          size={40}
+        >
+        K
+        </Avatar>
+      }
+          rightIconButton={rightIconMenu}
+          primaryText="Kolaboard"
+          secondaryText={
+            <p>
+              <span style={{color: darkBlack}}>Birthday gift</span><br />
+              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
+            </p>
+          }
+          secondaryTextLines={2}
+        />
+        <ListItem
+          leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
           rightIconButton={rightIconMenu}
           primaryText="Kerem Suer"
           secondaryText={
@@ -88,9 +134,9 @@ const ListMessages = () => (
           secondaryTextLines={2}
         />
         <ListItem
-          leftAvatar={<Avatar src="images/kerem-128.jpg" />}
+          leftAvatar={<Avatar>A</Avatar>}
           rightIconButton={rightIconMenu}
-          primaryText="Kerem Suer"
+          primaryText="Abdul Majid"
           secondaryText={
             <p>
               <span style={{color: darkBlack}}>Birthday gift</span><br />
@@ -100,9 +146,18 @@ const ListMessages = () => (
           secondaryTextLines={2}
         />
         <ListItem
-          leftAvatar={<Avatar src="images/kerem-128.jpg" />}
+          leftAvatar={
+        <Avatar
+          color={blue300}
+          backgroundColor={darkBlack}
+          size={40}
+        >
+        Z
+        </Avatar>
+      }
+          
           rightIconButton={rightIconMenu}
-          primaryText="Kerem Suer"
+          primaryText="Zeeshan"
           secondaryText={
             <p>
               <span style={{color: darkBlack}}>Birthday gift</span><br />
@@ -111,21 +166,9 @@ const ListMessages = () => (
           }
           secondaryTextLines={2}
         />
+        {/*<Divider inset={true} />
         <ListItem
-          leftAvatar={<Avatar src="images/kerem-128.jpg" />}
-          rightIconButton={rightIconMenu}
-          primaryText="Kerem Suer"
-          secondaryText={
-            <p>
-              <span style={{color: darkBlack}}>Birthday gift</span><br />
-              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
-            </p>
-          }
-          secondaryTextLines={2}
-        />
-        <Divider inset={true} />
-        <ListItem
-          leftAvatar={<Avatar src="images/raquelromanp-128.jpg" />}
+          leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
           rightIconButton={rightIconMenu}
           primaryText="Raquel Parrado"
           secondaryText={
@@ -135,7 +178,7 @@ const ListMessages = () => (
             </p>
           }
           secondaryTextLines={2}
-        />
+        />*/}
       </List>
   </Infinite>
     </MobileTearSheet>
