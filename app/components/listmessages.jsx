@@ -3,7 +3,6 @@ import MobileTearSheet from 'app/api/MobileTearSheet.js';
 import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import FileFolder from 'material-ui/svg-icons/file/folder';
-
 import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
 import {grey400, darkBlack, lightBlack,blue300} from 'material-ui/styles/colors';
@@ -12,6 +11,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 var Infinite = require('react-infinite');
+import { Scrollbars } from 'react-custom-scrollbars';
 
 const iconButtonElement = (
   <IconButton
@@ -34,9 +34,15 @@ const rightIconMenu = (
 const ListMessages = () => (
   <div className="margin">
     <MobileTearSheet>
-<Infinite containerHeight={500} elementHeight={4}>
+
+{/*<Infinite containerHeight={500} elementHeight={4}>*/}
+ <Scrollbars style={{ height: 500 }} autoHeightMin={0}
+        autoHeightMax={50}
+        thumbMinSize={50}>
+
 
 <input type="search"/>
+     
       <List>
         <Subheader>Today</Subheader>
         <ListItem
@@ -180,7 +186,8 @@ const ListMessages = () => (
           secondaryTextLines={2}
         />*/}
       </List>
-  </Infinite>
+  {/*</Infinite>*/}
+   </Scrollbars>
     </MobileTearSheet>
 
   </div>

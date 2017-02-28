@@ -55,15 +55,15 @@ return (
 
 <div className="fullWidth row expanded">
 
-<div className="columns medium-3 large-3 paddingleft">
+<div className="columns medium-3 large-3 padding">
 <ListMessages/>
 </div>
 
-<div className="columns medium-4 large-4 paddingleft"   >
+<div className="columns medium-4 large-4 padding"   >
 
 <Chat/></div>
 
-<div className="columns medium-5 large-5 paddingleft ">
+<div className="columns medium-5 large-5 padding">
 <Board/>
 </div>
 
