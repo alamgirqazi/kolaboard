@@ -12,6 +12,7 @@ require('style!css!foundation-sites/dist/foundation.min.css')
 // app.scss
 
 require('style!css!sass!applicationStyles')
+require('style!css!sass!noteStyle')
 
 $(document).foundation();
  injectTapEventPlugin();

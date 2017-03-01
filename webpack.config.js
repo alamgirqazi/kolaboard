@@ -35,7 +35,8 @@ jquery: 'jQuery'
       Chat: "app/components/chat.jsx",
       Board: "app/components/board.jsx",
       Boards: "app/components/Note.jsx",
-      applicationStyles: 'app/styles/app.scss'
+      applicationStyles: 'app/styles/app.scss',
+      noteStyle: 'app/styles/notestyle.scss'
     },
     extensions: ["", ".js", ".jsx"]
   },
