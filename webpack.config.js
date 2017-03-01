@@ -34,6 +34,7 @@ jquery: 'jQuery'
       DrawerOpenRightExample: "app/components/drawer.jsx",
       Chat: "app/components/chat.jsx",
       Board: "app/components/board.jsx",
+      Boards: "app/components/Note.jsx",
       applicationStyles: 'app/styles/app.scss'
     },
     extensions: ["", ".js", ".jsx"]

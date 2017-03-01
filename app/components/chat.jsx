@@ -2,7 +2,7 @@ import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 var Infinite = require('react-infinite');
 import { Scrollbars } from 'react-custom-scrollbars';
-import ReactScrollbar from 'react-scrollbar-js';
+//import ReactScrollbar from 'react-scrollbar-js';
 
 const style = {
   margin: 12,
