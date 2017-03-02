@@ -63,6 +63,9 @@ export default class Boards extends React.Component {
                 'Call Bill',
                 'Email Lisa',
                 'Make appointment',
+                'Call ABC',
+                'Email Lia',
+                'Make apointment',
                 'Send proposal'
             ]
         };

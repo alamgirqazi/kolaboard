@@ -31,19 +31,23 @@ const rightIconMenu = (
   </IconMenu>
 );
 
-const ListMessages = () => (
-  <div className="margin">
-    <MobileTearSheet>
+const style = {
+  height: '100%',
+}
 
-{/*<Infinite containerHeight={500} elementHeight={4}>*/}
- <Scrollbars style={{ height: 500 }} autoHeightMin={0}
+const ListMessages = () => (
+  <div className="margin" style={style}>
+    <MobileTearSheet height="100vh">
+{/*style={{ height: 500 }}*/}
+{/*<Infinite containerHeight={500} elementHeight={4}>*/ }
+ <Scrollbars  autoHeightMin={0} style={{ height: '100%' }}
         autoHeightMax={50}
-        thumbMinSize={50}>
+        thumbMinSize={50} >
 
 
 <input type="search"/>
      
-      <List>
+      <List style={style}>
         <Subheader>Today</Subheader>
         <ListItem
             leftAvatar={
@@ -119,6 +123,90 @@ const ListMessages = () => (
       }
           rightIconButton={rightIconMenu}
           primaryText="Kolaboard"
+          secondaryText={
+            <p>
+              <span style={{color: darkBlack}}>Birthday gift</span><br />
+              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
+            </p>
+          }
+          secondaryTextLines={2}
+        />
+        <ListItem
+          leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
+          rightIconButton={rightIconMenu}
+          primaryText="Kerem Suer"
+          secondaryText={
+            <p>
+              <span style={{color: darkBlack}}>Birthday gift</span><br />
+              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
+            </p>
+          }
+          secondaryTextLines={2}
+        />
+        <ListItem
+          leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
+          rightIconButton={rightIconMenu}
+          primaryText="Kerem Suer"
+          secondaryText={
+            <p>
+              <span style={{color: darkBlack}}>Birthday gift</span><br />
+              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
+            </p>
+          }
+          secondaryTextLines={2}
+        />
+        <ListItem
+          leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
+          rightIconButton={rightIconMenu}
+          primaryText="Kerem Suer"
+          secondaryText={
+            <p>
+              <span style={{color: darkBlack}}>Birthday gift</span><br />
+              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
+            </p>
+          }
+          secondaryTextLines={2}
+        />
+        <ListItem
+          leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
+          rightIconButton={rightIconMenu}
+          primaryText="Kerem Suer"
+          secondaryText={
+            <p>
+              <span style={{color: darkBlack}}>Birthday gift</span><br />
+              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
+            </p>
+          }
+          secondaryTextLines={2}
+        />
+        <ListItem
+          leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
+          rightIconButton={rightIconMenu}
+          primaryText="Kerem Suer"
+          secondaryText={
+            <p>
+              <span style={{color: darkBlack}}>Birthday gift</span><br />
+              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
+            </p>
+          }
+          secondaryTextLines={2}
+        />
+        <ListItem
+          leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
+          rightIconButton={rightIconMenu}
+          primaryText="Kerem Suer"
+          secondaryText={
+            <p>
+              <span style={{color: darkBlack}}>Birthday gift</span><br />
+              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
+            </p>
+          }
+          secondaryTextLines={2}
+        />
+        <ListItem
+          leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
+          rightIconButton={rightIconMenu}
+          primaryText="Kerem Suer"
           secondaryText={
             <p>
               <span style={{color: darkBlack}}>Birthday gift</span><br />

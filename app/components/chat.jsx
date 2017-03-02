@@ -8,6 +8,11 @@ const style = {
   margin: 12,
 };
 
+const heightchat
+={
+height: '100%',
+}
+
 export default class Chat extends React.Component {   
 
   render() {
@@ -23,9 +28,9 @@ width: '10px',
     };
     return (
 
-      <div classNameName="">
+      <div className="" style={heightchat}>
       {/*<Infinite containerHeight={500} elementHeight={4} displayBottomUpwards style={styling}> */}
-      <Scrollbars style={{ height: 500 }} autoHeightMin={0}
+      <Scrollbars style={{ height: '100%' }} autoHeightMin={0}
         autoHeightMax={500}
         thumbMinSize={30}>
      <div className="panel">
