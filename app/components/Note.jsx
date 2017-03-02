@@ -86,11 +86,11 @@ export default class Boards extends React.Component {
 
 add (text)
 {
-    var array= this.state.notes;
-    array.push(text);
+    var arr= this.state.notes;
+    arr.push(text);
     this.setState({
-        note:array
-    })
+        notes:arr
+    });
 }
 
     update (newText,i) {
@@ -118,7 +118,7 @@ add (text)
                 {this.state.notes.map(this.eachNote)};
                    <div className="fixedbutton">
 
-              <FloatingActionButton style={style} onClick={this.add}>
+              <FloatingActionButton style={style} onclick={this.add}>
                 <ContentAdd />
               </FloatingActionButton>
             </div>

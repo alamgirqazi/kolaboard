@@ -1,5 +1,7 @@
+
 import React from 'react';
 import MobileTearSheet from 'app/api/MobileTearSheet.js';
+import Badge from 'material-ui/Badge';
 import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import FileFolder from 'material-ui/svg-icons/file/folder';
@@ -60,9 +62,15 @@ const ListMessages = () => (
           size={40}
         >
         U
+                <Badge   badgeContent={4}
+      primary={true}/>
         </Avatar>
-      } rightIconButton={rightIconMenu}
+      
+      }
+                
+       rightIconButton={rightIconMenu}
           primaryText="Umar Farooq"
+       
           secondaryText={
             <p>
               <span style={{color: darkBlack}}>Brunch this weekend?</span><br />
@@ -71,6 +79,9 @@ const ListMessages = () => (
           }
           secondaryTextLines={2}
         />
+                <Badge   badgeContent={4}
+      primary={true}/>
+
         <Divider inset={true} />
         <ListItem
             leftAvatar={
@@ -198,14 +209,21 @@ const ListMessages = () => (
           leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
           rightIconButton={rightIconMenu}
           primaryText="Kerem Suer"
+          
           secondaryText={
             <p>
+               <Badge   badgeContent={5}
+      secondary={true}/>
+
               <span style={{color: darkBlack}}>Birthday gift</span><br />
               Do you have any ideas what we can get Heidi for her birthday? How about a pony?
             </p>
           }
           secondaryTextLines={2}
         />
+                  <Badge   badgeContent={4}
+      primary={true}/>
+
         <ListItem
           leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
           rightIconButton={rightIconMenu}
@@ -221,7 +239,18 @@ const ListMessages = () => (
         <ListItem
           leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
           rightIconButton={rightIconMenu}
-          primaryText="Kerem Suer"
+          primaryText={
+            <p>
+              <Badge   badgeContent={8}
+      secondary={true}/>
+              <span style={{color: darkBlack}}>Birthday gift</span><br />
+              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
+            </p>
+          }
+          secondaryTextLines={2}
+          
+            
+
           secondaryText={
             <p>
               <span style={{color: darkBlack}}>Birthday gift</span><br />
