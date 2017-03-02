@@ -1,4 +1,13 @@
 import React from 'react';
+import RaisedButton from "material-ui/RaisedButton";
+import FloatingActionButton from "material-ui/FloatingActionButton";
+import ContentAdd from "material-ui/svg-icons/content/add";
+
+const style = {
+  margin: 12,
+  marginRight: 20
+};
+
 
 class Note extends React.Component {
     constructor() {
@@ -72,7 +81,18 @@ export default class Boards extends React.Component {
         this.update = this.update.bind(this);
         this.remove = this.remove.bind(this);
         this.eachNote = this.eachNote.bind(this);
+        this.add = this.add.bind(this);
     }
+
+add (text)
+{
+    var array= this.state.notes;
+    array.push(text);
+    this.setState({
+        note:array
+    })
+}
+
     update (newText,i) {
         var arr = this.state.notes;
         arr[i] = newText;
@@ -94,7 +114,14 @@ export default class Boards extends React.Component {
     }
     render(){
         return (<div className="board">
+        
                 {this.state.notes.map(this.eachNote)};
+                   <div className="fixedbutton">
+
+              <FloatingActionButton style={style} onClick={this.add}>
+                <ContentAdd />
+              </FloatingActionButton>
+            </div>
         </div>);
 }
 }

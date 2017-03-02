@@ -1,6 +1,5 @@
 import React from "react";
 import RaisedButton from "material-ui/RaisedButton";
-var Infinite = require("react-infinite");
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
 import { Scrollbars } from "react-custom-scrollbars";

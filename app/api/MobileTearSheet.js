@@ -8,7 +8,8 @@ class MobileTearSheet extends Component {
   };
 
   static defaultProps = {
-    height: 500,
+    // height: 500,
+    height: '100vh',
   };
 
   static contextTypes = {

@@ -35,9 +35,10 @@ const style = {
   height: '100%',
 }
 
+// height="100vh"
 const ListMessages = () => (
   <div className="margin" style={style}>
-    <MobileTearSheet height="100vh">
+    <MobileTearSheet>
 {/*style={{ height: 500 }}*/}
 {/*<Infinite containerHeight={500} elementHeight={4}>*/ }
  <Scrollbars  autoHeightMin={0} style={{ height: '100%' }}
