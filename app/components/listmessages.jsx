@@ -9,6 +9,7 @@ import {grey400, darkBlack, lightBlack,blue300} from 'material-ui/styles/colors'
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
+import Toolbar from 'Toolbar';
 import MenuItem from 'material-ui/MenuItem';
 var Infinite = require('react-infinite');
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -39,15 +40,16 @@ const style = {
 const ListMessages = () => (
   <div className="margin" style={style}>
     <MobileTearSheet>
+
+<Toolbar/>
+<input type="search"/>
+     
 {/*style={{ height: 500 }}*/}
 {/*<Infinite containerHeight={500} elementHeight={4}>*/ }
  <Scrollbars  autoHeightMin={0} style={{ height: '100%' }}
         autoHeightMax={50}
         thumbMinSize={50} >
 
-
-<input type="search"/>
-     
       <List style={style}>
         <Subheader>Today</Subheader>
         <ListItem

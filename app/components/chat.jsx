@@ -1,6 +1,7 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 var Infinite = require('react-infinite');
+import Toolbar from 'Toolbar';
 import { Scrollbars } from 'react-custom-scrollbars';
 //import ReactScrollbar from 'react-scrollbar-js';
 
@@ -26,13 +27,24 @@ width: '10px',
       width: 400,
       height: 400,
     };
+
+const toolbarstyle = 
+{
+top: '0px',
+position: 'fixed',
+
+};
+
+
     return (
 
       <div className="" style={heightchat}>
+<Toolbar style={toolbarstyle}/>
       {/*<Infinite containerHeight={500} elementHeight={4} displayBottomUpwards style={styling}> */}
       <Scrollbars style={{ height: '100%' }} autoHeightMin={0}
         autoHeightMax={500}
         thumbMinSize={30}>
+
      <div className="panel">
                 {/*<h4>Content goes here...</h4>
                 <ul>
