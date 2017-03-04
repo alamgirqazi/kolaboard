@@ -5,6 +5,7 @@ import ContentAdd from "material-ui/svg-icons/content/add";
 import { Scrollbars } from "react-custom-scrollbars";
 import Toolbar from 'Toolbar';
 import Boards from "app/components/Note.jsx";
+import Boardbar from 'app/components/toolbars/boardtoolbar.jsx';
 
 const style = {
   margin: 12,
@@ -19,7 +20,7 @@ export default class Board extends React.Component {
     return (
       <div className="" style={heightboard}>
         {/*<Infinite containerHeight={500} elementHeight={10}  >*/}
-<Toolbar/>
+<Boardbar/>
         <Scrollbars
 
           style={{ height: '100%' }}

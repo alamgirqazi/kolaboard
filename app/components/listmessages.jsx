@@ -15,6 +15,7 @@ import Toolbar from 'Toolbar';
 import MenuItem from 'material-ui/MenuItem';
 var Infinite = require('react-infinite');
 import { Scrollbars } from 'react-custom-scrollbars';
+import Msgbar from 'app/components/toolbars/msgtoolbar.jsx';
 
 const iconButtonElement = (
   <IconButton
@@ -43,8 +44,8 @@ const ListMessages = () => (
   <div className="margin" style={style}>
     <MobileTearSheet>
 
-<Toolbar/>
-<input type="search"/>
+<Msgbar/>
+<input type="search" placeholder="Search Messages here....."/>
      
 {/*style={{ height: 500 }}*/}
 {/*<Infinite containerHeight={500} elementHeight={4}>*/ }
@@ -65,7 +66,6 @@ const ListMessages = () => (
                 <Badge   badgeContent={4}
       primary={true}/>
         </Avatar>
-      
       }
                 
        rightIconButton={rightIconMenu}

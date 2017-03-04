@@ -79,19 +79,17 @@ export default class Boards extends React.Component {
             ]
         };
         this.update = this.update.bind(this);
+        this.add = this.add.bind(this);
         this.remove = this.remove.bind(this);
         this.eachNote = this.eachNote.bind(this);
-        this.add = this.add.bind(this);
     }
 
-add (text)
-{
-    var arr= this.state.notes;
-    arr.push(text);
-    this.setState({
-        notes:arr
-    });
-}
+
+    add(text) {
+        var arr = this.state.notes;
+        arr.push(text);
+        this.setState({notes: arr});
+     }
 
     update (newText,i) {
         var arr = this.state.notes;
@@ -117,11 +115,11 @@ add (text)
         
                 {this.state.notes.map(this.eachNote)};
                    <div className="fixedbutton">
-
-              <FloatingActionButton style={style} onclick={this.add}>
-                <ContentAdd />
-              </FloatingActionButton>
-            </div>
+      
+            <FloatingActionButton style={style} onClick={this.add.bind(null,"new note")}>
+      <ContentAdd />
+    </FloatingActionButton>
+                </div>
         </div>);
 }
 }
