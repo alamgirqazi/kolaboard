@@ -46,7 +46,8 @@ const ListMessages = () => (
 
 <Msgbar/>
 <input type="search" placeholder="Search Messages here....."/>
-     
+             <Subheader>Today</Subheader>
+
 {/*style={{ height: 500 }}*/}
 {/*<Infinite containerHeight={500} elementHeight={4}>*/ }
  <Scrollbars  autoHeightMin={0} style={{ height: '100%' }}
@@ -54,7 +55,6 @@ const ListMessages = () => (
         thumbMinSize={50} >
 
       <List style={style}>
-        <Subheader>Today</Subheader>
         <ListItem
             leftAvatar={
         <Avatar

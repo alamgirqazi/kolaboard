@@ -11,6 +11,10 @@ import MenuItem from 'material-ui/MenuItem';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import FontIcon from 'material-ui/FontIcon';
 
+const bottomPadding =
+{
+  paddingBottom: '12px',
+}
 
 const iconButtonElement = (
   <IconButton
@@ -41,9 +45,8 @@ render(){
         />
         </List>
         </ToolbarGroup>
-      <ToolbarGroup>
-        </ToolbarGroup>
-      <ToolbarGroup  lastChild={true}>
+
+      <ToolbarGroup  lastChild={true} style={bottomPadding}>
           <ListItem 
             rightIconButton={rightIconMenu}   
           />
