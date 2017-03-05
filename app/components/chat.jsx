@@ -63,32 +63,32 @@ position: 'fixed',
     <li className="other">
         <div className="avatar"><img src="http://i.imgur.com/DY6gND0.png" draggable="false"/></div>
       <div className="msg">
-        <p>Hola!</p>
-        <p>Te vienes a cenar al centro? <emoji className="pizza"/></p>
+        <p>Seen Westworld?</p>
+        <p>So in the finale we see Dolores and Teddy beat up man in black- William.  {/*<emoji className="pizza"/>*/}
+ </p>
         <time>20:17</time>
       </div>
     </li>
     <li className="self">
         <div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
       <div className="msg">
-        <p>Puff...</p>
-        <p>Aún estoy haciendo el contexto de Góngora... <emoji className="books"/></p>
-        <p>Mejor otro día asd asj asd d asd asd asd asd asd asd asd asd asd</p>
+        <p>But first he stabs Dolores.</p>
+        <p> This causes Dolores and Teddy to run away.</p>
         <time>20:18</time>
       </div>
     </li>
     <li className="other">
         <div className="avatar"><img src="http://i.imgur.com/DY6gND0.png" draggable="false"/></div>
       <div className="msg">
-        <p>Qué contexto de Góngora? <emoji className="suffocated"/></p>
+        <p>and end up on the beach </p>
         <time>20:18</time>
       </div>
     </li>
     <li className="self">
         <div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
       <div className="msg">
-        <p>El que mandó Marialu</p>
-        <p>Es para mañana...</p>
+        <p> where Ford shows everyone his ending </p>
+        <p>after Teddy's speech to Dolores.</p>
         <time>20:18</time>
       </div>
     </li>
@@ -103,7 +103,6 @@ position: 'fixed',
     <li className="self">
         <div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
       <div className="msg">
-        <img src="http://i.imgur.com/QAROObc.jpg" draggable="false"/>
         <time>20:19</time>
       </div>
     </li>

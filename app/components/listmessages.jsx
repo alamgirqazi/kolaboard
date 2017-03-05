@@ -73,8 +73,8 @@ const ListMessages = () => (
        
           secondaryText={
             <p>
-              <span style={{color: darkBlack}}>Brunch this weekend?</span><br />
-              I&apos;ll be in your neighborhood doing errands this weekend. Do you want to grab brunch?
+              <span style={{color: darkBlack}}>Seen WestWorld?</span><br />
+              I&apos;So in the finale we see Dolores 
             </p>
           }
           secondaryTextLines={2}
