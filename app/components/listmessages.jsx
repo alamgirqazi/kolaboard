@@ -79,8 +79,8 @@ const ListMessages = () => (
           }
           secondaryTextLines={2}
         />
-                <Badge   badgeContent={4}
-      primary={true}/>
+                {/*<Badge   badgeContent={4}
+      primary={true}/>*/}
 
         <Divider inset={true} />
         <ListItem
@@ -212,8 +212,8 @@ const ListMessages = () => (
           
           secondaryText={
             <p>
-               <Badge   badgeContent={5}
-      secondary={true}/>
+               {/*<Badge   badgeContent={5}
+      secondary={true}/>*/}
 
               <span style={{color: darkBlack}}>Birthday gift</span><br />
               Do you have any ideas what we can get Heidi for her birthday? How about a pony?
@@ -221,8 +221,8 @@ const ListMessages = () => (
           }
           secondaryTextLines={2}
         />
-                  <Badge   badgeContent={4}
-      primary={true}/>
+                  {/*<Badge   badgeContent={4}
+      primary={true}/>*/}
 
         <ListItem
           leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
@@ -241,8 +241,8 @@ const ListMessages = () => (
           rightIconButton={rightIconMenu}
           primaryText={
             <p>
-              <Badge   badgeContent={8}
-      secondary={true}/>
+              {/*<Badge   badgeContent={8}
+      secondary={true}/>*/}
               <span style={{color: darkBlack}}>Birthday gift</span><br />
               Do you have any ideas what we can get Heidi for her birthday? How about a pony?
             </p>

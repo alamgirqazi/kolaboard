@@ -1,2 +1,8 @@
 heroku git:remote -a sheltered-shore-36732
 
+colors
+
+#EDF8F5 whatsapp light
+
+#D0E9EA whatsapp dark
+

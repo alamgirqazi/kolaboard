@@ -319,6 +319,17 @@ a{
     -moz-user-select: none;
     -ms-user-select: none;
 }
+.msg sender {
+    font-size: 0.8rem;
+    color: #ccc;
+    margin-top: 3px;
+    float: left;
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
 .msg time:before{
     content:"\f017";
     color: #ddd;
@@ -326,6 +337,13 @@ a{
     display: inline-block;
     margin-right: 4px;
 }
+// .msg sender:before{
+//     content:"\f017";
+//     color: #ddd;
+//     font-family: FontAwesome;
+//     display: inline-block;
+//     margin-left: 4px;
+// }
 
 emoji{
     display: inline-block;

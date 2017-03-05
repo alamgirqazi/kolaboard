@@ -7,6 +7,10 @@ import Toolbar from 'Toolbar';
 import Boards from "app/components/Note.jsx";
 import Boardbar from 'app/components/toolbars/boardtoolbar.jsx';
 
+const align =
+{
+  textAlign: 'center',
+}
 const style = {
   margin: 12,
   marginRight: 20
@@ -35,9 +39,8 @@ export default class Board extends React.Component {
         autoHideDuration={200}*/
           }
 
-          <RaisedButton label="Board" primary={true} />
-
-          <div class="panel">
+<h4 style={align}>Noteboard</h4>
+          <div className="panel">
             <Boards count={10} />
             <div className="fixedbutton">
 

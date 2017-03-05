@@ -14,7 +14,9 @@ import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui
 
 
 const style = {
-  backgroundColor: '#dcf8c6',
+// backgroundColor: '#D0E9EA',
+backgroundColor: '$secondaryColor',
+  // backgroundColor: '#dcf8c6',
 }
 
 const paddingIcon={
