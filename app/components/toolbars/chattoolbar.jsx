@@ -24,10 +24,10 @@ const iconButtonElement = (
 
 const rightIconMenu = (
   <IconMenu iconButtonElement={iconButtonElement}>
-    <MenuItem>New Group</MenuItem>
-    <MenuItem>Profile</MenuItem>
-    <MenuItem>Settings</MenuItem>
-    <MenuItem>Logout</MenuItem>
+
+        <MenuItem>Group Info</MenuItem>
+    <MenuItem>Clear Messages</MenuItem>
+    <MenuItem>Delete Messages</MenuItem>
   </IconMenu>
 );
 
