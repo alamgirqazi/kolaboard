@@ -47,24 +47,15 @@ position: 'fixed',
         thumbMinSize={30}>
 
      <div className="panel">
-                {/*<h4>Content goes here...</h4>
-                <ul>
-                    <li>1</li>
-            
-                </ul>*/}
-
-
-                {/*<div className="menu">
-            <div className="back"><i className="fa fa-chevron-left"></i> <img src="http://i.imgur.com/DY6gND0.png" draggable="false"/></div>
-            <div className="name">Alex</div>
-            <div className="last">18:09</div>
-        </div>*/}
+           
     <ol className="chat">
     <li className="other">
         <div className="avatar"><img src="http://i.imgur.com/DY6gND0.png" draggable="false"/></div>
       <div className="msg">
         <p>Seen Westworld?</p>
-        <p>So in the finale we see Dolores and Teddy beat up man in black- William.  {/*<emoji className="pizza"/>*/}
+        <p>So in the finale we see Dolores</p>
+        <p>
+           and Teddy beat up man in black- William.  {/*<emoji className="pizza"/>*/}
  </p>
         <time>20:17</time>
       </div>
@@ -73,10 +64,20 @@ position: 'fixed',
         <div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
       <div className="msg">
         <p>But first he stabs Dolores.</p>
-        <p> This causes Dolores and Teddy to run away.</p>
+  
         <time>20:18</time>
       </div>
     </li>
+
+    <li className="self">
+        <div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
+      <div className="msg">
+        <p> This causes Dolores and Teddy to run away.</p>
+        <time>20:19</time>
+      </div>
+    </li>
+
+
     <li className="other">
         <div className="avatar"><img src="http://i.imgur.com/DY6gND0.png" draggable="false"/></div>
       <div className="msg">
@@ -96,59 +97,71 @@ position: 'fixed',
         <div className="avatar"><img src="http://i.imgur.com/DY6gND0.png" draggable="false"/></div>
       <div className="msg">
         <p><emoji className="scream"/></p>
-        <p>Pásamelo! <emoji className="please"/></p>
+        <p>Damn!!!</p>
         <time>20:18</time>
       </div>
     </li>
     <li className="self">
         <div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
       <div className="msg">
+    <p>Was Dolores getting stabbed by William part of Ford's plan?</p>    
         <time>20:19</time>
       </div>
     </li>
     <li className="other">
         <div className="avatar"><img src="http://i.imgur.com/DY6gND0.png" draggable="false"/></div>
       <div className="msg">
-        <p>Gracias! <emoji className="hearth_blue"/></p>
+        <p>YESSSSSS.  <emoji className="hearth_blue"/></p>
         <time>20:20</time>
       </div>
     </li>
-        <div className="day">Hoy</div>
+        {/*<div className="day">Hoy</div>*/}
     <li className="self">
         <div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
       <div className="msg">
-        <p>Te apetece jugar a Minecraft? asdkahsdkjashdjasdhkajsdhakjsdhkajsdh asdkjhasd asdjha sdkj askdjh asd</p>
-        <time>18:03</time>
+<p>
+  If he hadn't how would Dolores and Teddy 
+ </p>
+ <p>ended up at the beach with Teddy's monologue speech?</p>
+  
+          <time>18:03</time>
       </div>
     </li>
     <li className="other">
         <div className="avatar"><img src="http://i.imgur.com/DY6gND0.png" draggable="false"/></div>
       <div className="msg">
-        <p>Venga va, hace ya mucho que no juego...</p>
+        <p>Everyone gets stabbed all the time</p>
         <time>18:07</time>
       </div>
     </li>
     <li className="self">
         <div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
       <div className="msg">
-        <p>Ehh, me crashea el Launcher... <emoji className="cryalot"/></p>
+        <p>it really had to be dolores in that final scene.<emoji className="cryalot"/></p>
         <time>18:08</time>
       </div>
     </li>
     <li className="other">
         <div className="avatar"><img src="http://i.imgur.com/DY6gND0.png" draggable="false"/></div>
       <div className="msg">
-        <p><emoji className="lmao"/></p>
+        <p> how much time did they have?
+<emoji className="lmao"/></p>
         <time>18:08</time>
       </div>
     </li>
     <li className="self">
         <div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
       <div className="msg">
-        <p>Es broma</p>
-        <p>Ataque Moai!</p>
-        <p><span><emoji className="moai"/></span><span><emoji className="moai"/></span><span><emoji className="moai"/></span><span><emoji className="moai"/></span><span><emoji className="moai"/></span><span><emoji className="moai"/></span></p>
+        <p>not nearly enough time.</p>
         <time>18:09</time>
+      </div>
+    </li>
+    <li className="self">
+        <div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
+      <div className="msg">
+        <p>It is called "Host Intake Protocol"
+</p>
+        <time>18:12</time>
       </div>
     </li>
     <li className="other">
@@ -162,16 +175,16 @@ position: 'fixed',
     <li className="self">
         <div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
       <div className="msg">
-        <p>Hey there's a new update about this chat UI with more responsive elements! Check it now:</p>
-        <p><a href="http://codepen.io/Varo/pen/YPmwpQ" target="parent">Chat UI 2.0</a></p>
+        <p>Ford manages to turn teddy around</p>
         <time>18:09</time>
       </div>
     </li>
     </ol>
-    {/*<input className="textarea" type="text" placeholder="Type here!"/><div className="emojis"></div>*/}
-
+   
             </div>
 </Scrollbars>
+  {/*<input className="textarea" type="text" placeholder="Type here!"/><div className="emojis"></div>*/}
+
  {/*</Infinite> */}
 
 
