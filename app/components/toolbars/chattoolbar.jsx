@@ -24,9 +24,10 @@ const iconButtonElement = (
 
 const rightIconMenu = (
   <IconMenu iconButtonElement={iconButtonElement}>
-    <MenuItem>Reply</MenuItem>
-    <MenuItem>Forward</MenuItem>
-    <MenuItem>Delete</MenuItem>
+    <MenuItem>New Group</MenuItem>
+    <MenuItem>Profile</MenuItem>
+    <MenuItem>Settings</MenuItem>
+    <MenuItem>Logout</MenuItem>
   </IconMenu>
 );
 

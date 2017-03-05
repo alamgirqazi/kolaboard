@@ -21,11 +21,7 @@ backgroundColor: '#EDF8F5',
 export default class Chat extends React.Component {   
 
   render() {
-    const styling = 
-    {
-width: '10px',
-	backgroundColor: '#FFF',
-    };
+
     
  const myScrollbar = {
       width: 400,

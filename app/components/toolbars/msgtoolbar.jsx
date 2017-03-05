@@ -32,9 +32,9 @@ const iconButtonElement = (
 
 const rightIconMenu = (
   <IconMenu iconButtonElement={iconButtonElement}>
-    <MenuItem>Reply</MenuItem>
-    <MenuItem>Forward</MenuItem>
-    <MenuItem>Delete</MenuItem>
+    <MenuItem>Group Info</MenuItem>
+    <MenuItem>Clear Messages</MenuItem>
+    <MenuItem>Delete Messages</MenuItem>
   </IconMenu>
 );
 // const style = 
