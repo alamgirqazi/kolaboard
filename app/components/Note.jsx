@@ -26,7 +26,8 @@ class Note extends React.Component {
     }
     save () {
         this.props.onChange(this.refs.newText.getDOMNode().value, this.props.index);
-        this.setState({editing: false});
+        this.setState({editing: false,
+        open: false});
     }
     remove () {
         this.props.onRemove(this.props.index);
@@ -69,8 +70,8 @@ export default class Boards extends React.Component {
         this.state = {
             notes: [
                 'Quiz next tuesday',
-                'Submit assignments by 10th',
-                'Football match at 4p.m sharp',
+                'Submit assignments by 10th March',
+                'Football match at 4 p.m sharp',
                 'blabla'
             ],
   open: false,
