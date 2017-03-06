@@ -2,6 +2,7 @@ import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import Snackbar from 'material-ui/Snackbar';
 
 
 const style = {
@@ -65,25 +66,41 @@ class Note extends React.Component {
 export default class Boards extends React.Component {
     constructor(){
         super();
-
         this.state = {
             notes: [
-                'Call Bill',
-                'Email Lisa',
-                'Make appointment',
-                'Send proposal'
-            ]
+                'Quiz next tuesday',
+                'Submit assignments by 10th',
+                'Football match at 4p.m sharp',
+                'blabla'
+            ],
+  open: false,
         };
+
         this.update = this.update.bind(this);
         this.add = this.add.bind(this);
         this.remove = this.remove.bind(this);
         this.eachNote = this.eachNote.bind(this);
     }
+
+
+    handleTouchTap = () => {
+    this.setState({
+      open: true,
+    });
+  };
+
+  handleRequestClose = () => {
+    this.setState({
+      open: false,
+    });
+  };
+
     update (newText,i) {
         var arr = this.state.notes;
         arr[i] = newText;
         this.setState({notes:arr});
     }
+
     add(text) {
         var arr = this.state.notes;
         arr.push(text);
@@ -104,14 +121,24 @@ export default class Boards extends React.Component {
                 {note}</Note>
         );
     }
+
     render(){
         return (<div className="board">
                 {this.state.notes.map(this.eachNote)}
                    <div className="fixedbutton">
-      
-            <FloatingActionButton style={style} onClick={this.add.bind(null,"new note")}>
+      {/*onTouchTap={this.handleTouchTap}*/}
+                   <FloatingActionButton style={style}   onTouchTap={this.handleTouchTap}
+          label="yo" onClick={this.add.bind(null,"new note")}>
       <ContentAdd />
     </FloatingActionButton>
+
+     <Snackbar
+          open={this.state.open}
+          message="New Note Added"
+          autoHideDuration={1200}
+        />
+                                   {/*onRequestClose={this.handleRequestClose}*/}
+
                 </div>
         </div>)
 }

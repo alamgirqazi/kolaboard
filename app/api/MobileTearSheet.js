@@ -38,7 +38,7 @@ class MobileTearSheet extends Component {
         display: 'block',
         position: 'relative',
         marginTop: -10,
-        maxWidth: 360,
+        // maxWidth: 360,
       },
     };
 
