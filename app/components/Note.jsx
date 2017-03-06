@@ -41,7 +41,7 @@ class Note extends React.Component {
                             className="btn btn-danger glyphicon glyphicon-trash"/>
                 </span>
             </div>
-            );
+            )
     }
     renderForm () {
         return (
@@ -100,19 +100,20 @@ export default class Boards extends React.Component {
                 index={i}
                 onChange={this.update}
                 onRemove={this.remove}
-                >{note}</Note>
+                >
+                {note}</Note>
         );
     }
     render(){
         return (<div className="board">
-                {this.state.notes.map(this.eachNote)};
+                {this.state.notes.map(this.eachNote)}
                    <div className="fixedbutton">
       
             <FloatingActionButton style={style} onClick={this.add.bind(null,"new note")}>
       <ContentAdd />
     </FloatingActionButton>
                 </div>
-        </div>);
+        </div>)
 }
 }
 

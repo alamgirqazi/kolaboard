@@ -32,12 +32,7 @@ export default class Board extends React.Component {
           autoHeightMax={500}
           thumbMinSize={30}
         >
-          {/*<Scrollbars style={{ width: 565, height: 500 }}*/}
-          {/*
- autoHide
-        autoHideTimeout={1000}
-        autoHideDuration={200}*/
-          }
+
 
 <h4 style={align}>Noteboard</h4>
           <div className="panel">
@@ -48,13 +43,6 @@ export default class Board extends React.Component {
    <br/>
    <br/>
    <br/>
-            {/*<div className="fixedbutton">
-
-              <FloatingActionButton style={style}>
-                <ContentAdd />
-              </FloatingActionButton>
-            </div>*/}
-
           </div>
 
         </Scrollbars>
