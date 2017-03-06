@@ -25,7 +25,7 @@ class MobileTearSheet extends Component {
       root: {
         marginBottom: 24,
         marginRight: 24,
-        maxWidth: 360,
+        // maxWidth: 360,
         width: '100%',
       },
       container: {
@@ -38,7 +38,7 @@ class MobileTearSheet extends Component {
         display: 'block',
         position: 'relative',
         marginTop: -10,
-        // maxWidth: 360,
+        maxWidth: 360,
       },
     };
 

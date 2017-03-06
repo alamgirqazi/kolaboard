@@ -35,7 +35,10 @@ class Note extends React.Component {
     renderDisplay () {
         return (
             <div className="note">
-                <p>{this.props.children}</p>
+                <p>
+                    {this.props.children}
+
+                </p>
                 <span>
                     <button onClick={this.edit}
                             className="btn btn-primary glyphicon glyphicon-pencil"/>
