@@ -42,12 +42,18 @@ export default class Board extends React.Component {
 <h4 style={align}>Noteboard</h4>
           <div className="panel">
             <Boards count={10} />
-            <div className="fixedbutton">
+<br/>
+   <br/>
+   <br/>
+   <br/>
+   <br/>
+   <br/>
+            {/*<div className="fixedbutton">
 
               <FloatingActionButton style={style}>
                 <ContentAdd />
               </FloatingActionButton>
-            </div>
+            </div>*/}
 
           </div>
 

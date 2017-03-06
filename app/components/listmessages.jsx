@@ -244,20 +244,10 @@ const ListMessages = () => (
               {/*<Badge   badgeContent={8}
       secondary={true}/>*/}
               <span style={{color: darkBlack}}>Birthday gift</span><br />
-              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
-            </p>
+              Do you have any ideas what we can get Heidi for her birthday?       </p>
           }
           secondaryTextLines={2}
           
-            
-
-          secondaryText={
-            <p>
-              <span style={{color: darkBlack}}>Birthday gift</span><br />
-              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
-            </p>
-          }
-          secondaryTextLines={2}
         />
         <ListItem
           leftAvatar={<Avatar>A</Avatar>}
@@ -271,7 +261,23 @@ const ListMessages = () => (
           }
           secondaryTextLines={2}
         />
-        <ListItem
+
+        <br/>
+   <br/>
+   <br/>
+   <br/>
+   <br/>
+   <br/>
+        <br/>
+   <br/>
+   <br/>
+   <br/>
+   <br/>
+   <br/>
+   <br/>
+   <br/>
+
+        {/*<ListItem
           leftAvatar={
         <Avatar
           color={blue300}
@@ -291,7 +297,7 @@ const ListMessages = () => (
             </p>
           }
           secondaryTextLines={2}
-        />
+        />*/}
         {/*<Divider inset={true} />
         <ListItem
           leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
@@ -305,9 +311,12 @@ const ListMessages = () => (
           }
           secondaryTextLines={2}
         />*/}
+    
       </List>
+      
   {/*</Infinite>*/}
    </Scrollbars>
+   
     </MobileTearSheet>
 
   </div>

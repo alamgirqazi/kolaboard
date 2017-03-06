@@ -192,7 +192,10 @@ position: 'fixed',
       </div>
     </li>
     </ol>
-   
+   <br/>
+   <br/>
+   <br/>
+   <br/>
             </div>
 </Scrollbars>
   {/*<input className="textarea" type="text" placeholder="Type here!"/><div className="emojis"></div>*/}

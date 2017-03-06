@@ -1,14 +1,13 @@
 import React from 'react';
-import RaisedButton from "material-ui/RaisedButton";
-import FloatingActionButton from "material-ui/FloatingActionButton";
-import ContentAdd from "material-ui/svg-icons/content/add";
+import RaisedButton from 'material-ui/RaisedButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+
 
 const style = {
   margin: 12,
-  marginRight: 20
+   marginRight: 20,
 };
-
-
 class Note extends React.Component {
     constructor() {
         super();
@@ -72,9 +71,6 @@ export default class Boards extends React.Component {
                 'Call Bill',
                 'Email Lisa',
                 'Make appointment',
-                'Call ABC',
-                'Email Lia',
-                'Make apointment',
                 'Send proposal'
             ]
         };
@@ -83,19 +79,16 @@ export default class Boards extends React.Component {
         this.remove = this.remove.bind(this);
         this.eachNote = this.eachNote.bind(this);
     }
-
-
-    add(text) {
-        var arr = this.state.notes;
-        arr.push(text);
-        this.setState({notes: arr});
-     }
-
     update (newText,i) {
         var arr = this.state.notes;
         arr[i] = newText;
         this.setState({notes:arr});
     }
+    add(text) {
+        var arr = this.state.notes;
+        arr.push(text);
+        this.setState({notes: arr});
+     }
     remove (i){
         var arr=this.state.notes;
         arr.splice(i,1);
@@ -112,7 +105,6 @@ export default class Boards extends React.Component {
     }
     render(){
         return (<div className="board">
-        
                 {this.state.notes.map(this.eachNote)};
                    <div className="fixedbutton">
       
