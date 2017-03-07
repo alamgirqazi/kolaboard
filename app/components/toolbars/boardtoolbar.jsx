@@ -45,6 +45,10 @@ export default class Boardbar extends React.Component{
 render(){
     return(
         <Toolbar>
+      
+ <ToolbarGroup >
+          <ToolbarTitle text="Noteboard" />
+</ToolbarGroup>
         <ToolbarGroup>
           <List>
         <ListItem

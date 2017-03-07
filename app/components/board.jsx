@@ -34,7 +34,8 @@ export default class Board extends React.Component {
         >
 
 
-<h4 style={align}>Noteboard</h4>
+{/*<h4 style={align}>Noteboard</h4>*/}
+<br/>
           <div className="panel">
             <Boards count={10} />
 <br/>
