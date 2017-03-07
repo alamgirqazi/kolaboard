@@ -62,14 +62,13 @@ const ListMessages = () => (
           backgroundColor={darkBlack}
           size={40}
         >
-        U
-                <Badge   badgeContent={4}
+        U     <Badge   badgeContent={4}
       primary={true}/>
-        </Avatar>
+         </Avatar>
       }
                 
        rightIconButton={rightIconMenu}
-          primaryText="Umar Farooq"
+          primaryText="Uni Group"
        
           secondaryText={
             <p>
@@ -79,6 +78,7 @@ const ListMessages = () => (
           }
           secondaryTextLines={2}
         />
+   
                 {/*<Badge   badgeContent={4}
       primary={true}/>*/}
 
@@ -103,6 +103,12 @@ const ListMessages = () => (
           }
           secondaryTextLines={2}
         />
+
+                     <Badge   badgeContent={4}
+      primary={true}/>
+                <Badge   badgeContent={6}
+      secondary={true}/>
+       
         <Divider inset={true} />
         <ListItem
             leftAvatar={
@@ -115,10 +121,10 @@ const ListMessages = () => (
         </Avatar>
       }
           rightIconButton={rightIconMenu}
-          primaryText="Tarique Ali"
+          primaryText="Tahir Ali"
           secondaryText={
             <p>
-              <span style={{color: darkBlack}}>Oui oui</span><br />
+              <span style={{color: darkBlack}}>hmmm</span><br />
               Do you have any Paris recs? Have you ever been?
             </p>
           }
@@ -139,83 +145,119 @@ const ListMessages = () => (
           primaryText="Kolaboard"
           secondaryText={
             <p>
-              <span style={{color: darkBlack}}>Birthday gift</span><br />
+              <span style={{color: darkBlack}}>OKAY!</span><br />
               Do you have any ideas what we can get Heidi for her birthday? How about a pony?
             </p>
           }
           secondaryTextLines={2}
         />
         <ListItem
-          leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
+          leftAvatar={  <Avatar
+          color={blue300}
+          backgroundColor={darkBlack}
+          size={40}
+        >
+        K
+        </Avatar>}
           rightIconButton={rightIconMenu}
-          primaryText="Kerem Suer"
+          primaryText="Brene Brown"
           secondaryText={
             <p>
-              <span style={{color: darkBlack}}>Birthday gift</span><br />
+              <span style={{color: darkBlack}}>The Gifts of Imperfection</span><br />
               Do you have any ideas what we can get Heidi for her birthday? How about a pony?
             </p>
           }
           secondaryTextLines={2}
         />
         <ListItem
-          leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
+          leftAvatar={  <Avatar
+          color={blue300}
+          backgroundColor={darkBlack}
+          size={40}
+        >
+        M
+        </Avatar>}
           rightIconButton={rightIconMenu}
-          primaryText="Kerem Suer"
+          primaryText="Mark Manson"
           secondaryText={
             <p>
-              <span style={{color: darkBlack}}>Birthday gift</span><br />
+              <span style={{color: darkBlack}}>The Subtle Art</span><br />
               Do you have any ideas what we can get Heidi for her birthday? How about a pony?
             </p>
           }
           secondaryTextLines={2}
         />
         <ListItem
-          leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
+          leftAvatar={  <Avatar
+          color={blue300}
+          backgroundColor={darkBlack}
+          size={40}
+        >
+        R
+        </Avatar>}
           rightIconButton={rightIconMenu}
-          primaryText="Kerem Suer"
+          primaryText="Ryan Holiday"
           secondaryText={
             <p>
-              <span style={{color: darkBlack}}>Birthday gift</span><br />
+              <span style={{color: darkBlack}}>Ego is the Enemy</span><br />
               Do you have any ideas what we can get Heidi for her birthday? How about a pony?
             </p>
           }
           secondaryTextLines={2}
         />
         <ListItem
-          leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
+          leftAvatar={  <Avatar
+          color={blue300}
+          backgroundColor={darkBlack}
+          size={40}
+        >
+        D
+        </Avatar>}
           rightIconButton={rightIconMenu}
-          primaryText="Kerem Suer"
+          primaryText="Daniel Kahnemann"
           secondaryText={
             <p>
-              <span style={{color: darkBlack}}>Birthday gift</span><br />
+              <span style={{color: darkBlack}}>Thinking, Fast and Slow</span><br />
               Do you have any ideas what we can get Heidi for her birthday? How about a pony?
             </p>
           }
           secondaryTextLines={2}
         />
         <ListItem
-          leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
+          leftAvatar={  <Avatar
+          color={blue300}
+          backgroundColor={darkBlack}
+          size={40}
+        >
+        S
+        </Avatar>}
           rightIconButton={rightIconMenu}
-          primaryText="Kerem Suer"
+          primaryText="Steve Pavlina"
           secondaryText={
             <p>
-              <span style={{color: darkBlack}}>Birthday gift</span><br />
+              <span style={{color: darkBlack}}>Personal Development</span><br />
               Do you have any ideas what we can get Heidi for her birthday? How about a pony?
             </p>
           }
           secondaryTextLines={2}
         />
         <ListItem
-          leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
+          leftAvatar={  <Avatar
+          color={blue300}
+          backgroundColor={darkBlack}
+          size={40}
+        >
+        T
+        </Avatar>}
           rightIconButton={rightIconMenu}
-          primaryText="Kerem Suer"
+          primaryText="Tim Ferriss"
           
           secondaryText={
             <p>
                {/*<Badge   badgeContent={5}
       secondary={true}/>*/}
 
-              <span style={{color: darkBlack}}>Birthday gift</span><br />
+              <span style={{color: darkBlack}}>4 Hour Work Week</span><br />
               Do you have any ideas what we can get Heidi for her birthday? How about a pony?
             </p>
           }
@@ -225,30 +267,42 @@ const ListMessages = () => (
       primary={true}/>*/}
 
         <ListItem
-          leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
+          leftAvatar={  <Avatar
+          color={blue300}
+          backgroundColor={darkBlack}
+          size={40}
+        >
+        A
+        </Avatar>}
           rightIconButton={rightIconMenu}
-          primaryText="Kerem Suer"
+          primaryText="Aja Naomi King"
           secondaryText={
             <p>
-              <span style={{color: darkBlack}}>Birthday gift</span><br />
+              <span style={{color: darkBlack}}>How to get away with murder</span><br />
               Do you have any ideas what we can get Heidi for her birthday? How about a pony?
             </p>
           }
           secondaryTextLines={2}
         />
         <ListItem
-          leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
+          leftAvatar={  <Avatar
+          color={blue300}
+          backgroundColor={darkBlack}
+          size={40}
+        >
+        B
+        </Avatar>}
           rightIconButton={rightIconMenu}
-          primaryText={
+       primaryText="Brian Johnson"
+          secondaryText={
             <p>
-              {/*<Badge   badgeContent={8}
-      secondary={true}/>*/}
-              <span style={{color: darkBlack}}>Birthday gift</span><br />
-              Do you have any ideas?       </p>
+              <span style={{color: darkBlack}}>WOW</span><br />
+              Do you have any ideas what we can get Heidi for her birthday? 
+            </p>
           }
           secondaryTextLines={2}
-          
-        />
+      
+      />
         {/*<ListItem
           leftAvatar={<Avatar>A</Avatar>}
           rightIconButton={rightIconMenu}
