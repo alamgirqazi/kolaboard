@@ -30,8 +30,8 @@ const iconButtonElement = (
 const rightIconMenu = (
   <IconMenu iconButtonElement={iconButtonElement}>
     <MenuItem>Reply</MenuItem>
-    <MenuItem>Forward</MenuItem>
     <MenuItem>Delete</MenuItem>
+    <MenuItem>Details</MenuItem>
   </IconMenu>
 );
 
@@ -244,12 +244,12 @@ const ListMessages = () => (
               {/*<Badge   badgeContent={8}
       secondary={true}/>*/}
               <span style={{color: darkBlack}}>Birthday gift</span><br />
-              Do you have any ideas what we can get Heidi for her birthday?       </p>
+              Do you have any ideas?       </p>
           }
           secondaryTextLines={2}
           
         />
-        <ListItem
+        {/*<ListItem
           leftAvatar={<Avatar>A</Avatar>}
           rightIconButton={rightIconMenu}
           primaryText="Abdul Majid"
@@ -260,7 +260,7 @@ const ListMessages = () => (
             </p>
           }
           secondaryTextLines={2}
-        />
+        />*/}
 
         <br/>
    <br/>

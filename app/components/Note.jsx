@@ -22,7 +22,9 @@ class Note extends React.Component {
         this.remove = this.remove.bind(this);
     }
     edit () {
-        this.setState({editing: true});
+        this.setState({editing: true,
+              open: false,
+});
     }
     save () {
         this.props.onChange(this.refs.newText.getDOMNode().value, this.props.index);
@@ -102,18 +104,23 @@ export default class Boards extends React.Component {
     update (newText,i) {
         var arr = this.state.notes;
         arr[i] = newText;
-        this.setState({notes:arr});
+        this.setState({notes:arr,
+              open: false,
+});
     }
 
     add(text) {
         var arr = this.state.notes;
         arr.push(text);
-        this.setState({notes: arr});
+        this.setState({notes: arr,
+});
      }
     remove (i){
         var arr=this.state.notes;
         arr.splice(i,1);
-        this.setState({notes: arr});
+        this.setState({notes: arr,
+                      open: false,
+});
     }
     eachNote (note,i){
         return (

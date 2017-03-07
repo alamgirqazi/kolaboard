@@ -4,12 +4,28 @@ var Infinite = require('react-infinite');
 import Toolbar from 'Toolbar';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Avatar from 'material-ui/Avatar';
-
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 import Chatbar from 'app/components/toolbars/chattoolbar.jsx';
 //import ReactScrollbar from 'react-scrollbar-js';
 
 const style = {
   margin: 12,
+};
+
+const inputBoxStyle = 
+{
+width: '100%',
+};
+
+const fixedPosition =
+{
+  margin: 12,
+    // marginRight: 20,
+//  width: '100%',
+ position: 'fixed',
+    bottom: '5px',
+    right: '660px',
 };
 
 const heightchat
@@ -49,10 +65,10 @@ position: 'fixed',
            
     <ol className="chat">
     <li className="other">
-        {/*<div className="avatar">
+        <div className="avatar">
           
-          <Avatar src="http://lorempixel.com/g/400/200" />
-          </div>*/}
+        <div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
+          </div>
       
       
       <div className="msg">
@@ -84,7 +100,7 @@ position: 'fixed',
 
 
     <li className="other">
-        {/*<div className="avatar"><img src="http://i.imgur.com/DY6gND0.png" draggable="false"/></div>*/}
+        <div className="avatar"><img src="http://i.imgur.com/DY6gND0.png" draggable="false"/></div>
       <div className="msg">
         <p>and end up on the beach </p>
         <time>20:18</time>
@@ -100,7 +116,7 @@ position: 'fixed',
       </div>
     </li>
     <li className="other">
-        {/*<div className="avatar"><img src="http://i.imgur.com/DY6gND0.png" draggable="false"/></div>*/}
+        <div className="avatar"><img src="http://i.imgur.com/DY6gND0.png" draggable="false"/></div>
       <div className="msg">
         <p><emoji className="scream"/></p>
         <p>Damn!!!</p>
@@ -116,7 +132,7 @@ position: 'fixed',
       </div>
     </li>
     <li className="other">
-        {/*<div className="avatar"><img src="http://i.imgur.com/DY6gND0.png" draggable="false"/></div>*/}
+        <div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
       <div className="msg">
         <p>YESSSSSS.  <emoji className="hearth_blue"/></p>
         <time>20:20</time>
@@ -125,7 +141,7 @@ position: 'fixed',
     </li>
         {/*<div className="day">Hoy</div>*/}
     <li className="self">
-        <div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
+        {/*<div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>*/}
       <div className="msg">
 <p>
   If he hadn't how would Dolores and Teddy 
@@ -144,14 +160,14 @@ position: 'fixed',
       </div>
     </li>
     <li className="self">
-        <div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
+        {/*<div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>*/}
       <div className="msg">
         <p>it really had to be dolores in that final scene.<emoji className="cryalot"/></p>
         <time>18:08</time>
       </div>
     </li>
     <li className="other">
-        <div className="avatar"><img src="http://i.imgur.com/DY6gND0.png" draggable="false"/></div>
+        <div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
       <div className="msg">
         <p> how much time did they have?
 <emoji className="lmao"/></p>
@@ -160,14 +176,14 @@ position: 'fixed',
       </div>
     </li>
     <li className="self">
-        <div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
+        {/*<div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>*/}
       <div className="msg">
         <p>not nearly enough time.</p>
         <time>18:09</time>
       </div>
     </li>
     <li className="self">
-        <div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
+        {/*<div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>*/}
       <div className="msg">
         <p>It is called "Host Intake Protocol"
 </p>
@@ -185,19 +201,33 @@ position: 'fixed',
       </div>
     </li>
     <li className="self">
-        <div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
+        {/*<div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>*/}
       <div className="msg">
         <p>Ford manages to turn teddy around</p>
         <time>18:09</time>
       </div>
     </li>
     </ol>
+    
+     {/*<div style={fixedPosition}>
+  <input type="text" style={inputBoxStyle}/>
+ {/*<FloatingActionButton style={fixedPosition}>
+      <ContentAdd />
+    </FloatingActionButton>  */}
+  {/*</div>
+  */}*/}
+ 
+ <br/>
    <br/>
    <br/>
    <br/>
-   <br/>
+
             </div>
 </Scrollbars>
+
+  
+  
+  
   {/*<input className="textarea" type="text" placeholder="Type here!"/><div className="emojis"></div>*/}
 
  {/*</Infinite> */}
