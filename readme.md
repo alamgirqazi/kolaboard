@@ -1,4 +1,7 @@
-### A Reactjs app 
+### A Reactjs app  
+
+
+> This app is also hosted at Heroku http://sheltered-shore-36732.herokuapp.com/ for testing purposes.
 
 How to run:
 
