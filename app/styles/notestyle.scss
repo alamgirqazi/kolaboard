@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Shadows+Into+Light);
+// @import url(http://fonts.googleapis.com/css?family=Shadows+Into+Light);
 
 body,
 html,
@@ -30,8 +30,8 @@ div.note {
     margin: 2px 0;
     position: relative;
     cursor: -webkit-grab;
-    -webkit-box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, .2);
-    box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, .2);
+    // -webkit-box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, .2);
+    // box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, .2);
 }
 
 div.note:active {

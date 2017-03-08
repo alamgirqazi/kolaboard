@@ -1,6 +1,8 @@
-### React app 
+### A Reactjs app 
 
-#### How to run
+How to run:
+
+Clone the repo
 
 ```sh
    $ npm install 
@@ -14,8 +16,15 @@ Go to localhost:3000
 
 ```
 
-This project is where we test our UI directly in React with Material UI lib.
+Libs/tools used: 
 
-Material UI React components (Drawer, RaisedButton, Modal etc) have been added into this project.
+React.js    https://github.com/facebook/react
 
-"# kolab-exp" 
+Material-UI     http://www.material-ui.com/#/
+
+SASS for styling    http://sass-lang.com/
+
+Webpack v1 for module bundling https://webpack.github.io/
+
+ExpressJs Framework https://expressjs.com/
+
