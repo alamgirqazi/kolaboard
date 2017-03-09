@@ -245,12 +245,42 @@ a {
 }
 
 .self .msg {
-    order: 1;
-    border-bottom-right-radius: 0px;
-    background-color: #DCF8C6;
-    box-shadow: 1px 2px 0px #D4D4D4;
-    border: 1px solid #DCF8C6;
-    border-radius: 12px;
+    // order: 1;
+    // border-bottom-right-radius: 0px;
+    // background-color: #DCF8C6;
+    // box-shadow: 1px 2px 0px #D4D4D4;
+    // border: 1px solid #DCF8C6;
+    // border-radius: 12px;
+    position: relative;
+    background: #DCF8C6;
+    text-align: right;
+    min-width: 45%;
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    float: right;
+    right: 20px;
+}
+
+.self .msg::before {
+    content: '';
+    position: absolute;
+    visibility: visible;
+    top: -1px;
+    right: -10px;
+    border: 10px solid transparent;
+    border-top: 10px solid #ccc;
+}
+
+.self .msg::after {
+    content: '';
+    position: absolute;
+    visibility: visible;
+    top: 0px;
+    right: -8px;
+    border: 10px solid transparent;
+    border-top: 10px solid #DCF8C6;
+    clear: both;
 }
 
 .self .avatar {
