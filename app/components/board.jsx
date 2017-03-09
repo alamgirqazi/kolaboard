@@ -18,6 +18,7 @@ const style = {
 
 const heightboard={
   height: '100%',
+  backgroundColor: 'white',
 }
 export default class Board extends React.Component {
   render() {

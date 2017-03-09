@@ -1,5 +1,4 @@
 // @import url(http://fonts.googleapis.com/css?family=Shadows+Into+Light);
-
 body,
 html,
 div.board,
@@ -13,19 +12,17 @@ body {
     padding: 0;
 }
 
-div.board {
-
-}
-
+// div.board {
+// }
 div.note {
     height: 150px;
     width: 150px;
     color: black;
-    background-color: #FFF9C4;
+    // background-color: #FFF9C4;
+    background-color: #FFF59D;
     padding-bottom: 10px;
     margin: 12px 0 !important;
-;
-
+    ;
     border: 20px;
     margin: 2px 0;
     position: relative;
@@ -45,11 +42,11 @@ div.note p {
     // font-family:    "Shadows Into Light", Arial;
 }
 
-div.note:hover > span {
+div.note:hover>span {
     opacity: 1;
 }
 
-div.note > span {
+div.note>span {
     position: absolute;
     bottom: 2px;
     right: 2px;
@@ -61,7 +58,7 @@ div.note button {
     margin: 2px;
 }
 
-div.note > textarea {
+div.note>textarea {
     height: 75%;
     background: rgba(255, 255, 255, .5);
 }

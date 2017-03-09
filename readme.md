@@ -21,6 +21,8 @@ Go to localhost:3000
 
 Libs/tools used: 
 
+Javascript ES6 
+
 React.js    https://github.com/facebook/react
 
 Material-UI     http://www.material-ui.com/#/
