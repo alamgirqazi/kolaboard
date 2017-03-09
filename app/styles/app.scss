@@ -223,8 +223,36 @@ a {
     // box-shadow: -1px 2px 0px #D4D4D4;
     border: 1px solid #D4D4D4;
     border-radius: 12px;
+    // position: relative;
+    // background: white;
+    // text-align: right;
+    // min-width: 45%;
+    // padding: 10px 15px;
+    // border-radius: 6px;
+    // border: 1px solid #ccc;
+    // float: right;
+    // right: 20px;
 }
 
+// .other .msg::before {
+//     content: '';
+//     position: absolute;
+//     visibility: visible;
+//     top: -1px;
+//     right: -10px;
+//     border: 10px solid transparent;
+//     border-top: 10px solid #ccc;
+// }
+// .other .msg::after {
+//     content: '';
+//     position: absolute;
+//     visibility: visible;
+//     top: 0px;
+//     right: -8px;
+//     border: 10px solid transparent;
+//     border-top: 10px solid white;
+//     clear: both;
+// }
 .other:before {
     content: "";
     position: relative;
@@ -256,7 +284,7 @@ a {
     text-align: right;
     min-width: 45%;
     padding: 10px 15px;
-    border-radius: 6px;
+    border-radius: 12px;
     border: 1px solid #ccc;
     float: right;
     right: 20px;
