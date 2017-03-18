@@ -208,7 +208,9 @@ position: 'fixed',
       </div>
     </li>
     </ol>
-    
+  <div className="fixedchatbox">
+  <input type="text" placeholder="Please Enter Your message......." ><img src="sendmsg.png"/></input>
+  </div>    
      {/*<div style={fixedPosition}>
   <input type="text" style={inputBoxStyle}/>
  {/*<FloatingActionButton style={fixedPosition}>

@@ -2,10 +2,25 @@ $primaryColor: #00E676;
 $secondaryColor: #EDF8F5;
 $tertiaryColor: #66D7E6;
 $fourthColor: #D0E9EA;
+.fixedchatbox {
+    position: fixed;
+    bottom: 1px;
+    width: 33%;
+    height: 6%;
+    display: inline;
+    //    right: px;
+}
+
 .fixedbutton {
     position: fixed;
     bottom: 15px;
     right: 15px;
+}
+
+.emailpass {
+    height: 30px;
+    border: none;
+    margin-top: 2%;
 }
 
 .margin {

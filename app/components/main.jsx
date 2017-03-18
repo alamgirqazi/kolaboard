@@ -49,7 +49,7 @@ var Main = () => {
     <MuiThemeProvider muiTheme={muiTheme}>
 
       <div style={style}>
-        {/*<NewNav />*/}
+        <NewNav />
         <Toolbar />
 
         {/*<FirstPage/>*/}
