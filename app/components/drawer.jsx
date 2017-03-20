@@ -6,6 +6,13 @@ import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import FlatButton from 'material-ui/FlatButton';
 
+//  const drawerwidth = {
+//  width : '40%', 
+//  }
+//  const drawertop = {
+//  top : '15%', 
+//  }
+
 export default class DrawerOpenRight extends React.Component {
 
 
@@ -13,6 +20,7 @@ export default class DrawerOpenRight extends React.Component {
     super(props);
     this.state = {open: false};
   }
+ 
 
 
 
@@ -26,11 +34,11 @@ export default class DrawerOpenRight extends React.Component {
           label="Toggle Drawer"
           onTouchTap={this.handleToggle}
         />
-        <Drawer width={570} openSecondary={true} open={this.state.open} >
-          <AppBar title="This is a drawer"
+
+        <Drawer width={640} openSecondary={true} open={this.state.open} >
+          <AppBar title="Private Notes"
 
   iconElementLeft={<IconButton onClick={this.handleToggle}><NavigationClose /></IconButton>}
-     iconElementRight={<FlatButton label="Save" />}
            />
 
 
@@ -39,6 +47,9 @@ export default class DrawerOpenRight extends React.Component {
     );
   }
 }
+
+     {/*iconElementRight={<FlatButton label="Save" />}*/}
+
               {/*onTitleTouchTap={this.handleToggle}*/}
 
 
