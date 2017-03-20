@@ -46,13 +46,18 @@ export default class NewNav extends React.Component {
           <div className="top-bar-left">
             <ul className="menu">
               <li>
-                <RaisedButton
+                {/*<RaisedButton
                   label="Sign Up"
                   style={style}
                   primary={false}
                   onClick={this.handleClick}
                   labelColor="#FFF"
                   backgroundColor="#00E676"/>
+              */}
+              
+                      <img src="Klogo.png"                   style={style}
+/>
+
               </li>
 
             </ul>
@@ -73,12 +78,14 @@ export default class NewNav extends React.Component {
 
 <li>
 
-<LoginDialog title = "Log In!"  />
+<LoginDialog title = "Log In"  />
 
 
 </li>
 
-<li><SignupDialog title="Sign Up!"/>
+<li>
+  <SignupDialog title="Sign Up"/>
+
 </li>
               {/*<li>
                 <RaisedButton

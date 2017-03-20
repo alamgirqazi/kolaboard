@@ -35,7 +35,7 @@ export default class DrawerOpenRight extends React.Component {
           onTouchTap={this.handleToggle}
         />
 
-        <Drawer width={640} openSecondary={true} open={this.state.open} >
+        <Drawer width={640} openSecondary={true} onTitleTouchTap={this.handleToggle} open={this.state.open} >
           <AppBar title="Private Notes"
 
   iconElementLeft={<IconButton onClick={this.handleToggle}><NavigationClose /></IconButton>}
