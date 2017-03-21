@@ -18,7 +18,8 @@ export default class DrawerOpenRight extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {open: this.props.open};
+    this.state = {draweropen: true,  
+      openingdrawer: this.props.drawerstate};
 
 this.handleToggle = this.handleToggle.bind(this);
 
@@ -29,7 +30,21 @@ this.handleToggle = this.handleToggle.bind(this);
 
 
 
-  handleToggle = () => this.setState({open: this.props.drawerstate()});
+  handleToggle = () => 
+  {
+    // this.setState({draweropen: !this.state.openingdrawer})
+this.setState((prevState, props) => ({
+  draweropen: !prevState.draweropen,
+ openingdrawer: !props.drawerstate
+
+}));
+
+
+}
+
+
+
+  // handleToggle = () => this.setState({draweropen: !this.props.drawerstate()});
 
   render() {
     return (
@@ -38,8 +53,8 @@ this.handleToggle = this.handleToggle.bind(this);
           label="Toggle Drawer"
           onTouchTap={this.handleToggle}
         />*/}
-
-        <Drawer width={640} openSecondary={true}open={this.state.open} >
+ {/*containerStyle={{transform: 'none'}}*/}
+        <Drawer width={640}  openSecondary={true} open={this.state.draweropen} >
           <AppBar title="Private Notes" 
 
   iconElementLeft={<IconButton onClick={this.handleToggle}><NavigationClose /></IconButton>}
