@@ -59,7 +59,7 @@ constructor(props) {
 handle()
 {
   this.setState({
-    draweropen: !this.state.draweropen
+    login: !this.state.login
   })
 }
 
@@ -83,8 +83,8 @@ render(){
             rightIconButton={rightIconMenu}   
           />
         </ToolbarGroup>
-       {this.state.draweropen
-              ? <Drawer/>
+       {this.state.login
+              ? <Drawer drawerstate={this.handle}/>
               : null
       }
       </Toolbar>
