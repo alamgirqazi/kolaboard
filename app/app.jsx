@@ -22,9 +22,10 @@ $(document).foundation();
 ReactDOM.render(
   //Props passed
   <Router history={hashHistory}>
-    <Route path="/" component={FirstPage}>
+    <Route path="/" component={FirstPage}>   </Route>
         <Route path="app" component={Main}></Route>
-    </Route>
+ 
   </Router>,
   document.getElementById("app")
 );
+

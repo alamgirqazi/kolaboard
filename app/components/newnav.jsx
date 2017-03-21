@@ -59,6 +59,20 @@ export default class NewNav extends React.Component {
 />
 
               </li>
+              <li>
+         
+                {" "}
+            <IndexLink
+              to="/app"
+              activeClassName="active"
+              activeStyle={{
+              fontWeight: "bold"
+            }}>
+              Go to App
+            </IndexLink>
+  
+
+              </li>
 
             </ul>
           </div>
