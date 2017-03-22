@@ -51,12 +51,12 @@ export default class LoginDialog extends React.Component {
 
   render() {
     const actions = [
-      <FlatButton
+      /*<FlatButton
         label="Cancel"
         primary={true}
         onTouchTap={this.handleClose}
-      />,
-      <FlatButton
+      />,*/
+      <RaisedButton
         label="Submit"
         primary={true}
         keyboardFocused={false}

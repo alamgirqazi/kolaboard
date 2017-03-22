@@ -11,6 +11,7 @@ import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+var {Link, IndexLink} = require("react-router");
 
 
 const style = {
@@ -53,6 +54,22 @@ export default class ToolbarExamplesSimple extends React.Component {
   render() {
     return (
       <Toolbar style ={style}>
+        <ToolbarGroup>
+            <li>
+         
+                {" "}
+            <IndexLink
+              to="/"
+              activeClassName="active"
+              activeStyle={{
+              fontWeight: "bold"
+            }}>
+              Go to App
+            </IndexLink>
+  
+
+              </li>
+       </ToolbarGroup>
         <ToolbarGroup>
 
         <img src="Klogo.png"/>

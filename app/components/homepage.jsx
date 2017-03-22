@@ -6,16 +6,57 @@ import React from 'react';
  *
  * You can also close this dialog by clicking outside the dialog, or with the 'Esc' key.
  */
+
+
+const style = {
+textAlign: 'center',
+fontWeight: '12px',
+    letterSpacing: '2px',
+
+}
+
+const aligncenter = 
+{
+    textAlign: 'center',
+
+}
+
 export default class Homepage extends React.Component {
   state = {
     open: false,
   };
 
-  componentDidMount () {
-          this.myFunc();
+//   componentDidMount () {
+//           this.myFunc();
+//   }
 
-  }
-   myFunc(){
+forceUpdate()
+{
+
+                       this.myFunc();
+
+}
+shouldComponentUpdate()
+{
+                   this.myFunc();
+
+}
+
+componentDidUpdate()
+{
+                       this.myFunc();
+
+}
+componentWillMount()
+{
+            //   this.myFunc();
+               this.myFunc();
+
+}
+
+   myFunc()
+   
+   {
         document.addEventListener("DOMContentLoaded", function() {
             Typed.new(".element", {
                 strings: [" for teams.", " <em>for students.</em>", " for developers."],
@@ -29,16 +70,19 @@ export default class Homepage extends React.Component {
             });
         });
     }
+componentWillUpdate(){
+              this.myFunc();
+}
+
 render()
 {
- 
-
 return (
+
 <div>
-    <h2> A Collaboration app <strong className="element typewriteColor" ></strong></h2>
+    <h2 style={style}> A collaboration app <strong className="element typewriteColor" ></strong></h2>
 
 
-<p>K.Kolaboard lets you organize and prioritize your tasks making collaboration easier and more fun.</p>
+<p style={aligncenter}>Kolaboard lets you organize and prioritize your tasks making collaboration easier and more fun.</p>
 
 </div>
 

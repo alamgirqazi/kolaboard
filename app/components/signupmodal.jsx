@@ -50,12 +50,12 @@ export default class SignupDialog extends React.Component {
 
   render() {
     const actions = [
-      <FlatButton
+      /*<FlatButton
         label="Cancel"
         primary={true}
         onTouchTap={this.handleClose}
-      />,
-      <FlatButton
+      />,*/
+      <RaisedButton
         label="Submit"
         primary={true}
         keyboardFocused={false}
@@ -70,7 +70,7 @@ export default class SignupDialog extends React.Component {
 
     return (
       <div>
-        <RaisedButton label="Sign Up!" style={sty} backgroundColor="#00E676" labelColor="white" onTouchTap={this.handleOpen} />
+        <RaisedButton label="Sign Up" style={sty} backgroundColor="#00E676" labelColor="white" onTouchTap={this.handleOpen} />
       
 
         <Dialog
