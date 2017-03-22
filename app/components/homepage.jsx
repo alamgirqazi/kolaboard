@@ -6,6 +6,9 @@ import LoginDialog from 'app/components/loginmodal.jsx';
 import SignupDialog from 'app/components/signupmodal.jsx';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import { Scrollbars } from 'react-custom-scrollbars';
+var Infinite = require('react-infinite');
+
+
 /**
  * Dialog with action buttons. The actions are passed in as an array of React objects,
  * in this example [FlatButtons](/#/components/flat-button).
@@ -13,6 +16,11 @@ import { Scrollbars } from 'react-custom-scrollbars';
  * You can also close this dialog by clicking outside the dialog, or with the 'Esc' key.
  */
 
+const scrollx = {
+
+overflowX: 'hidden',
+
+}
 const style = {
 textAlign: 'center',
     letterSpacing: '2px',
@@ -60,7 +68,7 @@ export default class Homepage extends React.Component {
     }
        openSignUp(){
        return(
-           <SignupDialog/>
+           <SignupDialog title="Sign Up! it's free"/>
        ); 
     }
 render()
@@ -68,19 +76,63 @@ render()
  
 
 return (
+    <div style={scrollx}>
+     {/*<Scrollbars style={{  }}>*/}
  <MuiThemeProvider>
+
 <div>
+       
 <div className="firstPage">
     <h2 style={style}> A Collaboration app <strong className="element typewriteColor" ></strong></h2>
 <br/>
 <br/>
 <p style={aligncenter}>Kolaboard lets you organize and prioritize your tasks <br/> making collaboration easier and more fun.</p>
 <br/>
-  <SignupDialog title="Sign Up! It's free"/>
+  <SignupDialog title="Sign Up now! It's free"/>
 <br/>
 <br/>
 </div>
 
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
 <p style={aligncenter}>Already using kolaboard? <a>Login</a>
  </p>
       {/*{" "}
@@ -94,21 +146,11 @@ return (
             </IndexLink>*/}
 
 
-<div className="secondPage">
-<p>What are you waiting for?</p>
-<br/>
-<br/>
-<p>Sign Up for free and enjoy all the exclusive features<br/>of kolaboard</p>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
 </div>
-</div>
+
 </MuiThemeProvider>
+  {/*</Scrollbars>*/}
+</div>
  )
   
 };
