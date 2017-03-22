@@ -1,5 +1,6 @@
         .typewriteColor {
-            color: red;
+            // color: #57EFA5;
+            color: #00E676;
         }
         
         .typed-cursor {
@@ -7,6 +8,16 @@
             -webkit-animation: blink 0.7s infinite;
             -moz-animation: blink 0.7s infinite;
             animation: blink 0.7s infinite;
+        }
+        
+        .firstPage {
+            text-align: center;
+            margin-top: 10%;
+        }
+        
+        .secondPage {
+            text-align: center;
+            margin-top: 10%;
         }
         
         @keyframes blink {

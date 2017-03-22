@@ -23,6 +23,7 @@ ReactDOM.render(
   //Props passed
   <Router history={hashHistory}>
     <Route path="/" component={FirstPage}>   </Route>
+        {/*<Route path="app" component={Main}></Route>*/}
         <Route path="app" component={Main}></Route>
  
   </Router>,
