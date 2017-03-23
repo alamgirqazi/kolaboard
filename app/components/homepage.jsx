@@ -17,7 +17,7 @@ var Infinite = require('react-infinite');
  */
 const styleimg = {
     width:"30%" ,
-    height:"30%"
+    height:"350px",
 }
 const scrollx = {
 
@@ -34,6 +34,12 @@ const aligncenter =
 {
     textAlign: 'center',
     fontSize: '18px',
+    wordSpacing: '0.5px',
+
+}
+const aligncentercollaborate = 
+{
+    textAlign: 'center',
     wordSpacing: '0.5px',
 
 }
@@ -98,13 +104,51 @@ return (
 <p style={aligncenter}>Already using kolaboard? <a>Login</a>
  </p>
 </div>
+<br/>
+<br/>
+<br/>
+
+<div className="thirdPage">
+{/*<h2 style={style}>Another heading probably?</h2>*/}
+<h4 style={aligncentercollaborate}>Easier to communicate and collaborate<br/>with noteboards</h4>
+<br/>
+<br/>
+<img src="noticeboard2.png" alt="Mountain View" style={styleimg}/>
+{/*<img src="noticeboard.jpg" alt="Mountain View" style={styleimg}/>*/}
+<br/>
+<br/>
+<br/>
+<br/>
+</div>
+<div className="fourthPage">
+    <br/>
+<h1>How it works?</h1>
+<br/>
+<p style={aligncenter}>Watch the simple one minute explainer for<br/> kolaboard </p>
+<br/>
+{/*<video width="450" controls>
+  <source src="test.mp4" type="video/mp4"/>
+</video>*/}
+{/*
+  <object data="https://youtu.be/M1kz70Vgm94"
+   width="450" height="315"></object>*/}
+
+<iframe width="600" height="315" src="https://www.youtube.com/embed/M1kz70Vgm94" frameborder="0" allowfullscreen></iframe>
+<br/>
+<br/>
+</div>
+
 <div className="secondPage">
 <h2 style={style}>What are you waiting for?</h2>
 <br/>
 <br/>
+<br/>
+<br/>
 <p style={aligncenter }>Sign Up for free and enjoy all the exclusive features<br/>of kolaboard</p>
 <br/>
+<br/>
   <SignupDialog title="Sign Up now! It's free"/>
+<br/>
 <br/>
 <br/>
 <p style={aligncenter}>Already using kolaboard? <a>Login</a>
@@ -118,31 +162,9 @@ return (
             <a>&nbsp; Help &nbsp;</a>
             </div>
             <br/>
+            <br/>
             <p>&copy; copyright 2017 Kolaboard</p>
 </div>
-<div className="thirdPage">
-<h2 style={style}>Another heading probably?</h2>
-<p style={aligncenter}>Easier to communicate and collaborate<br/>with noteboards</p>
-<br/>
-<br/>
-<img src="noticeboard.jpg" alt="Mountain View" style={styleimg}/>
-<br/>
-<br/>
-</div>
-<div className="fourthPage">
-<h1>How it works?</h1>
-<br/>
-<p style={aligncenter}>Watch the simple one minute explainer for<br/> kolaboard </p>
-<br/>
-<video width="450" controls>
-  <source src="test.mp4" type="video/mp4"/>
-</video>
-</div>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
 <br/>
 <br/>
 <br/>
