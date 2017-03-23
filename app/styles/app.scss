@@ -82,7 +82,12 @@ img {
     padding: 0rem 0rem;
 }
 
-.top-bar,
+.top-bar {
+    width: 100%;
+    position: fixed;
+    background-color: $secondaryColor;
+}
+
 .top-bar ul {
     background-color: $secondaryColor;
 }

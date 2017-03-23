@@ -70,7 +70,7 @@ export default class SignupDialog extends React.Component {
 
     return (
       <div>
-        <RaisedButton label="Sign Up" style={sty} backgroundColor="#00E676" labelColor="white" onTouchTap={this.handleOpen} />
+        <RaisedButton label={this.props.title} style={sty} backgroundColor="#00E676" labelColor="white" onTouchTap={this.handleOpen} />
       
 
         <Dialog

@@ -23,12 +23,6 @@ export default StyleSheet.create({
     'padding': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }],
     'margin': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }]
   },
-  'html': {
-    'overflow': 'hidden'
-  },
-  'body': {
-    'overflow': 'hidden'
-  },
   'padding': {
     'paddingLeft': [{ 'unit': 'px', 'value': 0 }],
     'paddingRight': [{ 'unit': 'px', 'value': 0 }]
@@ -63,6 +57,8 @@ export default StyleSheet.create({
     'padding': [{ 'unit': 'rem', 'value': 0 }, { 'unit': 'rem', 'value': 0 }, { 'unit': 'rem', 'value': 0 }, { 'unit': 'rem', 'value': 0 }]
   },
   'top-bar': {
+    'width': [{ 'unit': '%H', 'value': 1 }],
+    'position': 'fixed',
     'backgroundColor': '#EDF8F5'
   },
   'top-bar ul': {
@@ -352,35 +348,6 @@ export default StyleSheet.create({
   },
   'emojifunny': {
     'backgroundImage': 'url(http://i.imgur.com/qKia58V.png)'
-  },
-  '::-webkit-scrollbar': {
-    'minWidth': [{ 'unit': 'px', 'value': 12 }],
-    'width': [{ 'unit': 'px', 'value': 12 }],
-    'maxWidth': [{ 'unit': 'px', 'value': 12 }],
-    'minHeight': [{ 'unit': 'px', 'value': 12 }],
-    'height': [{ 'unit': 'px', 'value': 12 }],
-    'maxHeight': [{ 'unit': 'px', 'value': 12 }],
-    'background': '#e5e5e5',
-    'boxShadow': [{ 'unit': 'string', 'value': 'inset' }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 50 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'string', 'value': 'rgba(82, 179, 217, 0.9)' }, { 'unit': 'string', 'value': 'rgba(82, 179, 217, 0.9),' }, { 'unit': 'string', 'value': 'inset' }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': -52 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'string', 'value': '#fafafa' }]
-  },
-  '::-webkit-scrollbar-thumb': {
-    'background': '#bbb',
-    'border': [{ 'unit': 'string', 'value': 'none' }],
-    'borderRadius': '100px',
-    'border': [{ 'unit': 'string', 'value': 'solid' }, { 'unit': 'px', 'value': 3 }, { 'unit': 'string', 'value': '#e5e5e5' }],
-    'boxShadow': [{ 'unit': 'string', 'value': 'inset' }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 3 }, { 'unit': 'string', 'value': '#999' }]
-  },
-  '::-webkit-scrollbar-thumb:hover': {
-    'background': '#b0b0b0',
-    'boxShadow': [{ 'unit': 'string', 'value': 'inset' }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 3 }, { 'unit': 'string', 'value': '#888' }]
-  },
-  '::-webkit-scrollbar-thumb:active': {
-    'background': '#aaa',
-    'boxShadow': [{ 'unit': 'string', 'value': 'inset' }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 3 }, { 'unit': 'string', 'value': '#7f7f7f' }]
-  },
-  '::-webkit-scrollbar-button': {
-    'display': 'block',
-    'height': [{ 'unit': 'px', 'value': 26 }]
   },
   'inputtextarea': {
     'position': 'fixed',

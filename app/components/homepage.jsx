@@ -15,7 +15,10 @@ var Infinite = require('react-infinite');
  *
  * You can also close this dialog by clicking outside the dialog, or with the 'Esc' key.
  */
-
+const styleimg = {
+    width:"30%" ,
+    height:"30%"
+}
 const scrollx = {
 
 overflowX: 'hidden',
@@ -76,9 +79,9 @@ render()
  
 
 return (
+     <MuiThemeProvider>
     <div style={scrollx}>
      {/*<Scrollbars style={{  }}>*/}
- <MuiThemeProvider>
 
 <div>
        
@@ -92,65 +95,60 @@ return (
 <br/>
 <br/>
 </div>
-
 <p style={aligncenter}>Already using kolaboard? <a>Login</a>
  </p>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
- </p>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
- </p>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
- </p>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
- </p>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
- </p>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
- </p>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
- </p>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
- </p>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
- </p>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
- </p>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
- </p>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
- </p>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
- </p>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
- </p>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
- </p>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
- </p>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
- </p>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
- </p>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
- </p>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
- </p>
-      {/*{" "}
-            <IndexLink
-              to="/"
-              activeClassName="active"
-              activeStyle={{
-              fontWeight: "bold"
-            }}>
-              Login
-            </IndexLink>*/}
-
-
 </div>
-
-</MuiThemeProvider>
+<div className="secondPage">
+<h2 style={style}>What are you waiting for?</h2>
+<br/>
+<br/>
+<p style={aligncenter }>Sign Up for free and enjoy all the exclusive features<br/>of kolaboard</p>
+<br/>
+  <SignupDialog title="Sign Up now! It's free"/>
+<br/>
+<br/>
+<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+ </p>
+ <br/>
+ <br/>
+            <div>
+            <a>&nbsp; Tour &nbsp;</a>
+             <a>&nbsp; Blog &nbsp;</a>  
+            <a>&nbsp; About &nbsp;</a>
+            <a>&nbsp; Help &nbsp;</a>
+            </div>
+            <br/>
+            <p>&copy; copyright 2017 Kolaboard</p>
+</div>
+<div className="thirdPage">
+<h2 style={style}>Another heading probably?</h2>
+<p style={aligncenter}>Easier to communicate and collaborate<br/>with noteboards</p>
+<br/>
+<br/>
+<img src="noticeboard.jpg" alt="Mountain View" style={styleimg}/>
+<br/>
+<br/>
+</div>
+<div className="fourthPage">
+<h1>How it works?</h1>
+<br/>
+<p style={aligncenter}>Watch the simple one minute explainer for<br/> kolaboard </p>
+<br/>
+<video width="450" controls>
+  <source src="test.mp4" type="video/mp4"/>
+</video>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
   {/*</Scrollbars>*/}
 </div>
+</MuiThemeProvider>
  )
   
 };
