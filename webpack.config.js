@@ -37,6 +37,7 @@ module.exports = {
             Boards: "app/components/Note.jsx",
             Chatbar: "app/components/toolbars/chattoolbar.jsx",
             Msgbar: "app/components/toolbars/msgtoolbar.jsx",
+            Lock: "public/assets/js/lock.min.js",
             Boardbar: "app/components/toolbars/boardtoolbar.jsx",
             applicationStyles: 'app/styles/app.scss',
             HomepageStyles: 'app/styles/homepage.scss',

@@ -27,28 +27,29 @@ const stylegmail = {
 backgroundColor:"#E74C3C",
 color:"white"
 };
-/**
- * Dialog with action buttons. The actions are passed in as an array of React objects,
- * in this example [FlatButtons](/#/components/flat-button).
- *
- * You can also close this dialog by clicking outside the dialog, or with the 'Esc' key.
- */
+
 export default class SignupDialog extends React.Component {
+  
+  
   state = {
     open: false,
   };
 
   handleOpen = () => {
-    this.setState({open: true});
+    //  this.setState({open: true});
+// e.preventDefault();
+    this.props.lock.show();
   };
 
   handleClose = () => {
     this.setState({open: false});
   };
      
-
+      
 
   render() {
+
+    
     const actions = [
       /*<FlatButton
         label="Cancel"
@@ -70,28 +71,28 @@ export default class SignupDialog extends React.Component {
 
     return (
       <div>
-        <RaisedButton label={this.props.title} style={sty} backgroundColor="#00E676" labelColor="white" onTouchTap={this.handleOpen} />
-      
-
-        <Dialog
-          title="Sign Up"
-          actions={actions}
-          modal={false}
-          autoDetectWindowHeight={true}
-          open={this.state.open}
-          style={modalstyle}
-          onRequestClose={this.handleClose}
-        >
-        
-<div className="container-fluid">
-              <button className="btn" style={stylegmail} >{/*<img height="1px" src="gmaillogo.png"/>*/}Log In with Google</button>
-              <button className="btn" style={stylefacebook}>{/*<img height="1px" src="facebooklogo.png"/>*/}Log In with Facebook</button>
-              <input placeholder="Email" style={style} className="emailpass"/>
-              <input placeholder="Password" style={style}  className="emailpass"/>
-              </div>
-        </Dialog>
-        
+        <RaisedButton label={this.props.title} style={sty}  labelColor="white" backgroundColor="#00E676" onTouchTap={this.handleOpen} />       
       </div>
     );
   }
 }
+
+
+
+//         {/*<Dialog
+//           title="Sign Up"
+//           actions={actions}
+//           modal={false}
+//           autoDetectWindowHeight={true}
+//           open={this.state.open}
+//           style={modalstyle}
+//           onRequestClose={this.handleClose}
+//         >
+        
+// <div className="container-fluid">
+//               <button className="btn" style={stylegmail} >{/*<img height="1px" src="gmaillogo.png"/>*/}Log In with Google</button>
+//         //       <button className="btn" style={stylefacebook}>{/*<img height="1px" src="facebooklogo.png"/>*/}Log In with Facebook</button>
+//         //       <input placeholder="Email" style={style} className="emailpass"/>
+//         //       <input placeholder="Password" style={style}  className="emailpass"/>
+//         //       </div>             
+//         // </Dialog>*/}

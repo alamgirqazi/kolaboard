@@ -8,6 +8,11 @@ import FirstPage from 'app/components/firstpage.jsx';
 import Drawer from 'app/components/drawer.jsx';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
+const greenbutton = {
+  backgroundColor: "#00E676",
+
+}
+
 export default class NewNav extends React.Component {
   constructor(props) {
     super(props);
@@ -21,13 +26,32 @@ export default class NewNav extends React.Component {
 
   }
 
+
   handleClick(e) {
     //  console.log('hello');
     this.setState({login: true});
     console.log(this.state.login);
     //  <FirstPage/>s
   }
+   componentWillMount() {
+var options = {
+      languageDictionary: {
+      emailInputPlaceholder: "something@youremail.com",
+      title: "Log me in pls"
+    },
+      allowLogin: false,
+      
+      theme: {
+      logo:'https://github.com/alamgirqazi/kolaboard/blob/master/public/Klogo.png',
+      primaryColor: 'green',
+      }
+}
 
+      // this.lock = new Auth0Lock('a9sKTlJnoUuKXRLA9FvgmLnPe8BVywGM', '5BZ51d58oDnkGSudOaDpCnhJfa7z5sn0EoLH_Jj6kMRvTfX5oJ2XuQKUFXLuEvKd',options);
+      // this.lock = new Auth0Lock('YOUR_CLIENT_ID', 'YOUR_CLIENT_DOMAIN',options);
+
+
+   }  
   render() {
 
     const style = {
@@ -46,16 +70,7 @@ export default class NewNav extends React.Component {
           <div className="top-bar-left">
             <ul className="menu">
               <li>
-                {/*<RaisedButton
-                  label="Sign Up"
-                  style={style}
-                  primary={false}
-                  onClick={this.handleClick}
-                  labelColor="#FFF"
-                  backgroundColor="#00E676"/>
-              */}
-              
-                      <img src="Klogo.png"                   style={style}
+                         <img src="Klogo.png"                   style={style}
 />
 
               </li>
@@ -79,17 +94,6 @@ export default class NewNav extends React.Component {
           <div className="top-bar-right">
 
             <ul className="menu">
-
-              {/*<li>
-                <RaisedButton
-                  label="Log In"
-                  primary={true}
-                  style={style}
-                  className="btnLogin"
-                  backgroundColor="#3AAA35"></RaisedButton>
-
-              </li>*/}
-
 <li>
 
 <LoginDialog title = "Log In"  />
@@ -98,7 +102,7 @@ export default class NewNav extends React.Component {
 </li>
 
 <li>
-  <SignupDialog title="Sign Up"/>
+  <SignupDialog title="Sign Up" lock={this.lock} />
 
 </li>
               {/*<li>

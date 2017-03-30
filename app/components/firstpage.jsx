@@ -4,43 +4,41 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Nav from 'app/components/newnav.jsx';
 import Homepage from 'app/components/homepage.jsx';
 import { Scrollbars } from 'react-custom-scrollbars';
+import { ScrollArea } from 'react-scrollbar';
 var Infinite = require('react-infinite');
+    import Scrollbar from 'react-smooth-scrollbar';
+    import PerfectScrollbar from 'react-perfect-scrollbar'
 
 
-// const style = {
-//     overflowY:'scroll',
-// }
 var FirstPage = () =>
 {  
    
 return (
-<div>
-            {/*<Infinite containerHeight={800} elementHeight={40}>*/}
-      <Scrollbars  
-    
-             autoHeight
-             autoHeightMax={700}
-            renderTrackHorizontal={props => <div {...props} className="track-horizontal" style={{display:"none"}}/>}
+
+           
+   <Scrollbars style={{  height: '100vh' }}
+     renderTrackHorizontal={props => <div {...props} className="track-horizontal" style={{display:"none"}}/>}
         renderThumbHorizontal={props => <div {...props} className="thumb-horizontal" style={{display:"none"}}/>}
 
-                thumbMinSize={30}
-        universal style={{}}>
-        {/*autoHeight
-        autoHeightMin={0}
-        autoHeightMax={800}*/}
+   >
+         <Nav/>
+<Homepage/>      
+ </Scrollbars> 
 
-<Nav/>
-<Homepage/>
-    {/*<h2 style="text-align: center"> A Collaboration app <em class="element typewriteColor" style="font-weight: 12px"></em></h2>*/}
-{/*</Infinite>*/}
-</Scrollbars>
-</div>
 
-    )
+
+)
   
 };
 
-export default FirstPage;
-  
+ export default FirstPage;
 
 
+    {/*height={'100%'}*/}
+
+            {/*<Infinite containerHeight={800} elementHeight={40}>*/}
+      {/*<Scrollbars  style={{ height: '100%' }}
+
+          
+                thumbMinSize={30}
+      >*/}

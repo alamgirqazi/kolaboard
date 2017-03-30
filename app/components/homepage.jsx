@@ -97,7 +97,9 @@ return (
 <br/>
 <p style={aligncenter}>Kolaboard lets you organize and prioritize your tasks <br/> making collaboration easier and more fun.</p>
 <br/>
-  <SignupDialog title="Sign Up now! It's free"/>
+
+  <SignupDialog title="Sign Up now! It's free" labelColor="white" backgroundColor="#00E676"  />
+
 <br/>
 <br/>
 </div>
