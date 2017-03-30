@@ -38,6 +38,7 @@ module.exports = {
             Chatbar: "app/components/toolbars/chattoolbar.jsx",
             Msgbar: "app/components/toolbars/msgtoolbar.jsx",
             Lock: "public/assets/js/lock.min.js",
+            PrivateNoteDrawer: 'app/components/drawer/privatenotedrawer.jsx',
             Boardbar: "app/components/toolbars/boardtoolbar.jsx",
             applicationStyles: 'app/styles/app.scss',
             HomepageStyles: 'app/styles/homepage.scss',

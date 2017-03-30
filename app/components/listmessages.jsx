@@ -50,7 +50,8 @@ const ListMessages = () => (
 
 {/*style={{ height: 500 }}*/}
 {/*<Infinite containerHeight={500} elementHeight={4}>*/ }
- <Scrollbars  autoHeightMin={0} style={{ height: '100%' }}
+ {/*<Scrollbars  autoHeightMin={0} style={{ height: '100%' }}*/}
+ <Scrollbars  autoHeightMin={0} style={{ height: '100vh' }}
         autoHeightMax={50}
         thumbMinSize={50} >
 

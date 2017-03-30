@@ -3,6 +3,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Snackbar from 'material-ui/Snackbar';
+var dragula = require('react-dragula');
 
 
 const style = {
@@ -21,6 +22,12 @@ class Note extends React.Component {
         this.save = this.save.bind(this);
         this.remove = this.remove.bind(this);
     }
+
+//   componentDidMount(){
+//     var note = React.findDOMNode(this);
+//     dragula([note]);
+//   }
+
     edit () {
         this.setState({editing: true,
               open: false,
@@ -132,7 +139,10 @@ export default class Boards extends React.Component {
                 {note}</Note>
         );
     }
-
+ componentDidMount(){
+    var board = React.findDOMNode(this);
+    dragula([board]);
+  }
     render(){
         return (<div className="board">
                 {this.state.notes.map(this.eachNote)}

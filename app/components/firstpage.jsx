@@ -4,10 +4,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Nav from 'app/components/newnav.jsx';
 import Homepage from 'app/components/homepage.jsx';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { ScrollArea } from 'react-scrollbar';
+
 var Infinite = require('react-infinite');
-    import Scrollbar from 'react-smooth-scrollbar';
-    import PerfectScrollbar from 'react-perfect-scrollbar'
+    
+   
 
 
 var FirstPage = () =>

@@ -5,6 +5,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import FlatButton from 'material-ui/FlatButton';
+// import PrivateNoteDrawer from 'app/components/drawer/privatenotedrawer.jsx';
+
 
 //  const drawerwidth = {
 //  width : '40%', 
@@ -19,13 +21,12 @@ export default class DrawerOpenRight extends React.Component {
   constructor(props) {
     super(props);
     this.state = {draweropen: true,  
-      openingdrawer: this.props.drawerstate};
+      openingdrawer: this.props.drawerstate,
+     };
 
 this.handleToggle = this.handleToggle.bind(this);
 
   }
- 
-
 
 
 
@@ -49,12 +50,9 @@ this.setState((prevState, props) => ({
   render() {
     return (
       <div>
-        {/*<RaisedButton
-          label="Toggle Drawer"
-          onTouchTap={this.handleToggle}
-        />*/}
- {/*containerStyle={{transform: 'none'}}*/}
-        <Drawer width={640}  openSecondary={true} open={this.state.draweropen} >
+   
+
+        <Drawer  width={'500'} openSecondary={true} open={this.state.draweropen} >
           <AppBar title="Private Notes" 
 
   iconElementLeft={<IconButton onClick={this.handleToggle}><NavigationClose /></IconButton>}
@@ -62,15 +60,9 @@ this.setState((prevState, props) => ({
 
 
         </Drawer>
+
+
       </div>
     );
   }
 }
-
-     {/*iconElementRight={<FlatButton label="Save" />}*/}
-
-              {/*onTitleTouchTap={this.handleToggle}*/}
-
-
-//  {/*iconElementLeft={<IconButton><NavigationClose /></IconButton>}*/}
-//     {/*iconElementRight={<FlatButton label="Save" />}*/}
