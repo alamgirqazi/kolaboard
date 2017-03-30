@@ -22,12 +22,6 @@ class Note extends React.Component {
         this.save = this.save.bind(this);
         this.remove = this.remove.bind(this);
     }
-
-//   componentDidMount(){
-//     var note = React.findDOMNode(this);
-//     dragula([note]);
-//   }
-
     edit () {
         this.setState({editing: true,
               open: false,
