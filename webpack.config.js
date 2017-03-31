@@ -41,7 +41,10 @@ module.exports = {
             Boardbar: "app/components/toolbars/boardtoolbar.jsx",
             applicationStyles: 'app/styles/app.scss',
             HomepageStyles: 'app/styles/homepage.scss',
-            noteStyle: 'app/styles/notestyle.scss'
+            noteStyle: 'app/styles/notestyle.scss',
+            snowStyle: 'app/styles/quill.snow.scss',
+            coreStyle: 'app/styles/quill.core.css',
+            bubbleStyle: 'app/styles/quill.bubble.css'
         },
         extensions: ["", ".js", ".jsx"]
     },
