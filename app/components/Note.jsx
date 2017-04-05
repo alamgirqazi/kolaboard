@@ -4,8 +4,13 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Snackbar from 'material-ui/Snackbar';
 var dragula = require('react-dragula');
+var Linkify = require('react-linkify');
 
+const wordwrap = {
+    wordWrap: 'breakWord',
+    overflow: 'hidden',
 
+}
 const style = {
   margin: 12,
    marginRight: 20,
@@ -28,7 +33,8 @@ class Note extends React.Component {
 });
     }
     save () {
-        this.props.onChange(this.refs.newText.getDOMNode().value, this.props.index);
+        // this.props.onChange(this.refs.newText.getDOMNode().value, this.props.index);
+        this.props.onChange(this.refs.newText.value, this.props.index);
         this.setState({editing: false,
         open: false});
     }
@@ -53,8 +59,8 @@ class Note extends React.Component {
     }
     renderForm () {
         return (
-            <div className="note">
-            <textarea ref="newText" defaultValue={this.props.children} 
+            <div className="note" style={wordwrap}>
+            <textarea ref="newText" maxLength="60" defaultValue={this.props.children} 
             className="form-control"></textarea>
             <button onClick={this.save} className="btn btn-success btn-sm glyphicon glyphicon-floppy-disk" />
             </div>
