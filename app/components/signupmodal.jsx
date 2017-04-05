@@ -38,14 +38,15 @@ export default class SignupDialog extends React.Component {
   handleOpen = () => {
     //  this.setState({open: true});
 // e.preventDefault();
-    this.props.lock.show();
+        this.props.lock.show();
+
   };
 
   handleClose = () => {
     this.setState({open: false});
   };
      
-      
+
 
   render() {
 
