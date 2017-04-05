@@ -2,6 +2,11 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import getMuiTheme from "material-ui/styles/getMuiTheme";
+import { cyan500 } from "material-ui/styles/colors";
+import { greenA400 } from "material-ui/styles/colors";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+
 
 const modalstyle ={
       width:"75%",
@@ -27,6 +32,20 @@ const stylegmail = {
 backgroundColor:"#E74C3C",
 color:"white"
 };
+
+const muiTheme = getMuiTheme({
+  palette: {
+    //   textColor: greenA400,
+    primary1Color: greenA400
+    //  primary3Color:greenA400,
+    //   accent1Color: greenA400,
+    //   accent2Color: greenA400,
+    //   accent3Color: greenA400
+
+    //this is for changing the theme
+  }
+});
+
 
 export default class SignupDialog extends React.Component {
   
@@ -71,9 +90,13 @@ export default class SignupDialog extends React.Component {
     }
 
     return (
+          <MuiThemeProvider muiTheme={muiTheme}>
+
       <div>
-        <RaisedButton label={this.props.title} style={sty}  labelColor="white" backgroundColor="#00E676" onTouchTap={this.handleOpen} />       
+        <RaisedButton label={this.props.title} style={sty} primary={true}   onTouchTap={this.handleOpen} />       
       </div>
+</MuiThemeProvider>
+// labelColor="white" backgroundColor="#00E676"
     );
   }
 }

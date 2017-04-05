@@ -22,7 +22,6 @@ const muiTheme = getMuiTheme({
   palette: {
     //   textColor: greenA400,
     primary1Color: greenA400
-    //   primary2Color: greenA400,
     //  primary3Color:greenA400,
     //   accent1Color: greenA400,
     //   accent2Color: greenA400,

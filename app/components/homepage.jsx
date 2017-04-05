@@ -7,6 +7,8 @@ import SignupDialog from 'app/components/signupmodal.jsx';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import { Scrollbars } from 'react-custom-scrollbars';
 var Infinite = require('react-infinite');
+import { greenA400 } from "material-ui/styles/colors";
+import getMuiTheme from "material-ui/styles/getMuiTheme";
 
 
 /**
@@ -43,6 +45,23 @@ const aligncentercollaborate =
     wordSpacing: '0.5px',
 
 }
+
+const muiTheme = getMuiTheme({
+  palette: {
+    //   textColor: greenA400,
+    primary1Color: greenA400
+    //  primary3Color:greenA400,
+    //   accent1Color: greenA400,
+    //   accent2Color: greenA400,
+    //   accent3Color: greenA400
+
+    //this is for changing the theme
+  }
+});
+
+
+
+
 
 export default class Homepage extends React.Component {
  constructor(props) {
@@ -85,7 +104,7 @@ render()
  
 
 return (
-     <MuiThemeProvider>
+     <MuiThemeProvider  muiTheme={muiTheme}>
     <div style={scrollx}>
      {/*<Scrollbars style={{  }}>*/}
 
@@ -98,8 +117,8 @@ return (
 <p style={aligncenter}>Kolaboard lets you organize and prioritize your tasks <br/> making collaboration easier and more fun.</p>
 <br/>
 
-  <SignupDialog title="Sign Up now! It's free" labelColor="white" backgroundColor="#00E676"  />
-
+  <SignupDialog title="Sign Up now! It's free"  primary1Color={true}  />
+{/*labelColor="white"*/}
 <br/>
 <br/>
 </div>
