@@ -5,6 +5,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import Snackbar from 'material-ui/Snackbar';
 var dragula = require('react-dragula');
 var Linkify = require('react-linkify');
+import Linkifier from 'react-linkifier';
 
 const wordwrap = {
     wordWrap: 'breakWord',
@@ -45,8 +46,11 @@ class Note extends React.Component {
         return (
             <div className="note">
                 <p>
+                    
+                       <Linkifier>
                     {this.props.children}
 
+                       </Linkifier>
                 </p>
                 <span>
                     <button onClick={this.edit}
@@ -62,6 +66,7 @@ class Note extends React.Component {
             <div className="note" style={wordwrap}>
             <textarea ref="newText" maxLength="60" defaultValue={this.props.children} 
             className="form-control"></textarea>
+         
             <button onClick={this.save} className="btn btn-success btn-sm glyphicon glyphicon-floppy-disk" />
             </div>
             )
@@ -82,9 +87,9 @@ export default class Boards extends React.Component {
         this.state = {
             notes: [
                 'Quiz next tuesday',
-                'Submit assignments by 10th March',
+                'Reactjs on Github https://github.com/facebook/react',
                 'Football match at 4 p.m sharp',
-                'blabla'
+                'React is awesome!'
             ],
   open: false,
         };
@@ -149,7 +154,7 @@ export default class Boards extends React.Component {
     render(){
         return (<div className="board">
                 {this.state.notes.map(this.eachNote)}
-                   <div className="fixedbutton">
+                 ><div className="fixedbutton">
       {/*onTouchTap={this.handleTouchTap}*/}
                    <FloatingActionButton style={style}   onTouchTap={this.handleTouchTap}
           label="yo" onClick={this.add.bind(null,"new note")}>

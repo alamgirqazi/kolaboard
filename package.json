@@ -19,6 +19,7 @@
         "react-dom": "^0.14.7",
         "react-dragula": "^1.1.17",
         "react-infinite": "^0.10.0",
+        "react-linkifier": "^2.2.1",
         "react-router": "^2.0.0",
         "react-tap-event-plugin": "0.2.0"
     },
