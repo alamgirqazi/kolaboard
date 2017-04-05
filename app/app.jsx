@@ -21,14 +21,21 @@ require('style!css!sass!coreStyle')
 $(document).foundation();
  injectTapEventPlugin();
 
+const NotFound = () => (
+  <h1>404.. This page is not found!</h1>)
+
+
+
 ReactDOM.render(
   //Props passed
   <Router history={hashHistory}>
     <Route path="/" component={FirstPage}>   </Route>
-        {/*<Route path="app" component={Main}></Route>*/}
         <Route path="app" component={Main}></Route>
- 
+        
+ <Route path='*' component={NotFound} />
   </Router>,
   document.getElementById("app")
 );
+
+
 

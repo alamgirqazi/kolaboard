@@ -37,17 +37,18 @@ export default class NewNav extends React.Component {
 var options = {
       languageDictionary: {
       emailInputPlaceholder: "something@youremail.com",
-      title: "Log me in pls"
+      title: "Log Me In"
     },
       // allowLogin: false,
       
       theme: {
-      // logo:'https://github.com/alamgirqazi/kolaboard/blob/master/public/Klogo.png',
-      // primaryColor: 'green',
+      logo:'https://github.com/alamgirqazi/kolaboard/blob/master/public/Klogo.png',
+      primaryColor: '#00E676',
       }
 }
 
-      this.lock = new Auth0Lock('a9sKTlJnoUuKXRLA9FvgmLnPe8BVywGM', '5BZ51d58oDnkGSudOaDpCnhJfa7z5sn0EoLH_Jj6kMRvTfX5oJ2XuQKUFXLuEvKd',options);
+      this.lock = new Auth0Lock('a9sKTlJnoUuKXRLA9FvgmLnPe8BVywGM', 'alamgirqazi.auth0.com',options);
+      // this.lock = new Auth0Lock('a9sKTlJnoUuKXRLA9FvgmLnPe8BVywGM', '5BZ51d58oDnkGSudOaDpCnhJfa7z5sn0EoLH_Jj6kMRvTfX5oJ2XuQKUFXLuEvKd',options);
       // this.lock = new Auth0Lock('YOUR_CLIENT_ID', 'YOUR_CLIENT_DOMAIN',options);
 
 

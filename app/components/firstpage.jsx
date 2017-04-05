@@ -10,7 +10,7 @@ var Infinite = require('react-infinite');
    
 
 
-var FirstPage = () =>
+var FirstPage = (props) =>
 {  
    
 return (
@@ -23,6 +23,7 @@ return (
    >
          <Nav/>
 <Homepage/>      
+
  </Scrollbars> 
 
 

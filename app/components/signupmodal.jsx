@@ -49,7 +49,16 @@ const muiTheme = getMuiTheme({
 
 export default class SignupDialog extends React.Component {
   
-  
+  constructor(props)
+  {
+    super(props);
+                // this.handleOpen = this.handleOpen.bind(this);
+
+        // console.log(this.props);
+
+        // console.log('something');
+
+  }
   state = {
     open: false,
   };
@@ -61,28 +70,13 @@ export default class SignupDialog extends React.Component {
 
   };
 
-  handleClose = () => {
-    this.setState({open: false});
-  };
+  // handleClose = () => {
+  //   this.setState({open: false});
+  // };
      
 
 
   render() {
-
-    
-    const actions = [
-      /*<FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleClose}
-      />,*/
-      <RaisedButton
-        label="Submit"
-        primary={true}
-        keyboardFocused={false}
-        onTouchTap={this.handleClose}
-      />,
-    ];
 
     const sty =
     {
