@@ -125,12 +125,15 @@ export default class Boards extends React.Component {
     }
     eachNote (note,i){
         return (
+            <div className="displ">
             <Note key={i}
                 index={i}
                 onChange={this.update}
                 onRemove={this.remove}
                 >
                 {note}</Note>
+            </div>
+            
         );
     }
  componentDidMount(){
