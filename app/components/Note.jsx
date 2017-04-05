@@ -4,7 +4,6 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Snackbar from 'material-ui/Snackbar';
 var dragula = require('react-dragula');
-var Linkify = require('react-linkify');
 import Linkifier from 'react-linkifier';
 
 const wordwrap = {
