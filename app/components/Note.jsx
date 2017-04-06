@@ -5,12 +5,19 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import Snackbar from 'material-ui/Snackbar';
 var dragula = require('react-dragula');
 import Linkifier from 'react-linkifier';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 const wordwrap = {
     wordWrap: 'breakWord',
     overflow: 'hidden',
 
 }
+
+const savebtn = {
+
+    bottom: '1px',
+}
+
 const style = {
   margin: 12,
    marginRight: 20,
@@ -44,13 +51,20 @@ class Note extends React.Component {
     renderDisplay () {
         return (
             <div className="note">
+
+                    <Scrollbars
+                       renderTrackHorizontal={props => <div {...props} className="track-horizontal" style={{display:"none"}}/>}
+        renderThumbHorizontal={props => <div {...props} className="thumb-horizontal" style={{display:"none"}}/>}
+
+                    >
                 <p>
-                    
                        <Linkifier>
                     {this.props.children}
 
                        </Linkifier>
                 </p>
+                                </Scrollbars>
+
                 <span>
                     <button onClick={this.edit}
                             className="btn btn-primary glyphicon glyphicon-pencil"/>
@@ -63,10 +77,10 @@ class Note extends React.Component {
     renderForm () {
         return (
             <div className="note" style={wordwrap}>
-            <textarea ref="newText" maxLength="60" defaultValue={this.props.children} 
+            <textarea ref="newText" maxLength="150" defaultValue={this.props.children} 
             className="form-control"></textarea>
          
-            <button onClick={this.save} className="btn btn-success btn-sm glyphicon glyphicon-floppy-disk" />
+            <button style={savebtn} onClick={this.save} className="btn btn-success btn-sm glyphicon glyphicon-floppy-disk" />
             </div>
             )
     }
@@ -153,7 +167,7 @@ export default class Boards extends React.Component {
     render(){
         return (<div className="board">
                 {this.state.notes.map(this.eachNote)}
-                 ><div className="fixedbutton">
+                 <div className="fixedbutton">
       {/*onTouchTap={this.handleTouchTap}*/}
                    <FloatingActionButton style={style}   onTouchTap={this.handleTouchTap}
           label="yo" onClick={this.add.bind(null,"new note")}>
