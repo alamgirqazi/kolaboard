@@ -13,7 +13,8 @@ const lock = new Auth0Lock('a9sKTlJnoUuKXRLA9FvgmLnPe8BVywGM', 'alamgirqazi.auth
 
 lock.on('authenticated', authResult => {
     setIdToken(authResult.idToken);
-    browserHistory.push('#app');
+    // browserHistory.push('#app');
+    browserHistory.push('/app');
     // browserHistory.push('/special');
 });
 

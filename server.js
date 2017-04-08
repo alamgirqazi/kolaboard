@@ -30,10 +30,10 @@ const authCheck = jwt({
 app.use(express.static('public'));
 
 const PORT = process.env.PORT || 3000;
-app.get('/app', authCheck, (req,res)=>{
+// app.get('/app', authCheck, (req,res)=>{
 
-console.log('route hit');
-});
+// console.log('route hit');
+// });
 
 app.listen(PORT, function () {
   console.log('Express server is up on port: ' + PORT);
