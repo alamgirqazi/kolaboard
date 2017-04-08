@@ -1,5 +1,5 @@
 var express = require('express');
-
+var path= require('path');
 // Create our app
 var app = express();
 
@@ -30,6 +30,15 @@ const authCheck = jwt({
 app.use(express.static('public'));
 
 const PORT = process.env.PORT || 3000;
+
+app.get('*', function (request, response){
+    response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+})
+
+// app.get('/app', (req,res)=>{
+
+// console.log('route hit');
+// });
 // app.get('/app', authCheck, (req,res)=>{
 
 // console.log('route hit');
