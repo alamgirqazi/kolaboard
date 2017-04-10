@@ -29,6 +29,8 @@ ReactDOM.render(
   <Router history={browserHistory}>
     <Route path="/" component={FirstPage}> </Route>
     <Route path="/app" component={Main} onEnter={requireAuth}  />
+         <Route path="*" component={NotFound} />
+
   </Router>,
   document.getElementById("app")
 );

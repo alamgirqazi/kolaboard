@@ -12,8 +12,21 @@ const lock = new Auth0Lock('a9sKTlJnoUuKXRLA9FvgmLnPe8BVywGM', 'alamgirqazi.auth
 });
 
 lock.on('authenticated', authResult => {
+     lock.getUserInfo(authResult.accessToken, function(error, profile) {
+    if (error) {
+      // Handle error
+      return;
+    }
+
+    // localStorage.setItem("accessToken", authResult.accessToken);
+    localStorage.setItem("profile", JSON.stringify(profile));
+console.log(JSON.stringify(profile));
+    // Update DOM
+  });
     setIdToken(authResult.idToken);
     // browserHistory.push('#app');
+
+
     browserHistory.push('/app');
     // browserHistory.push('/special');
 });
