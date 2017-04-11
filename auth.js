@@ -21,6 +21,19 @@ lock.on('authenticated', authResult => {
     // localStorage.setItem("accessToken", authResult.accessToken);
     localStorage.setItem("profile", JSON.stringify(profile));
 console.log(JSON.stringify(profile));
+
+//Facebook
+console.log(profile["email"]);
+console.log(profile["name"]);
+console.log(profile["picture"]);
+
+// Local Authentication
+
+//Google
+
+
+
+
     // Update DOM
   });
     setIdToken(authResult.idToken);
