@@ -47,7 +47,7 @@ var options = {
       }
 }
 
-      this.lock = new Auth0Lock('a9sKTlJnoUuKXRLA9FvgmLnPe8BVywGM', 'alamgirqazi.auth0.com',options);
+      this.lock = new Auth0Lock('xDe229e1uR9PPKZMutFVk4QZYpAVU9l6', 'kolaboard.auth0.com',options);
       // this.lock = new Auth0Lock('a9sKTlJnoUuKXRLA9FvgmLnPe8BVywGM', '5BZ51d58oDnkGSudOaDpCnhJfa7z5sn0EoLH_Jj6kMRvTfX5oJ2XuQKUFXLuEvKd',options);
       // this.lock = new Auth0Lock('YOUR_CLIENT_ID', 'YOUR_CLIENT_DOMAIN',options);
 
