@@ -1,0 +1,17 @@
+{
+"email_verified":false,
+"email":"alamgir.bscs2768@iiu.edu.pk",
+"clientID":"xDe229e1uR9PPKZMutFVk4QZYpAVU9l6",
+"updated_at":"2017-04-11T07:22:32.381Z",
+"name":"alamgir.bscs2768@iiu.edu.pk",
+"picture":"https://s.gravatar.com/avatar/d4b22aa23197af9d1c007642f0cb98a9?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fal.png","user_id":"auth0|58ec8436ca4db442d9301a01",
+"nickname":"alamgir.bscs2768",
+"identities":[{"user_id":"58ec8436ca4db442d9301a01",
+"provider":"auth0","connection":"Username-Password-Authentication",
+"isSocial":false}],"created_at":"2017-04-11T07:22:30.891Z","sub":"auth0|58ec8436ca4db442d9301a01"}
+
+
+// auth.js?031a:26 alamgir.bscs2768@iiu.edu.pk
+// auth.js?031a:27 alamgir.bscs2768@iiu.edu.pk
+// auth.js?031a:28 https://s.gravatar.com/avatar/d4b22aa23197af9d1c007642f0cb98a9?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fal.png
+

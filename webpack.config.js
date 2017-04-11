@@ -39,6 +39,7 @@ module.exports = {
             Msgbar: "app/components/toolbars/msgtoolbar.jsx",
             Lock: "public/assets/js/lock.min.js",
             Boardbar: "app/components/toolbars/boardtoolbar.jsx",
+            Verify: "app/components/authentication/verify.jsx",
             applicationStyles: 'app/styles/app.scss',
             HomepageStyles: 'app/styles/homepage.scss',
             noteStyle: 'app/styles/notestyle.scss',

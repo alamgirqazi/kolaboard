@@ -4,6 +4,7 @@ var { Route, Router, hashHistory,browserHistory, IndexRoute } = require("react-r
 var Main = require("Main");
 import injectTapEventPlugin from "react-tap-event-plugin";
 import FirstPage from "app/components/firstpage.jsx";
+import Verify from "app/components/authentication/verify.jsx";
 import { requireAuth } from 'auth.js';
 
 //load foundation
@@ -29,6 +30,7 @@ ReactDOM.render(
   <Router history={browserHistory}>
     <Route path="/" component={FirstPage}> </Route>
     <Route path="/app" component={Main} onEnter={requireAuth}  />
+    <Route path="/verify" component={Verify} onEnter={requireAuth}  />
          <Route path="*" component={NotFound} />
 
   </Router>,

@@ -17,7 +17,6 @@ lock.on('authenticated', authResult => {
       // Handle error
       return;
     }
-
     // localStorage.setItem("accessToken", authResult.accessToken);
     localStorage.setItem("profile", JSON.stringify(profile));
 console.log(JSON.stringify(profile));
@@ -32,9 +31,14 @@ console.log(profile["picture"]);
   });
     setIdToken(authResult.idToken);
     // browserHistory.push('#app');
-
-
-    browserHistory.push('/app');
+if(profile['email_verified']== true)
+{
+ browserHistory.push('/app');
+   
+}
+else
+ browserHistory.push('/verify');
+   
     // browserHistory.push('/special');
 });
 
