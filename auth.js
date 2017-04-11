@@ -4,7 +4,7 @@ import Auth0Lock from 'auth0-lock';
 const ID_TOKEN_KEY = 'id_token';
 
 
-const lock = new Auth0Lock('a9sKTlJnoUuKXRLA9FvgmLnPe8BVywGM', 'alamgirqazi.auth0.com', {
+const lock = new Auth0Lock('xDe229e1uR9PPKZMutFVk4QZYpAVU9l6', 'kolaboard.auth0.com', {
     auth: {
         redirectUrl: `${window.location.origin}`,
         responseType: 'token'
@@ -26,12 +26,6 @@ console.log(JSON.stringify(profile));
 console.log(profile["email"]);
 console.log(profile["name"]);
 console.log(profile["picture"]);
-
-// Local Authentication
-
-//Google
-
-
 
 
     // Update DOM
