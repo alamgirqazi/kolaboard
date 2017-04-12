@@ -2,7 +2,7 @@ import decode from 'jwt-decode';
 import { browserHistory } from 'react-router';
 import Auth0Lock from 'auth0-lock';
 const ID_TOKEN_KEY = 'id_token';
-
+var emailverified;
 
 const lock = new Auth0Lock('xDe229e1uR9PPKZMutFVk4QZYpAVU9l6', 'kolaboard.auth0.com', {
     auth: {
@@ -26,12 +26,17 @@ console.log(profile["email"]);
 console.log(profile["name"]);
 console.log(profile["picture"]);
 
+    console.log(profile['email_verified']);
+emailverified = profile['email_verified'];
+    localStorage.setItem("emailverified", emailverified);
 
+console.log('var email verified ' + emailverified);    
     // Update DOM
   });
     setIdToken(authResult.idToken);
     // browserHistory.push('#app');
-if(profile['email_verified']== true)
+
+if(emailverified== true)
 {
  browserHistory.push('/app');
    
@@ -60,6 +65,13 @@ export function login(options) {
 export function requireAuth(nextState, replace) {
     if (!isLoggedIn()) {
         replace({ pathname: '/' });
+    }
+}
+export function requireVerification(nextState, replace) {
+
+    if (emailverified==false ||!isLoggedIn() ){
+        replace({ pathname: '/' });
+   
     }
 }
 
