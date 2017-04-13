@@ -8,42 +8,10 @@ import { greenA400 } from "material-ui/styles/colors";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
 
-const modalstyle ={
-      width:"75%",
-      textAlign:"center",
-      paddingLeft:"20%"
-        }
-        const style = {
- width: '100%',
-  display:"block",
-  margin:"2%",
-};
-const stylefacebook = {
-   width: '100%',
-  display:"block",
-  margin:"2%",
-backgroundColor:"#5499C7",
-color:"white"
-};
-const stylegmail = {
-   width: '100%',
-  display:"block",
-  margin:"2%",
-backgroundColor:"#E74C3C",
-color:"white"
-};
-
 const muiTheme = getMuiTheme({
   palette: {
-    //   textColor: greenA400,
     primary1Color: greenA400
-    //  primary3Color:greenA400,
-    //   accent1Color: greenA400,
-    //   accent2Color: greenA400,
-    //   accent3Color: greenA400
-
-    //this is for changing the theme
-  }
+   }
 });
 
 
@@ -52,29 +20,16 @@ export default class SignupDialog extends React.Component {
   constructor(props)
   {
     super(props);
-                // this.handleOpen = this.handleOpen.bind(this);
-
-        // console.log(this.props);
-
-        // console.log('something');
-
+    
   }
   state = {
     open: false,
   };
 
   handleOpen = () => {
-    //  this.setState({open: true});
-// e.preventDefault();
         this.props.lock.show();
 
   };
-
-  // handleClose = () => {
-  //   this.setState({open: false});
-  // };
-     
-
 
   render() {
 
@@ -95,22 +50,3 @@ export default class SignupDialog extends React.Component {
   }
 }
 
-
-
-//         {/*<Dialog
-//           title="Sign Up"
-//           actions={actions}
-//           modal={false}
-//           autoDetectWindowHeight={true}
-//           open={this.state.open}
-//           style={modalstyle}
-//           onRequestClose={this.handleClose}
-//         >
-        
-// <div className="container-fluid">
-//               <button className="btn" style={stylegmail} >{/*<img height="1px" src="gmaillogo.png"/>*/}Log In with Google</button>
-//         //       <button className="btn" style={stylefacebook}>{/*<img height="1px" src="facebooklogo.png"/>*/}Log In with Facebook</button>
-//         //       <input placeholder="Email" style={style} className="emailpass"/>
-//         //       <input placeholder="Password" style={style}  className="emailpass"/>
-//         //       </div>             
-//         // </Dialog>*/}

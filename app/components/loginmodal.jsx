@@ -4,6 +4,10 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import DrawerOpenRight from './drawer';
 
+import getMuiTheme from "material-ui/styles/getMuiTheme";
+import { cyan500 } from "material-ui/styles/colors";
+import { greenA400 } from "material-ui/styles/colors";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 const style = {
  width: '100%',
   display:"block",
@@ -28,6 +32,30 @@ const stylegmail = {
 backgroundColor:"#E74C3C",
 color:"white"
 };
+
+// var options = {
+//       languageDictionary: {
+//         emailInputPlaceholder: "something@youremail.com",
+//         title: "Log In"
+//       },
+//         allowSignUp: false,
+
+//       // allowLogin: false,
+
+//       theme: {
+//         logo: "http://icons.iconarchive.com/icons/custom-icon-design/flatastic-11/48/Customer-service-icon.png",
+//         primaryColor: "#00E676"
+//       }
+//     };
+
+
+
+const muiTheme = getMuiTheme({
+  palette: {
+
+  }
+});
+
 /**
  * Dialog with action buttons. The actions are passed in as an array of React objects,
  * in this example [FlatButtons](/#/components/flat-button).
@@ -35,55 +63,39 @@ color:"white"
  * You can also close this dialog by clicking outside the dialog, or with the 'Esc' key.
  */
 export default class LoginDialog extends React.Component {
+
+  constructor(props)
+  {
+    super(props);
+    
+  }
   state = {
     open: false,
   };
 
   handleOpen = () => {
-    this.setState({open: true});
-  };
 
-  handleClose = () => {
-    this.setState({open: false});
-  };
-     
+        this.props.lock.show();
+
+  };  
 
 
   render() {
-    const actions = [
-      /*<FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleClose}
-      />,*/
-      <RaisedButton
-        label="Submit"
-        primary={true}
-        keyboardFocused={false}
-        onTouchTap={this.handleClose}
-      />,
-    ];
+
+    const sty =
+    {
+      margin: 12,    
+    }
 
     return (
+          <MuiThemeProvider muiTheme={muiTheme}>
+
       <div>
-        <RaisedButton label="Log In" primary={true} onTouchTap={this.handleOpen} />
-        <Dialog
-          title="Log In"
-          actions={actions}
-          modal={false}
-          autoDetectWindowHeight={true}
-          style={modalstyle}
-          open={this.state.open}
-          onRequestClose={this.handleClose}
-        >
-         <div className="container-fluid">
-              <button className="btn" style={stylegmail} >Log In with Google</button>
-              <button className="btn" style={stylefacebook}>Log In with Facebook</button>
-              <input placeholder="Email" style={style} className="emailpass"/>
-              <input placeholder="Password" style={style}  className="emailpass"/>
-              </div>
-        </Dialog>
-        </div>
+        <RaisedButton label={this.props.title} style={sty} primary={true}   onTouchTap={this.handleOpen} />       
+      </div>
+</MuiThemeProvider>
+// labelColor="white" backgroundColor="#00E676"
     );
   }
 }
+ 

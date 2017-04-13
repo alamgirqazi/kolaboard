@@ -19,23 +19,49 @@ export default class NewNav extends React.Component {
   }
 
   componentWillMount() {
-    var options = {
+  
+
+
+    var optionsLogin = {
       languageDictionary: {
         emailInputPlaceholder: "something@youremail.com",
-        title: "Log Me In"
+        title: "Log In"
       },
+        allowSignUp: false,
+
       // allowLogin: false,
 
       theme: {
-        logo: "https://github.com/alamgirqazi/kolaboard/blob/master/public/Klogo.png",
+        logo: "http://icons.iconarchive.com/icons/custom-icon-design/flatastic-11/48/Customer-service-icon.png",
         primaryColor: "#00E676"
       }
     };
 
-    this.lock = new Auth0Lock(
+
+
+    var optionsSignup = {
+      languageDictionary: {
+        emailInputPlaceholder: "something@youremail.com",
+        title: "Sign Up"
+      },
+      allowLogin: false,
+
+      theme: {
+        logo: "http://icons.iconarchive.com/icons/custom-icon-design/flatastic-11/48/Customer-service-icon.png",
+        primaryColor: "#00E676"
+      }
+    };
+
+    
+    this.lockLogin = new Auth0Lock(
       "xDe229e1uR9PPKZMutFVk4QZYpAVU9l6",
       "kolaboard.auth0.com",
-      options
+      optionsLogin
+    );
+    this.lockSignup = new Auth0Lock(
+      "xDe229e1uR9PPKZMutFVk4QZYpAVU9l6",
+      "kolaboard.auth0.com",
+      optionsSignup
     );
     // this.lock = new Auth0Lock('a9sKTlJnoUuKXRLA9FvgmLnPe8BVywGM', '5BZ51d58oDnkGSudOaDpCnhJfa7z5sn0EoLH_Jj6kMRvTfX5oJ2XuQKUFXLuEvKd',options);
     // this.lock = new Auth0Lock('YOUR_CLIENT_ID', 'YOUR_CLIENT_DOMAIN',options);
@@ -81,12 +107,12 @@ export default class NewNav extends React.Component {
             <ul className="menu"> 
             
                <li>
-//  <LoginDialog title = "Log In"  />
+<LoginDialog title = "Log In" lock={this.lockLogin} />
 
               </li>
 
               <li>
-                <SignupDialog title="Sign Up" lock={this.lock} />
+                <SignupDialog title="Sign Up" lock={this.lockSignup} />
 
               </li>
               {/*<li>

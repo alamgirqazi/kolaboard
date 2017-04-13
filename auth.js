@@ -69,6 +69,50 @@ export function login(options) {
 //     browserHistory.replace('/');
 // }
 
+export function redirectVerify(nextState, replace) {
+lock.on('authenticated', authResult => {
+     lock.getUserInfo(authResult.accessToken, function(error, profile) {
+    if (error) {
+      // Handle error
+      return;
+    }
+    // localStorage.setItem("accessToken", authResult.accessToken);
+    localStorage.setItem("profile", JSON.stringify(profile));
+console.log(JSON.stringify(profile));
+
+//Facebook
+console.log(profile["email"]);
+console.log(profile["name"]);
+console.log(profile["picture"]);
+
+    console.log(profile['email_verified']);
+emailverified = profile['email_verified'];
+    localStorage.setItem("emailverified", emailverified);
+
+console.log('var email verified ' + emailverified);    
+    // Update DOM
+if(emailverified)
+{
+     browserHistory.push('/app');
+console.log('if') 
+}
+//  else 
+//    {
+//      browserHistory.push('/verify');
+//      console.log('else')
+//  }
+
+ });
+  
+  console.log('outside func' +emailverified);
+    // setIdToken(authResult.idToken);
+    // // browserHistory.push('#app');
+
+
+    // browserHistory.push('/special');
+});
+}
+
 export function requireAuth(nextState, replace) {
 
     if (!isLoggedIn()) {

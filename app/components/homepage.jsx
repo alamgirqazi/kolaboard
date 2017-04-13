@@ -69,12 +69,39 @@ export default class Homepage extends React.Component {
     this.state = {
       open: false,
     };
+
+    this.openLogin = this.openLogin.bind(this);
  }
 
   componentDidMount () {
           this.myFunc();
 
   }
+
+
+  componentWillMount () {
+
+  var options = {
+      languageDictionary: {
+        emailInputPlaceholder: "something@youremail.com",
+        title: "Login"
+      },
+       allowSignUp: false,
+
+      theme: {
+        logo: "http://icons.iconarchive.com/icons/custom-icon-design/flatastic-11/48/Customer-service-icon.png",
+        primaryColor: "#00E676"
+      }
+    };
+
+
+      this.lock = new Auth0Lock(
+      "xDe229e1uR9PPKZMutFVk4QZYpAVU9l6",
+      "kolaboard.auth0.com",
+      options
+    );
+  }
+  
    myFunc()   {
         document.addEventListener("DOMContentLoaded", function() {
             Typed.new(".element", {
@@ -91,14 +118,10 @@ export default class Homepage extends React.Component {
     }
     openLogin(){
        return(
-           <LoginDialog/>
+           <LoginDialog lock={this.lock.show()}/>
        ); 
     }
-       openSignUp(){
-       return(
-           <SignupDialog title="Sign Up! it's free"/>
-       ); 
-    }
+       
 render()
 {
  
@@ -117,13 +140,14 @@ return (
 <p style={aligncenter}>Kolaboard lets you organize and prioritize your tasks <br/> making collaboration easier and more fun.</p>
 <br/>
 
-  <SignupDialog title="Sign Up now! It's free"  primary1Color={true}  />
+  <SignupDialog title="Sign Up now! It's free"  primary1Color={true} lock={this.lock}  />
 {/*labelColor="white"*/}
 <br/>
 <br/>
 </div>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+<p style={aligncenter}>Already using kolaboard? <a onClick={this.openLogin}>Login</a>
  </p>
+
 </div>
 <br/>
 <br/>
@@ -196,3 +220,4 @@ return (
   
 };
 }
+        //  <RaisedButton onTouchTap={this.openLogin} />       

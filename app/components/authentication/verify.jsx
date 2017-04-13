@@ -1,6 +1,8 @@
 import React from 'react';
 
 var {Link, IndexLink} = require("react-router");
+import RaisedButton from 'material-ui/RaisedButton';
+import {redirectVerify } from 'auth.js';
 
 export default class Verify extends React.Component {
   
@@ -19,6 +21,7 @@ export default class Verify extends React.Component {
     return (
       <div>
        <h2>Visit your Email to verify you account and then press OK.</h2>
+<button onClick={redirectVerify}>sdfdfds</button>
             <IndexLink
               to="/app"
               activeClassName="active"
@@ -27,7 +30,6 @@ export default class Verify extends React.Component {
             }}>
               Go to App
             </IndexLink>
-  
 </div>    );
   }
 }
