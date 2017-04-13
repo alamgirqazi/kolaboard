@@ -192,11 +192,11 @@ return (
 <p style={aligncenter }>Sign Up for free and enjoy all the exclusive features<br/>of kolaboard</p>
 <br/>
 <br/>
-  <SignupDialog title="Sign Up now! It's free"/>
+  <SignupDialog title="Sign Up now! It's free" primary1Color={true} lock={this.lock} />
 <br/>
 <br/>
 <br/>
-<p style={aligncenter}>Already using kolaboard? <a>Login</a>
+<p style={aligncenter}>Already using kolaboard?  <a onClick={this.openLogin}>Login</a>
  </p>
  <br/>
  <br/>
