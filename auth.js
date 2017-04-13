@@ -32,20 +32,25 @@ emailverified = profile['email_verified'];
 
 console.log('var email verified ' + emailverified);    
     // Update DOM
-  });
+if(emailverified==true)
+{
+     browserHistory.push('/app');
+ }
+ else 
+   {
+     browserHistory.push('/verify');
+ }
+
+ });
+  
+  console.log('outside func' +emailverified);
     setIdToken(authResult.idToken);
     // browserHistory.push('#app');
 
-if(emailverified== true)
-{
- browserHistory.push('/app');
-   
-}
-else
- browserHistory.push('/verify');
-   
+
     // browserHistory.push('/special');
 });
+
 
 export function login(options) {
     lock.show(options);
@@ -63,15 +68,31 @@ export function login(options) {
 // }
 
 export function requireAuth(nextState, replace) {
+
     if (!isLoggedIn()) {
         replace({ pathname: '/' });
     }
 }
 export function requireVerification(nextState, replace) {
 
-    if (emailverified==false ||!isLoggedIn() ){
-        replace({ pathname: '/' });
+// console.log('req veri');
+// console.log('req veri ' + emailverified);
+ emailverified = localStorage.getItem('emailverified');
+    console.log('this shouldnt be undefined ' + emailverified);
    
+   
+   
+    if (emailverified==true && isLoggedIn()){
+         replace({ pathname: '/' });
+        // browserHistory.push('/app');
+    
+}
+    
+    else
+    {
+    //  browserHistory.push('/verify');
+            replace({ pathname: '/verify' });
+
     }
 }
 
