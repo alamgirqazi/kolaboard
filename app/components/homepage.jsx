@@ -131,7 +131,6 @@ return (
     <div style={scrollx}>
      {/*<Scrollbars style={{  }}>*/}
 
-<div>
        
 <div className="firstPage">
     <h2 style={style}> A Collaboration app <strong className="element typewriteColor" ></strong></h2>
@@ -144,7 +143,6 @@ return (
 {/*labelColor="white"*/}
 <br/>
 <br/>
-</div>
 <p style={aligncenter}>Already using kolaboard? <a onClick={this.openLogin}>Login</a>
  </p>
 
@@ -153,19 +151,18 @@ return (
 <br/>
 <br/>
 
-<div className="thirdPage">
+<div className="secondPage">
 {/*<h2 style={style}>Another heading probably?</h2>*/}
 <h4 style={aligncentercollaborate}>Easier to communicate and collaborate<br/>with noteboards</h4>
 <br/>
 <br/>
 <img src="noticeboard2.png" alt="Mountain View" style={styleimg}/>
 {/*<img src="noticeboard.jpg" alt="Mountain View" style={styleimg}/>*/}
-<br/>
-<br/>
-<br/>
-<br/>
+
 </div>
-<div className="fourthPage">
+
+
+<div className="thirdPage">
     <br/>
 <h1>How it works?</h1>
 <br/>
@@ -183,7 +180,7 @@ return (
 <br/>
 </div>
 
-<div className="secondPage">
+<div className="fourthPage">
 <h2 style={style}>What are you waiting for?</h2>
 <br/>
 <br/>
