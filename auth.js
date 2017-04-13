@@ -32,13 +32,15 @@ emailverified = profile['email_verified'];
 
 console.log('var email verified ' + emailverified);    
     // Update DOM
-if(emailverified==true)
+if(emailverified)
 {
      browserHistory.push('/app');
- }
+console.log('if') 
+}
  else 
    {
      browserHistory.push('/verify');
+     console.log('else')
  }
 
  });
@@ -73,6 +75,16 @@ export function requireAuth(nextState, replace) {
         replace({ pathname: '/' });
     }
 }
+export function redirect(nextState, replace) {
+var email = localStorage.getItem('emailverified');
+    if (isLoggedIn() && email ){
+        console.log('redirecting if')
+        replace({ pathname: '/app' });
+    }
+    // else if (isLoggedIn() && email=="false" ){
+    //     replace({ pathname: '/verify' });
+    // }
+}
 export function requireVerification(nextState, replace) {
 
 // console.log('req veri');
@@ -82,16 +94,32 @@ export function requireVerification(nextState, replace) {
    
    
    
-    if (emailverified==true && isLoggedIn()){
-         replace({ pathname: '/' });
+    if (!emailverified && isLoggedIn()){
+        //  replace({ pathname: '/' });
+         console.log('req auth if')
         // browserHistory.push('/app');
     
 }
+    else if (emailverified=="true" && isLoggedIn()){
+        //  replace({ pathname: '/' });
+         console.log('req auth else if')
+        // browserHistory.push('/app');
+    
+}
+    
+    // else if (!emailverified && isLoggedIn())
+    // {
+    // //  browserHistory.push('/verify');
+    //         replace({ pathname: '/verify' });
+    //      console.log('req auth else falseeeeeee')
+
+    // }
     
     else
     {
     //  browserHistory.push('/verify');
             replace({ pathname: '/verify' });
+         console.log('req auth else')
 
     }
 }
