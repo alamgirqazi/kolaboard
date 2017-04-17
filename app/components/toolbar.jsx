@@ -21,6 +21,10 @@ const style = {
 backgroundColor: '$secondaryColor',
   // backgroundColor: '#dcf8c6',
 }
+const leftmost = 
+{
+  marginLeft: 0,
+}
 
 const paddingIcon={
   paddingBottom: '48px',
@@ -101,23 +105,16 @@ nickname = localprofileparse.nickname;
         <ToolbarGroup>
        <ToolbarGroup firstChild={true}>
           <List>
-        <ListItem
+        <ListItem disabled={true}
 
             leftAvatar={
-        // <Avatar
-        //   color={blue300}
-        //   backgroundColor={darkBlack}
-        //   size={40}
-        // >
-        // A
-        // </Avatar>
-
         <Avatar src={profilepic} />
       }
           primaryText={nickname}
            />
         </List>
-           <IconMenu
+        <div className="leftmostlogout">
+           <IconMenu style={leftmost}
             iconButtonElement={
               <IconButton touch={true}>
                 <NavigationExpandMoreIcon />
@@ -128,6 +125,7 @@ nickname = localprofileparse.nickname;
             <MenuItem primaryText="Settings" />
             <MenuItem primaryText="Log Out" onClick = {logout}/>
           </IconMenu>
+     </div>
         </ToolbarGroup>
 
            </ToolbarGroup>

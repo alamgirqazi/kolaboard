@@ -86,7 +86,7 @@ export default class Homepage extends React.Component {
         emailInputPlaceholder: "something@youremail.com",
         title: "Login"
       },
-       allowSignUp: false,
+      //  allowSignUp: false,
 
       theme: {
         logo: "http://icons.iconarchive.com/icons/custom-icon-design/flatastic-11/48/Customer-service-icon.png",
