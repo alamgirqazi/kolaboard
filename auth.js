@@ -3,7 +3,8 @@ import { browserHistory } from 'react-router';
 import Auth0Lock from 'auth0-lock';
 const ID_TOKEN_KEY = 'id_token';
 var emailverified;
-
+var picture;
+var profileObject;
 const lock = new Auth0Lock('xDe229e1uR9PPKZMutFVk4QZYpAVU9l6', 'kolaboard.auth0.com', {
     auth: {
         redirectUrl: `${window.location.origin}`,
@@ -20,14 +21,17 @@ lock.on('authenticated', authResult => {
     // localStorage.setItem("accessToken", authResult.accessToken);
     localStorage.setItem("profile", JSON.stringify(profile));
 console.log(JSON.stringify(profile));
+profileObject= JSON.stringify(profile);
 
 //Facebook
+
 console.log(profile["email"]);
 console.log(profile["name"]);
 console.log(profile["picture"]);
 
     console.log(profile['email_verified']);
 emailverified = profile['email_verified'];
+picture = profile['picture'];
     localStorage.setItem("emailverified", emailverified);
 
 console.log('var email verified ' + emailverified);    
@@ -111,6 +115,12 @@ console.log('if')
 
     // browserHistory.push('/special');
 });
+}
+export function userProfile()
+{
+return profileObject;
+// return picture;
+
 }
 
 export function requireAuth(nextState, replace) {

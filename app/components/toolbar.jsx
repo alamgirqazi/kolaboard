@@ -12,7 +12,9 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 var {Link, IndexLink} = require("react-router");
-import { logout } from 'auth.js';
+import { logout, userProfile } from 'auth.js';
+var profilepic;
+var nickname;
 
 const style = {
 // backgroundColor: '#D0E9EA',
@@ -52,6 +54,22 @@ export default class ToolbarExamplesSimple extends React.Component {
   handleChange = (event, index, value) => this.setState({value});
 
   render() {
+    console.log('asdasd')
+var profileObject = userProfile();
+	var profile = JSON.parse(profileObject);
+
+console.log(profile.picture);
+
+profilepic = profile.picture;
+
+console.log('identity' + profile.identities.connection);
+console.log('identity profile' + profile.identities[0].provider);
+
+if(profile.identities[0].provider=="facebook")
+nickname = profile.name;
+else
+nickname = profile.nickname;
+
     return (
       <Toolbar style ={style}>
         <ToolbarGroup>
@@ -80,15 +98,17 @@ export default class ToolbarExamplesSimple extends React.Component {
         <ListItem
 
             leftAvatar={
-        <Avatar
-          color={blue300}
-          backgroundColor={darkBlack}
-          size={40}
-        >
-        A
-        </Avatar>
+        // <Avatar
+        //   color={blue300}
+        //   backgroundColor={darkBlack}
+        //   size={40}
+        // >
+        // A
+        // </Avatar>
+
+        <Avatar src={profilepic} />
       }
-          primaryText="Alam"
+          primaryText={nickname}
            />
         </List>
            <IconMenu
