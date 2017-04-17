@@ -64,10 +64,10 @@ export function login(options) {
     }
 }
 
-// export function logout() {
-//     clearIdToken();
-//     browserHistory.replace('/');
-// }
+export function logout() {
+    clearIdToken();
+    browserHistory.replace('/');
+}
 
 export function redirectVerify(nextState, replace) {
 lock.on('authenticated', authResult => {

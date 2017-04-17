@@ -12,7 +12,7 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 var {Link, IndexLink} = require("react-router");
-
+import { logout } from 'auth.js';
 
 const style = {
 // backgroundColor: '#D0E9EA',
@@ -100,7 +100,7 @@ export default class ToolbarExamplesSimple extends React.Component {
           >
             <MenuItem primaryText="Profile" />
             <MenuItem primaryText="Settings" />
-            <MenuItem primaryText="Log Out" />
+            <MenuItem primaryText="Log Out" onClick = {logout}/>
           </IconMenu>
         </ToolbarGroup>
 

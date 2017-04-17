@@ -21,10 +21,25 @@ const heightboard={
   backgroundColor: 'white',
 }
 export default class Board extends React.Component {
+  constructor() {
+        super();
+
+        this.state = {
+            full: ""
+        };
+        
+        this.handle = this.handle.bind(this);
+    }
+    handle(){
+      if(this.state.full=="fullScreen")
+      this.setState({full:""});
+      else
+            this.setState({full:"fullScreen"});
+    }
+
   render() {
-    return (
-      <div className="" style={heightboard}>
-        {/*<Infinite containerHeight={500} elementHeight={10}  >*/}
+  return (
+      <div className={this.state.full} style={heightboard} >
 <Boardbar/>
         <Scrollbars
 
@@ -38,7 +53,7 @@ export default class Board extends React.Component {
 {/*<h4 style={align}>Noteboard</h4>*/}
 <br/>
           <div className="panel">
-            <Boards count={10} />
+            <Boards count={10} handleState={this.handle}/>
 <br/>
    <br/>
    <br/>
@@ -53,5 +68,6 @@ export default class Board extends React.Component {
 
       </div>
     );
-  }
+  
+}
 }

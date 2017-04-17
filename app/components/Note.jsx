@@ -169,6 +169,8 @@ export default class Boards extends React.Component {
                 {this.state.notes.map(this.eachNote)}
                  <div className="fixedbutton">
       {/*onTouchTap={this.handleTouchTap}*/}
+                    <button onClick={this.props.handleState}
+                            className="btn btn-primary glyphicon glyphicon-pencil"/>
                    <FloatingActionButton style={style}   onTouchTap={this.handleTouchTap}
           label="yo" onClick={this.add.bind(null,"new note")}>
       <ContentAdd />
