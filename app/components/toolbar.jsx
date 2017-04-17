@@ -51,24 +51,30 @@ export default class ToolbarExamplesSimple extends React.Component {
     };
   }
 
+componentDidMount(){
+}
+
   handleChange = (event, index, value) => this.setState({value});
 
   render() {
-    console.log('asdasd')
-var profileObject = userProfile();
-	var profile = JSON.parse(profileObject);
 
-console.log(profile.picture);
+// var profileObject = userProfile();
+ var localprofile = localStorage.getItem('profile');
+	var localprofileparse = JSON.parse(localprofile);
+	//  var profile = JSON.parse(profileObject);
 
-profilepic = profile.picture;
+// console.log(profile.picture);
+console.log('profile parsed');
+console.log(localprofileparse);
 
-console.log('identity' + profile.identities.connection);
-console.log('identity profile' + profile.identities[0].provider);
-
-if(profile.identities[0].provider=="facebook")
-nickname = profile.name;
+profilepic = localprofileparse.picture;
+console.log(profilepic+ 'asd');
+console.log(nickname)
+if(localprofileparse.identities[0].provider=="facebook" || localprofileparse.identities[0].provider=="google-oauth2")
+nickname = localprofileparse.name;
 else
-nickname = profile.nickname;
+nickname = localprofileparse.nickname;
+  
 
     return (
       <Toolbar style ={style}>

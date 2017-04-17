@@ -25,16 +25,16 @@ profileObject= JSON.stringify(profile);
 
 //Facebook
 
-console.log(profile["email"]);
-console.log(profile["name"]);
-console.log(profile["picture"]);
+// console.log(profile["email"]);
+// console.log(profile["name"]);
+// console.log(profile["picture"]);
 
-    console.log(profile['email_verified']);
+//     console.log(profile['email_verified']);
 emailverified = profile['email_verified'];
 picture = profile['picture'];
     localStorage.setItem("emailverified", emailverified);
 
-console.log('var email verified ' + emailverified);    
+// console.log('var email verified ' + emailverified);    
     // Update DOM
 if(emailverified)
 {
@@ -49,7 +49,6 @@ console.log('if')
 
  });
   
-  console.log('outside func' +emailverified);
     setIdToken(authResult.idToken);
     // browserHistory.push('#app');
 
