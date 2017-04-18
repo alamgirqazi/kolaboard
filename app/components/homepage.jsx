@@ -84,9 +84,21 @@ export default class Homepage extends React.Component {
   var options = {
       languageDictionary: {
         emailInputPlaceholder: "something@youremail.com",
-        title: "Login"
+        title: "Signup / Login"
       },
       //  allowSignUp: false,
+
+      theme: {
+        logo: "http://icons.iconarchive.com/icons/custom-icon-design/flatastic-11/48/Customer-service-icon.png",
+        primaryColor: "#00E676"
+      }
+    };
+  var optionsLogin = {
+      languageDictionary: {
+        emailInputPlaceholder: "something@youremail.com",
+        title: "Login"
+      },
+        allowSignUp: false,
 
       theme: {
         logo: "http://icons.iconarchive.com/icons/custom-icon-design/flatastic-11/48/Customer-service-icon.png",
@@ -100,9 +112,14 @@ export default class Homepage extends React.Component {
       "kolaboard.auth0.com",
       options
     );
+      this.lockLogin = new Auth0Lock(
+      "xDe229e1uR9PPKZMutFVk4QZYpAVU9l6",
+      "kolaboard.auth0.com",
+      optionsLogin
+    );
   }
   
-   myFunc()   {
+ myFunc()   {
         document.addEventListener("DOMContentLoaded", function() {
             Typed.new(".element", {
                 strings: ["<em> for teams.</em>", " <em>for students.</em>", "<em> for developers. </em>"],
@@ -118,13 +135,14 @@ export default class Homepage extends React.Component {
     }
     openLogin(){
        return(
-           <LoginDialog lock={this.lock.show()}/>
+           <LoginDialog lock={this.lockLogin.show()}/>
        ); 
     }
        
 render()
 {
  
+          this.myFunc();
 
 return (
      <MuiThemeProvider  muiTheme={muiTheme}>
@@ -175,14 +193,14 @@ return (
   <object data="https://youtu.be/M1kz70Vgm94"
    width="450" height="315"></object>*/}
 
-<iframe width="600" height="315" src="https://www.youtube.com/embed/M1kz70Vgm94" frameborder="0" allowfullscreen></iframe>
+<iframe width="600" height="315" src="https://www.youtube.com/embed/xky48zyL9iA" frameborder="0" allowfullscreen></iframe>
 <br/>
 <br/>
 </div>
 
 <div className="fourthPage">
 <h2 style={style}>What are you waiting for?</h2>
-<br/>
+
 <br/>
 <br/>
 <br/>
@@ -207,9 +225,7 @@ return (
             <br/>
             <p>&copy; copyright 2017 Kolaboard</p>
 </div>
-<br/>
-<br/>
-<br/>
+
   {/*</Scrollbars>*/}
 </div>
 </MuiThemeProvider>

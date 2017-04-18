@@ -5,6 +5,10 @@ const ID_TOKEN_KEY = 'id_token';
 var emailverified;
 var picture;
 var profileObject;
+
+import {myFunc } from 'app/components/homepage.jsx';
+
+
 const lock = new Auth0Lock('xDe229e1uR9PPKZMutFVk4QZYpAVU9l6', 'kolaboard.auth0.com', {
     auth: {
         redirectUrl: `${window.location.origin}`,
@@ -70,6 +74,10 @@ export function login(options) {
 export function logout() {
     clearIdToken();
     browserHistory.replace('/');
+// myFunc;
+console.log(myFunc);
+location.reload();
+
 }
 
 export function redirectVerify(nextState, replace) {
