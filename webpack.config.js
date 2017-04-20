@@ -78,10 +78,4 @@ module.exports = {
 //     ]
 //   },
 //   devtool: 'cheap-module-eval-source-map'
-// };// {
-    
-//     "plugins": [
-//   "transform-decorators-legacy",
-//   "transform-class-properties"
-// ]
-// }
+// };

@@ -6,6 +6,8 @@ class Store  {
 // @observable filter = "";
 id = 6;
 
+@observable full= "";
+// @observable fullscreen = !
 }
 
 var store =  window.store = new Store 

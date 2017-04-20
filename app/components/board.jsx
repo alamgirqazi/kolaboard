@@ -7,6 +7,7 @@ import Toolbar from 'Toolbar';
 import Boards from "app/components/Note.jsx";
 import Boardbar from 'app/components/toolbars/boardtoolbar.jsx';
 import Store from 'app/store/UIstore.js'
+import {observer} from 'mobx-react'
 
 const align =
 {
@@ -21,6 +22,8 @@ const heightboard={
   height: '100%',
   backgroundColor: 'white',
 }
+
+@observer
 export default class Board extends React.Component {
   constructor() {
         super();
@@ -32,15 +35,22 @@ export default class Board extends React.Component {
         this.handle = this.handle.bind(this);
     }
     handle(){
-      if(this.state.full=="fullScreen")
-      this.setState({full:""});
+      // if(this.state.full=="fullScreen")
+      // this.setState({full:""});
+      // else
+      //       this.setState({full:"fullScreen"});
+      if(Store.full=="fullScreen")
+      Store.full=
+      ""
       else
-            this.setState({full:"fullScreen"});
-    }
+                 Store.full="fullScreen"    }
 
   render() {
+
+
+    console.log(Store.todos[0]);
   return (
-      <div className={this.state.full} style={heightboard} >
+      <div className={Store.full} style={heightboard} >
 <Boardbar/>
         <Scrollbars
 
@@ -54,13 +64,14 @@ export default class Board extends React.Component {
 {/*<h4 style={align}>Noteboard</h4>*/}
 <br/>
           <div className="panel">
-            <Boards count={10} handleState={this.handle}/>
+            <Boards count={10}/>
 <br/>
    <br/>
    <br/>
    <br/>
    <br/>
    <br/>
+
           </div>
 
         </Scrollbars>
