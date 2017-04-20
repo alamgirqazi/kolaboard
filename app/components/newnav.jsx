@@ -19,15 +19,12 @@ export default class NewNav extends React.Component {
   }
 
   componentWillMount() {
-  
-
-
     var optionsLogin = {
       languageDictionary: {
         emailInputPlaceholder: "something@youremail.com",
         title: "Log In"
       },
-        allowSignUp: false,
+      allowSignUp: false,
 
       // allowLogin: false,
 
@@ -36,8 +33,6 @@ export default class NewNav extends React.Component {
         primaryColor: "#00E676"
       }
     };
-
-
 
     var optionsSignup = {
       languageDictionary: {
@@ -52,7 +47,6 @@ export default class NewNav extends React.Component {
       }
     };
 
-    
     this.lockLogin = new Auth0Lock(
       "xDe229e1uR9PPKZMutFVk4QZYpAVU9l6",
       "kolaboard.auth0.com",
@@ -63,7 +57,9 @@ export default class NewNav extends React.Component {
       "kolaboard.auth0.com",
       optionsSignup
     );
+
     // this.lock = new Auth0Lock('a9sKTlJnoUuKXRLA9FvgmLnPe8BVywGM', '5BZ51d58oDnkGSudOaDpCnhJfa7z5sn0EoLH_Jj6kMRvTfX5oJ2XuQKUFXLuEvKd',options);
+
     // this.lock = new Auth0Lock('YOUR_CLIENT_ID', 'YOUR_CLIENT_DOMAIN',options);
   }
   render() {
@@ -104,10 +100,10 @@ export default class NewNav extends React.Component {
           </div>
           <div className="top-bar-right">
 
-            <ul className="menu"> 
-            
-               <li>
-<LoginDialog title = "Log In" lock={this.lockLogin} />
+            <ul className="menu">
+
+              <li>
+                <LoginDialog title="Log In" lock={this.lockLogin} />
 
               </li>
 
@@ -115,31 +111,9 @@ export default class NewNav extends React.Component {
                 <SignupDialog title="Sign Up" lock={this.lockSignup} />
 
               </li>
-              {/*<li>
-                <RaisedButton
-// <li>
-
-//  <LoginDialog title = "Log In"  />
-
-
-// </li>
-
-
-
-                  label="Sign Up"
-                  primary={false}
-                  labelColor="#FFF"
-                  style={style}
-                  backgroundColor="#00E676"/>
-              </li>*/}
-
             </ul>
           </div>
-          <div>
 
-            {this.state.login ? <Drawer /> : null}
-
-          </div>
         </div>
       </MuiThemeProvider>
     );
