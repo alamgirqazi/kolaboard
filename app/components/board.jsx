@@ -6,6 +6,7 @@ import { Scrollbars } from "react-custom-scrollbars";
 import Toolbar from 'Toolbar';
 import Boards from "app/components/Note.jsx";
 import Boardbar from 'app/components/toolbars/boardtoolbar.jsx';
+import Store from 'app/store/UIstore.js'
 
 const align =
 {

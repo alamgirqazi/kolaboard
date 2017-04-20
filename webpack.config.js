@@ -15,7 +15,7 @@ module.exports = {
             '$': 'jquery',
             'jQuery': 'jquery'
 
-        })
+        }),
     ],
     output: { path: __dirname, filename: "./public/bundle.js" },
     resolve: {
@@ -23,6 +23,7 @@ module.exports = {
         alias: {
             Main: "app/components/main.jsx",
             Nav: "app/components/nav.jsx",
+            UIstore: "app/store/UIstore.js",
             FirstPage: "app/components/firstpage.jsx",
             LeftSide: "app/components/leftside.jsx",
             Homepage: "app/components/homepage.jsx",
@@ -52,9 +53,13 @@ module.exports = {
     module: {
         loaders: [{
             loader: ['babel-loader'],
-            query: { presets: ["react", "es2015", "stage-0"] },
+            query: { presets: ["react", "es2015", "stage-0"],
+                        plugins: ["transform-decorators-legacy","transform-class-properties"]
+
+         },
             test: /\.jsx?$/,
-            exclude: /(node_modules|bower_components)/
+            exclude: /(node_modules|bower_components)/,
+
         }]
     },
     devtool: 'cheap-module-eval-source-map'
@@ -73,4 +78,10 @@ module.exports = {
 //     ]
 //   },
 //   devtool: 'cheap-module-eval-source-map'
-// };
+// };// {
+    
+//     "plugins": [
+//   "transform-decorators-legacy",
+//   "transform-class-properties"
+// ]
+// }
