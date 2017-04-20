@@ -13,13 +13,19 @@ body {
 }
 
 .displ {
-    margin: 2%;
+    margin: 3%;
     display: inline;
     float: left;
 }
 
 // div.board {
 // }
+
+.yellowNote
+{
+        background-color: #FFF9C4;
+
+}
 div.note {
     height: 150px;
     width: 150px;
@@ -36,9 +42,9 @@ div.note {
   -transition: all .2s ease-in-out;
   -moz-transition: all .2s ease-in-out;
   -webkit-transition: all .2s ease-in-out;
-  transform: rotate(-3.5deg);
-  -webkit-transform: rotate(-3.5deg);
-  -moz-transform: rotate(-3.5deg);
+//   transform: rotate(-3.5deg);
+//   -webkit-transform: rotate(-3.5deg);
+//   -moz-transform: rotate(-3.5deg);
 
     // -webkit-box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, .2);
     // box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, .2);
@@ -57,6 +63,8 @@ div.note p {
     font-size: 18px;
     // font-size: 22px;
     padding: 5px;
+        background-color: #FFF9C4;
+
     word-wrap: break-word;
     // font-family:    "Helvetica", Arial;
     // font-family:    "Shadows Into Light", Arial;
@@ -72,6 +80,7 @@ div.note>span {
     right: 2px;
     opacity: 0;
     transition: opacity .25s linear;
+
 }
 
 div.note button {
@@ -80,7 +89,7 @@ div.note button {
 
 div.note>textarea {
     height: 75%;
-    background: rgba(255, 255, 255, .5);
+    background: rgba(255, 255, 255, .5);       
 }
 
 .glyphicon-plus {

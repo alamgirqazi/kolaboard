@@ -15,6 +15,12 @@ const wordwrap = {
 const savebtn = {
   bottom: "1px"
 };
+const pinstyle = {
+  width: "22px",
+  height: "22px",
+  margin: "0 auto",
+  display: "block"
+};
 
 const style = {
   margin: 12,
@@ -51,42 +57,48 @@ class Note extends React.Component {
   }
   renderDisplay() {
     return (
-      <div className="note">
+      <div className="">
+        <div className="note">
+          <div className="">
+            {" "}
+            <img src="assets/images/pin-icon.png" style={pinstyle} />
+          </div>
+          <Scrollbars
+            autoHeightMax={20}
+            renderTrackHorizontal={props => (
+              <div
+                {...props}
+                className="track-horizontal"
+                style={{ display: "none" }}
+              />
+            )}
+            renderThumbHorizontal={props => (
+              <div
+                {...props}
+                className="thumb-horizontal"
+                style={{ display: "none" }}
+              />
+            )}
+          >
+            {" "}<p>
+              <Linkifier>
+                {this.props.children}
 
-        <Scrollbars
-          renderTrackHorizontal={props => (
-            <div
-              {...props}
-              className="track-horizontal"
-              style={{ display: "none" }}
+              </Linkifier>
+            </p>
+          </Scrollbars>
+
+          <span>
+            <button
+              onClick={this.edit}
+              className="btn btn-primary glyphicon glyphicon-pencil"
             />
-          )}
-          renderThumbHorizontal={props => (
-            <div
-              {...props}
-              className="thumb-horizontal"
-              style={{ display: "none" }}
+            <button
+              onClick={this.remove}
+              className="btn btn-danger glyphicon glyphicon-trash"
             />
-          )}
-        >
-          <p>
-            <Linkifier>
-              {this.props.children}
-
-            </Linkifier>
-          </p>
-        </Scrollbars>
-
-        <span>
-          <button
-            onClick={this.edit}
-            className="btn btn-primary glyphicon glyphicon-pencil"
-          />
-          <button
-            onClick={this.remove}
-            className="btn btn-danger glyphicon glyphicon-trash"
-          />
-        </span>
+          </span>
+        </div>
       </div>
     );
   }
@@ -95,7 +107,7 @@ class Note extends React.Component {
       <div className="note" style={wordwrap}>
         <textarea
           ref="newText"
-          maxLength="150"
+          maxLength="250"
           defaultValue={this.props.children}
           className="form-control"
         />

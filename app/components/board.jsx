@@ -3,74 +3,58 @@ import RaisedButton from "material-ui/RaisedButton";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
 import { Scrollbars } from "react-custom-scrollbars";
-import Toolbar from 'Toolbar';
+import Toolbar from "Toolbar";
 import Boards from "app/components/Note.jsx";
-import Boardbar from 'app/components/toolbars/boardtoolbar.jsx';
-import Store from 'app/store/UIstore.js'
-import {observer} from 'mobx-react'
+import Boardbar from "app/components/toolbars/boardtoolbar.jsx";
+import Store from "app/store/UIstore.js";
+import { observer } from "mobx-react";
 
-const align =
-{
-  textAlign: 'center',
-}
+const align = {
+  textAlign: "center"
+};
 const style = {
   margin: 12,
   marginRight: 20
 };
 
-const heightboard={
-  height: '100%',
-  backgroundColor: 'white',
-}
+const heightboard = {
+  height: "100%",
+  backgroundColor: "white"
+};
 
 @observer
 export default class Board extends React.Component {
   constructor() {
-        super();
-
-        this.state = {
-            full: ""
-        };
-        
-        this.handle = this.handle.bind(this);
-    }
-    handle(){
-      // if(this.state.full=="fullScreen")
-      // this.setState({full:""});
-      // else
-      //       this.setState({full:"fullScreen"});
-      if(Store.full=="fullScreen")
-      Store.full=
-      ""
-      else
-                 Store.full="fullScreen"    }
+    super();
+    this.handle = this.handle.bind(this);
+  }
+  handle() {
+    if (Store.full == "fullScreen") Store.full = "";
+    else Store.full = "fullScreen";
+  }
 
   render() {
-
-
     console.log(Store.todos[0]);
-  return (
-      <div className={Store.full} style={heightboard} >
-<Boardbar/>
+    return (
+      <div className={Store.full} style={heightboard}>
+        <Boardbar />
         <Scrollbars
-
-          style={{ height: '100%' }}
+          style={{ height: "100%" }}
           autoHeightMin={0}
           autoHeightMax={500}
           thumbMinSize={30}
         >
 
-
-{/*<h4 style={align}>Noteboard</h4>*/}
-<br/>
+          {/*<h4 style={align}>Noteboard</h4>*/}
+          <br />
           <div className="panel">
-            <Boards count={10}/>
-<br/>
-   <br/>
-   <br/>
-   <br/>
-   <br/>
-   <br/>
+            <Boards count={10} />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
 
           </div>
 
@@ -80,6 +64,5 @@ export default class Board extends React.Component {
 
       </div>
     );
-  
-}
+  }
 }
