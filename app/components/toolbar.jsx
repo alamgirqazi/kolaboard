@@ -152,6 +152,7 @@ import { logout, userProfile } from 'auth.js';
 import {AppBar, Drawer} from 'material-ui';
 import Store from "app/store/UIstore.js";
 import { observer } from "mobx-react";
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
 var profilepic;
 var nickname;
@@ -290,10 +291,13 @@ nickname = localprofileparse.nickname;
 
            </ToolbarGroup>
       </Toolbar>
-       <Drawer open={this.state.open} containerStyle={{ height: "100%" }}>
+       <Drawer open={this.state.open} containerStyle={{ height: "100%" } }>
             <AppBar
               title="kolaboard"
-              iconElementLeft={<IconButton onTouchTap={this.handleToggle} />}
+
+
+
+              iconElementLeft={<IconButton onTouchTap={this.handleToggle}><NavigationClose /></IconButton>}
             >
              </AppBar>
               <MenuItem onClick={this.showApp}>App</MenuItem>
