@@ -1,15 +1,16 @@
-import mobx, {observable} from 'mobx';
+import mobx, { observable } from "mobx";
 
-class Store  {
+class Store {
+  @observable todos = ["buy milk", "buy eggs"];
 
-@observable todos = ["buy milk", "buy eggs"]
-// @observable filter = "";
-id = 6;
+  // @observable filter = "";
+  id = 6;
 
-@observable full= "";
-// @observable fullscreen = !
+  @observable full = "";
+
+  // @observable fullscreen = !
 }
 
-var store =  window.store = new Store 
+var store = (window.store = new Store());
 
-export default store
+export default store;

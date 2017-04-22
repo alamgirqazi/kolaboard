@@ -4,9 +4,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Nav from 'app/components/newnav.jsx';
 import Homepage from 'app/components/homepage.jsx';
 import { Scrollbars } from 'react-custom-scrollbars';
+import DevTools from 'mobx-react-devtools';
 
-var Infinite = require('react-infinite');
-    
    
 
 
@@ -23,6 +22,7 @@ return (
    >
          <Nav/>
 <Homepage/>      
+        <DevTools />
 
  </Scrollbars> 
 
