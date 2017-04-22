@@ -13,6 +13,9 @@ import FirstPage from "app/components/firstpage.jsx";
 import Verify from "app/components/authentication/verify.jsx";
 import { requireAuth, requireVerification, redirect } from "auth.js";
 import MainDashboard from "app/components/dashboard/maindashboard.jsx";
+import TimeTable from "app/components/dashboard/timetable.jsx";
+import Events from "app/components/dashboard/events.jsx";
+
 //load foundation
 
 require("style!css!foundation-sites/dist/foundation.min.css");
@@ -37,6 +40,8 @@ ReactDOM.render(
     <Route path="/" component={FirstPage} onEnter={redirect}> </Route>
     <Route path="/app" component={Main} onEnter={requireVerification} />
     <Route path="/dashboard" component={MainDashboard} />
+ <Route path="/timetable" component={TimeTable} />
+    <Route path="/events" component={Events} />
 
     <Route path="/verify" component={Verify} onEnter={requireAuth} />
     <Route path="*" component={NotFound} />
