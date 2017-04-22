@@ -11,7 +11,7 @@ import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
-var {Link, IndexLink} = require("react-router");
+var {Link, IndexLink,browserHistory} = require("react-router");
 import { logout, userProfile } from 'auth.js';
 import {AppBar, Drawer} from 'material-ui';
 import Store from "app/store/UIstore.js";
@@ -21,6 +21,10 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
 var profilepic;
 var nickname;
+
+// const backgroundhover = {
+//   backgroundColor: 'E8E8E8',
+// }
 
 const style = {
 // backgroundColor: '#D0E9EA',
@@ -69,21 +73,40 @@ export default class ToolbarExamplesSimple extends React.Component {
     this.showTimetable = this.showTimetable.bind(this);
   }
  handleToggle = () => this.setState({ open: !this.state.open });
+    
     showApp(){
     Store.app=true;
     Store.events=false;
     Store.timetable=false;
+      browserHistory.replace("/app");
+
   }
   showTimetable(){
     Store.app=false;
     Store.events=false;
     Store.timetable=true;
+      browserHistory.replace("/timetable");
+
   }
   showEvents(){
     Store.app=false;
     Store.events=true;
     Store.timetable=false;
+  browserHistory.replace("/events");
+
   }
+//   appClick(){
+//     if(Store.app == true)
+// {
+// var backgroundhover = {
+//   backgroundColor: 'E8E8E8',
+// }
+// }
+// else 
+// {
+// }
+
+  //}
 componentDidMount(){
 }
 
@@ -108,6 +131,58 @@ nickname = localprofileparse.name;
 else
 nickname = localprofileparse.nickname;
   
+
+
+
+
+// APP ROUTE
+
+     if(Store.app == true)
+{
+var backgroundhover = {
+  backgroundColor: '#E8E8E8',
+}
+}
+
+else if ((Store.app == false)) {
+ var backgroundhover = {
+  backgroundColor: '#FFFFFF',
+} 
+}
+
+// EVENTS ROUTE
+
+     if(Store.events == true)
+{
+var backgroundhoverevents = {
+  backgroundColor: '#E8E8E8',
+}
+}
+
+else if ((Store.events == false)) {
+ var backgroundhoverevents = {
+  backgroundColor: '#FFFFFF',
+} 
+}
+
+// TimeTable ROUTE
+
+     if(Store.timetable == true)
+{
+var backgroundhovertimetable = {
+  backgroundColor: '#E8E8E8',
+}
+}
+
+else if ((Store.timetable == false)) {
+ var backgroundhovertimetable = {
+  backgroundColor: '#FFFFFF',
+} 
+}
+
+
+
+
 
     return (
       <div>
@@ -166,16 +241,16 @@ nickname = localprofileparse.nickname;
               iconElementLeft={<IconButton onTouchTap={this.handleToggle}><NavigationClose /></IconButton>}
             >
              </AppBar>
-              <MenuItem><Link to="/app">App</Link></MenuItem>
-              <MenuItem ><Link to="/events">Events</Link></MenuItem>
-              <MenuItem><Link to="/timetable">Time Table</Link></MenuItem>
+              <MenuItem style={backgroundhover} onClick={this.showApp} primaryText="App" > </MenuItem>
+              <MenuItem style={backgroundhoverevents}  onTouchTap={this.showEvents} primaryText="Events"></MenuItem>
+              <MenuItem style={backgroundhovertimetable} onTouchTap={this.showTimetable} primaryText="Timetable" ></MenuItem>
           </Drawer>
       </div>
     );
   }
 }
             //     {" "}
-            // <IndexLink
+            // <IndexLink  <Link to="/app">App</Link>
             //   to="/"
             //   activeClassName="active"
             //   activeStyle={{
