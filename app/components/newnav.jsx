@@ -6,6 +6,8 @@ import LoginDialog from "app/components/loginmodal.jsx";
 import SignupDialog from "app/components/signupmodal.jsx";
 import FirstPage from "app/components/firstpage.jsx";
 import Drawer from "app/components/drawer.jsx";
+import {AppBar, IconButton, MenuItem} from 'material-ui';
+
 import muiThemeable from "material-ui/styles/muiThemeable";
 // import { login } from "auth.js";
 const greenbutton = {
@@ -81,21 +83,7 @@ export default class NewNav extends React.Component {
                 <img src="Klogo.png" style={style} />
 
               </li>
-              <li>
-
-                {" "}
-                <IndexLink
-                  to="/app"
-                  activeClassName="active"
-                  activeStyle={{
-                    fontWeight: "bold"
-                  }}
-                >
-                  Go to App
-                </IndexLink>
-
-              </li>
-
+        
             </ul>
           </div>
           <div className="top-bar-right">

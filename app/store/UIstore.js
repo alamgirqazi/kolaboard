@@ -7,6 +7,9 @@ class Store {
   id = 6;
 
   @observable full = "";
+@observable app=true;
+@observable timetable=false;
+@observable events=false;
 
   // @observable fullscreen = !
 }
