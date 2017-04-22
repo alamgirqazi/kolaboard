@@ -19,6 +19,23 @@ const lock = new Auth0Lock(
   }
 );
 
+
+// exports.create = function () {
+//     var user = new User();
+//     user.name = profile["email"];
+//     user.email = profile["email"];
+//     user.picture = profile["email"];
+//     user.save(function (err) {
+//         if (err) {
+//             return res.status(400).send({message: getErrorMessages(err)});
+//         } else {
+//             return res.json(user);
+//         }
+//     })
+
+// };
+
+
 lock.on("authenticated", authResult => {
   lock.getUserInfo(authResult.accessToken, function(error, profile) {
     if (error) {
@@ -167,15 +184,7 @@ export function requireVerification(nextState, replace) {
 
     // browserHistory.push('/app');
   } else {
-    // else if (!emailverified && isLoggedIn())
-    // {
-    // //  browserHistory.push('/verify');
-    //         replace({ pathname: '/verify' });
-    //      console.log('req auth else falseeeeeee')
-
-    // }
-
-    //  browserHistory.push('/verify');
+   
     replace({ pathname: "/verify" });
     console.log("req auth else");
   }

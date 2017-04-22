@@ -7,7 +7,7 @@ import Avatar from 'material-ui/Avatar';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
-import MenuItem from 'material-ui/MenuItem';
+import {Menu, MenuItem} from 'material-ui/Menu';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
@@ -17,6 +17,7 @@ import {AppBar, Drawer} from 'material-ui';
 import Store from "app/store/UIstore.js";
 import { observer } from "mobx-react";
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import Divider from 'material-ui/Divider';
 
 
 var profilepic;
@@ -61,7 +62,6 @@ const menuStyle = {
 }
 @observer
 export default class ToolbarExamplesSimple extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -241,9 +241,17 @@ else if ((Store.timetable == false)) {
               iconElementLeft={<IconButton onTouchTap={this.handleToggle}><NavigationClose /></IconButton>}
             >
              </AppBar>
-              <MenuItem style={backgroundhover} onClick={this.showApp} primaryText="App" > </MenuItem>
-              <MenuItem style={backgroundhoverevents}  onTouchTap={this.showEvents} primaryText="Events"></MenuItem>
-              <MenuItem style={backgroundhovertimetable} onTouchTap={this.showTimetable} primaryText="Timetable" ></MenuItem>
+
+              <MenuItem style={backgroundhover} onClick={this.showApp} primaryText="Dashboard" rightIcon={									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>								}> </MenuItem>
+
+              <MenuItem style={backgroundhover} onClick={this.showApp} primaryText="Chat" rightIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>}> </MenuItem>
+
+              <MenuItem style={backgroundhoverevents}  onTouchTap={this.showEvents} primaryText="Events" rightIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>}> </MenuItem>
+              <MenuItem style={backgroundhovertimetable}  onTouchTap={this.showTimetable} primaryText="Timetable" rightIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>}> </MenuItem>
+              <Divider />
+              <MenuItem disabled={true}> </MenuItem>
+              <MenuItem primaryText="Logout" > </MenuItem>
+
           </Drawer>
       </div>
     );

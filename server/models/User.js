@@ -10,19 +10,19 @@ var UserSchema = new Schema({
   name: {
     type: String,
     default: "",
-    required: "Title Cannot Be Blank",
+    // required: "Title Cannot Be Blank",
     trim: true
   },
   email: {
     type: String,
     default: "",
-    required: "Content is required",
+    // required: "Content is required",
     trim: true
   },
   picture: {
     type: String,
     default: "",
-    required: "Content is required",
+    // required: "Content is required",
     trim: true
   },
   verified: {
@@ -33,13 +33,13 @@ var UserSchema = new Schema({
   user_id: {
     type: String,
     default: "",
-    required: "Content is required",
+    // required: "Content is required",
     trim: true
   },
   creator: {
     type: Schema.ObjectId,
     ref: "User",
-    required: "User is Must"
+    // required: "User is Must"
   }
 });
 
