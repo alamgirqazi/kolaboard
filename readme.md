@@ -33,3 +33,6 @@ Webpack v1 for module bundling https://webpack.github.io/
 
 ExpressJs Framework https://expressjs.com/
 
+MobX (State Management) https://mobx.js.org/
+
+Mongoose (ODM for MongoDB) http://mongoosejs.com/
