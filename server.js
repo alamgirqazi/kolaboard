@@ -9,9 +9,9 @@ const bodyParser = require("body-parser");
 
 //connect to mongoose
 
-mongoose.connect("mongodb://localhost/kola");
+// mongoose.connect("mongodb://localhost/kola");
 
-var db = mongoose.Connection;
+// var db = mongoose.Connection;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
