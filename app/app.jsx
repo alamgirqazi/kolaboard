@@ -15,7 +15,7 @@ import { requireAuth, requireVerification, redirect } from "auth.js";
 import MainDashboard from "app/components/dashboard/maindashboard.jsx";
 import TimeTable from "app/components/dashboard/timetable.jsx";
 import Events from "app/components/dashboard/events.jsx";
-
+import Store from 'app/store/UIstore.js'
 //load foundation
 
 require("style!css!foundation-sites/dist/foundation.min.css");
@@ -33,6 +33,7 @@ injectTapEventPlugin();
 
 const NotFound = () => <h1>404.. This page is not found!</h1>;
 
+
 ReactDOM.render(
   //Props passed
   // <Router history={hashHistory}>
@@ -42,7 +43,6 @@ ReactDOM.render(
     <Route path="/dashboard" component={MainDashboard} />
  <Route path="/timetable" component={TimeTable} />
     <Route path="/events" component={Events} />
-
     <Route path="/verify" component={Verify} onEnter={requireAuth} />
     <Route path="*" component={NotFound} />
 
@@ -55,3 +55,4 @@ ReactDOM.render(
 //           <Route path="/special" component={Main} onEnter={requireAuth} />
 
 // <Route path="app" component={Main} onEnter={requireAuth}  />
+    // <Route path="/notes" component={PrivateNotes} />

@@ -20,6 +20,7 @@ import Board from "app/components/board.jsx";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import { cyan500 } from "material-ui/styles/colors";
 import { greenA400 } from "material-ui/styles/colors";
+// import Store from "app/store/UIstore.js";
 
 
 const muiTheme = getMuiTheme({
@@ -60,70 +61,8 @@ export default class MainDashboard extends React.Component {
   }
 
 
-  
-
-//   events(){
-//     return(
-//       <MuiThemeProvider>
-//             <div>
-//           <Toolbar />
-//           <Events />
-//         </div> 
-//         </MuiThemeProvider>
-// );
-//   }
-//   timetable(){
-//     return(
-//       <MuiThemeProvider>
-//             <div>
-//           <Toolbar />
-//           <TimeTable/>
-//         </div> 
-//         </MuiThemeProvider>
-// );
-//   }
-//   app(){
-//     return(
-//     <MuiThemeProvider muiTheme={muiTheme}>
-
-//       <div style={style}>
-//         {/*<NewNav />*/}
-//         <Toolbar />
-
-//         {/*<FirstPage/>*/}
-
-//         <div className="fullWidth fullheight row expanded">
-
-//           <div className="columns medium-3 large-3 padding " style={style}>
-//             <ListMessages />
-//           </div>
-
-//           <div className="columns medium-4 large-4 padding" style={style}>
-
-//             <Chat />
-//           </div>
-
-//           <div className="columns medium-5 large-5 padding" style={style}>
-//             <Board />
-//           </div>
-
-//         </div>
-//       </div>
-//     </MuiThemeProvider>
-// );
-//  }
-
   render() {
-// if(Store.app)
-// {console.log("app");
-// return this.app();}
-// else if(Store.timetable)
-// {console.log("TimeTable");
-// return this.timetable();}
-// else
-// {console.log("events")
-// return this.events();}
-
+Store.dashboard = true;
 return(
     <MuiThemeProvider muiTheme={muiTheme}>
 

@@ -71,13 +71,17 @@ export default class ToolbarExamplesSimple extends React.Component {
         this.showApp = this.showApp.bind(this);
     this.showEvents = this.showEvents.bind(this);
     this.showTimetable = this.showTimetable.bind(this);
+    this.showDashboard = this.showDashboard.bind(this);
+    this.showPrivateNotes = this.showPrivateNotes.bind(this);
   }
  handleToggle = () => this.setState({ open: !this.state.open });
     
-    showApp(){
+   showApp(){
     Store.app=true;
     Store.events=false;
     Store.timetable=false;
+    Store.privatenote=false;
+    Store.dashboard=false;
       browserHistory.replace("/app");
 
   }
@@ -85,6 +89,8 @@ export default class ToolbarExamplesSimple extends React.Component {
     Store.app=false;
     Store.events=false;
     Store.timetable=true;
+      Store.privatenote=false;
+    Store.dashboard=false;
       browserHistory.replace("/timetable");
 
   }
@@ -92,7 +98,27 @@ export default class ToolbarExamplesSimple extends React.Component {
     Store.app=false;
     Store.events=true;
     Store.timetable=false;
+      Store.privatenote=false;
+    Store.dashboard=false;
   browserHistory.replace("/events");
+
+  }
+  showDashboard(){
+    Store.app=false;
+    Store.events=false;
+    Store.timetable=false;
+      Store.privatenote=false;
+    Store.dashboard=true;
+  browserHistory.replace("/dashboard");
+
+  }
+  showPrivateNotes(){
+    Store.app=false;
+    Store.events=false;
+    Store.timetable=false;
+      Store.privatenote=true;
+    Store.dashboard=false;
+  browserHistory.replace("/notes");
 
   }
 //   appClick(){
@@ -179,6 +205,34 @@ else if ((Store.timetable == false)) {
   backgroundColor: '#FFFFFF',
 } 
 }
+// Private Notes ROUTE
+
+     if(Store.privatenote == true)
+{
+var backgroundhoverprivatenote = {
+  backgroundColor: '#E8E8E8',
+}
+}
+
+else if ((Store.privatenote == false)) {
+ var backgroundhoverprivatenote = {
+  backgroundColor: '#FFFFFF',
+} 
+}
+// Dashboard ROUTE
+
+     if(Store.dashboard == true)
+{
+var backgroundhoverdashboard = {
+  backgroundColor: '#E8E8E8',
+}
+}
+
+else if ((Store.dashboard == false)) {
+ var backgroundhoverdashboard = {
+  backgroundColor: '#FFFFFF',
+} 
+}
 
 
 
@@ -242,10 +296,8 @@ else if ((Store.timetable == false)) {
             >
              </AppBar>
 
-              <MenuItem style={backgroundhover} onClick={this.showApp} primaryText="Dashboard" rightIcon={									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>								}> </MenuItem>
-
+              <MenuItem style={backgroundhoverdashboard} onClick={this.showDashboard} primaryText="Dashboard" rightIcon={									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>								}> </MenuItem>
               <MenuItem style={backgroundhover} onClick={this.showApp} primaryText="Chat" rightIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>}> </MenuItem>
-
               <MenuItem style={backgroundhoverevents}  onTouchTap={this.showEvents} primaryText="Events" rightIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>}> </MenuItem>
               <MenuItem style={backgroundhovertimetable}  onTouchTap={this.showTimetable} primaryText="Timetable" rightIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>}> </MenuItem>
               <Divider />
@@ -257,6 +309,8 @@ else if ((Store.timetable == false)) {
     );
   }
 }
+              // <MenuItem style={backgroundhoverprivatenote} onClick={this.showPrivateNotes} primaryText="Private Notes" rightIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>}> </MenuItem>
+
             //     {" "}
             // <IndexLink  <Link to="/app">App</Link>
             //   to="/"

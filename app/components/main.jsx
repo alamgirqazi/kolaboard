@@ -14,6 +14,7 @@ import Board from "app/components/board.jsx";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import { cyan500 } from "material-ui/styles/colors";
 import { greenA400 } from "material-ui/styles/colors";
+import Store from "app/store/UIstore.js";
 
 // This replaces the textColor value on the palette
 // and then update the keys for each component that depends on it.
@@ -44,6 +45,8 @@ const style = {
 }
 
 var Main = () => {
+ 
+ Store.app = true;
   return (
     <MuiThemeProvider muiTheme={muiTheme}>
 

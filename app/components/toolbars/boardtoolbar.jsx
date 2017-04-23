@@ -68,6 +68,8 @@ export default class Boardbar extends React.Component {
       <Toolbar>
         <ToolbarGroup>
           <ToolbarTitle text="Noteboard" />
+        </ToolbarGroup>
+<ToolbarGroup lastChild={true}>
           <IconButton
             tooltip="expand"
             touch={true}
@@ -79,7 +81,6 @@ export default class Boardbar extends React.Component {
 
           </IconButton>
         </ToolbarGroup>
-
       </Toolbar>
     );
   }

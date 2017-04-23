@@ -14,6 +14,7 @@ import Boards from "app/components/Note.jsx";
 // import { observer } from "mobx-react";
 import { greenA400 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
+import Store from "app/store/UIstore.js";
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -40,7 +41,7 @@ export default class Events extends React.Component {
     super(props);
   }
   render() {
-    console.log('Event k andar');
+  Store.events = true;
          return(
            <MuiThemeProvider muiTheme={muiTheme}>
             <div>

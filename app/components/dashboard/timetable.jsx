@@ -17,6 +17,7 @@ import Chat from "app/components/chat.jsx";
 import Board from "app/components/board.jsx";
 import { greenA400 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
+import Store from "app/store/UIstore.js";
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -42,9 +43,12 @@ export default class TimeTable extends React.Component {
   constructor(props) {
     super(props);
   }
+
+
   render() {
-    console.log('Timetable k andar');
-         return(
+    
+    Store.timetable = true;       
+             return(
            
            <MuiThemeProvider muiTheme={muiTheme}>
             <div>

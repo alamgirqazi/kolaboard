@@ -10,6 +10,8 @@ class Store {
 @observable app=false;
 @observable timetable=false;
 @observable events=false;
+@observable dashboard=false;
+@observable privatenote=false;
 
   // @observable fullscreen = !
 }
