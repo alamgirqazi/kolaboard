@@ -21,7 +21,7 @@ import getMuiTheme from "material-ui/styles/getMuiTheme";
 import { cyan500 } from "material-ui/styles/colors";
 import { greenA400 } from "material-ui/styles/colors";
 // import Store from "app/store/UIstore.js";
-
+import axios from 'axios';
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -59,6 +59,17 @@ export default class MainDashboard extends React.Component {
 
 
   }
+componentDidMount () {
+  axios.get('/api/user', {
+  })
+  .then(function (response) {
+    
+    console.log(response.data);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
 
 
   render() {

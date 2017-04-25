@@ -45,7 +45,7 @@ const style = {
 }
 
 var Main = () => {
- 
+
  Store.app = true;
   return (
     <MuiThemeProvider muiTheme={muiTheme}>
