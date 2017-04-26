@@ -60,16 +60,52 @@ export default class MainDashboard extends React.Component {
 
   }
 componentDidMount () {
-  axios.get('/api/user', {
+
+var profile= localStorage.getItem('profile');
+var newprofile = JSON.parse(profile);
+// console.log('new profile' + newprofile)
+  // axios.get('/api/user', {
+  // })
+  // .then(function (response) {
+  //   response=profile;
+  //   console.log('respon')
+  //   console.log(response);
+  // })
+  // .catch(function (error) {
+  //   console.log(error);
+  // });
+  $.ajax({
+    type: 'POST',
+    url: '/api/user',
+    data: newprofile
   })
-  .then(function (response) {
-    
-    console.log(response.data);
-  })
-  .catch(function (error) {
-    console.log(error);
+  .done(function(data) {
+console.log('done' + profile)  })
+  .fail(function(jqXhr) {
+    console.log('failed to register');
   });
+
 }
+
+// GET request for remote imag
+
+// axios.post('/api/user',
+//  {
+//   })
+//   .then(function (response) {
+//     response.body=profile;
+
+
+//     console.log('respon')
+//     console.log(response.body);
+//   })
+//   .catch(function (error) {
+//     console.log(error);
+//   });
+
+
+
+
 
 
   render() {
