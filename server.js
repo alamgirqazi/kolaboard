@@ -38,11 +38,6 @@ app.use(express.static("public"));
 
 const PORT = process.env.PORT || 3000;
 
-// var user = new User({ name: 'Bob Smith' });
-
-// user.save(function (err) {
-//   if (err) return handleError(err);
-// });
 
 app.post('/api/user', function(req, res){
 console.log(req.body) 
@@ -50,19 +45,20 @@ var user = new User(req.body);
 user.obj = req.body;
 console.log(user.email);
 
+ User.find({email : user.email}, function (err, docs) {
+        if (docs.length){
+            // cb('Name exists already',null);
+console.log('abc');
+        }else{
+            user.save(function(err){
+            if (err) return handleError(err);
 
-user.save(function (err) {
-  if (err) return handleError(err);
-});
+            });
+        }
+    });
 
 	
 });
-
-// app.get('/api/user', function(request, response){
-//   console.log(response.body);
-	
-// 	// res.json(res);
-// })
 
 app.get("*", function(request, response) {
   response.sendFile(path.resolve(__dirname, "public", "index.html"));
