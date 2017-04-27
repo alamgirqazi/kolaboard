@@ -14,14 +14,14 @@ import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui
 var {Link, IndexLink,browserHistory} = require("react-router");
 import { logout, userProfile } from 'auth.js';
 import {AppBar, Drawer} from 'material-ui';
+import UserStore from "app/store/UserStore.js";
 import Store from "app/store/UIstore.js";
 import { observer } from "mobx-react";
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import Divider from 'material-ui/Divider';
 
 
-var profilepic;
-var nickname;
+var localprofileparse;
 
 // const backgroundhover = {
 //   backgroundColor: 'E8E8E8',
@@ -66,16 +66,19 @@ export default class ToolbarExamplesSimple extends React.Component {
     super(props);
     this.state = {
       value: 3,
-       open: false
+       open: false,
+       obj: {}
     };
         this.showApp = this.showApp.bind(this);
     this.showEvents = this.showEvents.bind(this);
     this.showTimetable = this.showTimetable.bind(this);
     this.showDashboard = this.showDashboard.bind(this);
     this.showPrivateNotes = this.showPrivateNotes.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
   }
  handleToggle = () => this.setState({ open: !this.state.open });
     
+
    showApp(){
     Store.app=true;
     Store.events=false;
@@ -134,32 +137,48 @@ export default class ToolbarExamplesSimple extends React.Component {
 
   //}
 componentDidMount(){
+      
+$.ajax({
+   url: 'api/user',
+   data: {
+      format: 'json'
+   },
+   error: function() {
+     console.log('error in get');
+   },
+   dataType: 'json',
+   success: function(data) { 
+     
+     UserStore.obj=data[0];
+    //  console.log(UserStore.obj.picture)
+    //  console.log(UserStore.obj.nickname)
+    // nickname= UserStore.obj.nickname;
+    //  console.log(UserStore.obj.name)
+    // name= UserStore.obj.name;
+    //  console.log(UserStore.obj.identities[0].provider)
+    localprofileparse = UserStore.obj.identities[0].provider;     
+
+
+
+if(localprofileparse=="facebook" || localprofileparse=="google-oauth2")
+// if(localprofileparse.identities[0].provider=="facebook" || localprofileparse.identities[0].provider=="google-oauth2")
+
+UserStore.userrealname = UserStore.obj.name;
+else
+UserStore.userrealname = UserStore.obj.nickname;
+
+     },
+   type: 'GET'
+});
+
+
+
+
 }
 
   handleChange = (event, index, value) => this.setState({value});
 
   render() {
-
-// var profileObject = userProfile();
- var localprofile = localStorage.getItem('profile');
-	var localprofileparse = JSON.parse(localprofile);
-	//  var profile = JSON.parse(profileObject);
-
-// console.log(profile.picture);
-console.log('profile parsed');
-console.log(localprofileparse);
-
-profilepic = localprofileparse.picture;
-console.log(profilepic+ 'asd');
-console.log(nickname)
-if(localprofileparse.identities[0].provider=="facebook" || localprofileparse.identities[0].provider=="google-oauth2")
-nickname = localprofileparse.name;
-else
-nickname = localprofileparse.nickname;
-  
-
-
-
 
 // APP ROUTE
 
@@ -249,13 +268,11 @@ else if ((Store.dashboard == false)) {
             onClick={this.handleToggle}
           >
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 18 18"><path d="M2 13.5h14V12H2v1.5zm0-4h14V8H2v1.5zM2 4v1.5h14V4H2z"/></svg>
-
           </IconButton>
 
           
        </ToolbarGroup>
         <ToolbarGroup>
-
         <img src="Klogo.png"/>
         </ToolbarGroup>
         <ToolbarGroup>
@@ -264,9 +281,9 @@ else if ((Store.dashboard == false)) {
         <ListItem disabled={true}
 
             leftAvatar={
-        <Avatar src={profilepic} />
+        <Avatar src={UserStore.obj.picture} />
       }
-          primaryText={nickname}
+          primaryText={UserStore.userrealname}
            />
         </List>
         <div className="leftmostlogout">

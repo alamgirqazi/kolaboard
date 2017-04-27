@@ -60,6 +60,16 @@ console.log('abc');
 	
 });
 
+app.get('/api/user', function(req, res){
+mongoose.model('User').find(function(err,User)
+{
+
+  res.send(JSON.stringify(User));
+}
+)
+	
+});
+
 app.get("*", function(request, response) {
   response.sendFile(path.resolve(__dirname, "public", "index.html"));
 });

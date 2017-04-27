@@ -1,10 +1,13 @@
-import mobx, { computed, observable } from "mobx";
+import mobx, { computed, observable,extendObservable, autorun } from "mobx";
 
 class UserStore {
   @observable todos = ["dont buy milk", "buy eggs"];
-  obj = {};
+ @observable obj = {};
+ @observable userrealname = 'Jane Doe';
 }
 
 var userstore = (window.userstore = new UserStore());
 
 export default userstore;
+
+autorun(() => console.log(userstore.obj));

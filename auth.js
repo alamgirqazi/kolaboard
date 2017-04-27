@@ -48,9 +48,9 @@ lock.on("authenticated", authResult => {
     profileObject = JSON.stringify(profile);
 
     userstore.obj = JSON.stringify(profile);
-    console.log("logging image url");
-    console.log(userstore.obj.picture);
-    //Facebook
+    // console.log("logging image url");
+    // console.log(userstore.obj.picture);
+    // //Facebook
 
     // console.log(profile["email"]);
     // console.log(profile["name"]);
