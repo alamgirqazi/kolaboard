@@ -16,6 +16,7 @@ import MainDashboard from "app/components/dashboard/maindashboard.jsx";
 import TimeTable from "app/components/dashboard/timetable.jsx";
 import Events from "app/components/dashboard/events.jsx";
 import Store from 'app/store/UIstore.js'
+import MainContainer from 'app/components/MainContainer.jsx';
 //load foundation
 
 require("style!css!foundation-sites/dist/foundation.min.css");

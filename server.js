@@ -40,10 +40,10 @@ const PORT = process.env.PORT || 3000;
 
 
 app.post('/api/user', function(req, res){
-console.log(req.body) 
+// console.log(req.body) 
 var user = new User(req.body);
 user.obj = req.body;
-console.log(user.email);
+// console.log(user.email);
 
  User.find({email : user.email}, function (err, docs) {
         if (docs.length){
