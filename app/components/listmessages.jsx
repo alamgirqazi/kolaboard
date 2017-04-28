@@ -1,8 +1,9 @@
 
-import React from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import MobileTearSheet from 'app/api/MobileTearSheet.js';
 import Badge from 'material-ui/Badge';
-import {List, ListItem} from 'material-ui/List';
+import {List, ListItem, makeSelectable} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import FileFolder from 'material-ui/svg-icons/file/folder';
 import Subheader from 'material-ui/Subheader';
@@ -16,6 +17,45 @@ import MenuItem from 'material-ui/MenuItem';
 var Infinite = require('react-infinite');
 import { Scrollbars } from 'react-custom-scrollbars';
 import Msgbar from 'app/components/toolbars/msgtoolbar.jsx';
+
+
+let SelectableList = makeSelectable(List);
+
+function wrapState(ComposedComponent) {
+  return class SelectableList extends Component {
+    static propTypes = {
+      children: PropTypes.node.isRequired,
+      defaultValue: PropTypes.number.isRequired,
+    };
+
+    componentWillMount() {
+      this.setState({
+        selectedIndex: this.props.defaultValue,
+      });
+    }
+
+    handleRequestChange = (event, index) => {
+      this.setState({
+        selectedIndex: index,
+      });
+    };
+
+    render() {
+      return (
+        <ComposedComponent
+          value={this.state.selectedIndex}
+          onChange={this.handleRequestChange}
+        >
+          {this.props.children}
+        </ComposedComponent>
+      );
+    }
+  };
+}
+
+SelectableList = wrapState(SelectableList);
+
+
 
 const iconButtonElement = (
   <IconButton
@@ -39,7 +79,32 @@ const style = {
   height: '100%',
 }
 
-// height="100vh"
+// const ListMessages = () => (
+//   <MobileTearSheet>
+//     <SelectableList defaultValue={3}>
+//       <Subheader>Selectable Contacts</Subheader>
+
+//       <ListItem
+//         value={3}
+//         primaryText="Kerem Suer"
+//         leftAvatar={<Avatar src="images/kerem-128.jpg" />}
+//       />
+//       <ListItem
+//         value={4}
+//         primaryText="Eric Hoffman"
+//         leftAvatar={<Avatar src="images/kolage-128.jpg" />}
+//       />
+//       <ListItem
+//         value={5}
+//         primaryText="Raquel Parrado"
+//         leftAvatar={<Avatar src="images/raquelromanp-128.jpg" />}
+//       />
+//     </SelectableList>
+//   </MobileTearSheet>
+// );
+
+// export default ListMessages;
+// // height="100vh"
 const ListMessages = () => (
   <div className="margin" style={style}>
     <MobileTearSheet>
@@ -55,8 +120,9 @@ const ListMessages = () => (
         autoHeightMax={50}
         thumbMinSize={50} >
 
-      <List style={style}>
-        <ListItem
+    <SelectableList defaultValue={3}>
+
+        <ListItem   value={4}
             leftAvatar={
         <Avatar
           color={blue300}
@@ -84,7 +150,7 @@ const ListMessages = () => (
       primary={true}/>*/}
 
         <Divider inset={true} />
-        <ListItem
+        <ListItem   value={2}
             leftAvatar={
         <Avatar
           color={blue300}
@@ -132,7 +198,7 @@ const ListMessages = () => (
           secondaryTextLines={2}
         />
         <Divider inset={true} />
-        <ListItem
+        <ListItem   value={3}
           leftAvatar={
         <Avatar
           color={blue300}
@@ -152,7 +218,7 @@ const ListMessages = () => (
           }
           secondaryTextLines={2}
         />
-        <ListItem
+        <ListItem   value={1}
           leftAvatar={  <Avatar
           color={blue300}
           backgroundColor={darkBlack}
@@ -170,7 +236,7 @@ const ListMessages = () => (
           }
           secondaryTextLines={2}
         />
-        <ListItem
+        <ListItem   value={5}
           leftAvatar={  <Avatar
           color={blue300}
           backgroundColor={darkBlack}
@@ -188,7 +254,7 @@ const ListMessages = () => (
           }
           secondaryTextLines={2}
         />
-        <ListItem
+        <ListItem   value={6}
           leftAvatar={  <Avatar
           color={blue300}
           backgroundColor={darkBlack}
@@ -206,7 +272,7 @@ const ListMessages = () => (
           }
           secondaryTextLines={2}
         />
-        <ListItem
+        <ListItem   value={8}
           leftAvatar={  <Avatar
           color={blue300}
           backgroundColor={darkBlack}
@@ -224,98 +290,7 @@ const ListMessages = () => (
           }
           secondaryTextLines={2}
         />
-        <ListItem
-          leftAvatar={  <Avatar
-          color={blue300}
-          backgroundColor={darkBlack}
-          size={40}
-        >
-        S
-        </Avatar>}
-          rightIconButton={rightIconMenu}
-          primaryText="Steve Pavlina"
-          secondaryText={
-            <p>
-              <span style={{color: darkBlack}}>Personal Development</span><br />
-              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
-            </p>
-          }
-          secondaryTextLines={2}
-        />
-        <ListItem
-          leftAvatar={  <Avatar
-          color={blue300}
-          backgroundColor={darkBlack}
-          size={40}
-        >
-        T
-        </Avatar>}
-          rightIconButton={rightIconMenu}
-          primaryText="Tim Ferriss"
-          
-          secondaryText={
-            <p>
-               {/*<Badge   badgeContent={5}
-      secondary={true}/>*/}
-
-              <span style={{color: darkBlack}}>4 Hour Work Week</span><br />
-              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
-            </p>
-          }
-          secondaryTextLines={2}
-        />
-                  {/*<Badge   badgeContent={4}
-      primary={true}/>*/}
-
-        <ListItem
-          leftAvatar={  <Avatar
-          color={blue300}
-          backgroundColor={darkBlack}
-          size={40}
-        >
-        A
-        </Avatar>}
-          rightIconButton={rightIconMenu}
-          primaryText="Aja Naomi King"
-          secondaryText={
-            <p>
-              <span style={{color: darkBlack}}>How to get away with murder</span><br />
-              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
-            </p>
-          }
-          secondaryTextLines={2}
-        />
-        <ListItem
-          leftAvatar={  <Avatar
-          color={blue300}
-          backgroundColor={darkBlack}
-          size={40}
-        >
-        B
-        </Avatar>}
-          rightIconButton={rightIconMenu}
-       primaryText="Brian Johnson"
-          secondaryText={
-            <p>
-              <span style={{color: darkBlack}}>WOW</span><br />
-              Do you have any ideas what we can get Heidi for her birthday? 
-            </p>
-          }
-          secondaryTextLines={2}
-      
-      />
-        {/*<ListItem
-          leftAvatar={<Avatar>A</Avatar>}
-          rightIconButton={rightIconMenu}
-          primaryText="Abdul Majid"
-          secondaryText={
-            <p>
-              <span style={{color: darkBlack}}>Birthday gift</span><br />
-              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
-            </p>
-          }
-          secondaryTextLines={2}
-        />*/}
+        
 
         <br/>
    <br/>
@@ -332,49 +307,17 @@ const ListMessages = () => (
    <br/>
    <br/>
 
-        {/*<ListItem
-          leftAvatar={
-        <Avatar
-          color={blue300}
-          backgroundColor={darkBlack}
-          size={40}
-        >
-        Z
-        </Avatar>
-      }
-          
-          rightIconButton={rightIconMenu}
-          primaryText="Zeeshan"
-          secondaryText={
-            <p>
-              <span style={{color: darkBlack}}>Birthday gift</span><br />
-              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
-            </p>
-          }
-          secondaryTextLines={2}
-        />*/}
-        {/*<Divider inset={true} />
-        <ListItem
-          leftAvatar={<Avatar src="http://lorempixel.com/g/400/200" />}
-          rightIconButton={rightIconMenu}
-          primaryText="Raquel Parrado"
-          secondaryText={
-            <p>
-              <span style={{color: darkBlack}}>Recipe to try</span><br />
-              We should eat this: grated squash. Corn and tomatillo tacos.
-            </p>
-          }
-          secondaryTextLines={2}
-        />*/}
-    
-      </List>
+ 
+           </SelectableList>
+
       
   {/*</Infinite>*/}
    </Scrollbars>
-   
+
     </MobileTearSheet>
 
   </div>
 );
 
 export default ListMessages;
+
