@@ -1,46 +1,53 @@
+
 import React from "react";
-import Drawer from "material-ui/Drawer";
-import MenuItem from "material-ui/MenuItem";
-import RaisedButton from "material-ui/RaisedButton";
-import muiThemeable from "material-ui/styles/muiThemeable";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import AppBar from "material-ui/AppBar";
-import IconButton from "material-ui/IconButton";
-import IconMenu from "material-ui/IconMenu";
-import Toolbar from "app/components/toolbar.jsx";
-import Boards from "app/components/Note.jsx";
-import TimeTable from "app/components/dashboard/timetable.jsx";
-import Events from "app/components/dashboard/events.jsx";
-import Main from "app/components/main.jsx";
-import Store from "app/store/UIstore.js";
-import { observer } from "mobx-react";
-import ListMessages from "app/components/listmessages.jsx";
 import Chat from "app/components/chat.jsx";
 import Board from "app/components/board.jsx";
-import getMuiTheme from "material-ui/styles/getMuiTheme";
-import { cyan500 } from "material-ui/styles/colors";
-import { greenA400 } from "material-ui/styles/colors";
-// import Store from "app/store/UIstore.js";
-import axios from 'axios';
+import ListChatContainer from 'app/components/chat/ListChatContainer.jsx';
 
-
-// @observer
+const style = {
+  height: '100%',
+}
 export default class MainContainer extends React.Component {
-  constructor(props) {
-    super(props);
+constructor(){
+    super();
+    this.state ={
+    }
+}
+componentDidMount () {
 
-  }
+var profile= localStorage.getItem('profile');
+var newprofile = JSON.parse(profile);
 
+  $.ajax({
+    type: 'POST',
+    url: '/api/user',
+    data: newprofile
+  })
+  .done(function(data) {
+console.log('done' + profile)  })
+  .fail(function(jqXhr) {
+    console.log('failed to register');
+  });
+
+}
 
   render() {
-return(
- 
- <div>
- 
- <Main/>
- </div>
-    
-);
+    return (
+<div className="fullWidth fullheight row expanded">
 
+          <div className="columns medium-3 large-3 padding " style={style}>
+            <ListChatContainer />
+          </div>
+
+          <div className="columns medium-4 large-4 padding" style={style}>
+            <Chat/>
+          </div>
+
+          <div className="columns medium-5 large-5 padding" style={style}>
+            <Board />
+          </div>
+
+        </div>
+    );
   }
 }
