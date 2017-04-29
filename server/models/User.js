@@ -59,6 +59,11 @@ var UserSchema = new Schema({
     type: Object,
     // required: "User is Must"
   },
+  uId: {
+    type: String,
+    // required: "User is Must"
+  },
+ 
   identities: {
     type: Object,
     // required: "User is Must"

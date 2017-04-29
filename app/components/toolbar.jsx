@@ -19,7 +19,7 @@ import Store from "app/store/UIstore.js";
 import { observer } from "mobx-react";
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import Divider from 'material-ui/Divider';
-
+var user_id;
 
 var localprofileparse;
 
@@ -29,7 +29,7 @@ var localprofileparse;
 
 const materialbackground = {
     backgroundImage: 'url("assets/images/materialpic.png")',
-    width: '304px',
+    width: '256px',
     height: '180px',
 }
 const style = {
@@ -129,22 +129,14 @@ export default class ToolbarExamplesSimple extends React.Component {
   browserHistory.replace("/notes");
 
   }
-//   appClick(){
-//     if(Store.app == true)
-// {
-// var backgroundhover = {
-//   backgroundColor: 'E8E8E8',
-// }
-// }
-// else 
-// {
-// }
 
-  //}
 componentDidMount(){
-      
+      user_id=localStorage.getItem('user_id');
+      console.log('userid '+ user_id);
+
+var location = 'api/user/' + user_id;
 $.ajax({
-   url: 'api/user',
+   url: location,
    data: {
       format: 'json'
    },
@@ -155,12 +147,7 @@ $.ajax({
    success: function(data) { 
      
      UserStore.obj=data[0];
-    //  console.log(UserStore.obj.picture)
-    //  console.log(UserStore.obj.nickname)
-    // nickname= UserStore.obj.nickname;
-    //  console.log(UserStore.obj.name)
-    // name= UserStore.obj.name;
-    //  console.log(UserStore.obj.identities[0].provider)
+
     localprofileparse = UserStore.obj.identities[0].provider;     
 
 
@@ -320,7 +307,7 @@ else if ((Store.dashboard == false)) {
              <div style={materialbackground}>
 <br/>
 <br/>
-         <div className="materialimage">            <Avatar size={80} src={UserStore.obj.picture} />
+         <div className="materialimage">            <Avatar size={60} src={UserStore.obj.picture} />
          <br/>
 
          {UserStore.userrealname}

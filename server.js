@@ -43,6 +43,8 @@ app.post('/api/user', function(req, res){
 // console.log(req.body) 
 var user = new User(req.body);
 user.obj = req.body;
+user.uId = req.body.identities[0].user_id;
+console.log('uId' + user.uId);
 
  User.find({user_id : req.params.user_id}, function (err, docs) {
         if (docs.length){
@@ -63,6 +65,22 @@ console.log('abc');
 	
 });
 
+app.get('/api/userbyuId/:uId', function(req, res) {
+    // get the user's verified from the url and find that user
+   mongoose.model('User').find({uId: req.params.uId}, function(err, User){
+        if(err) console.log(err)
+  res.send(JSON.stringify(User));
+    });
+});
+
+app.get('/api/user/:user_id', function(req, res) {
+    // get the user's verified from the url and find that user
+   mongoose.model('User').find({user_id: req.params.user_id}, function(err, User){
+        if(err) console.log(err)
+  res.send(JSON.stringify(User));
+    });
+});
+
 
 app.get('/api/user', function(req, res){
 mongoose.model('User').find(function(err,User)
@@ -73,6 +91,8 @@ mongoose.model('User').find(function(err,User)
 )
 	
 });
+
+
 
 app.get("*", function(request, response) {
   response.sendFile(path.resolve(__dirname, "public", "index.html"));

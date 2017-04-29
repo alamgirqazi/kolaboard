@@ -5,8 +5,8 @@ const ID_TOKEN_KEY = "id_token";
 var emailverified;
 var picture;
 var profileObject;
+var user_id;
 import userstore from "app/store/UserStore.js";
-import { observer } from "mobx-react";
 
 const lock = new Auth0Lock(
   "xDe229e1uR9PPKZMutFVk4QZYpAVU9l6",
@@ -20,22 +20,6 @@ const lock = new Auth0Lock(
 );
 
 
-// exports.create = function () {
-//     var user = new User();
-//     user.name = profile["email"];
-//     user.email = profile["email"];
-//     user.picture = profile["email"];
-//     user.save(function (err) {
-//         if (err) {
-//             return res.status(400).send({message: getErrorMessages(err)});
-//         } else {
-//             return res.json(user);
-//         }
-//     })
-
-// };
-
-
 lock.on("authenticated", authResult => {
   lock.getUserInfo(authResult.accessToken, function(error, profile) {
     if (error) {
@@ -44,7 +28,7 @@ lock.on("authenticated", authResult => {
     }
     // localStorage.setItem("accessToken", authResult.accessToken);
     localStorage.setItem("profile", JSON.stringify(profile));
-    console.log(JSON.stringify(profile));
+    // console.log(JSON.stringify(profile));
     profileObject = JSON.stringify(profile);
 
     userstore.obj = JSON.stringify(profile);
@@ -52,7 +36,7 @@ lock.on("authenticated", authResult => {
     // console.log(userstore.obj.picture);
     // //Facebook
 
-    // console.log(profile["email"]);
+   user_id = profile["user_id"];
     // console.log(profile["name"]);
     // console.log(profile["picture"]);
 
@@ -60,6 +44,7 @@ lock.on("authenticated", authResult => {
     emailverified = profile["email_verified"];
     picture = profile["picture"];
     localStorage.setItem("emailverified", emailverified);
+    localStorage.setItem("user_id",user_id );
 
     // console.log('var email verified ' + emailverified);
     // Update DOM
@@ -91,6 +76,7 @@ export function login(options) {
 
 export function logout() {
   clearIdToken();
+  clearLocalStorage();
   browserHistory.replace("/");
   // myFunc;
   location.reload();
@@ -200,6 +186,11 @@ export function getIdToken() {
 
 function clearIdToken() {
   localStorage.removeItem(ID_TOKEN_KEY);
+}
+function clearLocalStorage() {
+  localStorage.removeItem(user_id);
+  localStorage.removeItem(emailverified);
+  localStorage.removeItem(profile);
 }
 
 export function isLoggedIn() {

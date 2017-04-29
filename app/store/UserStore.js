@@ -3,7 +3,7 @@ import mobx, { computed, observable,extendObservable, autorun } from "mobx";
 class UserStore {
   @observable todos = ["dont buy milk", "buy eggs"];
  @observable obj = {};
- @observable userrealname = 'Jane Doe';
+ @observable userrealname = '';
 }
 
 var userstore = (window.userstore = new UserStore());
