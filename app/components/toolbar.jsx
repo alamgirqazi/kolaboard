@@ -27,6 +27,11 @@ var localprofileparse;
 //   backgroundColor: 'E8E8E8',
 // }
 
+const materialbackground = {
+    backgroundImage: 'url("assets/images/materialpic.png")',
+    width: '304px',
+    height: '180px',
+}
 const style = {
 // backgroundColor: '#D0E9EA',
 backgroundColor: '$secondaryColor',
@@ -243,7 +248,7 @@ else if ((Store.privatenote == false)) {
      if(Store.dashboard == true)
 {
 var backgroundhoverdashboard = {
-  backgroundColor: 'green',
+  backgroundColor: '#E8E8E8',
 }
 }
 
@@ -312,17 +317,23 @@ else if ((Store.dashboard == false)) {
               iconElementLeft={<IconButton onTouchTap={this.handleToggle}><NavigationClose /></IconButton>}
             >
              </AppBar>
+             <div style={materialbackground}>
+<br/>
+<br/>
+         <div className="materialimage">            <Avatar size={80} src={UserStore.obj.picture} />
+         <br/>
+
+         {UserStore.userrealname}
+</div>
+</div>
 
 
 
-              <MenuItem style={backgroundhoverdashboard} onClick={this.showDashboard} primaryText="Dashboard" rightIcon={									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>								}> </MenuItem>
-              <MenuItem style={backgroundhover} onClick={this.showApp} primaryText="Chat" rightIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>}> </MenuItem>
-              <MenuItem style={backgroundhoverevents}  onTouchTap={this.showEvents} primaryText="Events" rightIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>}> </MenuItem>
+              <MenuItem style={backgroundhoverdashboard} onClick={this.showDashboard} primaryText="Dashboard" leftIcon={									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>								}> </MenuItem>
+              <MenuItem style={backgroundhover} onClick={this.showApp} primaryText="Chat" leftIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>}> </MenuItem>
+              <MenuItem style={backgroundhoverevents}  onTouchTap={this.showEvents} primaryText="Events" leftIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>}> </MenuItem>
               <MenuItem style={backgroundhovertimetable}  onTouchTap={this.showTimetable} primaryText="Timetable" leftIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>}> </MenuItem>
-              <Divider />
-              <MenuItem disabled={true}> </MenuItem>
-              <MenuItem primaryText="Logout" > </MenuItem>
-          </Drawer>
+                        </Drawer>
       </div>
     );
   }
@@ -338,3 +349,4 @@ else if ((Store.dashboard == false)) {
             // }}>
             //   Go to App
             // </IndexLink>
+            //  <img src="assets/images/materialpic.png" className="img-rounded materialimage" alt="Cinque Terre"/>

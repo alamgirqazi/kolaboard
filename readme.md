@@ -10,6 +10,8 @@ Clone the repo
 ```sh
    $ npm install 
 
+   $ mongod 
+
    $ node server
   
    $ webpack -w (only for dev)

@@ -22,7 +22,6 @@ return (
    >
          <Nav/>
 <Homepage/>      
-        <DevTools />
 
  </Scrollbars> 
 
@@ -40,6 +39,7 @@ return (
             {/*<Infinite containerHeight={800} elementHeight={40}>*/}
       {/*<Scrollbars  style={{ height: '100%' }}
 
-          
+                  <DevTools />
+
                 thumbMinSize={30}
       >*/}
