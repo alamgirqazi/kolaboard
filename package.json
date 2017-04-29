@@ -22,6 +22,7 @@
     "mobx": "^2.3.0",
     "mobx-react": "^3.0.0",
     "mongoose": "^4.9.5",
+    "mongoose-unique-validator": "^1.0.5",
     "react": "^0.14.7",
     "react-burger-menu": "^2.0.0",
     "react-custom-scrollbars": "^4.0.2",

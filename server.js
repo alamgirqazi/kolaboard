@@ -43,22 +43,26 @@ app.post('/api/user', function(req, res){
 // console.log(req.body) 
 var user = new User(req.body);
 user.obj = req.body;
-// console.log(user.email);
 
- User.find({email : user.email}, function (err, docs) {
+ User.find({user_id : req.params.user_id}, function (err, docs) {
         if (docs.length){
             // cb('Name exists already',null);
 console.log('abc');
         }else{
             user.save(function(err){
-            if (err) return handleError(err);
 
+            if (err)
+            {
+             console.log('user exists')
+            //  return handleError(err);
+            }
             });
         }
     });
 
 	
 });
+
 
 app.get('/api/user', function(req, res){
 mongoose.model('User').find(function(err,User)
