@@ -131,7 +131,7 @@ export default class ToolbarExamplesSimple extends React.Component {
   }
 
 componentDidMount(){
-      user_id=localStorage.getItem('user_id');
+      user_id=localStorage.getItem('userid');
       console.log('userid '+ user_id);
 
 var location = 'api/user/' + user_id;

@@ -2,9 +2,10 @@ import decode from "jwt-decode";
 import { browserHistory } from "react-router";
 import Auth0Lock from "auth0-lock";
 const ID_TOKEN_KEY = "id_token";
+const everified = "ev";
+const userid = "uid";
 var emailverified;
 var picture;
-var profileObject;
 var user_id;
 import userstore from "app/store/UserStore.js";
 
@@ -26,27 +27,19 @@ lock.on("authenticated", authResult => {
       // Handle error
       return;
     }
-    // localStorage.setItem("accessToken", authResult.accessToken);
-    localStorage.setItem("profile", JSON.stringify(profile));
+    localStorage.setItem("accessToken", authResult.accessToken);
+    // localStorage.setItem("profile", JSON.stringify(profile));
     // console.log(JSON.stringify(profile));
-    profileObject = JSON.stringify(profile);
-
     userstore.obj = JSON.stringify(profile);
-    // console.log("logging image url");
-    // console.log(userstore.obj.picture);
-    // //Facebook
 
    user_id = profile["user_id"];
-    // console.log(profile["name"]);
-    // console.log(profile["picture"]);
-
-    //     console.log(profile['email_verified']);
     emailverified = profile["email_verified"];
     picture = profile["picture"];
-    localStorage.setItem("emailverified", emailverified);
-    localStorage.setItem("user_id",user_id );
 
-    // console.log('var email verified ' + emailverified);
+
+    localStorage.setItem("ev", emailverified);
+    localStorage.setItem("userid",user_id );
+
     // Update DOM
     if (emailverified) {
       browserHistory.push("/app");
@@ -59,9 +52,7 @@ lock.on("authenticated", authResult => {
 
   setIdToken(authResult.idToken);
 
-  // browserHistory.push('#app');
 
-  // browserHistory.push('/special');
 });
 
 export function login(options) {
@@ -100,7 +91,7 @@ export function redirectVerify(nextState, replace) {
 
       console.log(profile["email_verified"]);
       emailverified = profile["email_verified"];
-      localStorage.setItem("emailverified", emailverified);
+      localStorage.setItem("ev", emailverified);
 
       console.log("var email verified " + emailverified);
       // Update DOM
@@ -120,20 +111,11 @@ export function redirectVerify(nextState, replace) {
       //  }
     });
 
-    console.log("outside func" + emailverified);
+//    console.log("outside func" + emailverified);
 
-    // setIdToken(authResult.idToken);
-
-    // // browserHistory.push('#app');
-
-    // browserHistory.push('/special');
   });
 }
-export function userProfile() {
-  return profileObject;
 
-  // return picture;
-}
 
 export function requireAuth(nextState, replace) {
   if (!isLoggedIn()) {
@@ -141,7 +123,7 @@ export function requireAuth(nextState, replace) {
   }
 }
 export function redirect(nextState, replace) {
-  var email = localStorage.getItem("emailverified");
+  var email = localStorage.getItem("ev");
   if (isLoggedIn() && email) {
     console.log("redirecting if");
     replace({ pathname: "/app" });
@@ -156,7 +138,7 @@ export function redirect(nextState, replace) {
 export function requireVerification(nextState, replace) {
   // console.log('req veri');
   // console.log('req veri ' + emailverified);
-  emailverified = localStorage.getItem("emailverified");
+  emailverified = localStorage.getItem("ev");
   console.log("this shouldnt be undefined " + emailverified);
 
   if (!emailverified && isLoggedIn()) {
@@ -188,9 +170,9 @@ function clearIdToken() {
   localStorage.removeItem(ID_TOKEN_KEY);
 }
 function clearLocalStorage() {
-  localStorage.removeItem(user_id);
-  localStorage.removeItem(emailverified);
-  localStorage.removeItem(profile);
+  localStorage.removeItem(userid);
+  localStorage.removeItem(everified);
+  // localStorage.removeItem(profile);
 }
 
 export function isLoggedIn() {
