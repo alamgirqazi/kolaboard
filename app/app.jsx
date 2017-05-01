@@ -14,6 +14,9 @@ import Verify from "app/components/authentication/verify.jsx";
 import { requireAuth, requireVerification, redirect } from "auth.js";
 import MainDashboard from "app/components/dashboard/maindashboard.jsx";
 import TimeTable from "app/components/dashboard/timetable.jsx";
+import Settings from "app/components/dashboard/settings.jsx";
+import Profile from "app/components/dashboard/profile.jsx";
+import PrivateNotes from "app/components/dashboard/privatenotes.jsx";
 import Events from "app/components/dashboard/events.jsx";
 import Store from 'app/store/UIstore.js'
 import MainContainer from 'app/components/MainContainer.jsx';
@@ -44,6 +47,10 @@ ReactDOM.render(
     <Route path="/dashboard" component={MainDashboard} />
  <Route path="/timetable" component={TimeTable} />
     <Route path="/events" component={Events} />
+         <Route path="/notes" component={PrivateNotes} />
+         <Route path="/settings" component={Settings} />
+         <Route path="/profile" component={Profile} />
+
     <Route path="/verify" component={Verify} onEnter={requireAuth} />
     <Route path="*" component={NotFound} />
 
@@ -56,4 +63,3 @@ ReactDOM.render(
 //           <Route path="/special" component={Main} onEnter={requireAuth} />
 
 // <Route path="app" component={Main} onEnter={requireAuth}  />
-    // <Route path="/notes" component={PrivateNotes} />

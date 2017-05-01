@@ -19,6 +19,9 @@ import Store from "app/store/UIstore.js";
 import { observer } from "mobx-react";
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import Divider from 'material-ui/Divider';
+import Profile from 'app/components/dashboard/profile.jsx';
+import Settings from 'app/components/dashboard/settings.jsx';
+
 var user_id;
 
 var localprofileparse;
@@ -80,9 +83,23 @@ export default class ToolbarExamplesSimple extends React.Component {
     this.showDashboard = this.showDashboard.bind(this);
     this.showPrivateNotes = this.showPrivateNotes.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.profile = this.profile.bind(this);
+    this.settings = this.settings.bind(this);
   }
  handleToggle = () => this.setState({ open: !this.state.open });
     
+    profile()
+    {
+      return <Profile/>;
+            browserHistory.replace("/profile");
+
+    }
+    settings()
+    {
+      return <Settings/>;
+       browserHistory.replace("/settings");
+
+    }
 
    showApp(){
     Store.app=true;
@@ -130,14 +147,16 @@ export default class ToolbarExamplesSimple extends React.Component {
 
 }
 
+newfunc()
+{
+  
+  if(UserStore.email == '')
+  {
+    UserStore.picture = 'http://lorempixel.com/g/400/200'
+  }
+  else{
 
-
-
-
-
-componentDidMount(){
-   
-   
+  }
       user_id=localStorage.getItem('userid');
       console.log('userid '+ user_id);
 
@@ -149,15 +168,11 @@ var location = 'api/user/' + user_id;
 //    url: location,
 //    data: {
 //       format: 'json'
-//    },
+//    },   tryCount : 0,
+ //   retryLimit : 3,
 //    error: function() {
 //      console.log('error in get');
-// var myFunction = function(){
-    
-// };
-// setTimeout(myFunction, 5000);
 
-//    },
 //    dataType: 'json',
 //    success: function(data) { 
        
@@ -181,18 +196,24 @@ $.ajax({
     type : 'GET',
    data: {
       format: 'json'
-   },
+   },dataType: 'json',
        tryCount : 0,
-    retryLimit : 3,
+    retryLimit : 10,
     success : function(data) {
 
+     UserStore.obj=data[0];
 
-console.log('yeyyy')  
-console.log(data[0]);
+    localprofileparse = UserStore.obj.identities[0].provider;     
 
-console.log(data);  
+if(localprofileparse=="facebook" || localprofileparse=="google-oauth2")
+// if(localprofileparse.identities[0].provider=="facebook" || localprofileparse.identities[0].provider=="google-oauth2")
 
-  },
+UserStore.userrealname = UserStore.obj.name;
+else
+UserStore.userrealname = UserStore.obj.nickname;
+
+
+},
     error : function(xhr, textStatus, errorThrown ) {
         if (textStatus == 'timeout') {
             this.tryCount++;
@@ -204,14 +225,18 @@ console.log(data);
             return;
         }
         if (xhr.status == 500) {
-console.log('this BS isnt working')        } else {
+console.log('this BS isnt working')      
+  } else {
             console.log('this BSs isnt working')        }
     }
 });
-
 }
 
-  handleChange = (event, index, value) => this.setState({value});
+componentDidMount(){
+   setTimeout(this.newfunc(), 10000);
+  
+
+}
 
   render() {
 
@@ -329,8 +354,8 @@ else if ((Store.dashboard == false)) {
               </IconButton>
             }
           >
-            <MenuItem primaryText="Profile" />
-            <MenuItem primaryText="Settings" />
+            <MenuItem primaryText="Profile" onClick = {this.profile}/>
+            <MenuItem primaryText="Settings" onClick = {this.settings}/>
             <MenuItem primaryText="Log Out" onClick = {logout}/>
           </IconMenu>
      </div>
@@ -363,12 +388,12 @@ else if ((Store.dashboard == false)) {
               <MenuItem style={backgroundhover} onClick={this.showApp} primaryText="Chat" leftIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>}> </MenuItem>
               <MenuItem style={backgroundhoverevents}  onTouchTap={this.showEvents} primaryText="Events" leftIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>}> </MenuItem>
               <MenuItem style={backgroundhovertimetable}  onTouchTap={this.showTimetable} primaryText="Timetable" leftIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>}> </MenuItem>
-                        </Drawer>
+                                <MenuItem style={backgroundhoverprivatenote} onClick={this.showPrivateNotes} primaryText="Private Notes" rightIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>}> </MenuItem>
+       </Drawer>
       </div>
     );
   }
 }
-              // <MenuItem style={backgroundhoverprivatenote} onClick={this.showPrivateNotes} primaryText="Private Notes" rightIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>}> </MenuItem>
 
             //     {" "}
             // <IndexLink  <Link to="/app">App</Link>

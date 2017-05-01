@@ -2,7 +2,7 @@ import mobx, { computed, observable,extendObservable, autorun } from "mobx";
 
 class UserStore {
   @observable todos = ["dont buy milk", "buy eggs"];
- @observable obj = {};
+ @observable obj = {picture: 'http://lorempixel.com/g/400/200'};
  @observable userrealname = '';
 }
 
