@@ -28,7 +28,7 @@ lock.on("authenticated", authResult => {
       return;
     }
     localStorage.setItem("accessToken", authResult.accessToken);
-    // localStorage.setItem("profile", JSON.stringify(profile));
+    localStorage.setItem("profile", JSON.stringify(profile));
     // console.log(JSON.stringify(profile));
     userstore.obj = JSON.stringify(profile);
 

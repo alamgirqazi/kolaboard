@@ -59,33 +59,33 @@ export default class MainDashboard extends React.Component {
 
 
   }
-componentDidMount () {
+// componentDidMount () {
 
-var profile= localStorage.getItem('profile');
-var newprofile = JSON.parse(profile);
-// console.log('new profile' + newprofile)
-  // axios.get('/api/user', {
-  // })
-  // .then(function (response) {
-  //   response=profile;
-  //   console.log('respon')
-  //   console.log(response);
-  // })
-  // .catch(function (error) {
-  //   console.log(error);
-  // });
-  $.ajax({
-    type: 'POST',
-    url: '/api/user',
-    data: newprofile
-  })
-  .done(function(data) {
-console.log('done' + profile)  })
-  .fail(function(jqXhr) {
-    console.log('failed to register');
-  });
+// var profile= localStorage.getItem('profile');
+// var newprofile = JSON.parse(profile);
+// // console.log('new profile' + newprofile)
+//   // axios.get('/api/user', {
+//   // })
+//   // .then(function (response) {
+//   //   response=profile;
+//   //   console.log('respon')
+//   //   console.log(response);
+//   // })
+//   // .catch(function (error) {
+//   //   console.log(error);
+//   // });
+//   $.ajax({
+//     type: 'POST',
+//     url: '/api/user',
+//     data: newprofile
+//   })
+//   .done(function(data) {
+// console.log('done' + profile)  })
+//   .fail(function(jqXhr) {
+//     console.log('failed to register');
+//   });
 
-}
+// }
 
 // GET request for remote imag
 
@@ -117,7 +117,7 @@ return(
         {/*<NewNav />*/}
         <Toolbar />
 
-        {/*<FirstPage/>*/}
+      {/*<FirstPage/>*/}
 
  <div>Heyyyyyyyyyyyyyyyyyyyyyyyyyyy</div>
       </div>

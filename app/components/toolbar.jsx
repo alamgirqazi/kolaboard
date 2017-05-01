@@ -128,43 +128,86 @@ export default class ToolbarExamplesSimple extends React.Component {
     Store.dashboard=false;
   browserHistory.replace("/notes");
 
-  }
+}
+
+
+
+
+
 
 componentDidMount(){
+   
+   
       user_id=localStorage.getItem('userid');
       console.log('userid '+ user_id);
 
 var location = 'api/user/' + user_id;
+
+
+
+// $.ajax({
+//    url: location,
+//    data: {
+//       format: 'json'
+//    },
+//    error: function() {
+//      console.log('error in get');
+// var myFunction = function(){
+    
+// };
+// setTimeout(myFunction, 5000);
+
+//    },
+//    dataType: 'json',
+//    success: function(data) { 
+       
+//      UserStore.obj=data[0];
+
+//     localprofileparse = UserStore.obj.identities[0].provider;     
+
+// if(localprofileparse=="facebook" || localprofileparse=="google-oauth2")
+// // if(localprofileparse.identities[0].provider=="facebook" || localprofileparse.identities[0].provider=="google-oauth2")
+
+// UserStore.userrealname = UserStore.obj.name;
+// else
+// UserStore.userrealname = UserStore.obj.nickname;
+
+//      },
+//    type: 'GET'
+// });
+
 $.ajax({
-   url: location,
+    url : location,
+    type : 'GET',
    data: {
       format: 'json'
    },
-   error: function() {
-     console.log('error in get');
-   },
-   dataType: 'json',
-   success: function(data) { 
-     
-     UserStore.obj=data[0];
-
-    localprofileparse = UserStore.obj.identities[0].provider;     
+       tryCount : 0,
+    retryLimit : 3,
+    success : function(data) {
 
 
+console.log('yeyyy')  
+console.log(data[0]);
 
-if(localprofileparse=="facebook" || localprofileparse=="google-oauth2")
-// if(localprofileparse.identities[0].provider=="facebook" || localprofileparse.identities[0].provider=="google-oauth2")
+console.log(data);  
 
-UserStore.userrealname = UserStore.obj.name;
-else
-UserStore.userrealname = UserStore.obj.nickname;
-
-     },
-   type: 'GET'
+  },
+    error : function(xhr, textStatus, errorThrown ) {
+        if (textStatus == 'timeout') {
+            this.tryCount++;
+            if (this.tryCount <= this.retryLimit) {
+                //try again
+                $.ajax(this);
+                return;
+            }            
+            return;
+        }
+        if (xhr.status == 500) {
+console.log('this BS isnt working')        } else {
+            console.log('this BSs isnt working')        }
+    }
 });
-
-
-
 
 }
 

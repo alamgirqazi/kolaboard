@@ -26,22 +26,16 @@ var UserSchema = new Schema({
     // required: "Content is required",
     trim: true
   },
-  clientID: {
-    type: String,
-    default: "",
-    // required: "Content is required",
-    trim: true
-  },
   picture: {
     type: String,
     default: "",
     // required: "Content is required",
     trim: true
   },
-  verified: {
+  email_verified: {
     type: Boolean,
     default: "",
-    // trim: true
+    // trim: true emailverified
   },
   user_id: {
     type: String,
