@@ -74,6 +74,7 @@ export default class ToolbarExamplesSimple extends React.Component {
     super(props);
     this.state = {
       value: 3,
+       yum: true,
        open: false,
        obj: {}
     };
@@ -200,6 +201,16 @@ $.ajax({
        tryCount : 0,
     retryLimit : 10,
     success : function(data) {
+       
+       if(data[0]==undefined)
+       {
+                $.ajax(this);
+      this.setState({
+yum: !this.state.yum
+      }) 
+      
+      }
+
 
      UserStore.obj=data[0];
 
@@ -233,12 +244,13 @@ console.log('this BS isnt working')
 }
 
 componentDidMount(){
-   setTimeout(this.newfunc(), 10000);
-  
+// this.newfunc();  
 
 }
 
   render() {
+
+this.newfunc();  
 
 // APP ROUTE
 
