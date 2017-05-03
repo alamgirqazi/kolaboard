@@ -7,6 +7,8 @@ class Store {
   id = 6;
 
   @observable full = "";
+@observable yum=true;
+
 @observable app=false;
 @observable timetable=false;
 @observable events=false;

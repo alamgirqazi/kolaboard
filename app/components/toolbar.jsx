@@ -76,7 +76,8 @@ export default class ToolbarExamplesSimple extends React.Component {
       value: 3,
        yum: true,
        open: false,
-       obj: {}
+       obj: {},
+       yay: true
     };
         this.showApp = this.showApp.bind(this);
     this.showEvents = this.showEvents.bind(this);
@@ -91,13 +92,21 @@ export default class ToolbarExamplesSimple extends React.Component {
     
     profile()
     {
-      return <Profile/>;
+        Store.app=false;
+    Store.events=false;
+    Store.timetable=false;
+    Store.privatenote=false;
+    Store.dashboard=false;
             browserHistory.replace("/profile");
 
     }
     settings()
     {
-      return <Settings/>;
+        Store.app=false;
+    Store.events=false;
+    Store.timetable=false;
+    Store.privatenote=false;
+    Store.dashboard=false;
        browserHistory.replace("/settings");
 
     }
@@ -156,7 +165,6 @@ newfunc()
     UserStore.picture = 'http://lorempixel.com/g/400/200'
   }
   else{
-
   }
       user_id=localStorage.getItem('userid');
       console.log('userid '+ user_id);
@@ -198,22 +206,30 @@ $.ajax({
    data: {
       format: 'json'
    },dataType: 'json',
-       tryCount : 0,
-    retryLimit : 10,
+    //    tryCount : 0,
+    // retryLimit : 10,
     success : function(data) {
        
-       if(data[0]==undefined)
-       {
-                $.ajax(this);
-      this.setState({
-yum: !this.state.yum
-      }) 
+      //  if(data[0]==undefined)
+       //{
+   //             $.ajax(this);
+
+
+  //  if(Store.yum === true)
+  //  {
+  //                  $.ajax(this); 
+  //                  Store.yum = false;
+  //  }
+
       
-      }
+      //}
 
 
-     UserStore.obj=data[0];
-
+      UserStore.obj=data[0];
+// if(UserStore.obj.name!= undefined)
+// {
+//   Store.yum==false
+// }
     localprofileparse = UserStore.obj.identities[0].provider;     
 
 if(localprofileparse=="facebook" || localprofileparse=="google-oauth2")
@@ -225,33 +241,52 @@ UserStore.userrealname = UserStore.obj.nickname;
 
 
 },
-    error : function(xhr, textStatus, errorThrown ) {
-        if (textStatus == 'timeout') {
-            this.tryCount++;
-            if (this.tryCount <= this.retryLimit) {
-                //try again
-                $.ajax(this);
-                return;
-            }            
-            return;
-        }
-        if (xhr.status == 500) {
-console.log('this BS isnt working')      
-  } else {
-            console.log('this BSs isnt working')        }
-    }
+//     error : function(xhr, textStatus, errorThrown ) {
+//         if (textStatus == 'timeout') {
+//             this.tryCount++;
+//             if (this.tryCount <= this.retryLimit) {
+//                 //try again
+//                 $.ajax(this);
+//                 return;
+//             }            
+//             return;
+//         }
+//         if (xhr.status == 500) {
+// console.log('this BS isnt working')      
+//   } else {
+//             console.log('this BSs isnt working')        }
+//     }
+
+   error: function() {
+     console.log('error in get');
+   }
+
 });
 }
 
 componentDidMount(){
 // this.newfunc();  
+   this.newfunc();
 
+   
+if(Store.yum)  
+{
+ setTimeout(function(){
+   this.newfunc();
+   Store.yum=false;
+        }.bind(this),4000);  // wait 5 seconds, then reset to false  }
+    }
 }
 
   render() {
 
-this.newfunc();  
+// this.newfunc();
+setTimeout(function(){
+this.setState({
 
+  yay: false
+})        }.bind(this),5000);  // wait 5 seconds, then reset to false  }
+    
 // APP ROUTE
 
      if(Store.app == true)
