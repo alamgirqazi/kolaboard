@@ -19,6 +19,7 @@ import Profile from "app/components/dashboard/profile.jsx";
 import PrivateNotes from "app/components/dashboard/privatenotes.jsx";
 import Events from "app/components/dashboard/events.jsx";
 import Store from 'app/store/UIstore.js'
+import Invites from 'app/components/dashboard/invites.jsx';
 import MainContainer from 'app/components/MainContainer.jsx';
 //load foundation
 
@@ -50,6 +51,7 @@ ReactDOM.render(
          <Route path="/notes" component={PrivateNotes} />
          <Route path="/settings" component={Settings} />
          <Route path="/profile" component={Profile} />
+         <Route path="/invites" component={Invites} />
 
     <Route path="/verify" component={Verify} onEnter={requireAuth} />
     <Route path="*" component={NotFound} />
