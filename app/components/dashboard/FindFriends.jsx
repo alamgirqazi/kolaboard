@@ -17,8 +17,11 @@ import getMuiTheme from "material-ui/styles/getMuiTheme";
 import Store from "app/store/UIstore.js";
 import SearchInput, { createFilter } from "react-search-input";
 import emails from "app/components/dashboard/mail.js";
+import FontIcon from 'material-ui/FontIcon';
 
-const KEYS_TO_FILTERS = ["user.name", "subject", "dest.name"];
+
+// const KEYS_TO_FILTERS = ["user.name", "subject", "dest.name"];
+const KEYS_TO_FILTERS = ["email", "name", "nickname", "user_id"];
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -76,9 +79,10 @@ export default class FindFriends extends React.Component {
             />
             {filteredEmails.map(email => {
               return (
-                <div className="mail" key={email.id}>
-                  <div className="from">{email.user.name}</div>
-                  <div className="subject">{email.subject}</div>
+                <div className="mail" key={email.user_id}>
+                  <div className="from">{email.name}</div>
+                  <div className="subject">{email.picture}</div>      
+                  <div className="subject">{email.identities[0].provider}</div>      
                 </div>
               );
             })}
@@ -92,3 +96,4 @@ export default class FindFriends extends React.Component {
     );
   }
 }
+// <button>{email.name}</button>      

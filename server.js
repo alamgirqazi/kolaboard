@@ -65,6 +65,27 @@ console.log('abc');
 	
 });
 
+
+app.get('/api/userall', function(req, res) {
+  User.find({}, function(err, users) {
+    var userMap= {};
+
+    // users.forEach(function(user, index) {
+    //   userMap[user._id] = user.user_id;
+    //   // userMap["email"] = user.email;
+    //   // userMap["picture"] = user.picture;
+    //   // userMap["user_id"] = user.user_id;
+    //   // userMap[user._id] = user.name;
+  
+
+    // });
+
+    res.send(users);  
+  });
+});
+
+
+
 app.get('/api/userbyuId/:uId', function(req, res) {
     // get the user's verified from the url and find that user
    mongoose.model('User').find({uId: req.params.uId}, function(err, User){

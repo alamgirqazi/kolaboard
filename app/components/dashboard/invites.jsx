@@ -52,13 +52,16 @@ export default class Invites extends React.Component {
  <Tabs>
     <Tab
       icon={<FontIcon className="material-icons">Find Friends</FontIcon>}
+    label="."
     >
 
     <FindFriends/>
     
     </Tab>
     <Tab
-      icon={<FontIcon className="material-icons">Accept / Reject Requests</FontIcon>}
+      icon={<FontIcon className="material-icons"> Accept / Reject Requests</FontIcon> }
+       label="accept"
+
     >
 <div>aslkasjdalskdjasldkjaslkd</div>
     </Tab>
