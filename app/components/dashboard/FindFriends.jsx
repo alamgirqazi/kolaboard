@@ -9,6 +9,10 @@ import IconButton from "material-ui/IconButton";
 import IconMenu from "material-ui/IconMenu";
 import Toolbar from "app/components/toolbar.jsx";
 import Boards from "app/components/Note.jsx";
+import Avatar from 'material-ui/Avatar';
+import List from 'material-ui/List/List';
+import ListItem from 'material-ui/List/ListItem';
+
 // import Main from "app/components/main.jsx"
 // import Store from "app/store/UIstore.js";
 // import { observer } from "mobx-react";
@@ -18,10 +22,19 @@ import Store from "app/store/UIstore.js";
 import SearchInput, { createFilter } from "react-search-input";
 import emails from "app/components/dashboard/mail.js";
 import FontIcon from 'material-ui/FontIcon';
+import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 
 
 // const KEYS_TO_FILTERS = ["user.name", "subject", "dest.name"];
 const KEYS_TO_FILTERS = ["email", "name", "nickname", "user_id"];
+
+
+const style = {
+  margin: 12,
+};
+const header = {
+  textAlign: 'center',
+};
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -66,24 +79,48 @@ export default class FindFriends extends React.Component {
 
    <div className="row">
 
-      <div className="columns medium-6 large-6 small-centered">
+      <div className="columns medium-8 large-8 small-centered">
    
 
-
-          <h1>Find Friends</h1>
+<br></br>
+          <h1 style={header}>Find Friends</h1>
+<br></br>
 
           <div>
             <SearchInput
               className="search-input"
               onChange={this.searchUpdated.bind(this)}
             />
+            <br></br>
+
             {filteredEmails.map(email => {
               return (
+                <List>
                 <div className="mail" key={email.user_id}>
-                  <div className="from">{email.name}</div>
-                  <div className="subject">{email.picture}</div>      
-                  <div className="subject">{email.identities[0].provider}</div>      
-                </div>
+        
+     <ListItem
+      disabled={true}
+      leftAvatar={
+        <Avatar size={80} src={email.picture} />
+
+      }
+          rightIconButton={    <RaisedButton label="Send Request" primary="true" style={style} />
+}
+
+    >
+    <div className="searchContent">
+                  <div className="subject">{email.name}</div>
+                                    <br></br>
+                  <div className="from">{email.email}</div>
+                                    <br></br>
+
+              <div className="subject">{email.identities[0].provider}</div> 
+              </div>   
+
+    </ListItem>
+      </div>
+
+                </List>
               );
             })}
           </div>
