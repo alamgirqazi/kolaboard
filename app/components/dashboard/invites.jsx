@@ -19,6 +19,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import FontIcon from 'material-ui/FontIcon';
 import MapsPersonPin from 'material-ui/svg-icons/maps/person-pin';
 import FindFriends from 'app/components/dashboard/FindFriends.jsx';
+import AcceptRequests from 'app/components/dashboard/AcceptRequests.jsx';
 const muiTheme = getMuiTheme({
   palette: {
     //   textColor: greenA400,
@@ -63,7 +64,9 @@ export default class Invites extends React.Component {
        label="accept"
 
     >
-<div>aslkasjdalskdjasldkjaslkd</div>
+
+    <AcceptRequests/>
+
     </Tab>
   
   </Tabs>

@@ -14,6 +14,7 @@ class Store {
 @observable events=false;
 @observable dashboard=false;
 @observable privatenote=false;
+@observable invites=false;
 @observable chatdrawer=false;
 
   // @observable fullscreen = !

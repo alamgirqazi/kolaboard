@@ -34,7 +34,8 @@
     "react-progress-bar-plus": "^1.2.0",
     "react-router": "^2.0.0",
     "react-search-input": "^0.11.0",
-    "react-tap-event-plugin": "0.2.0"
+    "react-tap-event-plugin": "0.2.0",
+    "socket.io": "^2.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.5.1",

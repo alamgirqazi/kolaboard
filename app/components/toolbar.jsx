@@ -84,6 +84,7 @@ export default class ToolbarExamplesSimple extends React.Component {
     this.showTimetable = this.showTimetable.bind(this);
     this.showDashboard = this.showDashboard.bind(this);
     this.showPrivateNotes = this.showPrivateNotes.bind(this);
+    this.showInvites = this.showInvites.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.profile = this.profile.bind(this);
     this.settings = this.settings.bind(this);
@@ -94,7 +95,8 @@ export default class ToolbarExamplesSimple extends React.Component {
     {
         Store.app=false;
     Store.events=false;
-    Store.timetable=false;
+    Store.timetable=false;          Store.invites=false;
+
     Store.privatenote=false;
     Store.dashboard=false;
             browserHistory.replace("/profile");
@@ -105,7 +107,8 @@ export default class ToolbarExamplesSimple extends React.Component {
         Store.app=false;
     Store.events=false;
     Store.timetable=false;
-    Store.privatenote=false;
+    Store.privatenote=false;          Store.invites=false;
+
     Store.dashboard=false;
        browserHistory.replace("/settings");
 
@@ -113,7 +116,8 @@ export default class ToolbarExamplesSimple extends React.Component {
 
    showApp(){
     Store.app=true;
-    Store.events=false;
+    Store.events=false;          Store.invites=false;
+
     Store.timetable=false;
     Store.privatenote=false;
     Store.dashboard=false;
@@ -125,6 +129,8 @@ export default class ToolbarExamplesSimple extends React.Component {
     Store.events=false;
     Store.timetable=true;
       Store.privatenote=false;
+                Store.invites=false;
+
     Store.dashboard=false;
       browserHistory.replace("/timetable");
 
@@ -134,6 +140,8 @@ export default class ToolbarExamplesSimple extends React.Component {
     Store.events=true;
     Store.timetable=false;
       Store.privatenote=false;
+          Store.invites=false;
+
     Store.dashboard=false;
   browserHistory.replace("/events");
 
@@ -143,15 +151,28 @@ export default class ToolbarExamplesSimple extends React.Component {
     Store.events=false;
     Store.timetable=false;
       Store.privatenote=false;
+          Store.invites=false;
+
     Store.dashboard=true;
   browserHistory.replace("/dashboard");
+
+  }
+  showInvites(){
+    Store.app=false;
+    Store.events=false;
+    Store.timetable=false;
+      Store.privatenote=false;
+    Store.dashboard=false;
+    Store.invites=true;
+  browserHistory.replace("/invites");
 
   }
   showPrivateNotes(){
     Store.app=false;
     Store.events=false;
     Store.timetable=false;
-      Store.privatenote=true;
+      Store.privatenote=true;          Store.invites=false;
+
     Store.dashboard=false;
   browserHistory.replace("/notes");
 
@@ -268,7 +289,6 @@ componentDidMount(){
 // this.newfunc();  
    this.newfunc();
 
-   
 if(Store.yum)  
 {
  setTimeout(function(){
@@ -360,6 +380,19 @@ else if ((Store.dashboard == false)) {
 } 
 }
 
+     if(Store.invites == true)
+{
+var backgroundhoverinvites = {
+  backgroundColor: '#E8E8E8',
+}
+}
+
+else if ((Store.invites == false)) {
+ var backgroundhoverinvites = {
+  backgroundColor: '#FFFFFF',
+} 
+}
+
 
 
 
@@ -435,7 +468,8 @@ else if ((Store.dashboard == false)) {
               <MenuItem style={backgroundhover} onClick={this.showApp} primaryText="Chat" leftIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>}> </MenuItem>
               <MenuItem style={backgroundhoverevents}  onTouchTap={this.showEvents} primaryText="Events" leftIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>}> </MenuItem>
               <MenuItem style={backgroundhovertimetable}  onTouchTap={this.showTimetable} primaryText="Timetable" leftIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>}> </MenuItem>
-                                <MenuItem style={backgroundhoverprivatenote} onClick={this.showPrivateNotes} primaryText="Private Notes" rightIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>}> </MenuItem>
+               <MenuItem style={backgroundhoverprivatenote} onClick={this.showPrivateNotes} primaryText="Private Notes" leftIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>}> </MenuItem>
+               <MenuItem style={backgroundhoverinvites} onClick={this.showInvites} primaryText="Invites" leftIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>}> </MenuItem>
        </Drawer>
       </div>
     );

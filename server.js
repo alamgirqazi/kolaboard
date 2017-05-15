@@ -1,14 +1,21 @@
 var express = require("express");
 var path = require("path");
+var http = require('http');
 // Create our app
 var app = express();
+
 const mongoose = require("mongoose");
 const jwt = require("express-jwt");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 var router = express.Router();
 var User = require('./server/models/User.js')
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
+const PORT = process.env.PORT || 3000;
+
+server.listen(PORT);
 
 //connect to mongoose
 
@@ -16,11 +23,19 @@ mongoose.connect("mongodb://localhost/kola");
 
 var db = mongoose.Connection;
 
+    //some other code
 // app.use(bodyParser.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.use(function(req, res, next) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        res.header("Access-Control-Allow-Headers", "Content-Type");
+        res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+        next();
+    });
 app.use(function(req, res, next) {
   if (req.headers["x-forwarded-proto"] === "https") {
     res.redirect("http://" + req.hostname + req.url);
@@ -35,8 +50,6 @@ const authCheck = jwt({
 });
 
 app.use(express.static("public"));
-
-const PORT = process.env.PORT || 3000;
 
 
 app.post('/api/user', function(req, res){
@@ -77,9 +90,8 @@ app.get('/api/userall', function(req, res) {
     //   // userMap["user_id"] = user.user_id;
     //   // userMap[user._id] = user.name;
   
-
+  
     // });
-
     res.send(users);  
   });
 });
@@ -119,7 +131,12 @@ app.get("*", function(request, response) {
   response.sendFile(path.resolve(__dirname, "public", "index.html"));
 });
 
-
-app.listen(PORT, function() {
-  console.log("Express server is up on port: " + PORT);
+io.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
 });
+// app.listen(PORT, function() {
+//   console.log("Express server is up on port: " + PORT);
+// });
