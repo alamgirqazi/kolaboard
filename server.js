@@ -82,17 +82,7 @@ console.log('abc');
 app.get('/api/userall', function(req, res) {
   User.find({}, function(err, users) {
     var userMap= {};
-
-    // users.forEach(function(user, index) {
-    //   userMap[user._id] = user.user_id;
-    //   // userMap["email"] = user.email;
-    //   // userMap["picture"] = user.picture;
-    //   // userMap["user_id"] = user.user_id;
-    //   // userMap[user._id] = user.name;
-  
-  
-    // });
-    res.send(users);  
+   res.send(users);  
   });
 });
 
@@ -131,12 +121,28 @@ app.get("*", function(request, response) {
   response.sendFile(path.resolve(__dirname, "public", "index.html"));
 });
 
+// io.on('connection', function (socket) {
+//   socket.emit('news', { hello: 'world' });
+//   socket.on('my other event', function (data) {
+//     console.log(data);
+//   });
+// });
+
+var io = require('socket.io')(server);
+// socket.io demo
 io.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
+
+
+  socket.emit('server event', { foo: 'bar' });
+  socket.on('client event', function (data) {
     console.log(data);
   });
 });
+
+io.on('connection', function(socket) {  
+  console.log('a user connected')
+})
+  
 // app.listen(PORT, function() {
 //   console.log("Express server is up on port: " + PORT);
 // });
