@@ -28,7 +28,6 @@ console.log('done' + profile)  })
   .fail(function(jqXhr) {
     console.log('failed to register');
   });
-
 }
 
   render() {

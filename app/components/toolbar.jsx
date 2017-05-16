@@ -296,6 +296,14 @@ if(Store.yum)
    Store.yum=false;
         }.bind(this),4000);  // wait 5 seconds, then reset to false  }
     }
+
+
+  var socket = io();
+  socket.on('server event', function (data) {
+    socket.emit('client event', { socket: 'io' });
+  });
+
+
 }
 
   render() {

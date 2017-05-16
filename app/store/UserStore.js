@@ -4,6 +4,9 @@ class UserStore {
   @observable todos = ["dont buy milk", "buy eggs"];
  @observable obj = {};
  @observable userrealname = '';
+@observable allUsers;
+
+
 }
 
 var userstore = (window.userstore = new UserStore());

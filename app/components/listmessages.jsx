@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import MobileTearSheet from 'app/api/MobileTearSheet.js';
@@ -17,8 +16,12 @@ import MenuItem from 'material-ui/MenuItem';
 var Infinite = require('react-infinite');
 import { Scrollbars } from 'react-custom-scrollbars';
 import Msgbar from 'app/components/toolbars/msgtoolbar.jsx';
+import UserStore from 'app/store/UserStore.js';
+import { observer } from "mobx-react";
 
 
+
+//NOT WORKING
 let SelectableList = makeSelectable(List);
 
 function wrapState(ComposedComponent) {
@@ -79,32 +82,6 @@ const style = {
   height: '100%',
 }
 
-// const ListMessages = () => (
-//   <MobileTearSheet>
-//     <SelectableList defaultValue={3}>
-//       <Subheader>Selectable Contacts</Subheader>
-
-//       <ListItem
-//         value={3}
-//         primaryText="Kerem Suer"
-//         leftAvatar={<Avatar src="images/kerem-128.jpg" />}
-//       />
-//       <ListItem
-//         value={4}
-//         primaryText="Eric Hoffman"
-//         leftAvatar={<Avatar src="images/kolage-128.jpg" />}
-//       />
-//       <ListItem
-//         value={5}
-//         primaryText="Raquel Parrado"
-//         leftAvatar={<Avatar src="images/raquelromanp-128.jpg" />}
-//       />
-//     </SelectableList>
-//   </MobileTearSheet>
-// );
-
-// export default ListMessages;
-// // height="100vh"
 const ListMessages = () => (
   <div className="margin" style={style}>
     <MobileTearSheet>
@@ -129,7 +106,8 @@ const ListMessages = () => (
           backgroundColor={darkBlack}
           size={40}
         >
-        U     <Badge   badgeContent={4}
+        U         
+ <Badge   badgeContent={4}
       primary={true}/>
          </Avatar>
       }
@@ -145,159 +123,16 @@ const ListMessages = () => (
           }
           secondaryTextLines={2}
         />
-   
-                {/*<Badge   badgeContent={4}
-      primary={true}/>*/}
-
         <Divider inset={true} />
-        <ListItem   value={2}
-            leftAvatar={
-        <Avatar
-          color={blue300}
-          backgroundColor={darkBlack}
-          size={40}
-        >
-        Q
-        </Avatar>
-      }
-          rightIconButton={rightIconMenu}
-          primaryText="Qamar Abbas"
-          secondaryText={
-            <p>
-              <span style={{color: darkBlack}}>Summer BBQ</span><br />
-              Wish I could come, but I&apos;m out of town this weekend.
-            </p>
-          }
-          secondaryTextLines={2}
-        />
-
-                     <Badge   badgeContent={4}
-      primary={true}/>
-                <Badge   badgeContent={6}
-      secondary={true}/>
-       
-        <Divider inset={true} />
-        <ListItem
-            leftAvatar={
-        <Avatar
-          color={blue300}
-          backgroundColor={darkBlack}
-          size={40}
-        >
-        T
-        </Avatar>
-      }
-          rightIconButton={rightIconMenu}
-          primaryText="Tahir Ali"
-          secondaryText={
-            <p>
-              <span style={{color: darkBlack}}>hmmm</span><br />
-              Do you have any Paris recs? Have you ever been?
-            </p>
-          }
-          secondaryTextLines={2}
-        />
-        <Divider inset={true} />
-        <ListItem   value={3}
-          leftAvatar={
-        <Avatar
-          color={blue300}
-          backgroundColor={darkBlack}
-          size={40}
-        >
-        K
-        </Avatar>
-      }
-          rightIconButton={rightIconMenu}
-          primaryText="Kolaboard"
-          secondaryText={
-            <p>
-              <span style={{color: darkBlack}}>OKAY!</span><br />
-              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
-            </p>
-          }
-          secondaryTextLines={2}
-        />
-        <ListItem   value={1}
-          leftAvatar={  <Avatar
-          color={blue300}
-          backgroundColor={darkBlack}
-          size={40}
-        >
-        K
-        </Avatar>}
-          rightIconButton={rightIconMenu}
-          primaryText="Brene Brown"
-          secondaryText={
-            <p>
-              <span style={{color: darkBlack}}>The Gifts of Imperfection</span><br />
-              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
-            </p>
-          }
-          secondaryTextLines={2}
-        />
-        <ListItem   value={5}
-          leftAvatar={  <Avatar
-          color={blue300}
-          backgroundColor={darkBlack}
-          size={40}
-        >
-        M
-        </Avatar>}
-          rightIconButton={rightIconMenu}
-          primaryText="Mark Manson"
-          secondaryText={
-            <p>
-              <span style={{color: darkBlack}}>The Subtle Art</span><br />
-              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
-            </p>
-          }
-          secondaryTextLines={2}
-        />
-        <ListItem   value={6}
-          leftAvatar={  <Avatar
-          color={blue300}
-          backgroundColor={darkBlack}
-          size={40}
-        >
-        R
-        </Avatar>}
-          rightIconButton={rightIconMenu}
-          primaryText="Ryan Holiday"
-          secondaryText={
-            <p>
-              <span style={{color: darkBlack}}>Ego is the Enemy</span><br />
-              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
-            </p>
-          }
-          secondaryTextLines={2}
-        />
-        <ListItem   value={8}
-          leftAvatar={  <Avatar
-          color={blue300}
-          backgroundColor={darkBlack}
-          size={40}
-        >
-        D
-        </Avatar>}
-          rightIconButton={rightIconMenu}
-          primaryText="Daniel Kahnemann"
-          secondaryText={
-            <p>
-              <span style={{color: darkBlack}}>Thinking, Fast and Slow</span><br />
-              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
-            </p>
-          }
-          secondaryTextLines={2}
-        />
-        
-
+  
         <br/>
+   <br/>        {UserStore.userrealname}
+     
    <br/>
    <br/>
    <br/>
    <br/>
-   <br/>
+
         <br/>
    <br/>
    <br/>
