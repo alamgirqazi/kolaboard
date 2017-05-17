@@ -57,6 +57,8 @@ const muiTheme = getMuiTheme({
     height: 50
   }
 });
+
+let users=[];
 export default class FindFriends extends React.Component {
   constructor(props) {
     super(props);
@@ -66,11 +68,36 @@ export default class FindFriends extends React.Component {
     };
   }
 
+componentDidMount() {
+
+   $.ajax({
+    type: 'GET',
+    url: '/api/userall'
+    })
+  .done(function(data) {
+// console.log(data)  
+users = data;
+console.log("frienlist");
+console.log(users);
+UserStore.allUsers = users;
+UserStore.flisty=true;
+
+
+})
+  .fail(function(jqXhr) {
+    console.log('failed to register');
+  });
+
+}
+
+
+
+
   searchUpdated(term) {
     this.setState({ searchTerm: term });
   }
   render() {
-    const filteredEmails = emails.filter(
+    const filteredEmails = users.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
     );
 
@@ -111,15 +138,15 @@ style={{height: 300 }}            renderTrackHorizontal={props => (
           >
 
 
-            {filteredEmails.map(email => {
+            {filteredEmails.map(user => {
               return (
                 <List>
-                <div className="mail" key={email.user_id}>
+                <div className="mail" key={user.user_id}>
         
      <ListItem
       disabled={true}
       leftAvatar={
-        <Avatar size={80} src={email.picture} />
+        <Avatar size={80} src={user.picture} />
 
       }
           rightIconButton={    <RaisedButton label="Send Request" primary="true" style={style} />
@@ -127,12 +154,12 @@ style={{height: 300 }}            renderTrackHorizontal={props => (
 
     >
     <div className="searchContent">
-                  <div className="subject">{email.name}</div>
+                  <div className="subject">{user.name}</div>
                                     <br></br>
-                  <div className="from">{email.email}</div>
+                  <div className="from">{user.email}</div>
                                     <br></br>
 
-              <div className="subject">{email.identities[0].provider}</div> 
+              <div className="subject">{user.identities[0].provider}</div> 
 
               </div>   
 

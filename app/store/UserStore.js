@@ -6,6 +6,7 @@ class UserStore {
  @observable userrealname = '';
 @observable allUsers;
 @observable listy=false;
+@observable flisty=false;
 ;
 
 
