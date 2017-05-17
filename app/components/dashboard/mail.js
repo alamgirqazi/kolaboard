@@ -1,61 +1,4 @@
 
-// export default [{
-//   id: 1,
-//   user: {
-//     name: 'Mathieu',
-//     // job: 'Software Engineer',
-//     // company: 'Enki'
-//   },
-//   subject: 'Hi!',
-//   dest: [
-//     {
-//       name: 'Bfruno',
-//       // job: 'CTO',
-//       // company: 'Enki'
-//     },
-//     {
-//       name: 'Arsewny',
-//       // job: 'Software Engineer',
-//       // company: 'Enki'
-//     }
-//   ]
-// }, {
-//   id: 2,
-//   user: {
-//     name: 'Bruno'
-//   },
-//    subject: 'javascript',
-//   dest: [
-//     {
-//       name: 'Ab',
-//       // job: 'CTO',
-//       // company: 'Enki'
-//     },
-//     {
-//       name: 'Arsenee',
-//       // job: 'Software Engineer',
-//       // company: 'Enki'
-//     }
-//   ]
-// }, {
-//   id: 3,
-//   user: {
-//     name: 'you can search for me using a regex : `java$`'
-//   },
-//   subject: 'java',
-//   dest: [
-//     {
-//       name: 'Brunoooo',
-//       // job: 'CTO',
-//       // company: 'Enki'
-//     },
-//     {
-//       name: 'Arsenqy',
-// //      job: 'Software Engineer',
-//       // company: 'Enki'
-//     }
-//   ]
-// }]
 
  export default [
   {
@@ -178,5 +121,90 @@
     "nickname": "alamgirmunirqazi",
     "email": "alamgirmunirqazi@gmail.com",
     "name": "Alamgir Munir Qazi"
+  },
+  {
+    "_id": "591ad231813768243c92865b",
+    "uId": "107030243351013960617",
+    "obj": {
+      "email": "harissiddiqui1995@gmail.com",
+      "email_verified": "true",
+      "name": "Haris Siddiqui",
+      "given_name": "Haris",
+      "family_name": "Siddiqui",
+      "picture": "https://lh3.googleusercontent.com/-ETjlm2FDzA4/AAAAAAAAAAI/AAAAAAAAE-M/e1VQEzp4bUo/photo.jpg",
+      "locale": "en",
+      "clientID": "xDe229e1uR9PPKZMutFVk4QZYpAVU9l6",
+      "updated_at": "2017-05-16T10:19:25.390Z",
+      "user_id": "google-oauth2|107030243351013960617",
+      "nickname": "harissiddiqui1995",
+      "identities": [
+        {
+          "provider": "google-oauth2",
+          "user_id": "107030243351013960617",
+          "connection": "google-oauth2",
+          "isSocial": "true"
+        }
+      ],
+      "created_at": "2017-05-16T10:19:25.390Z",
+      "sub": "google-oauth2|107030243351013960617"
+    },
+    "identities": [
+      {
+        "provider": "google-oauth2",
+        "user_id": "107030243351013960617",
+        "connection": "google-oauth2",
+        "isSocial": "true"
+      }
+    ],
+    "__v": 0,
+    "user_id": "google-oauth2|107030243351013960617",
+    "email_verified": true,
+    "picture": "https://lh3.googleusercontent.com/-ETjlm2FDzA4/AAAAAAAAAAI/AAAAAAAAE-M/e1VQEzp4bUo/photo.jpg",
+    "nickname": "harissiddiqui1995",
+    "email": "harissiddiqui1995@gmail.com",
+    "name": "Haris Siddiqui"
+  },
+  {
+    "_id": "591c402bb24e0b1700f55438",
+    "uId": "103019794044735563166",
+    "obj": {
+      "email": "lasharibaloch0@gmail.com",
+      "email_verified": "true",
+      "name": "Lashari Baloch",
+      "given_name": "Lashari",
+      "family_name": "Baloch",
+      "picture": "https://lh3.googleusercontent.com/-6QdDd7RoXDA/AAAAAAAAAAI/AAAAAAAAAWU/DEeL_BjmERc/photo.jpg",
+      "gender": "male",
+      "locale": "en",
+      "clientID": "xDe229e1uR9PPKZMutFVk4QZYpAVU9l6",
+      "updated_at": "2017-05-17T12:20:55.643Z",
+      "user_id": "google-oauth2|103019794044735563166",
+      "nickname": "lasharibaloch0",
+      "identities": [
+        {
+          "provider": "google-oauth2",
+          "user_id": "103019794044735563166",
+          "connection": "google-oauth2",
+          "isSocial": "true"
+        }
+      ],
+      "created_at": "2017-05-17T12:17:02.933Z",
+      "sub": "google-oauth2|103019794044735563166"
+    },
+    "identities": [
+      {
+        "provider": "google-oauth2",
+        "user_id": "103019794044735563166",
+        "connection": "google-oauth2",
+        "isSocial": "true"
+      }
+    ],
+    "__v": 0,
+    "user_id": "google-oauth2|103019794044735563166",
+    "email_verified": true,
+    "picture": "https://lh3.googleusercontent.com/-6QdDd7RoXDA/AAAAAAAAAAI/AAAAAAAAAWU/DEeL_BjmERc/photo.jpg",
+    "nickname": "lasharibaloch0",
+    "email": "lasharibaloch0@gmail.com",
+    "name": "Lashari Baloch"
   }
 ]

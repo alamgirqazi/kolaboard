@@ -12,6 +12,7 @@ import Boards from "app/components/Note.jsx";
 import Avatar from 'material-ui/Avatar';
 import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 // import Main from "app/components/main.jsx"
 // import Store from "app/store/UIstore.js";
@@ -80,10 +81,9 @@ export default class FindFriends extends React.Component {
    <div className="row">
 
       <div className="columns medium-8 large-8 small-centered">
-   
 
 <br></br>
-          <h1 style={header}>Find Friends</h1>
+          <h3 style={header}>Find Friends</h3>
 <br></br>
 
           <div>
@@ -92,6 +92,24 @@ export default class FindFriends extends React.Component {
               onChange={this.searchUpdated.bind(this)}
             />
             <br></br>
+
+   <Scrollbars
+style={{height: 300 }}            renderTrackHorizontal={props => (
+              <div
+                {...props}
+                className="track-horizontal"
+                style={{ display: "none" }}
+              />
+            )}
+            renderThumbHorizontal={props => (
+              <div
+                {...props}
+                className="thumb-horizontal"
+                style={{ display: "none" }}
+              />
+            )}
+          >
+
 
             {filteredEmails.map(email => {
               return (
@@ -115,15 +133,21 @@ export default class FindFriends extends React.Component {
                                     <br></br>
 
               <div className="subject">{email.identities[0].provider}</div> 
+
               </div>   
 
     </ListItem>
+
       </div>
 
                 </List>
               );
+
             })}
+     </Scrollbars>
+
           </div>
+
    </div>
 
       </div>

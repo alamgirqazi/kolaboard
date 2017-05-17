@@ -5,6 +5,8 @@ class UserStore {
  @observable obj = {};
  @observable userrealname = '';
 @observable allUsers;
+@observable listy=false;
+;
 
 
 }

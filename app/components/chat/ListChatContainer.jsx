@@ -96,6 +96,8 @@ const rightIconMenu = (
 const style = {
   height: '100%',
 }
+    var listmap;
+let users = [];
 
 
 @observer
@@ -103,12 +105,23 @@ export default class ListChatContainer extends React.Component {
   constructor(props) {
     super(props);
 
-  }
+this.onChange = this.onChange.bind(this);
 
+    this.state = {
+      listy: false,
+    };
+
+
+      }
+
+
+
+onChange = () => {
+  this.setState({listy: true,});
+}
 
 componentDidMount() {
 
-let users = [];
    $.ajax({
     type: 'GET',
     url: '/api/userall'
@@ -119,13 +132,23 @@ users = data;
 console.log("users");
 console.log(users);
 UserStore.allUsers = users;
+UserStore.listy=true;
+   this.onChange
+
+this.forceUpdate
 })
   .fail(function(jqXhr) {
     console.log('failed to register');
   });
+
 }
 
   render() {
+  
+
+ const liststatus = UserStore.listy;
+
+
 return(
  
  <div>
@@ -137,49 +160,56 @@ return(
 <input type="search" placeholder="Search Messages here....."/>
              <Subheader>Today</Subheader>
 
-{/*style={{ height: 500 }}*/}
-{/*<Infinite containerHeight={500} elementHeight={4}>*/ }
- {/*<Scrollbars  autoHeightMin={0} style={{ height: '100%' }}*/}
  <Scrollbars  autoHeightMin={0} style={{ height: '100vh' }}
         autoHeightMax={50}
         thumbMinSize={50} >
 
-    <SelectableList defaultValue={3}>
+  {liststatus ? (
+           <div>
+{users.map(Users => {
+              return (
+  
+ <SelectableList defaultValue={3}>
+                <div className="" key={Users.user_id}>
 
         <ListItem   value={4}
             leftAvatar={
         <Avatar
-          color={blue300}
-          backgroundColor={darkBlack}
-          size={40}
-        >
-        U         
+          size={40} src={Users.picture}
+        >       
  <Badge   badgeContent={4}
       primary={true}/>
          </Avatar>
       }
                 
        rightIconButton={rightIconMenu}
-          primaryText="Uni Group"
-       
-          secondaryText={
+          primaryText={Users.name}
+            
+                 secondaryText={
             <p>
-              <span style={{color: darkBlack}}>Seen WestWorld?</span><br />
-              I&apos;So in the finale we see Dolores 
+          {Users.picture}
             </p>
           }
           secondaryTextLines={2}
+         
         />
-   
-                {/*<Badge   badgeContent={4}
-      primary={true}/>*/}
+      </div>
+
 
         <Divider inset={true} />
-  
+             </SelectableList>
 
-        <br/>
- {UserStore.userrealname}     
-   <br/>
+              );
+
+            })}
+</div>
+      ) : (
+<div></div> 
+
+
+      )} 
+
+
    <br/>
    <br/>
    <br/>
@@ -194,12 +224,10 @@ return(
    <br/>
    <br/>
 
- 
-           </SelectableList>
 
-      
+
   {/*</Infinite>*/}
-   </Scrollbars>
+      </Scrollbars>
 
     </MobileTearSheet>
 
@@ -210,3 +238,36 @@ return(
 
   }
 }
+
+
+
+//     <SelectableList defaultValue={3}>
+
+//         <ListItem   value={4}
+//             leftAvatar={
+//         <Avatar
+//           color={blue300}
+//           backgroundColor={darkBlack}
+//           size={40}
+//         >
+//         U         
+//  <Badge   badgeContent={4}
+//       primary={true}/>
+//          </Avatar>
+//       }
+                
+//        rightIconButton={rightIconMenu}
+//           primaryText="Uni Group"
+       
+//           secondaryText={
+//             <p>
+//               <span style={{color: darkBlack}}>Seen WestWorld?</span><br />
+//               I&apos;So in the finale we see Dolores 
+//             </p>
+//           }
+//           secondaryTextLines={2}
+//         />
+
+
+//         <Divider inset={true} />
+            //  </SelectableList>
