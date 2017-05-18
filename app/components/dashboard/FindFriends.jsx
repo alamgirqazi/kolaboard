@@ -24,7 +24,7 @@ import SearchInput, { createFilter } from "react-search-input";
 import emails from "app/components/dashboard/mail.js";
 import FontIcon from 'material-ui/FontIcon';
 import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
-
+import UserStore from 'app/store/UserStore.js'
 
 // const KEYS_TO_FILTERS = ["user.name", "subject", "dest.name"];
 const KEYS_TO_FILTERS = ["email", "name", "nickname", "user_id"];
@@ -79,10 +79,21 @@ componentDidMount() {
 users = data;
 console.log("frienlist");
 console.log(users);
+
+
+// users.splice(_.indexOf(users, _.findWhere(users, { uId : 117175967810648931400})), 1);
+
+var index = users.findIndex(function(o){
+     return o.uId ==='117175967810648931400';
+})
+users.splice(index, 1);
+
+console.log('new users');
+console.log(users);
+
+
 UserStore.allUsers = users;
 UserStore.flisty=true;
-
-
 })
   .fail(function(jqXhr) {
     console.log('failed to register');

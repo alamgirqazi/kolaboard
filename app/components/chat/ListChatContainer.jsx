@@ -131,6 +131,13 @@ componentDidMount() {
 users = data;
 console.log("users");
 console.log(users);
+
+var index = users.findIndex(function(o){
+     return o.uId ==='117175967810648931400';
+})
+users.splice(index, 1);
+
+
 UserStore.allUsers = users;
 UserStore.listy=true;
    this.onChange
