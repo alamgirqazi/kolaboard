@@ -21,7 +21,6 @@ import { greenA400 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import Store from "app/store/UIstore.js";
 import SearchInput, { createFilter } from "react-search-input";
-import emails from "app/components/dashboard/mail.js";
 import FontIcon from 'material-ui/FontIcon';
 import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 import UserStore from 'app/store/UserStore.js'
@@ -70,6 +69,8 @@ export default class FindFriends extends React.Component {
 
 componentDidMount() {
 
+let userid = localStorage.getItem('userid');
+
    $.ajax({
     type: 'GET',
     url: '/api/userall'
@@ -84,7 +85,7 @@ console.log(users);
 // users.splice(_.indexOf(users, _.findWhere(users, { uId : 117175967810648931400})), 1);
 
 var index = users.findIndex(function(o){
-     return o.uId ==='117175967810648931400';
+     return o.user_id ===userid;
 })
 users.splice(index, 1);
 

@@ -108,19 +108,15 @@ export default class ListChatContainer extends React.Component {
 this.onChange = this.onChange.bind(this);
 
     this.state = {
-      listy: false,
     };
 
 
       }
 
 
-
-onChange = () => {
-  this.setState({listy: true,});
-}
-
 componentDidMount() {
+
+let userid = localStorage.getItem('userid');
 
    $.ajax({
     type: 'GET',
@@ -133,16 +129,13 @@ console.log("users");
 console.log(users);
 
 var index = users.findIndex(function(o){
-     return o.uId ==='117175967810648931400';
+     return o.user_id ===userid;
 })
 users.splice(index, 1);
 
 
 UserStore.allUsers = users;
 UserStore.listy=true;
-   this.onChange
-
-this.forceUpdate
 })
   .fail(function(jqXhr) {
     console.log('failed to register');
