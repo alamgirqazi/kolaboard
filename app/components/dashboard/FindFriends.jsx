@@ -16,7 +16,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 
 // import Main from "app/components/main.jsx"
 // import Store from "app/store/UIstore.js";
-// import { observer } from "mobx-react";
+import { observer } from "mobx-react";
 import { greenA400 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import Store from "app/store/UIstore.js";
@@ -58,6 +58,7 @@ const muiTheme = getMuiTheme({
 });
 
 let users=[];
+@observer
 export default class FindFriends extends React.Component {
   constructor(props) {
     super(props);
@@ -65,6 +66,9 @@ export default class FindFriends extends React.Component {
     this.state = {
       searchTerm: ""
     };
+
+
+this.btnClicked = this.btnClicked.bind(this);
   }
 
 componentDidMount() {
@@ -102,7 +106,10 @@ UserStore.flisty=true;
 
 }
 
-
+btnClicked()
+{
+  console.log(users.name);
+}
 
 
   searchUpdated(term) {
@@ -161,7 +168,7 @@ style={{height: 300 }}            renderTrackHorizontal={props => (
         <Avatar size={80} src={user.picture} />
 
       }
-          rightIconButton={    <RaisedButton label="Send Request" primary="true" style={style} />
+          rightIconButton={    <RaisedButton label="Send Request" primary={true} onTouchTap={console.log('asd')} style={style} />
 }
 
     >

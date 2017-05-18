@@ -105,12 +105,8 @@ export default class ListChatContainer extends React.Component {
   constructor(props) {
     super(props);
 
-this.onChange = this.onChange.bind(this);
-
     this.state = {
     };
-
-
       }
 
 
