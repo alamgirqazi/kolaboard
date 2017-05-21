@@ -7,14 +7,16 @@ var FriendshipSchema = new Schema({
   
   user_id: {
     type: String,
-    default: "",
-    unique: true,
-    // required: "Content is required",
-    trim: true
+    default: "",    // required: "Content is required",
+    trim: true,
+            index: true
+
   },
   other_id: {
     type: String,
     default: "",
+            index: true
+
     // trim: true emailverified
   },
 
@@ -25,6 +27,8 @@ var FriendshipSchema = new Schema({
   },
 
 });
+FriendshipSchema.index({ other_id: 1, user_id: 1 }, { unique: true });
+
 FriendshipSchema.plugin(uniqueValidator);
 
 module.exports =  mongoose.model('Friendship', FriendshipSchema)

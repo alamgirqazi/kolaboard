@@ -10,6 +10,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 var router = express.Router();
 var User = require('./server/models/User.js')
+var Friendship = require('./server/models/Friendship.js')
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
@@ -69,6 +70,29 @@ console.log('abc');
             if (err)
             {
              console.log('user exists')
+            //  return handleError(err);
+            }
+            });
+        }
+    });
+
+	
+});
+app.post('/api/user/friendrequest', function(req, res){
+// console.log(req.body) 
+var friendship = new Friendship(req.body);
+console.log(req.body);
+
+ Friendship.find({}, function (err, docs) {
+        if (docs.length){
+            // cb('Name exists already',null);
+console.log('friendship');
+        }else{
+            friendship.save(function(err){
+
+            if (err)
+            {
+             console.log('friendship exists')
             //  return handleError(err);
             }
             });

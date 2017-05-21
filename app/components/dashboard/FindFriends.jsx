@@ -67,10 +67,7 @@ export default class FindFriends extends React.Component {
       searchTerm: ""
     };
 
-this.btnClick = this.btnClick.bind(this);  
 this._handleClick = this._handleClick.bind(this);  
-this.btnClicked = this.btnClicked.bind(this);
-
   }
 
 componentDidMount() {
@@ -108,20 +105,39 @@ UserStore.flisty=true;
 
 }
 _handleClick(user){
+
+let realuserid = localStorage.getItem('userid');
+
     console.log(user.name)
-}
-btnClicked()
-{
-  console.log(users.name);
+
+ var data = {
+    user_id: realuserid,
+status: "pending",
+    other_id: user.user_id
+  }
+
+  // Submit form via jQuery/AJAX
+  $.ajax({
+    type: 'POST',
+    url: '/api/user/friendrequest',
+    data: data
+  })
+  .done(function(data) {
+    console.log('POST req sent')
+  })
+  .fail(function(jqXhr) {
+    console.log('failed to register POST REQ');
+  });
+
+
+
+
+
+
+
+
 }
 
-btnClick(e,user)
-{
-console.log('btnclick')
-  // e.target.style.visibility = 'hidden';
-
-// console.log('btnclick' + user.user_id)
-}
 
   searchUpdated(term) {
     this.setState({ searchTerm: term });
