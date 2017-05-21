@@ -67,8 +67,10 @@ export default class FindFriends extends React.Component {
       searchTerm: ""
     };
 
-
+this.btnClick = this.btnClick.bind(this);  
+this._handleClick = this._handleClick.bind(this);  
 this.btnClicked = this.btnClicked.bind(this);
+
   }
 
 componentDidMount() {
@@ -105,12 +107,21 @@ UserStore.flisty=true;
   });
 
 }
-
+_handleClick(user){
+    console.log(user.name)
+}
 btnClicked()
 {
   console.log(users.name);
 }
 
+btnClick(e,user)
+{
+console.log('btnclick')
+  // e.target.style.visibility = 'hidden';
+
+// console.log('btnclick' + user.user_id)
+}
 
   searchUpdated(term) {
     this.setState({ searchTerm: term });
@@ -120,6 +131,7 @@ btnClicked()
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
     );
 
+var self = this;
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
@@ -159,25 +171,28 @@ style={{height: 300 }}            renderTrackHorizontal={props => (
 
             {filteredEmails.map(user => {
               return (
-                <List>
+                <List key={user.user_id}>
                 <div className="mail" key={user.user_id}>
         
      <ListItem
+     key={user.user_id}
       disabled={true}
       leftAvatar={
         <Avatar size={80} src={user.picture} />
 
       }
-          rightIconButton={    <RaisedButton label="Send Request" primary={true} onTouchTap={console.log('asd')} style={style} />
+rightIconButton={<RaisedButton label={user.name} primary={true} key={user.user_id} onTouchTap={() => this._handleClick(user)}
+ style={style} />
 }
+// rightIconButton={<RaisedButton label="Send Request" primary={true} onClick={this.btnClick(user)} style={style} />
+// }
 
-    >
-    <div className="searchContent">
+>
+    <div className="searchContent" key={user.user_id}>
                   <div className="subject">{user.name}</div>
                                     <br></br>
                   <div className="from">{user.email}</div>
                                     <br></br>
-
               <div className="subject">{user.identities[0].provider}</div> 
 
               </div>   

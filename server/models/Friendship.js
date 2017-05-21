@@ -13,7 +13,7 @@ var FriendshipSchema = new Schema({
     trim: true
   },
   other_id: {
-    type: Boolean,
+    type: String,
     default: "",
     // trim: true emailverified
   },
