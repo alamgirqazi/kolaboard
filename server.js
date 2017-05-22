@@ -10,7 +10,6 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 var router = express.Router();
 var User = require('./server/models/User.js')
-var Friendship = require('./server/models/Friendship.js')
 var Friendships = require('./server/models/Friendships.js')
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
