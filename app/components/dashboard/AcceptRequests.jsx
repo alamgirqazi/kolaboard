@@ -15,6 +15,8 @@ import Boards from "app/components/Note.jsx";
 import { greenA400 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import Store from "app/store/UIstore.js";
+import FriendshipsStore from "app/store/FriendshipsStore.js";
+import { observer } from "mobx-react";
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -40,16 +42,45 @@ const muiTheme = getMuiTheme({
 const header = {
   textAlign: 'center',
 };
+
+let acceptrequests = [];
+
+@observer
 export default class AcceptRequests extends React.Component {
   constructor(props) {
     super(props);
   }
+
+componentDidMount() {
+
+// let userid = localStorage.getItem('userid');
+
+   $.ajax({
+    type: 'GET',
+    url: '/api/user/acceptrequest'
+    })
+  .done(function(data) {
+// console.log(data)  
+acceptrequests = data;
+FriendshipsStore.acceptrequests = data;
+console.log("accept requests");
+console.log(data);
+
+})
+  .fail(function(jqXhr) {
+    console.log('failed to register');
+  });
+
+}
+
+
+
   render() {
          return(
            <MuiThemeProvider muiTheme={muiTheme}>
             <div>
             <br></br>
-<h1 style={header}>Accept Requests</h1>
+<h2 style={header}>Accept Requests</h2>
 
         </div> 
         </MuiThemeProvider>

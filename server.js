@@ -13,9 +13,8 @@ var User = require('./server/models/User.js')
 var Friendships = require('./server/models/Friendships.js')
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-
+var user_id;
 const PORT = process.env.PORT || 3000;
-
 server.listen(PORT);
 
 //connect to mongoose
@@ -57,9 +56,10 @@ app.post('/api/user', function(req, res){
 // console.log(req.body) 
 var user = new User(req.body);
 user.obj = req.body;
+user_id= req.body.user_id;
 user.uId = req.body.identities[0].user_id;
 console.log('uId' + user.uId);
-
+console.log('let userid' + user_id);
  User.find({user_id : req.params.user_id}, function (err, docs) {
         if (docs.length){
             // cb('Name exists already',null);
@@ -108,6 +108,16 @@ app.get('/api/userall', function(req, res) {
 app.get('/api/user/friendrequest', function(req, res) {
   Friendships.find({}, function(err, friendship) {
    res.send(friendship);  
+  });
+});
+
+
+app.get('/api/user/acceptrequest', function(req, res) {
+
+  Friendships.find({status: "pending",other_id: user_id}, function(err, friendship) {
+   
+   res.send(friendship);  
+
   });
 });
 
