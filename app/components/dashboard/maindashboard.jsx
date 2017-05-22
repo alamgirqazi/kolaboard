@@ -47,80 +47,27 @@ const muiTheme = getMuiTheme({
 const style = {
   height: '100%',
 }
-
+const header = {
+  textAlign: 'center',
+};
 
 // @observer
 export default class MainDashboard extends React.Component {
   constructor(props) {
     super(props);
-    // this.events = this.events.bind(this);
-    // this.timetable = this.timetable.bind(this);
-    // this.app = this.app.bind(this);
-
-
+   
   }
-// componentDidMount () {
-
-// var profile= localStorage.getItem('profile');
-// var newprofile = JSON.parse(profile);
-// // console.log('new profile' + newprofile)
-//   // axios.get('/api/user', {
-//   // })
-//   // .then(function (response) {
-//   //   response=profile;
-//   //   console.log('respon')
-//   //   console.log(response);
-//   // })
-//   // .catch(function (error) {
-//   //   console.log(error);
-//   // });
-//   $.ajax({
-//     type: 'POST',
-//     url: '/api/user',
-//     data: newprofile
-//   })
-//   .done(function(data) {
-// console.log('done' + profile)  })
-//   .fail(function(jqXhr) {
-//     console.log('failed to register');
-//   });
-
-// }
-
-// GET request for remote imag
-
-// axios.post('/api/user',
-//  {
-//   })
-//   .then(function (response) {
-//     response.body=profile;
-
-
-//     console.log('respon')
-//     console.log(response.body);
-//   })
-//   .catch(function (error) {
-//     console.log(error);
-//   });
-
-
-
-
-
 
   render() {
 Store.dashboard = true;
 return(
     <MuiThemeProvider muiTheme={muiTheme}>
-
-      <div style={style}>
-        {/*<NewNav />*/}
+<div>
         <Toolbar />
 
-      {/*<FirstPage/>*/}
-
- <div>Heyyyyyyyyyyyyyyyyyyyyyyyyyyy</div>
-      </div>
+<br></br>
+ <h1 style={header}>Dashboard</h1>
+</div>
     </MuiThemeProvider>
 );
 

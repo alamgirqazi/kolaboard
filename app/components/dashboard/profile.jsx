@@ -38,7 +38,9 @@ const muiTheme = getMuiTheme({
   appBar: {
     height: 50
   }
-});
+});const header = {
+  textAlign: 'center',
+};
 export default class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -53,7 +55,7 @@ export default class Profile extends React.Component {
            <MuiThemeProvider muiTheme={muiTheme}>
             <div>
              <Toolbar />
-<h1>Profile</h1>
+<h1 style={header}>Set up your Profile</h1>
 
         </div> 
 </MuiThemeProvider>

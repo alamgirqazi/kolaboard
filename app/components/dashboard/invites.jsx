@@ -20,6 +20,7 @@ import FontIcon from 'material-ui/FontIcon';
 import MapsPersonPin from 'material-ui/svg-icons/maps/person-pin';
 import FindFriends from 'app/components/dashboard/FindFriends.jsx';
 import AcceptRequests from 'app/components/dashboard/AcceptRequests.jsx';
+import FriendList from 'app/components/dashboard/FriendList.jsx';
 const muiTheme = getMuiTheme({
   palette: {
     //   textColor: greenA400,
@@ -66,6 +67,15 @@ export default class Invites extends React.Component {
     >
 
     <AcceptRequests/>
+
+    </Tab>
+    <Tab
+      icon={<FontIcon className="material-icons"> Friend List</FontIcon> }
+       label="."
+
+    >
+
+    <FriendList/>
 
     </Tab>
   

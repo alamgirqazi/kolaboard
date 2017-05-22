@@ -39,6 +39,11 @@ const muiTheme = getMuiTheme({
     height: 50
   }
 });
+
+const header = {
+  textAlign: 'center',
+};
+
 export default class TimeTable extends React.Component {
   constructor(props) {
     super(props);
@@ -53,15 +58,9 @@ export default class TimeTable extends React.Component {
            <MuiThemeProvider muiTheme={muiTheme}>
             <div>
              <Toolbar />
-<h1>Timetable</h1>
-<h1>Timetable</h1>
-<h1>Timetable</h1>
-<h1>Timetable</h1>
-<h1>Timetable</h1>
-<h1>Timetable</h1>
-<h1>Timetable</h1>
-<h1>Timetable</h1>
-<h1>Timetable</h1>
+<br></br>
+<h1 style={header}>Timetable</h1>
+
         </div> 
 </MuiThemeProvider>
          );

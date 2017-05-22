@@ -36,6 +36,10 @@ const muiTheme = getMuiTheme({
     height: 50
   }
 });
+
+const header = {
+  textAlign: 'center',
+};
 export default class AcceptRequests extends React.Component {
   constructor(props) {
     super(props);
@@ -44,7 +48,8 @@ export default class AcceptRequests extends React.Component {
          return(
            <MuiThemeProvider muiTheme={muiTheme}>
             <div>
-<h1>Accept Requests</h1>
+            <br></br>
+<h1 style={header}>Accept Requests</h1>
 
         </div> 
         </MuiThemeProvider>

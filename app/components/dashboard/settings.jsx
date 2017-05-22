@@ -39,6 +39,9 @@ const muiTheme = getMuiTheme({
     height: 50
   }
 });
+const header = {
+  textAlign: 'center',
+};
 export default class Settings extends React.Component {
   constructor(props) {
     super(props);
@@ -53,7 +56,7 @@ export default class Settings extends React.Component {
            <MuiThemeProvider muiTheme={muiTheme}>
             <div>
              <Toolbar />
-<h1>Settings</h1>
+<h1 style={header}>Settings</h1>
 
         </div> 
 </MuiThemeProvider>

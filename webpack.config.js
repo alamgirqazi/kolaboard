@@ -39,6 +39,7 @@ module.exports = {
       Invites: "app/components/dashboard/invites.jsx",
       FindFriends: "app/components/dashboard/FindFriends.jsx",
       PrivateNotes: "app/components/dashboard/privatenotes.jsx",
+      FriendList: "app/components/dashboard/FriendList.jsx",
       AcceptRequests: "app/components/dashboard/AcceptRequests.jsx",
       Chat: "app/components/chat.jsx",
       Board: "app/components/board.jsx",

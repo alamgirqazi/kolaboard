@@ -1,9 +1,9 @@
 import React from "react";
 import Drawer from "material-ui/Drawer";
 import MenuItem from "material-ui/MenuItem";
-// import RaisedButton from "material-ui/RaisedButton";
-// import muiThemeable from "material-ui/styles/muiThemeable";
- import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import RaisedButton from "material-ui/RaisedButton";
+import muiThemeable from "material-ui/styles/muiThemeable";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
 import IconButton from "material-ui/IconButton";
 import IconMenu from "material-ui/IconMenu";
@@ -12,9 +12,6 @@ import Boards from "app/components/Note.jsx";
 // import Main from "app/components/main.jsx"
 // import Store from "app/store/UIstore.js";
 // import { observer } from "mobx-react";
-import ListMessages from "app/components/listmessages.jsx";
-import Chat from "app/components/chat.jsx";
-import Board from "app/components/board.jsx";
 import { greenA400 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import Store from "app/store/UIstore.js";
@@ -39,30 +36,23 @@ const muiTheme = getMuiTheme({
     height: 50
   }
 });
+
 const header = {
   textAlign: 'center',
 };
-
-export default class PrivateNotes extends React.Component {
+export default class FriendList extends React.Component {
   constructor(props) {
     super(props);
   }
-
-
   render() {
-    
-    // Store.timetable = true;       
-             return(
-           
+         return(
            <MuiThemeProvider muiTheme={muiTheme}>
             <div>
-             <Toolbar />
-             <br></br>
-<h1 style={header}>Private Notes</h1>
+            <br></br>
+<h1 style={header}>Friend List</h1>
 
         </div> 
-</MuiThemeProvider>
-         );
+        </MuiThemeProvider>
+);
   }
 }
-

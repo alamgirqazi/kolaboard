@@ -16,6 +16,12 @@ import { greenA400 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import Store from "app/store/UIstore.js";
 
+
+const header = {
+  textAlign: 'center',
+};
+
+
 const muiTheme = getMuiTheme({
   palette: {
     //   textColor: greenA400,
@@ -46,14 +52,9 @@ export default class Events extends React.Component {
            <MuiThemeProvider muiTheme={muiTheme}>
             <div>
  <Toolbar />
-<h1>Events</h1>
-<h1>Events</h1>
-<h1>Events</h1>
-<h1>Events</h1>
-<h1>Events</h1>
-<h1>Events</h1>
-<h1>Events</h1>
-<h1>Events</h1>
+ <br></br>
+<h1 style={header}>Nearby Events</h1>
+
         </div> 
         </MuiThemeProvider>
 );
