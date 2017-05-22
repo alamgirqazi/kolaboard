@@ -11,6 +11,7 @@ const bodyParser = require("body-parser");
 var router = express.Router();
 var User = require('./server/models/User.js')
 var Friendship = require('./server/models/Friendship.js')
+var Friendships = require('./server/models/Friendships.js')
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
@@ -80,33 +81,34 @@ console.log('abc');
 });
 app.post('/api/user/friendrequest', function(req, res){
 // console.log(req.body) 
-var friendship = new Friendship(req.body);
+var friendship = new Friendships(req.body);
 console.log(req.body);
 
  Friendship.find({}, function (err, docs) {
-        if (docs.length){
-            // cb('Name exists already',null);
-console.log('friendship');
-        }else{
+//         if (docs.length){
+// console.log('friendship exists');
+//         }else{
             friendship.save(function(err){
 
             if (err)
             {
-             console.log('friendship exists')
-            //  return handleError(err);
+             console.log(err)
             }
             });
-        }
+        //}
+    });
     });
 
 	
-});
-
-
 app.get('/api/userall', function(req, res) {
   User.find({}, function(err, users) {
     var userMap= {};
    res.send(users);  
+  });
+});
+app.get('/api/user/friendrequest', function(req, res) {
+  Friendships.find({}, function(err, friendship) {
+   res.send(friendship);  
   });
 });
 
@@ -156,6 +158,7 @@ var io = require('socket.io')(server);
 // socket.io demo
 io.on('connection', function (socket) {
 
+  console.log('a user connected')
 
   socket.emit('server event', { foo: 'bar' });
   socket.on('client event', function (data) {
@@ -163,9 +166,8 @@ io.on('connection', function (socket) {
   });
 });
 
-io.on('connection', function(socket) {  
-  console.log('a user connected')
-})
+// io.on('connection', function(socket) {  
+// })
   
 // app.listen(PORT, function() {
 //   console.log("Express server is up on port: " + PORT);

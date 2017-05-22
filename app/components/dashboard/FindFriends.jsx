@@ -113,6 +113,7 @@ let realuserid = localStorage.getItem('userid');
  var data = {
     user_id: realuserid,
 status: "pending",
+    // other_id: user.uId
     other_id: user.user_id
   }
 
@@ -128,13 +129,6 @@ status: "pending",
   .fail(function(jqXhr) {
     console.log('failed to register POST REQ');
   });
-
-
-
-
-
-
-
 
 }
 
@@ -197,7 +191,7 @@ style={{height: 300 }}            renderTrackHorizontal={props => (
         <Avatar size={80} src={user.picture} />
 
       }
-rightIconButton={<RaisedButton label={user.name} primary={true} key={user.user_id} onTouchTap={() => this._handleClick(user)}
+rightIconButton={<RaisedButton label={"Add " + user.name} primary={true} key={user.user_id} onTouchTap={() => this._handleClick(user)}
  style={style} />
 }
 // rightIconButton={<RaisedButton label="Send Request" primary={true} onClick={this.btnClick(user)} style={style} />
