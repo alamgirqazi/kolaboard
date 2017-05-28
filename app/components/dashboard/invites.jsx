@@ -21,6 +21,8 @@ import MapsPersonPin from 'material-ui/svg-icons/maps/person-pin';
 import FindFriends from 'app/components/dashboard/FindFriends.jsx';
 import AcceptRequests from 'app/components/dashboard/AcceptRequests.jsx';
 import FriendList from 'app/components/dashboard/FriendList.jsx';
+import UserStore from 'app/store/UserStore.js';
+
 const muiTheme = getMuiTheme({
   palette: {
     //   textColor: greenA400,
@@ -45,6 +47,22 @@ export default class Invites extends React.Component {
   constructor(props) {
     super(props);
   }
+
+componentDidMount () {
+
+var data = {"id": UserStore.obj.user_id};
+console.log("userstore.obj.user_id" + data);
+  $.ajax({
+    type: 'POST',
+    url: '/api/user/myuserid',
+    data: data
+  })
+  .done(function(data) {
+console.log('done my user id' + data)  })
+  .fail(function(jqXhr) {
+    console.log('failed to register');
+  });
+}
   render() {
          return(
            <MuiThemeProvider muiTheme={muiTheme}>

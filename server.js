@@ -14,6 +14,7 @@ var Friendships = require('./server/models/Friendships.js')
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 let user_id_server;
+var myuserid;
 var expressSession = require('express-session');
 var cookieParser = require('cookie-parser'); // the session is stored in a cookie, so we use this to parse it
 
@@ -80,6 +81,7 @@ app.post('/api/user', function(req, res){
 var user = new User(req.body);
 user.obj = req.body;
 user_id_server= req.body.user_id;
+myuserid= req.body.user_id;
     // res.cookie('name', 'express').send('cookie set'); //Sets name=express
  res.cookie('name', 'express');
     console.log("logging /") //Sets name=express
@@ -124,6 +126,12 @@ console.log(req.body);
         //}
     });
     });
+app.post('/api/user/myuserid', function(req, res){
+
+var myuserid = req.body.id;
+console.log("myuserid server")
+console.log(myuserid)
+    });
 
 	
 app.get('/api/userall', function(req, res) {
@@ -141,16 +149,7 @@ app.get('/api/user/friendrequest', function(req, res) {
 
 app.get('/api/user/acceptrequest', function(req, res) {
 
-//     NodeSession.startSession(req, res, function () {
-// req.session.put('key', 'value');
-// var value = req.session.get('key');
-// console.log("value")
-// console.log(value)
-//     })
-
-console.log("req.session")
-console.log(req.session.userId)
-  Friendships.find({status: "pending",other_id: req.session.userId}, function(err, friendship) {
+  Friendships.find({status: "pending",other_id: myuserid}, function(err, friendship) {
    res.send(friendship);  
 
   });
