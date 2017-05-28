@@ -3,6 +3,7 @@ import mobx, { observable } from "mobx";
 class FriendshipsStore {
 
   @observable acceptrequests = [];
+  @observable stateAcceptRequest = false;
 
   // @observable fullscreen = !
 }

@@ -13,15 +13,21 @@ var User = require('./server/models/User.js')
 var Friendships = require('./server/models/Friendships.js')
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-var user_id;
+let user_id_server;
+var expressSession = require('express-session');
+var cookieParser = require('cookie-parser'); // the session is stored in a cookie, so we use this to parse it
+
 const PORT = process.env.PORT || 3000;
 server.listen(PORT);
 
 //connect to mongoose
+// session.startSession(req, res, callback);
 
 mongoose.connect("mongodb://localhost/kola");
 
 var db = mongoose.Connection;
+
+// must use cookieParser before expressSession
 
     //some other code
 // app.use(bodyParser.json());
@@ -50,16 +56,37 @@ const authCheck = jwt({
 });
 
 app.use(express.static("public"));
+app.use(cookieParser());
+
+app.use(expressSession({secret:'somesecrettokenhere',  
+saveUninitialized: false,
+    name: "mycookie",
+
+    resave: false,
+     cookie: { 
+        secure: false,
+        maxAge: 6000000
+    }
+}));
+
+app.get('/', function(req, res){
+
+   //Sets name=express
+});
 
 
 app.post('/api/user', function(req, res){
 // console.log(req.body) 
 var user = new User(req.body);
 user.obj = req.body;
-user_id= req.body.user_id;
+user_id_server= req.body.user_id;
+    // res.cookie('name', 'express').send('cookie set'); //Sets name=express
+ res.cookie('name', 'express');
+    console.log("logging /") //Sets name=express
+    console.log(req.cookie) 
+    req.session.userId = req.body.user_id;
+
 user.uId = req.body.identities[0].user_id;
-console.log('uId' + user.uId);
-console.log('let userid' + user_id);
  User.find({user_id : req.params.user_id}, function (err, docs) {
         if (docs.length){
             // cb('Name exists already',null);
@@ -83,7 +110,7 @@ app.post('/api/user/friendrequest', function(req, res){
 var friendship = new Friendships(req.body);
 console.log(req.body);
 
- Friendship.find({}, function (err, docs) {
+ Friendships.find({}, function (err, docs) {
 //         if (docs.length){
 // console.log('friendship exists');
 //         }else{
@@ -114,8 +141,16 @@ app.get('/api/user/friendrequest', function(req, res) {
 
 app.get('/api/user/acceptrequest', function(req, res) {
 
-  Friendships.find({status: "pending",other_id: user_id}, function(err, friendship) {
-   
+//     NodeSession.startSession(req, res, function () {
+// req.session.put('key', 'value');
+// var value = req.session.get('key');
+// console.log("value")
+// console.log(value)
+//     })
+
+console.log("req.session")
+console.log(req.session.userId)
+  Friendships.find({status: "pending",other_id: req.session.userId}, function(err, friendship) {
    res.send(friendship);  
 
   });
