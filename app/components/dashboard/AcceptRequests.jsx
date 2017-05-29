@@ -11,6 +11,7 @@ import Toolbar from "app/components/toolbar.jsx";
 import Boards from "app/components/Note.jsx";
 import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
+import SearchInput, { createFilter } from "react-search-input";
 
 // import Main from "app/components/main.jsx"
 // import Store from "app/store/UIstore.js";
@@ -20,6 +21,9 @@ import getMuiTheme from "material-ui/styles/getMuiTheme";
 import Store from "app/store/UIstore.js";
 import FriendshipsStore from "app/store/FriendshipsStore.js";
 import { observer } from "mobx-react";
+import { Scrollbars } from 'react-custom-scrollbars';
+
+const KEYS_TO_FILTERS = ["email", "name", "nickname", "user_id"];
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -48,10 +52,17 @@ const header = {
 
 let acceptrequests = [];
 
+const style = {
+  margin: 12,
+};
 @observer
 export default class AcceptRequests extends React.Component {
   constructor(props) {
     super(props);
+
+        this.state = {
+      searchTerm: ""
+    };
     this._handleClick = this._handleClick.bind(this);  
   }
 _handleClick(acceptrequests)
@@ -83,104 +94,83 @@ FriendshipsStore.stateAcceptRequest = true;
 
 }
 
-
+ searchUpdated(term) {
+    this.setState({ searchTerm: term });
+  }
 
   render() {
+ 
+     const filteredEmails = acceptrequests.filter(
+      createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
+    );
          return(
-      <MuiThemeProvider muiTheme={muiTheme}>
-        <div>
+           
+     
 
-   <div className="row">
+           <MuiThemeProvider muiTheme={muiTheme}>
+            <div>
+            <br></br>
+             <div className="row">
 
       <div className="columns medium-8 large-8 small-centered">
+<h2 style={header}>Accept Requests</h2>
 
-<br></br>
-          <h3 style={header}>Find Friends</h3>
-<br></br>
-
-          <div>
-        
+                  <SearchInput
+              className="search-input"
+              onChange={this.searchUpdated.bind(this)}
+            />
             <br></br>
 
-            {acceptrequests.map(Acceptrequests => {
+   <Scrollbars
+style={{height: 300 }}            renderTrackHorizontal={props => (
+              <div
+                {...props}
+                className="track-horizontal"
+                style={{ display: "none" }}
+              />
+            )}
+            renderThumbHorizontal={props => (
+              <div
+                {...props}
+                className="thumb-horizontal"
+                style={{ display: "none" }}
+              />
+            )}
+          >
+   {acceptrequests.map(Acceptrequests => {
               return (
                 <List key={Acceptrequests.user_id}>
-                <div className="mail" key={Acceptrequests.user_id}>
-        
      <ListItem
      key={Acceptrequests.user_id}
       disabled={true}
-rightIconButton={<RaisedButton label={"Add " + Acceptrequests.name} primary={true} key={Acceptrequests.user_id} onTouchTap={() => this._handleClick(acceptrequests)}
+    
+rightIconButton={<RaisedButton label={"Add " + Acceptrequests.other_id} primary={true} key={Acceptrequests.user_id} onTouchTap={() => this._handleClick(Acceptrequests)}
  style={style} />
 }
 // rightIconButton={<RaisedButton label="Send Request" primary={true} onClick={this.btnClick(user)} style={style} />
 // }
-
 >
+    <div className="searchContent" key={Acceptrequests.user_id}>
+                  <div className="subject">{Acceptrequests.status}</div>
+                                    <br></br>
+<div>                  {Acceptrequests.user_id} </div>
+                  {Acceptrequests.status}
+              </div>   
     </ListItem>
-
-      </div>
-
                 </List>
               );
-
             })}
+                 </Scrollbars>
 
           </div>
 
    </div>
 
-      </div>
-
-        </div>
-      </MuiThemeProvider>
-
-
-
-
-
-
-
-
-
-
-
-
+        </div> 
+        </MuiThemeProvider>
 
 
 
 );
   }
 }
-
-
-//            <MuiThemeProvider muiTheme={muiTheme}>
-//             <div>
-//             <br></br>
-// <h2 style={header}>Accept Requests</h2>
-
-//    {acceptrequests.map(Acceptrequests => {
-//               return (
-//                 <List key={Acceptrequests.user_id}>
-//      <ListItem
-//      key={Acceptrequests.user_id}
-//       disabled={true}
-    
-// // rightIconButton={<RaisedButton label={"Add " + acceptrequests.other_id} primary={true} key={acceptrequests.user_id} onTouchTap={() => this._handleClick(acceptrequests)}
-// //  style={style} />
-// // }
-// // rightIconButton={<RaisedButton label="Send Request" primary={true} onClick={this.btnClick(user)} style={style} />
-// // }
-// >
-//     <div className="searchContent" key={Acceptrequests.user_id}>
-//                   <div className="subject">{Acceptrequests.status}</div>
-//                                     <br></br>
-// <div>                  {Acceptrequests.user_id} </div>
-//                   {Acceptrequests.status}
-//               </div>   
-//     </ListItem>
-//                 </List>
-//               );
-//             })}
-//         </div> 
-//         </MuiThemeProvider>
