@@ -154,6 +154,20 @@ app.get('/api/user/acceptrequest', function(req, res) {
 
   });
 });
+app.get('/api/user/friendlist', function(req, res) {
+
+  Friendships.find({status: "friend",other_id: myuserid}, function(err, friendship) {
+   res.send(friendship);  
+
+
+//  Test.find()
+//       .and([
+//           { $or: [{a: 1}, {b: 1}] },
+//           { $or: [{c: 1}, {d: 1}] }
+//       ])
+
+  });
+});
 
 
 

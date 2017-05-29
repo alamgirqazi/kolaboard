@@ -147,8 +147,6 @@ style={{height: 300 }}            renderTrackHorizontal={props => (
 rightIconButton={<RaisedButton label={"Add " + Acceptrequests.other_id} primary={true} key={Acceptrequests.user_id} onTouchTap={() => this._handleClick(Acceptrequests)}
  style={style} />
 }
-// rightIconButton={<RaisedButton label="Send Request" primary={true} onClick={this.btnClick(user)} style={style} />
-// }
 >
     <div className="searchContent" key={Acceptrequests.user_id}>
                   <div className="subject">{Acceptrequests.status}</div>

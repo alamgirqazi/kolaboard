@@ -17,6 +17,9 @@ var FriendshipsSchema = new Schema({
     type: String,
     index:true,
   },
+  picture: {
+    type: String,
+  },
 
 });
 
