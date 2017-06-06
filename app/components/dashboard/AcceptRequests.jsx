@@ -65,11 +65,32 @@ export default class AcceptRequests extends React.Component {
     };
     this._handleClick = this._handleClick.bind(this);  
   }
+
 _handleClick(acceptrequests)
 {
-    console.log(acceptrequests.user_id)
+    console.log(acceptrequests.other_id)
+
+var data = {
+status: "accepted",
+id: acceptrequests.other_id
+}
+  $.ajax({
+    type: 'POST',
+    url: '/api/user/acceptrequestadd',
+data: data
+    })
+  .done(function(data) {
+// console.log(data)  
+
+console.log(data);
+
+})
+  .fail(function(jqXhr) {
+    console.log('failed to register');
+  });
 
 }
+
 
 componentDidMount() {
 

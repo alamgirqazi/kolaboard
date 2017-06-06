@@ -126,11 +126,50 @@ console.log(req.body);
         //}
     });
     });
+
 app.post('/api/user/myuserid', function(req, res){
 
 var myuserid = req.body.id;
 console.log("myuserid server")
 console.log(myuserid)
+    });
+
+app.post('/api/user/acceptrequestadd', function(req, res){
+
+var status = req.body.status;
+console.log("status: ")
+console.log(status)
+console.log(req.body.id)
+
+
+Friendships.findOne({other_id: req.body.id}, function(err, friendship) {
+    if(!err) {
+        if(!friendship) {
+            friendship = new Friendships();
+            friendship.status = status;
+        }
+        friendship.save(function(err) {
+            if(!err) {
+                console.log("done");
+            }
+            else {
+                console.log("Error: could not save");
+            }
+        });
+    }
+});
+
+// Friendships.findOneAndUpdate({other_id: req.body.id}, {$set:{status:"friend"}}, {upsert: true}, function(err, doc){
+//     if(err){
+//         console.log("Something wrong when updating data!");
+//     }
+
+//     console.log(doc);
+// });
+
+
+
+
     });
 
 	
