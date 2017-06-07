@@ -7,7 +7,8 @@ class UserStore {
 @observable allUsers;
 @observable listy=false;
 @observable flisty=false;
-;
+
+
 
 
 }

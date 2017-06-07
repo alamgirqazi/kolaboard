@@ -14,12 +14,19 @@ import ListItem from 'material-ui/List/ListItem';
 // import Main from "app/components/main.jsx"
 // import Store from "app/store/UIstore.js";
 // import { observer } from "mobx-react";
+import Badge from 'material-ui/Badge';
+
 import { greenA400 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import Store from "app/store/UIstore.js";
 import FriendshipsStore from "app/store/FriendshipsStore.js";
+import UserStore from "app/store/UserStore.js";
 import { observer } from "mobx-react";
 import { Scrollbars } from 'react-custom-scrollbars';
+
+import SearchInput, { createFilter } from "react-search-input";
+
+const KEYS_TO_FILTERS = ["email", "name", "nickname", "user_id"];
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -50,14 +57,18 @@ const header = {
 
 
 let friendlist = [];
-
+let friendlistcount;
 const style = {
   margin: 12,
 };
+
 @observer
 export default class FriendList extends React.Component {
   constructor(props) {
     super(props);
+     this.state = {
+      searchTerm: ""
+    };
 
 //     this._handleClick = this._handleClick.bind(this);  
   }
@@ -76,23 +87,92 @@ export default class FriendList extends React.Component {
     url: '/api/user/friendlist'
     })
   .done(function(data) {
-// console.log(data)  
+friendlist = data;
 console.log("meri friendlist");
 console.log(data);
+friendlistcount=Object.keys(friendlist).length;
+FriendshipsStore.friendlistcount=friendlistcount;
+console.log(friendlistcount);
+
 })
   .fail(function(jqXhr) {
     console.log('friendlist mai msla');
   });
 
  }
+searchUpdated(term) {
+    this.setState({ searchTerm: term });
+  }
 
   render() { 
+
+     const filteredEmails = friendlist.filter(
+      createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
+     );
          return(
            
      
           <MuiThemeProvider muiTheme={muiTheme}>
-            <div>   
-            <h1>Friendlist</h1>
+            <div>           
+             <br></br>
+             <div className="row">
+
+      <div className="columns medium-8 large-8 small-centered">
+      <div>
+<h3 style={header}>Friendlist   <Badge
+      badgeContent={FriendshipsStore.friendlistcount}
+      primary={true}
+    /></h3>
+ </div>
+              <br></br>
+
+                  <SearchInput
+              className="search-input"
+              onChange={this.searchUpdated.bind(this)}
+            />
+            <br></br>
+
+   <Scrollbars
+style={{height: 300 }}            renderTrackHorizontal={props => (
+              <div
+                {...props}
+                className="track-horizontal"
+                style={{ display: "none" }}
+              />
+            )}
+            renderThumbHorizontal={props => (
+              <div
+                {...props}
+                className="thumb-horizontal"
+                style={{ display: "none" }}
+              />
+            )}
+          >
+   {friendlist.map(Friendlist => {
+              return (
+                <List key={Friendlist.user_id}>
+     <ListItem
+     key={Friendlist.user_id}
+      disabled={true}
+
+>
+    <div className="searchContent" key={Friendlist.user_id}>
+                  <div className="subject">{Friendlist.status}</div>
+                                    <br></br>
+<div>                  {Friendlist.user_id} </div>
+                  {Friendlist.status}
+              </div>   
+    </ListItem>
+                </List>
+              );
+            })}
+                 </Scrollbars>
+
+          </div>
+
+   </div>
+
+        
         </div> 
         </MuiThemeProvider>
 
@@ -101,58 +181,4 @@ console.log(data);
 );
   }
 }
-    //     <br></br>
-//              <div className="row">
-
-//       <div className="columns medium-8 large-8 small-centered">
-// <h2 style={header}>Accept Requests</h2>
-
-//                   <SearchInput
-//               className="search-input"
-//               onChange={this.searchUpdated.bind(this)}
-//             />
-//             <br></br>
-
-//    <Scrollbars
-// style={{height: 300 }}            renderTrackHorizontal={props => (
-//               <div
-//                 {...props}
-//                 className="track-horizontal"
-//                 style={{ display: "none" }}
-//               />
-//             )}
-//             renderThumbHorizontal={props => (
-//               <div
-//                 {...props}
-//                 className="thumb-horizontal"
-//                 style={{ display: "none" }}
-//               />
-//             )}
-//           >
-//    {acceptrequests.map(Acceptrequests => {
-//               return (
-//                 <List key={Acceptrequests.user_id}>
-//      <ListItem
-//      key={Acceptrequests.user_id}
-//       disabled={true}
-//             <Avatar size={80} src={Acceptrequests.picture} />
-
-// rightIconButton={<RaisedButton label={"Add " + Acceptrequests.other_id} primary={true} key={Acceptrequests.user_id} onTouchTap={() => this._handleClick(Acceptrequests)}
-//  style={style} />
-// }
-// >
-//     <div className="searchContent" key={Acceptrequests.user_id}>
-//                   <div className="subject">{Acceptrequests.status}</div>
-//                                     <br></br>
-// <div>                  {Acceptrequests.user_id} </div>
-//                   {Acceptrequests.status}
-//               </div>   
-//     </ListItem>
-//                 </List>
-//               );
-//             })}
-//                  </Scrollbars>
-
-//           </div>
-
-//    </div>
+   

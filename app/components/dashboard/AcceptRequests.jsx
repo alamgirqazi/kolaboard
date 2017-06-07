@@ -12,6 +12,7 @@ import Boards from "app/components/Note.jsx";
 import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
 import SearchInput, { createFilter } from "react-search-input";
+import Badge from 'material-ui/Badge';
 
 // import Main from "app/components/main.jsx"
 // import Store from "app/store/UIstore.js";
@@ -51,6 +52,7 @@ const header = {
 };
 
 let acceptrequests = [];
+let acceptrequestscount;
 
 const style = {
   margin: 12,
@@ -61,7 +63,7 @@ export default class AcceptRequests extends React.Component {
     super(props);
 
         this.state = {
-      searchTerm: ""
+      searchTerm: " "
     };
     this._handleClick = this._handleClick.bind(this);  
   }
@@ -106,7 +108,10 @@ acceptrequests = data;
 FriendshipsStore.acceptrequests = data;
 console.log("accept requests array");
 console.log(data);
+acceptrequestscount=Object.keys(acceptrequests).length;
+console.log(acceptrequestscount);
 FriendshipsStore.stateAcceptRequest = true;
+FriendshipsStore.acceptrequestscount = acceptrequestscount;
 
 })
   .fail(function(jqXhr) {
@@ -134,7 +139,12 @@ FriendshipsStore.stateAcceptRequest = true;
              <div className="row">
 
       <div className="columns medium-8 large-8 small-centered">
-<h2 style={header}>Accept Requests</h2>
+<h3 style={header}>Accept Requests <Badge
+      badgeContent={FriendshipsStore.acceptrequestscount}
+      primary={true}
+    /></h3>
+                 <br></br>
+
 
                   <SearchInput
               className="search-input"

@@ -5,6 +5,9 @@ class FriendshipsStore {
   @observable acceptrequests = [];
   @observable stateAcceptRequest = false;
 
+@observable friendlistcount;
+@observable acceptrequestscount;
+
   // @observable fullscreen = !
 }
 
