@@ -13,6 +13,7 @@ import Boards from "app/components/Note.jsx";
 // import Store from "app/store/UIstore.js";
 // import { observer } from "mobx-react";
 import { greenA400 } from "material-ui/styles/colors";
+import { lightBlue500,blue500 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import Store from "app/store/UIstore.js";
 import {Tabs, Tab} from 'material-ui/Tabs';
@@ -22,13 +23,18 @@ import FindFriends from 'app/components/dashboard/FindFriends.jsx';
 import AcceptRequests from 'app/components/dashboard/AcceptRequests.jsx';
 import FriendList from 'app/components/dashboard/FriendList.jsx';
 import UserStore from 'app/store/UserStore.js';
+import Badge from 'material-ui/Badge';
+import FriendshipsStore from "app/store/FriendshipsStore.js";
+import { observer } from "mobx-react";
 
 const muiTheme = getMuiTheme({
   palette: {
     //   textColor: greenA400,
-    primary1Color: greenA400
+    primary1Color: greenA400,
+    primary2Color: lightBlue500,
+    secondary1Color: lightBlue500,
     //  primary3Color:greenA400,
-    //   accent1Color: greenA400,
+      accent1Color: blue500
     //   accent2Color: greenA400,
     //   accent3Color: greenA400
 
@@ -43,6 +49,7 @@ const muiTheme = getMuiTheme({
     height: 50
   }
 });
+@observer
 export default class Invites extends React.Component {
   constructor(props) {
     super(props);
@@ -71,7 +78,7 @@ console.log('done my user id' + data)  })
 
  <Tabs>
     <Tab
-      icon={<FontIcon className="material-icons">Find Friends</FontIcon>}
+      icon={<FontIcon className="material-icons">Find Friends </FontIcon>}
     label="."
     >
 
@@ -79,7 +86,10 @@ console.log('done my user id' + data)  })
     
     </Tab>
     <Tab
-      icon={<FontIcon className="material-icons"> Accept / Reject Requests</FontIcon> }
+      icon={<FontIcon className="material-icons"> Accept / Reject Requests<Badge
+      badgeContent={FriendshipsStore.acceptrequestscount}
+      secondary={true}
+    /></FontIcon> }
        label="accept"
 
     >
@@ -88,7 +98,10 @@ console.log('done my user id' + data)  })
 
     </Tab>
     <Tab
-      icon={<FontIcon className="material-icons"> Friend List</FontIcon> }
+      icon={<FontIcon className="material-icons"> Friend List<Badge
+      badgeContent={FriendshipsStore.friendlistcount}
+      secondary={true}
+    /></FontIcon> }
        label="."
 
     >
