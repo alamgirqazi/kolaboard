@@ -60,33 +60,29 @@ export default class FriendList extends React.Component {
     super(props);
 
 //     this._handleClick = this._handleClick.bind(this);  
-//   }
+  }
 // _handleClick(acceptrequests)
 // {
 //     console.log(acceptrequests.user_id)
 
 // }
 
-// componentDidMount() {
+ componentDidMount() {
 
 // // let userid = localStorage.getItem('userid');
 
-//    $.ajax({
-//     type: 'GET',
-//     url: '/api/user/acceptrequest'
-//     })
-//   .done(function(data) {
-// // console.log(data)  
-// acceptrequests = data;
-// FriendshipsStore.acceptrequests = data;
-// console.log("accept requests array");
-// console.log(data);
-// FriendshipsStore.stateAcceptRequest = true;
-
-// })
-//   .fail(function(jqXhr) {
-//     console.log('failed to register');
-//   });
+   $.ajax({
+    type: 'GET',
+    url: '/api/user/friendlist'
+    })
+  .done(function(data) {
+// console.log(data)  
+console.log("meri friendlist");
+console.log(data);
+})
+  .fail(function(jqXhr) {
+    console.log('friendlist mai msla');
+  });
 
  }
 
@@ -96,6 +92,7 @@ export default class FriendList extends React.Component {
      
           <MuiThemeProvider muiTheme={muiTheme}>
             <div>   
+            <h1>Friendlist</h1>
         </div> 
         </MuiThemeProvider>
 
