@@ -10,6 +10,8 @@ import IconMenu from "material-ui/IconMenu";
 import Toolbar from "app/components/toolbar.jsx";
 import Boards from "app/components/Note.jsx";
 import List from 'material-ui/List/List';
+import Avatar from 'material-ui/Avatar';
+
 import ListItem from 'material-ui/List/ListItem';
 // import Main from "app/components/main.jsx"
 // import Store from "app/store/UIstore.js";
@@ -147,12 +149,13 @@ style={{height: 300 }}            renderTrackHorizontal={props => (
      <ListItem
      key={Friendlist.user_id}
       disabled={true}
-
->
-    <div className="searchContent" key={Friendlist.user_id}>
-                  <div className="subject">{Friendlist.status}</div>
+   leftAvatar={
+        <Avatar size={80} src={Friendlist.picture} />
+   }>
+    <div className="searchContent" key={Friendlist.other_id}>
+                  <div className="subject">{Friendlist.other_id_name}</div>
                                     <br></br>
-<div>                  {Friendlist.user_id} </div>
+<div>                  {Friendlist.other_id} </div>
                   {Friendlist.status}
               </div>   
     </ListItem>

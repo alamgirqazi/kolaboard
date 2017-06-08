@@ -109,6 +109,7 @@ _handleClick(user){
 let realuserid = localStorage.getItem('userid');
 
     console.log(user.name)
+console.log(user.picture)
 
  var data = {
     user_id: realuserid,
@@ -117,7 +118,6 @@ picture: user.picture,
      other_id_name: user.name,
     other_id: user.user_id
   }
-
   // Submit form via jQuery/AJAX
   $.ajax({
     type: 'POST',
