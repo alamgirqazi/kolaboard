@@ -113,7 +113,8 @@ let realuserid = localStorage.getItem('userid');
  var data = {
     user_id: realuserid,
 status: "pending",
-    // other_id: user.uId
+picture: user.picture,
+     other_id_name: user.name,
     other_id: user.user_id
   }
 

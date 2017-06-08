@@ -70,17 +70,10 @@ export default class FriendList extends React.Component {
       searchTerm: ""
     };
 
-//     this._handleClick = this._handleClick.bind(this);  
   }
-// _handleClick(acceptrequests)
-// {
-//     console.log(acceptrequests.user_id)
 
-// }
 
  componentDidMount() {
-
-// // let userid = localStorage.getItem('userid');
 
    $.ajax({
     type: 'GET',

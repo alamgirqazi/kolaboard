@@ -73,7 +73,7 @@ _handleClick(acceptrequests)
     console.log(acceptrequests.other_id)
 
 var data = {
-status: "accepted",
+status: "friend",
 id: acceptrequests.other_id
 }
   $.ajax({

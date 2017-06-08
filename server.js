@@ -140,6 +140,8 @@ app.post("/api/user/acceptrequestadd", function(req, res) {
         friendship = new Friendships();
         friendship.status = status;
       }
+              friendship.status = status;
+
       friendship.save(function(err) {
         if (!err) {
           console.log("done");

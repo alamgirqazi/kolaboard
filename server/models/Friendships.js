@@ -20,6 +20,9 @@ var FriendshipsSchema = new Schema({
   picture: {
     type: String,
   },
+  other_id_name: {
+    type: String,
+  },
 
 });
 
