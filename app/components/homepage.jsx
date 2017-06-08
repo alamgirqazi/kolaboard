@@ -89,7 +89,7 @@ export default class Homepage extends React.Component {
       //  allowSignUp: false,
 
       theme: {
-        logo: "http://icons.iconarchive.com/icons/custom-icon-design/flatastic-11/48/Customer-service-icon.png",
+        logo: "https://image.ibb.co/jdEakv/Klogo.png",
         primaryColor: "#00E676"
       }
     };
@@ -101,7 +101,8 @@ export default class Homepage extends React.Component {
         allowSignUp: false,
 
       theme: {
-        logo: "http://icons.iconarchive.com/icons/custom-icon-design/flatastic-11/48/Customer-service-icon.png",
+        // logo: "http://icons.iconarchive.com/icons/custom-icon-design/flatastic-11/48/Customer-service-icon.png",
+        logo: "https://image.ibb.co/jdEakv/Klogo.png",
         primaryColor: "#00E676"
       }
     };
