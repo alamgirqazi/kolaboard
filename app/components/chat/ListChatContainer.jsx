@@ -98,6 +98,8 @@ const style = {
 }
     var listmap;
 let users = [];
+let otherusers = [];
+let realusers = [];
 
 
 @observer
@@ -114,28 +116,66 @@ componentDidMount() {
 
 let userid = localStorage.getItem('userid');
 
-   $.ajax({
+//    $.ajax({
+//     type: 'GET',
+//     url: '/api/userall'
+//     })
+//   .done(function(data) {
+// // console.log(data)  
+// users = data;
+// console.log("users");
+// console.log(users);
+
+// var index = users.findIndex(function(o){
+//      return o.user_id ===userid;
+// })
+// users.splice(index, 1);
+
+// UserStore.allUsers = users;
+// UserStore.listy=true;
+// })
+//   .fail(function(jqXhr) {
+//     console.log('failed to register');
+//   });
+
+ $.ajax({
     type: 'GET',
-    url: '/api/userall'
+    url: '/api/user/friendlist'
     })
   .done(function(data) {
-// console.log(data)  
-users = data;
-console.log("users");
-console.log(users);
-
-var index = users.findIndex(function(o){
-     return o.user_id ===userid;
-})
-users.splice(index, 1);
-
-
-UserStore.allUsers = users;
+console.log("meri friendlist");
+console.log(data);
+console.log(data.other_id);
+console.log(data.user_id);
+users=data;
+otherusers=data.other_id;
+realusers=data.user_id;
 UserStore.listy=true;
+
+//  $.ajax({
+//     type: 'GET',
+//     url: '/api/user/friendlistuser'
+//     })
+//   .done(function(data) {
+// console.log(data);
+// users=data;
+// UserStore.listy=true;
+
+
+// })
+//   .fail(function(jqXhr) {
+//     console.log('friendlist mai msla');
+//   });
+
+
+
 })
   .fail(function(jqXhr) {
-    console.log('failed to register');
+    console.log('friendlist mai msla');
   });
+
+
+
 
 }
 
@@ -166,7 +206,7 @@ return(
               return (
   
  <SelectableList defaultValue={3}>
-                <div className="" key={Users.user_id}>
+                <div className="" key={Users.other_id}>
 
         <ListItem   value={4}
             leftAvatar={
@@ -179,7 +219,7 @@ return(
       }
                 
        rightIconButton={rightIconMenu}
-          primaryText={Users.name}
+          primaryText={Users.other_id_name}
             
                  secondaryText={
             <p>
