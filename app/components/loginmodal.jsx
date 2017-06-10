@@ -2,7 +2,6 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import DrawerOpenRight from './drawer';
 
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import { cyan500 } from "material-ui/styles/colors";

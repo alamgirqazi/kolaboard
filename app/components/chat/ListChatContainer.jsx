@@ -27,7 +27,6 @@ import TimeTable from "app/components/dashboard/timetable.jsx";
 import Events from "app/components/dashboard/events.jsx";
 import Main from "app/components/main.jsx";
 import { observer } from "mobx-react";
-import ListMessages from "app/components/listmessages.jsx";
 import Chat from "app/components/chat.jsx";
 import Board from "app/components/board.jsx";
 import getMuiTheme from "material-ui/styles/getMuiTheme";

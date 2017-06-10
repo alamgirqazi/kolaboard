@@ -5,7 +5,6 @@ import RaisedButton from "material-ui/RaisedButton";
 import LoginDialog from "app/components/loginmodal.jsx";
 import SignupDialog from "app/components/signupmodal.jsx";
 import FirstPage from "app/components/firstpage.jsx";
-import Drawer from "app/components/drawer.jsx";
 import {AppBar, IconButton, MenuItem} from 'material-ui';
 
 import muiThemeable from "material-ui/styles/muiThemeable";

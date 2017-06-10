@@ -21,7 +21,6 @@ import {
   ToolbarTitle
 } from "material-ui/Toolbar";
 import FontIcon from "material-ui/FontIcon";
-import Drawer from "app/components/drawer.jsx";
 import Store from "app/store/UIstore.js";
 import { observer } from "mobx-react";
 
