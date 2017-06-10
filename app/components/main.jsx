@@ -5,7 +5,7 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RaisedButton from "material-ui/RaisedButton";
 import FirstPage from "app/components/firstpage.jsx";
 import LoginDialog from "app/components/loginmodal.jsx";
-import NewNav from "app/components/newnav.jsx";
+import Nav from "app/components/nav.jsx";
 import Toolbar from "app/components/toolbar.jsx";
 import Chat from "app/components/chat.jsx";
 import Board from "app/components/board.jsx";

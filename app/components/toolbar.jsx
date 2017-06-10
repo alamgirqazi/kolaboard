@@ -298,10 +298,10 @@ if(Store.yum)
     }
 
 
-  var socket = io();
-  socket.on('server event', function (data) {
-    socket.emit('client event', { socket: 'io' });
-  });
+  // var socket = io();
+  // socket.on('server event', function (data) {
+  //   socket.emit('client event', { socket: 'io' });
+  // });
 
 
 }
