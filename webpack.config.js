@@ -28,7 +28,7 @@ module.exports = {
       LoginDialog: "app/components/loginmodal.jsx",
       SignupDialog: "app/components/signupmodal.jsx",
       Toolbar: "app/components/toolbar.jsx",
-      NewNav: "app/components/newnav.jsx",
+      Nav: "app/components/nav.jsx",
       DrawerOpenRightExample: "app/components/drawer.jsx",
       NewChatDrawer: "app/components/drawer/newchatdrawer.jsx",
       MainDashboard: "app/components/dashboard/maindashboard.jsx",
