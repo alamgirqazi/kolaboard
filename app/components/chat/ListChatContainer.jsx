@@ -56,6 +56,7 @@ function wrapState(ComposedComponent) {
       this.setState({
         selectedIndex: index,
       });
+      console.log('list clickedeed')
     };
 
     render() {
@@ -98,7 +99,7 @@ const style = {
 }
     var listmap;
 let users = [];
-let otherusers = [];
+// let otherusers = [];
 let realusers = [];
 
 
@@ -106,12 +107,16 @@ let realusers = [];
 export default class ListChatContainer extends React.Component {
   constructor(props) {
     super(props);
-
+    this._handleClick = this._handleClick.bind(this);  
     this.state = {
     };
       }
 
-
+_handleClick()
+{
+    console.log("listttt")
+    alert('ok')
+}
 componentDidMount() {
 
 let userid = localStorage.getItem('userid');
@@ -145,12 +150,19 @@ let userid = localStorage.getItem('userid');
   .done(function(data) {
 console.log("meri friendlist");
 console.log(data);
-console.log(data.other_id);
-console.log(data.user_id);
+
 users=data;
-otherusers=data.other_id;
-realusers=data.user_id;
+// otherusers=data.other_id;
+// realusers=data.user_id;
 UserStore.listy=true;
+
+// var otherusers = new Map(data.map((i) => [i.other_id]));
+// var otherusers = new Map(data.map((i) => [i.key, i.other_id]));
+
+// var otherusers = data.map(function() {
+//   return data.other_id;
+// });
+// console.log(otherusers)
 
 //  $.ajax({
 //     type: 'GET',
@@ -208,7 +220,7 @@ return(
  <SelectableList defaultValue={3}>
                 <div className="" key={Users.other_id}>
 
-        <ListItem   value={4}
+        <ListItem onTouchTap={() => this._handleClick()}  value={4}
             leftAvatar={
         <Avatar
           size={40} src={Users.picture}
@@ -223,7 +235,7 @@ return(
             
                  secondaryText={
             <p>
-          {Users.picture}
+          This is some random text
             </p>
           }
           secondaryTextLines={2}
@@ -246,7 +258,7 @@ return(
       )} 
 
 
-   <br/>
+   <br/>     
    <br/>
    <br/>
    <br/>       
@@ -274,36 +286,3 @@ return(
 
   }
 }
-
-
-
-//     <SelectableList defaultValue={3}>
-
-//         <ListItem   value={4}
-//             leftAvatar={
-//         <Avatar
-//           color={blue300}
-//           backgroundColor={darkBlack}
-//           size={40}
-//         >
-//         U         
-//  <Badge   badgeContent={4}
-//       primary={true}/>
-//          </Avatar>
-//       }
-                
-//        rightIconButton={rightIconMenu}
-//           primaryText="Uni Group"
-       
-//           secondaryText={
-//             <p>
-//               <span style={{color: darkBlack}}>Seen WestWorld?</span><br />
-//               I&apos;So in the finale we see Dolores 
-//             </p>
-//           }
-//           secondaryTextLines={2}
-//         />
-
-
-//         <Divider inset={true} />
-            //  </SelectableList>

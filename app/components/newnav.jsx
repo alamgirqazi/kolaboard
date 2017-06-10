@@ -31,7 +31,7 @@ export default class NewNav extends React.Component {
       // allowLogin: false,
 
       theme: {
-        logo: "https://image.ibb.co/jdEakv/Klogo.png",
+        logo: "https://image.ibb.co/mMtqJF/Klogo_Original_Green_K.png",
         primaryColor: "#00E676"
       }
     };
@@ -44,7 +44,7 @@ export default class NewNav extends React.Component {
       allowLogin: false,
 
       theme: {
-        logo: "https://image.ibb.co/jdEakv/Klogo.png",
+        logo: "https://image.ibb.co/mMtqJF/Klogo_Original_Green_K.png",
         primaryColor: "#00E676"
       }
     };
