@@ -20,7 +20,8 @@ const displayinline = {
   backgroundColor: "#00E676",
 };
 const chatinputbox = {
-  height: "3rem",
+  height: "3.5rem",
+  margin: "0 0 0rem"
 };
 
 const inputBoxStyle = 
@@ -220,7 +221,7 @@ position: 'fixed',
     </ol>
   <div className="fixedchatbox">
   <div style={displayinline}>
-  <input type="text" style={chatinputbox} placeholder="Please Enter Your message......." ></input>
+  <textarea  type="text" style={chatinputbox} placeholder="Please Enter Your message......." ></textarea>
    <IconButton tooltip="SVG Icon">
    <svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
     <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
