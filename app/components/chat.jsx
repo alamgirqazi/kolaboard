@@ -10,9 +10,17 @@ import Chatbar from 'app/components/toolbars/chattoolbar.jsx';
 //import ReactScrollbar from 'react-scrollbar-js';
 import ChatStore from 'app/store/ChatStore.js'
 import { observer } from "mobx-react";
+import IconButton from 'material-ui/IconButton';
 
 const style = {
   margin: 12,
+};
+const displayinline = {
+  display: "flex",
+  backgroundColor: "#00E676",
+};
+const chatinputbox = {
+  height: "3rem",
 };
 
 const inputBoxStyle = 
@@ -211,7 +219,15 @@ position: 'fixed',
     </li>
     </ol>
   <div className="fixedchatbox">
-  <input type="text" placeholder="Please Enter Your message......." ><img src="sendmsg.png"/></input>
+  <div style={displayinline}>
+  <input type="text" style={chatinputbox} placeholder="Please Enter Your message......." ></input>
+   <IconButton tooltip="SVG Icon">
+   <svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</svg>
+    </IconButton>
+  </div>
   </div>    
      {/*<div style={fixedPosition}>
   <input type="text" style={inputBoxStyle}/>

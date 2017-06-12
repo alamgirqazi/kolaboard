@@ -56,7 +56,6 @@ render(){
             leftAvatar={
         <Avatar
           color={blue300}
-          backgroundColor={darkBlack}
           size={40}
       src={ChatStore.groupavatar}
         >
