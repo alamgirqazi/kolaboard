@@ -11,8 +11,12 @@ const bodyParser = require("body-parser");
 var router = express.Router();
 var User = require("./server/models/User.js");
 var Friendships = require("./server/models/Friendships.js");
-var server = require("http").Server(app);
-var io = require("socket.io")(server);
+// var server = require("http").Server(app);
+// var io = require("socket.io")(server);
+
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
 let user_id_server;
 var myuserid;
 var expressSession = require("express-session");
@@ -247,13 +251,9 @@ app.get("*", function(request, response) {
 //   });
 // });
 
-var io = require("socket.io")(server);
-// socket.io demo
-io.on("connection", function(socket) {
-  console.log("a user connected");
-
-  socket.emit("server event", { foo: "bar" });
-  socket.on("client event", function(data) {
+io.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
     console.log(data);
   });
 });

@@ -8,6 +8,8 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Chatbar from 'app/components/toolbars/chattoolbar.jsx';
 //import ReactScrollbar from 'react-scrollbar-js';
+import ChatStore from 'app/store/ChatStore.js'
+import { observer } from "mobx-react";
 
 const style = {
   margin: 12,
@@ -33,7 +35,7 @@ const heightchat
 height: '100%',
 backgroundColor: '#EDF8F5',
 }
-
+@observer
 export default class Chat extends React.Component {   
 
   render() {

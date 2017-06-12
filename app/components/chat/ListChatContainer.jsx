@@ -34,6 +34,7 @@ import { cyan500 } from "material-ui/styles/colors";
 import { greenA400 } from "material-ui/styles/colors";
 import UserStore from "app/store/UserStore.js";
 import axios from 'axios';
+import ChatStore from 'app/store/ChatStore.js'
 
 
 let SelectableList = makeSelectable(List);
@@ -111,10 +112,15 @@ export default class ListChatContainer extends React.Component {
     };
       }
 
-_handleClick()
+_handleClick(Users)
 {
     console.log("listttt")
     alert('ok')
+    console.log(Users.picture)
+    ChatStore.groupavatar = Users.picture;
+    ChatStore.groupname = Users.other_id_name;
+
+    
 }
 componentDidMount() {
 
@@ -219,7 +225,7 @@ return(
  <SelectableList defaultValue={3}>
                 <div className="" key={Users.other_id}>
 
-        <ListItem onTouchTap={() => this._handleClick()}  value={4}
+        <ListItem onTouchTap={() => this._handleClick(Users)}  value={4}
             leftAvatar={
         <Avatar
           size={40} src={Users.picture}

@@ -11,6 +11,8 @@ import MenuItem from 'material-ui/MenuItem';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import FontIcon from 'material-ui/FontIcon';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
+import ChatStore from 'app/store/ChatStore.js'
+import { observer } from "mobx-react";
 
 const iconButtonElement = (
   <IconButton
@@ -43,6 +45,7 @@ const styleSearch =
 {
 left: '20%',
 };
+@observer
 export default class Chatbar extends React.Component{
 render(){
     return(
@@ -55,11 +58,12 @@ render(){
           color={blue300}
           backgroundColor={darkBlack}
           size={40}
+      src={ChatStore.groupavatar}
         >
-        U
+      
         </Avatar>
       }
-          primaryText="Uni Group"
+          primaryText={ChatStore.groupname}
         />
         </List>
         </ToolbarGroup>
