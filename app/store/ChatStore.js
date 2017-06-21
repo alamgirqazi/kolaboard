@@ -1,9 +1,11 @@
 import mobx, { observable } from "mobx";
 
 class ChatStore {
-
-@observable groupname;
-@observable groupavatar;
+  @observable groupname = " ";
+  @observable groupavatar = " ";
+  @observable groupId = " ";
+  @observable roomData = [];
+  @observable msgs = [];
 
   // @observable fullscreen = !
 }

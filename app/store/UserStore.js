@@ -1,12 +1,13 @@
-import mobx, { computed, observable,extendObservable, autorun } from "mobx";
+import mobx, { computed, observable, extendObservable, autorun } from "mobx";
 
 class UserStore {
-  @observable todos = ["dont buy milk", "buy eggs"];
- @observable obj = {};
- @observable userrealname = '';
-@observable allUsers;
-@observable listy=false;
-@observable flisty=false;
+    @observable todos = ["dont buy milk", "buy eggs"];
+    @observable obj = {};
+    @observable userrealname = '';
+    @observable allUsers;
+    @observable listy = false;
+    @observable flisty = false;
+    @observable groupName;
 
 
 
