@@ -21,11 +21,11 @@ var profile= localStorage.getItem('profile');
 var newprofile = JSON.parse(profile);
 
 
-var socket = io.connect('http://localhost:3000');
-  socket.on('news', function (data) {
-    console.log(data);
-    socket.emit('my other event', { my: 'data' });
-  });
+// var socket = io.connect('http://localhost:3000');
+//   socket.on('news', function (data) {
+//     console.log(data);
+//     socket.emit('my other event', { my: 'data' });
+//   });
 
   // componentDidMount() {    
   //   socket.on(`server:event`, data => {
