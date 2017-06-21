@@ -7,16 +7,16 @@ class Store {
   id = 6;
 
   @observable full = "";
-@observable yum=true;
+  @observable yum = true;
 
-@observable app=false;
-@observable timetable=false;
-@observable events=false;
-@observable dashboard=false;
-@observable privatenote=false;
-@observable invites=false;
-@observable chatdrawer=false;
-
+  @observable app = false;
+  @observable timetable = false;
+  @observable events = false;
+  @observable dashboard = false;
+  @observable privatenote = false;
+  @observable invites = false;
+  @observable chatdrawer = false;
+  @observable newchatdrawer = false;
 
   // @observable fullscreen = !
 }
