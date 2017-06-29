@@ -61,6 +61,19 @@ const muiTheme = getMuiTheme({
 const header = {
   textAlign: "center"
 };
+const headColor = {
+  color: "#A0A4A9",
+  fontSize: "22px"
+};
+const greyColor = {
+  color: "#A0A4A9"
+};
+const tailColor = {
+  fontSize: "22px"
+};
+const boldFontWeight = {
+  fontWeight: "bold"
+};
 
 @observer
 export default class Profile extends React.Component {
@@ -80,24 +93,44 @@ export default class Profile extends React.Component {
             <Avatar size={100} src={UserStore.obj.picture} />
             <br />
             <br />
-            <h3>
+            <h3 style={greyColor}>
               {UserStore.obj.name}
             </h3>
           </div>
           <br />
-          <hr />
           <br />
           <div className="row fullwidth">
             <div className="columns medium-6 large-6">
               <Card>
-                <CardTitle title="Basic information" />
+                <CardTitle title="Basic information" style={boldFontWeight} />
+                <br />
+                <br />
                 <CardText>
-                  <h5>Email: </h5> <h5>{UserStore.obj.email}</h5>
+                  <span style={headColor}>Email: </span>{" "}
+                  <span style={tailColor} className="pull-right">
+                    {UserStore.obj.email}
+                  </span>
                   <br />
-                  <h5>Name: </h5> <h5>{UserStore.obj.name}</h5>
                   <br />
-                  <h5>Nick name: </h5> <h5>{UserStore.obj.nickname}</h5>
                   <br />
+                  <span style={headColor}>Name: </span>{" "}
+                  <span style={tailColor} className="pull-right">
+                    {UserStore.obj.name}
+                  </span>
+                  <br />
+                  <br />
+                  <br />
+                  <span style={headColor}>Nick name: </span>{" "}
+                  <span style={tailColor} className="pull-right">
+                    {UserStore.obj.nickname}
+                  </span>
+                  <br />
+                  <br />
+                  <br />
+                  <span style={headColor}>ID: </span>{" "}
+                  <span style={tailColor} className="pull-right">
+                    {UserStore.obj.user_id}
+                  </span>
                 </CardText>
               </Card>
             </div>
@@ -105,9 +138,35 @@ export default class Profile extends React.Component {
 
             <div className="columns medium-5 large-5 padding ">
               <Card>
-                <CardTitle title="Additional Information" />
+                <CardTitle
+                  title="Additional Information"
+                  style={boldFontWeight}
+                />
+                <br />
+                <br />
                 <CardText>
-                  <p>Hey this is a card</p>
+                  <span style={headColor}>Email Verified: </span>{" "}
+                  <span style={tailColor} className="pull-right">
+                    {UserStore.obj.email_verified}
+                  </span>
+                  <br />
+                  <br />
+                  <br /> <span style={headColor}>Account: </span>{" "}
+                  <span style={tailColor} className="pull-right" />
+                  <br />
+                  <br />
+                  <br /> <span style={headColor}>Date Created: </span>{" "}
+                  <span style={tailColor} className="pull-right">
+                    <br />
+                    <br />
+                    <br /> {UserStore.obj.created_at}
+                  </span>
+                  <br /> <br />
+                  <br /> <span style={headColor}>Total Friend:</span>{" "}
+                  <span style={tailColor} className="pull-right">
+                    bleh
+                  </span>
+                  <br />
                 </CardText>
               </Card>
             </div>
@@ -120,3 +179,4 @@ export default class Profile extends React.Component {
 }
 
 // <div className="fullWidth fullheight row expanded">
+//
