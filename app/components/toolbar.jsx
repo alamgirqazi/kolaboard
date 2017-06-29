@@ -54,6 +54,15 @@ const style = {
 const leftmost = {
   marginLeft: 0
 };
+const avatar = {
+  marginLeft: "auto",
+  marginRight: "auto",
+  display: "block"
+};
+const userRealName = {
+  fontSize: "22px",
+  textAlign: "center"
+};
 
 const paddingIcon = {
   paddingBottom: "48px"
@@ -385,7 +394,6 @@ export default class ToolbarExamplesSimple extends React.Component {
       <div>
         <Toolbar style={style}>
           <ToolbarGroup>
-
             <IconButton
               touch={true}
               tooltipPosition="bottom-center"
@@ -400,7 +408,6 @@ export default class ToolbarExamplesSimple extends React.Component {
                 <path d="M2 13.5h14V12H2v1.5zm0-4h14V8H2v1.5zM2 4v1.5h14V4H2z" />
               </svg>
             </IconButton>
-
           </ToolbarGroup>
           <ToolbarGroup>
             <img src="Klogo.png" />
@@ -429,7 +436,6 @@ export default class ToolbarExamplesSimple extends React.Component {
                 </IconMenu>
               </div>
             </ToolbarGroup>
-
           </ToolbarGroup>
         </Toolbar>
 
@@ -446,10 +452,8 @@ export default class ToolbarExamplesSimple extends React.Component {
             <br />
             <br />
             <div className="materialimage">
-              {" "}           <Avatar size={60} src={UserStore.obj.picture} />
-              <br />
-
-              {UserStore.userrealname}
+              <Avatar size={60} style={avatar} src={UserStore.obj.picture} />
+              <span style={userRealName}>{UserStore.userrealname} </span>{" "}
             </div>
           </div>
 
