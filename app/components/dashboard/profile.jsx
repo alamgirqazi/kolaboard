@@ -8,6 +8,8 @@ import AppBar from "material-ui/AppBar";
 import IconButton from "material-ui/IconButton";
 import IconMenu from "material-ui/IconMenu";
 import Toolbar from "app/components/toolbar.jsx";
+import { Scrollbars } from "react-custom-scrollbars";
+
 import Boards from "app/components/Note.jsx";
 // import Main from "app/components/main.jsx"
 // import Store from "app/store/UIstore.js";
@@ -87,91 +89,103 @@ export default class Profile extends React.Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
           <Toolbar />
-          <div style={header}>
-            <h3 style={header}>Set up your Profile</h3>
-            <br />
-            <Avatar size={100} src={UserStore.obj.picture} />
-            <br />
-            <br />
-            <h3 style={greyColor}>
-              {UserStore.obj.name}
-            </h3>
-          </div>
-          <br />
-          <br />
-          <div className="row fullwidth">
-            <div className="columns medium-6 large-6">
-              <Card>
-                <CardTitle title="Basic information" style={boldFontWeight} />
-                <br />
-                <br />
-                <CardText>
-                  <span style={headColor}>Email: </span>{" "}
-                  <span style={tailColor} className="pull-right">
-                    {UserStore.obj.email}
-                  </span>
-                  <br />
-                  <br />
-                  <br />
-                  <span style={headColor}>Name: </span>{" "}
-                  <span style={tailColor} className="pull-right">
-                    {UserStore.obj.name}
-                  </span>
-                  <br />
-                  <br />
-                  <br />
-                  <span style={headColor}>Nick name: </span>{" "}
-                  <span style={tailColor} className="pull-right">
-                    {UserStore.obj.nickname}
-                  </span>
-                  <br />
-                  <br />
-                  <br />
-                  <span style={headColor}>ID: </span>{" "}
-                  <span style={tailColor} className="pull-right">
-                    {UserStore.obj.user_id}
-                  </span>
-                </CardText>
-              </Card>
+          <Scrollbars
+            autoHeightMin={0}
+            style={{ height: "100vh" }}
+            autoHeightMax={50}
+            thumbMinSize={50}
+          >
+            <div style={header}>
+              <h3 style={header}>Set up your Profile</h3>
+              <br />
+              <Avatar size={100} src={UserStore.obj.picture} />
+              <br />
+              <br />
+              <h3 style={greyColor}>
+                {UserStore.obj.name}
+              </h3>
             </div>
-            <div className="columns medium-1 large-1 padding " />
+            <br />
+            <br />
+            <div className="row fullwidth">
+              <div className="columns medium-6 large-6">
+                <Card>
+                  <CardTitle title="Basic information" style={boldFontWeight} />
+                  <br />
+                  <br />
+                  <CardText>
+                    <span style={headColor}>Email: </span>{" "}
+                    <span style={tailColor} className="pull-right">
+                      {UserStore.obj.email}
+                    </span>
+                    <br />
+                    <br />
+                    <br />
+                    <span style={headColor}>Name: </span>{" "}
+                    <span style={tailColor} className="pull-right">
+                      {UserStore.obj.name}
+                    </span>
+                    <br />
+                    <br />
+                    <br />
+                    <span style={headColor}>Nick name: </span>{" "}
+                    <span style={tailColor} className="pull-right">
+                      {UserStore.obj.nickname}
+                    </span>
+                    <br />
+                    <br />
+                    <br />
+                    <span style={headColor}>ID: </span>{" "}
+                    <span style={tailColor} className="pull-right">
+                      {UserStore.obj.user_id}
+                    </span>
+                  </CardText>
+                </Card>
+              </div>
+              <div className="columns medium-1 large-1 padding " />
 
-            <div className="columns medium-5 large-5 padding ">
-              <Card>
-                <CardTitle
-                  title="Additional Information"
-                  style={boldFontWeight}
-                />
-                <br />
-                <br />
-                <CardText>
-                  <span style={headColor}>Email Verified: </span>{" "}
-                  <span style={tailColor} className="pull-right">
-                    {UserStore.obj.email_verified}
-                  </span>
+              <div className="columns medium-5 large-5 padding ">
+                <Card>
+                  <CardTitle
+                    title="Additional Information"
+                    style={boldFontWeight}
+                  />
                   <br />
                   <br />
-                  <br /> <span style={headColor}>Account: </span>{" "}
-                  <span style={tailColor} className="pull-right" />
-                  <br />
-                  <br />
-                  <br /> <span style={headColor}>Date Created: </span>{" "}
-                  <span style={tailColor} className="pull-right">
+                  <CardText>
+                    <span style={headColor}>Email Verified: </span>{" "}
+                    <span style={tailColor} className="pull-right">
+                      {UserStore.obj.email_verified}
+                    </span>
                     <br />
                     <br />
-                    <br /> {UserStore.obj.created_at}
-                  </span>
-                  <br /> <br />
-                  <br /> <span style={headColor}>Total Friend:</span>{" "}
-                  <span style={tailColor} className="pull-right">
-                    bleh
-                  </span>
-                  <br />
-                </CardText>
-              </Card>
+                    <br /> <span style={headColor}>Account: </span>{" "}
+                    <span style={tailColor} className="pull-right" />
+                    <br />
+                    <br />
+                    <br /> <span style={headColor}>Date Created: </span>{" "}
+                    <span style={tailColor} className="pull-right">
+                      <br />
+                      <br />
+                      <br /> {UserStore.obj.created_at}
+                    </span>
+                    <br /> <br />
+                    <br /> <span style={headColor}>Total Friend:</span>{" "}
+                    <span style={tailColor} className="pull-right">
+                      bleh
+                    </span>
+                    <br />
+                  </CardText>
+                </Card>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+              </div>
             </div>
-          </div>
-          );
+            );
+          </Scrollbars>
         </div>
       </MuiThemeProvider>
     );
