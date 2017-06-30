@@ -15,6 +15,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import NavigationExpandMoreIcon from "material-ui/svg-icons/navigation/expand-more";
 import MenuItem from "material-ui/MenuItem";
 import UIStore from "app/store/UIstore.js";
+var { Link, IndexLink, browserHistory } = require("react-router");
 
 import {
   Toolbar,
@@ -37,14 +38,6 @@ const iconButtonElement = (
   </IconButton>
 );
 
-const rightIconMenu = (
-  <IconMenu iconButtonElement={iconButtonElement}>
-    <MenuItem>New Group</MenuItem>
-    <MenuItem>Profile</MenuItem>
-    <MenuItem>Settings</MenuItem>
-    <MenuItem>Logout</MenuItem>
-  </IconMenu>
-);
 // const style =
 // {
 // left: '45%',
@@ -52,11 +45,55 @@ const rightIconMenu = (
 
 @observer
 export default class Msgbar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.profile = this.profile.bind(this);
+    this.settings = this.settings.bind(this);
+    this.logout = this.logout.bind(this);
+    // this.handleToggle = this.handleToggle.bind(this);
+    this.handleToggl = this.handleToggl.bind(this);
+  }
+
   handleToggle = () => {
     UIStore.newchatdrawer = true;
   };
+  handleToggl() {
+    UIStore.newchatdrawer = true;
+  }
 
+  profile() {
+    // Store.app = false;
+    // Store.events = false;
+    // Store.timetable = false;
+    // Store.invites = false;
+
+    // Store.privatenote = false;
+    // Store.dashboard = false;
+    browserHistory.replace("/profile");
+  }
+  settings() {
+    // Store.app = false;
+    // Store.events = false;
+    // Store.timetable = false;
+    // Store.privatenote = false;
+    // Store.invites = false;
+
+    // Store.dashboard = false;
+    browserHistory.replace("/settings");
+  }
+  logout() {
+    alert("logout");
+  }
   render() {
+    const rightIconMenu = (
+      <IconMenu iconButtonElement={iconButtonElement}>
+        <MenuItem onClick={this.handleToggle}>New Group</MenuItem>
+        <MenuItem onClick={this.profile}>Profile</MenuItem>
+        <MenuItem onClick={this.settings}>Settings</MenuItem>
+        <MenuItem onClick={this.logout}>Logout</MenuItem>
+      </IconMenu>
+    );
     return (
       <Toolbar>
         <ToolbarGroup />
@@ -76,7 +113,6 @@ export default class Msgbar extends React.Component {
               <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
             </svg>
           </IconButton>
-
         </ToolbarGroup>
         <ToolbarGroup lastChild={true} style={bottomPadding}>
           <ListItem rightIconButton={rightIconMenu} />

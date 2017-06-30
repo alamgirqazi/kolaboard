@@ -342,7 +342,7 @@ export default class ToolbarExamplesSimple extends React.Component {
         onTouchTap={this.handleDialogClose}
         style={buttonMargin}
       />,
-      <RaisedButton label="Log Out" secondary={true} onTouchTap={logout} />
+      <RaisedButton label="Log Out" onTouchTap={logout} />
     ];
 
     // APP ROUTE
