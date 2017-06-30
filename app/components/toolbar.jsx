@@ -442,11 +442,12 @@ export default class ToolbarExamplesSimple extends React.Component {
         <Drawer open={this.state.open} containerStyle={{ height: "100%" }}>
           <AppBar
             title="kolaboard"
-            iconElementLeft={
+            iconElementRight={
               <IconButton onTouchTap={this.handleToggle}>
                 <NavigationClose />
               </IconButton>
             }
+            iconElementLeft={""}
           />
           <div style={materialbackground}>
             <br />

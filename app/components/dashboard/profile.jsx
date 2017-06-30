@@ -23,14 +23,6 @@ import {
   CardText
 } from "material-ui/Card";
 import Avatar from "material-ui/Avatar";
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn
-} from "material-ui/Table";
 import FlatButton from "material-ui/FlatButton";
 import Chat from "app/components/chat.jsx";
 import Board from "app/components/board.jsx";
