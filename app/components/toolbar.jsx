@@ -32,6 +32,8 @@ import Divider from "material-ui/Divider";
 import Profile from "app/components/dashboard/profile.jsx";
 import Settings from "app/components/dashboard/settings.jsx";
 import chatstore from "../store/ChatStore";
+import Dialog from "material-ui/Dialog";
+import FlatButton from "material-ui/FlatButton";
 
 var user_id;
 
@@ -50,6 +52,10 @@ const style = {
   // backgroundColor: '#D0E9EA',
   backgroundColor: "$secondaryColor"
   // backgroundColor: '#dcf8c6',
+};
+
+const buttonMargin = {
+  margin: 12
 };
 const leftmost = {
   marginLeft: 0
@@ -96,6 +102,7 @@ export default class ToolbarExamplesSimple extends React.Component {
       value: 3,
       yum: true,
       open: false,
+      openDialog: false,
       obj: {},
       yay: true
     };
@@ -108,8 +115,15 @@ export default class ToolbarExamplesSimple extends React.Component {
     this.handleToggle = this.handleToggle.bind(this);
     this.profile = this.profile.bind(this);
     this.settings = this.settings.bind(this);
+    this.logmeout = this.logmeout.bind(this);
+    this.handleDialogClose = this.handleDialogClose.bind(this);
   }
   handleToggle = () => this.setState({ open: !this.state.open });
+  logmeout = () => this.setState({ openDialog: !this.state.openDialog });
+
+  handleDialogClose = () => {
+    this.setState({ openDialog: false });
+  };
 
   profile() {
     Store.app = false;
@@ -322,6 +336,15 @@ export default class ToolbarExamplesSimple extends React.Component {
       5000
     ); // wait 5 seconds, then reset to false  }
 
+    const actions = [
+      <RaisedButton
+        label="Cancel"
+        onTouchTap={this.handleDialogClose}
+        style={buttonMargin}
+      />,
+      <RaisedButton label="Log Out" secondary={true} onTouchTap={logout} />
+    ];
+
     // APP ROUTE
 
     if (Store.app == true) {
@@ -432,12 +455,21 @@ export default class ToolbarExamplesSimple extends React.Component {
                 >
                   <MenuItem primaryText="Profile" onClick={this.profile} />
                   <MenuItem primaryText="Settings" onClick={this.settings} />
-                  <MenuItem primaryText="Log Out" onClick={logout} />
+                  <MenuItem primaryText="Log Out" onClick={this.logmeout} />
                 </IconMenu>
               </div>
             </ToolbarGroup>
           </ToolbarGroup>
         </Toolbar>
+        <Dialog
+          title="Log Out"
+          actions={actions}
+          modal={false}
+          open={this.state.openDialog}
+          onRequestClose={this.handleDialogClose}
+        >
+          Are you sure you want to Log Out?
+        </Dialog>
 
         <Drawer open={this.state.open} containerStyle={{ height: "100%" }}>
           <AppBar
