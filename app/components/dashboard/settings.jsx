@@ -17,9 +17,11 @@ import Board from "app/components/board.jsx";
 import { greenA400, red500 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import Store from "app/store/UIstore.js";
+import UserStore from "app/store/UserStore.js";
 import RaisedButton from "material-ui/RaisedButton";
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
+import Toggle from "material-ui/Toggle";
 
 import {
   Card,
@@ -55,8 +57,27 @@ const muiTheme = getMuiTheme({
 const style = {
   margin: 12
 };
+
+const tableDisplay = {
+  display: "table"
+};
 const header = {
   textAlign: "center"
+};
+
+const headColor = {
+  color: "#A0A4A9",
+  fontSize: "22px"
+};
+const greyColor = {
+  color: "#A0A4A9"
+};
+const tailColor = {
+  fontSize: "14px"
+};
+
+const togglestyle = {
+  marginBottom: 16
 };
 export default class Settings extends React.Component {
   constructor(props) {
@@ -101,18 +122,31 @@ export default class Settings extends React.Component {
                   <CardTitle title="" />
                   <br />
                   <br />
-                  <p>HEYYYYYYYYY</p>
-                  <RaisedButton
-                    label="Delete my account"
-                    secondary={true}
-                    style={style}
-                    onTouchTap={this.handleOpen}
+                  <span style={tailColor}>Date Created: </span>{" "}
+                  <span style={tailColor} className="pull-right">
+                    {UserStore.obj.email}
+                  </span>
+                  <br />
+                  <br />
+                  <Toggle
+                    label="Disable Email Notifications"
+                    style={[togglestyle, headColor]}
                   />
-
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <div className="center-block">
+                    <RaisedButton
+                      className="center-block"
+                      label="Delete my account"
+                      secondary={true}
+                      style={tableDisplay}
+                      onTouchTap={this.handleOpen}
+                    />
+                  </div>
                   <CardText />
-
-                  <br />
-                  <br />
                   <br />
                 </Card>
 
