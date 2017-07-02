@@ -91,7 +91,6 @@ export default class Msgbar extends React.Component {
         <MenuItem onClick={this.handleToggle}>New Group</MenuItem>
         <MenuItem onClick={this.profile}>Profile</MenuItem>
         <MenuItem onClick={this.settings}>Settings</MenuItem>
-        <MenuItem onClick={this.logout}>Logout</MenuItem>
       </IconMenu>
     );
     return (
