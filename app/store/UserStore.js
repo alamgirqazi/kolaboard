@@ -1,17 +1,16 @@
 import mobx, { computed, observable, extendObservable, autorun } from "mobx";
 
 class UserStore {
-    @observable todos = ["dont buy milk", "buy eggs"];
-    @observable obj = {};
-    @observable userrealname = '';
-    @observable allUsers;
-    @observable listy = false;
-    @observable flisty = false;
-    @observable groupName;
-
-
-
-
+  @observable todos = ["dont buy milk", "buy eggs"];
+  @observable obj = {};
+  @observable userrealname = "";
+  @observable useraccount = "";
+  @observable created_at = "";
+  @observable emailverified = false;
+  @observable allUsers;
+  @observable listy = false;
+  @observable flisty = false;
+  @observable groupName;
 }
 
 var userstore = (window.userstore = new UserStore());

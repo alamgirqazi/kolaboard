@@ -273,6 +273,8 @@ export default class ToolbarExamplesSimple extends React.Component {
         //   Store.yum==false
         // }
         localprofileparse = UserStore.obj.identities[0].provider;
+        UserStore.created_at = UserStore.obj.created_at;
+        UserStore.emailverified = UserStore.obj.email_verified;
 
         if (
           localprofileparse == "facebook" ||
@@ -282,6 +284,14 @@ export default class ToolbarExamplesSimple extends React.Component {
 
           UserStore.userrealname = UserStore.obj.name;
         else UserStore.userrealname = UserStore.obj.nickname;
+
+        if (localprofileparse == "facebook") {
+          UserStore.useraccount = "Facebook";
+        } else if (localprofileparse == "google-oauth2") {
+          {
+            UserStore.useraccount = "Google";
+          }
+        } else UserStore.useraccount = "Email Account";
       },
       //     error : function(xhr, textStatus, errorThrown ) {
       //         if (textStatus == 'timeout') {

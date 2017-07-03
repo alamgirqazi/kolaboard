@@ -147,19 +147,21 @@ export default class Profile extends React.Component {
                   <CardText>
                     <span style={headColor}>Email Verified: </span>{" "}
                     <span style={tailColor} className="pull-right">
-                      {UserStore.obj.email_verified}
+                      {UserStore.emailverified.toString()}
                     </span>
                     <br />
                     <br />
                     <br /> <span style={headColor}>Account: </span>{" "}
-                    <span style={tailColor} className="pull-right" />
+                    <span style={tailColor} className="pull-right">
+                      {UserStore.useraccount}
+                    </span>
                     <br />
                     <br />
                     <br /> <span style={headColor}>Date Created: </span>{" "}
                     <span style={tailColor} className="pull-right">
                       <br />
                       <br />
-                      <br /> {UserStore.obj.created_at}
+                      <br /> {UserStore.created_at}
                     </span>
                     <br /> <br />
                     <br /> <span style={headColor}>Total Friend:</span>{" "}
