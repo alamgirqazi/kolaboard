@@ -140,15 +140,24 @@ export default class Chat extends React.Component {
           thumbMinSize={30}
         >
           <div>
-
-            {users.map(Users => {
-              if (Users.from == UserStore.userrealname) {
-                return (
-                  <div className="panel" key={Users._id}>
-                    <ol className="chat" id="msgList">
+            <div className="panel">
+              <ol className="chat" id="msgList">
+                {users.map(Users => {
+                  if (Users.from == UserStore.userrealname) {
+                    return (
+                      <li className="self">
+                        <div className="msg">
+                          <p>
+                            {Users.message}
+                          </p>
+                          <time>20:17</time>
+                        </div>
+                      </li>
+                    );
+                  } else {
+                    return (
                       <li className="other">
                         <div className="avatar">
-
                           <div className="avatar">
                             <img
                               src="http://i.imgur.com/HYcn9xO.png"
@@ -156,93 +165,50 @@ export default class Chat extends React.Component {
                             />
                           </div>
                         </div>
-
+                        {/*<div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>*/}
                         <div className="msg">
-                          <p>{Users.message}</p>
-                          <time>20:17</time>
+                          <p>
+                            {Users.message}
+                          </p>
+
+                          <time>20:18</time>
                           <sender>Usama</sender>
                         </div>
                       </li>
-                    </ol>
+                    );
+                  }
+                })}
+              </ol>
 
-                    <div className="fixedchatbox">
-                      <div style={displayinline}>
-                        <textarea
-                          ref="newText"
-                          style={chatinputbox}
-                          placeholder="Please Enter Your message......."
-                          className="form-control"
-                        />
-                        <IconButton tooltip="SVG Icon" onClick={this.sendMsg}>
-                          <svg
-                            fill="#FFFFFF"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            width="24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-                            <path d="M0 0h24v24H0z" fill="none" />
-                          </svg>
-                        </IconButton>
-                      </div>
-                    </div>
+              <div className="fixedchatbox">
+                <div style={displayinline}>
+                  <textarea
+                    ref="newText"
+                    style={chatinputbox}
+                    placeholder="Please Enter Your message......."
+                    className="form-control"
+                  />
+                  <IconButton tooltip="SVG Icon" onClick={this.sendMsg}>
+                    <svg
+                      fill="#FFFFFF"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                      <path d="M0 0h24v24H0z" fill="none" />
+                    </svg>
+                  </IconButton>
+                </div>
+              </div>
 
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-
-                  </div>
-                );
-              } else {
-                return (
-                  <div className="panel" key={Users._id}>
-                    <ol className="chat" id="msgList">
-                      <li className="self">
-                        {/*<div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>*/}
-                        <div className="msg">
-                          <p>{Users.message}</p>
-
-                          <time>20:18</time>
-                        </div>
-                      </li>
-                    </ol>
-
-                    <div className="fixedchatbox">
-                      <div style={displayinline}>
-                        <textarea
-                          ref="newText"
-                          style={chatinputbox}
-                          placeholder="Please Enter Your message......."
-                          className="form-control"
-                        />
-                        <IconButton tooltip="SVG Icon" onClick={this.sendMsg}>
-                          <svg
-                            fill="#FFFFFF"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            width="24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-                            <path d="M0 0h24v24H0z" fill="none" />
-                          </svg>
-                        </IconButton>
-                      </div>
-                    </div>
-
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-
-                  </div>
-                );
-              }
-            })}
+              <br />
+              <br />
+              <br />
+              <br />
+            </div>
           </div>
-
         </Scrollbars>
       </div>
     );

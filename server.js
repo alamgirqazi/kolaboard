@@ -342,9 +342,9 @@ io.on("connection", function(socket) {
       } else {
         console.log("These are rooms from database " + rooms);
         console.log("This is for space");
-        console.log(
-          "These are rooms.conversation from database " + rooms[0].conversation
-        );
+        // console.log(
+        //   "These are rooms.conversation from database " + rooms[0].conversation
+        // );
         // console.log('This is for space');
         socket.emit("msgs", { msg: rooms[0].conversation });
         // res.send(rooms);
@@ -359,9 +359,7 @@ io.on("connection", function(socket) {
       } else {
         console.log("These are rooms from database " + rooms);
         console.log("This is for space");
-        console.log(
-          "These are rooms.conversation from database " + rooms[0].conversation
-        );
+        console.log("These are rooms.conversation from database " + rooms[0]);
         // console.log('This is for space');
         socket.emit("returnmsgs", { msg: rooms[0].conversation });
         // res.send(rooms);
