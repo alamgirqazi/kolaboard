@@ -192,14 +192,14 @@ app.get("/api/user/acceptrequest", function(req, res) {
     res.send(friendship);
   });
 });
-// app.get("/api/user/friendlist", function(req, res) {
-//   Friendships.find({ status: "friend", other_id: myuserid }, function(
-//     err,
-//     friendship
-//   ) {
-//     res.send(friendship);
-//   });
-// });
+app.get("/api/user/friendlist", function(req, res) {
+  Friendships.find({ status: "friend", other_id: myuserid }, function(
+    err,
+    friendship
+  ) {
+    res.send(friendship);
+  });
+});
 
 // app.get("/api/user/friendList", function(req, res) {
 //     Friendships.find({ $or: [{ status: "friend", other_id: myuserid }, { status: "friend", user_id: myuserid }] }, function(

@@ -157,14 +157,7 @@ export default class Chat extends React.Component {
                   } else {
                     return (
                       <li className="other">
-                        <div className="avatar">
-                          <div className="avatar">
-                            <img
-                              src="http://i.imgur.com/HYcn9xO.png"
-                              draggable="false"
-                            />
-                          </div>
-                        </div>
+                        <Avatar src="http://i.imgur.com/HYcn9xO.png" />
                         {/*<div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>*/}
                         <div className="msg">
                           <p>
@@ -221,4 +214,12 @@ export default class Chat extends React.Component {
 
 //     <time>20:18</time>
 //   </div>
-// </li>
+// // </li>
+//   <div className="avatar">
+//                           <div className="avatar">
+//                             <img
+//                               src="http://i.imgur.com/HYcn9xO.png"
+//                               draggable="false"
+//                             />
+//                           </div>
+//                         </div>

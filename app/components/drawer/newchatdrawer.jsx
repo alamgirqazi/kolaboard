@@ -15,14 +15,31 @@ import Avatar from "material-ui/Avatar";
 import ListItem from "material-ui/List/ListItem";
 
 const KEYS_TO_FILTERS = ["email", "name", "nickname", "user_id"];
+import FriendshipsStore from "app/store/FriendshipsStore.js";
+import Chip from "material-ui/Chip";
+var Select = require("react-select");
 
 const topStyle = {
   top: "60px"
 };
 
-// let friendlist = [];
+let friendlist = [];
 // let friendlistcount;
 
+const styles = {
+  chip: {
+    margin: 4
+  },
+  wrapper: {
+    display: "flex",
+    flexWrap: "wrap"
+  }
+};
+
+var options = [
+  { value: "one", label: "One" },
+  { value: "two", label: "Two", clearableValue: false }
+];
 @observer
 export default class NewChatDrawer extends React.Component {
   constructor(props) {
@@ -31,6 +48,7 @@ export default class NewChatDrawer extends React.Component {
       open: false,
       searchTerm: ""
     };
+    this.logChange = this.logChange.bind(this);
   }
 
   // handleToggle = () => this.setState({ open: !this.state.open });
@@ -42,40 +60,51 @@ export default class NewChatDrawer extends React.Component {
   };
 
   handleClose = () => this.setState({ open: false });
-
   // Map Friendlist
 
   // Set Group Name
+  createChip() {
+    return (
+      <Chip style={styles.chip}>
+        <Avatar src="images/ok-128.jpg" />
+        Deletable Avatar Chip
+      </Chip>
+    );
+  }
+  componentDidMount() {
+    $.ajax({
+      type: "GET",
+      url: "/api/user/friendlist"
+    })
+      .done(function(data) {
+        // friendlist = data;
+        console.log("meri friendlist");
+        console.log(data);
 
-  //  componentDidMount() {
+        console.log("aaaaaaaaa");
 
-  //    $.ajax({
-  //     type: 'GET',
-  //     url: '/api/user/friendlist'
-  //     })
-  //   .done(function(data) {
-  // friendlist = data;
-  // console.log("meri friendlist");
-  // console.log(data);
-  // friendlistcount=Object.keys(friendlist).length;
-  // FriendshipsStore.friendlistcount=friendlistcount;
-  // console.log(friendlistcount);
+        // friendlistcount=Object.keys(friendlist).length;
+        FriendshipsStore.totalfriends = data;
+        friendlist = FriendshipsStore.totalfriends;
 
-  // })
-  //   .fail(function(jqXhr) {
-  //     console.log('friendlist mai msla');
-  //   });
-
-  //  }
+        // console.log(friendlistcount);
+      })
+      .fail(function(jqXhr) {
+        console.log("friendlist mai msla");
+      });
+  }
 
   searchUpdated(term) {
     this.setState({ searchTerm: term });
   }
+  logChange(val) {
+    console.log("Selected: " + JSON.stringify(val));
+  }
 
   render() {
-    // const filteredEmails = friendlist.filter(
-    //   createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
-    // );
+    const filteredEmails = friendlist.filter(
+      createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
+    );
 
     return (
       <div>
@@ -113,42 +142,40 @@ export default class NewChatDrawer extends React.Component {
                 className="thumb-horizontal"
                 style={{ display: "none" }}
               />}
-          />
+          >
+            {friendlist.map(Friendlist => {
+              return (
+                <List key={Friendlist.user_id}>
+                  <ListItem
+                    onTouchTap={this.createChip}
+                    key={Friendlist.user_id}
+                    disabled={false}
+                    leftAvatar={<Avatar size={40} src={Friendlist.picture} />}
+                  >
+                    <div className="searchContent" key={Friendlist.other_id}>
+                      <div className="subject">
+                        {Friendlist.other_id_name}
+                      </div>
+                      <br />
+                      <div />
+                    </div>
+                  </ListItem>
+                </List>
+              );
+            })}
 
+            <Select
+              name="form-field-name"
+              value=""
+              options={options}
+              onChange={this.logChange}
+            />
+          </Scrollbars>
         </Drawer>
       </div>
     );
   }
 }
-// <RaisedButton label="Open Drawer" onTouchTap={this.handleToggle} />
-
-// between scroll bars
-
-// {friendlist.map(Friendlist => {
-//   return (
-//     <List key={Friendlist.user_id}>
-//       <ListItem
-//         key={Friendlist.user_id}
-//         disabled={true}
-//         leftAvatar={<Avatar size={80} src={Friendlist.picture} />}
-//       >
-//         <div className="searchContent" key={Friendlist.other_id}>
-//           <div className="subject">{Friendlist.other_id_name}</div>
-//           <br />
-//           <div>                  {Friendlist.other_id} </div>
-//           {Friendlist.status}
-//         </div>
-//       </ListItem>
-//     </List>
-//   );
-// })}
-
-//    {acceptrequests.map(Acceptrequests => {
-//               return (
-//                 <List key={Acceptrequests.user_id}>
-//      <ListItem
-//      key={Acceptrequests.user_id}
-//       disabled={true}
 
 // rightIconButton={<RaisedButton label={"Add"} primary={true} key={Acceptrequests.user_id} onTouchTap={() => this._handleClick(Acceptrequests)}
 //  style={style} />
