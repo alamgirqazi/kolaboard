@@ -192,11 +192,11 @@ export default class FindFriends extends React.Component {
                               </div>
                               <br />
                               <div className="from">
-                                {user.email}
+                                {}
                               </div>
                               <br />
                               <div className="subject">
-                                {user.identities[0].provider}
+                                {}
                               </div>
                             </div>
                           </ListItem>
@@ -214,3 +214,10 @@ export default class FindFriends extends React.Component {
   }
 }
 // <button>{email.name}</button>
+// <div className="from">
+//                               {user.email}
+//                             </div>
+//                             <br />
+//                             <div className="subject">
+//                               {user.identities[0].provider}
+//                             </div>

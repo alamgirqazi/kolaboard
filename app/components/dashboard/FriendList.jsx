@@ -185,6 +185,13 @@ export default class FriendList extends React.Component {
                               {Friendlist.other_id_name}
                             </div>
                             <br />
+                            <div className="from">
+                              {}
+                            </div>
+                            <br />
+                            <div className="subject">
+                              {}
+                            </div>
                           </div>
                         </ListItem>
                       </List>

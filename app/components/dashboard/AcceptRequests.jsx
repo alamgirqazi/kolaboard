@@ -157,7 +157,7 @@ export default class AcceptRequests extends React.Component {
                     style={{ display: "none" }}
                   />}
               >
-                {acceptrequests.map(Acceptrequests => {
+                {filteredEmails.map(Acceptrequests => {
                   return (
                     <div className="mail">
                       <List key={Acceptrequests.user_id}>
@@ -183,6 +183,13 @@ export default class AcceptRequests extends React.Component {
                               {Acceptrequests.status}
                             </div>
                             <br />
+                            <div className="from">
+                              {}
+                            </div>
+                            <br />
+                            <div className="subject">
+                              {}
+                            </div>
                           </div>
                         </ListItem>
                       </List>
