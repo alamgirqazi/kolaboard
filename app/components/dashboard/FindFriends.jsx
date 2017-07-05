@@ -176,7 +176,7 @@ export default class FindFriends extends React.Component {
                             leftAvatar={<Avatar size={80} src={user.picture} />}
                             rightIconButton={
                               <RaisedButton
-                                label={"Add " + user.name}
+                                label={"Add Friend"}
                                 primary={true}
                                 key={user.user_id}
                                 onTouchTap={() => this._handleClick(user)}

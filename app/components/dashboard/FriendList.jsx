@@ -28,7 +28,7 @@ import { Scrollbars } from "react-custom-scrollbars";
 
 import SearchInput, { createFilter } from "react-search-input";
 
-const KEYS_TO_FILTERS = ["email", "name", "nickname", "user_id"];
+const KEYS_TO_FILTERS = ["email", "name", "nickname", "other_id_name"];
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -91,6 +91,31 @@ export default class FriendList extends React.Component {
     this.setState({ searchTerm: term });
   }
 
+  _handleClick(Friendlist) {
+    console.log(Friendlist.other_id_name);
+    alert(Friendlist.other_id);
+
+    // var data = {
+    //   user_id: realuserid,
+    //   status: "pending",
+    //   picture: user.picture,
+    //   other_id_name: user.name,
+    //   other_id: user.user_id
+    // };
+    // // Submit form via jQuery/AJAX
+    // $.ajax({
+    //   type: "POST",
+    //   url: "/api/user/friendrequest",
+    //   data: data
+    // })
+    //   .done(function(data) {
+    //     console.log("POST req sent");
+    //   })
+    //   .fail(function(jqXhr) {
+    //     console.log("failed to register POST REQ");
+    //   });
+  }
+
   render() {
     const filteredEmails = friendlist.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
@@ -100,7 +125,6 @@ export default class FriendList extends React.Component {
         <div>
           <br />
           <div className="row">
-
             <div className="columns medium-8 large-8 small-centered">
               <div>
                 <h3 style={header}>
@@ -134,37 +158,42 @@ export default class FriendList extends React.Component {
                     style={{ display: "none" }}
                   />}
               >
-                {friendlist.map(Friendlist => {
+                {filteredEmails.map(Friendlist => {
                   return (
-                    <List key={Friendlist.user_id}>
-                      <ListItem
-                        key={Friendlist.user_id}
-                        disabled={true}
-                        leftAvatar={
-                          <Avatar size={80} src={Friendlist.picture} />
-                        }
-                      >
-                        <div
-                          className="searchContent"
-                          key={Friendlist.other_id}
+                    <div className="mail">
+                      <List key={Friendlist.user_id}>
+                        <ListItem
+                          key={Friendlist.user_id}
+                          disabled={true}
+                          leftAvatar={
+                            <Avatar size={60} src={Friendlist.picture} />
+                          }
+                          rightIconButton={
+                            <RaisedButton
+                              label={"Remove Friend"}
+                              primary={true}
+                              onTouchTap={() => this._handleClick(Friendlist)}
+                              style={style}
+                            />
+                          }
                         >
-                          <div className="subject">
-                            {Friendlist.other_id_name}
+                          <div
+                            className="searchContent"
+                            key={Friendlist.other_id}
+                          >
+                            <div className="subject">
+                              {Friendlist.other_id_name}
+                            </div>
+                            <br />
                           </div>
-                          <br />
-                          <div>                  {Friendlist.other_id} </div>
-                          {Friendlist.status}
-                        </div>
-                      </ListItem>
-                    </List>
+                        </ListItem>
+                      </List>
+                    </div>
                   );
                 })}
               </Scrollbars>
-
             </div>
-
           </div>
-
         </div>
       </MuiThemeProvider>
     );

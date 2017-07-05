@@ -173,29 +173,6 @@ export default class Chat extends React.Component {
                 })}
               </ol>
 
-              <div className="fixedchatbox">
-                <div style={displayinline}>
-                  <textarea
-                    ref="newText"
-                    style={chatinputbox}
-                    placeholder="Please Enter Your message......."
-                    className="form-control"
-                  />
-                  <IconButton tooltip="SVG Icon" onClick={this.sendMsg}>
-                    <svg
-                      fill="#FFFFFF"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      width="24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-                      <path d="M0 0h24v24H0z" fill="none" />
-                    </svg>
-                  </IconButton>
-                </div>
-              </div>
-
               <br />
               <br />
               <br />
@@ -203,6 +180,28 @@ export default class Chat extends React.Component {
             </div>
           </div>
         </Scrollbars>
+        <div className="fixedchatbox">
+          <div style={displayinline}>
+            <textarea
+              ref="newText"
+              style={chatinputbox}
+              placeholder="Please Enter Your message......."
+              className="form-control"
+            />
+            <IconButton tooltip="SVG Icon" onClick={this.sendMsg}>
+              <svg
+                fill="#FFFFFF"
+                height="24"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                <path d="M0 0h24v24H0z" fill="none" />
+              </svg>
+            </IconButton>
+          </div>
+        </div>
       </div>
     );
   }
