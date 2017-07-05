@@ -9,7 +9,7 @@ class Store {
   @observable full = "";
   @observable yum = true;
 
-  @observable app = false;
+  @observable app = true;
   @observable timetable = false;
   @observable events = false;
   @observable dashboard = false;

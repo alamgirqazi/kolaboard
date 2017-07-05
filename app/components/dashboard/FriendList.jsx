@@ -166,7 +166,7 @@ export default class FriendList extends React.Component {
                           key={Friendlist.user_id}
                           disabled={true}
                           leftAvatar={
-                            <Avatar size={60} src={Friendlist.picture} />
+                            <Avatar size={80} src={Friendlist.picture} />
                           }
                           rightIconButton={
                             <RaisedButton
