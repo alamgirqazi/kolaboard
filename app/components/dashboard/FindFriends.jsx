@@ -102,14 +102,16 @@ export default class FindFriends extends React.Component {
   _handleClick(user) {
     let realuserid = localStorage.getItem("userid");
 
-    console.log(user.name);
-    console.log(user.picture);
+    // console.log(user.name);
+    // console.log(user.picture);
 
     var data = {
       user_id: realuserid,
       status: "pending",
       picture: user.picture,
+      user_picture: UserStore.obj.picture,
       other_id_name: user.name,
+      user_id_name: UserStore.userrealname,
       other_id: user.user_id
     };
     // Submit form via jQuery/AJAX

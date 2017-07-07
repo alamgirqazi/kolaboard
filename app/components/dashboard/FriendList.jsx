@@ -120,6 +120,7 @@ export default class FriendList extends React.Component {
     const filteredEmails = friendlist.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
     );
+
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
@@ -159,44 +160,85 @@ export default class FriendList extends React.Component {
                   />}
               >
                 {filteredEmails.map(Friendlist => {
-                  return (
-                    <div className="mail">
-                      <List key={Friendlist.user_id}>
-                        <ListItem
-                          key={Friendlist.user_id}
-                          disabled={true}
-                          leftAvatar={
-                            <Avatar size={80} src={Friendlist.picture} />
-                          }
-                          rightIconButton={
-                            <RaisedButton
-                              label={"Remove Friend"}
-                              primary={true}
-                              onTouchTap={() => this._handleClick(Friendlist)}
-                              style={style}
-                            />
-                          }
-                        >
-                          <div
-                            className="searchContent"
-                            key={Friendlist.other_id}
+                  if (Friendlist.user_id == UserStore.obj.user_id) {
+                    return (
+                      <div className="mail">
+                        <List key={Friendlist.user_id}>
+                          <ListItem
+                            key={Friendlist.user_id}
+                            disabled={true}
+                            leftAvatar={
+                              <Avatar size={80} src={Friendlist.picture} />
+                            }
+                            rightIconButton={
+                              <RaisedButton
+                                label={"Remove Friend"}
+                                primary={true}
+                                onTouchTap={() => this._handleClick(Friendlist)}
+                                style={style}
+                              />
+                            }
                           >
-                            <div className="subject">
-                              {Friendlist.other_id_name}
+                            <div
+                              className="searchContent"
+                              key={Friendlist.other_id}
+                            >
+                              <div className="subject">
+                                {Friendlist.other_id_name}
+                              </div>
+                              <br />
+                              <div className="from">
+                                {}
+                              </div>
+                              <br />
+                              <div className="subject">
+                                {}
+                              </div>
                             </div>
-                            <br />
-                            <div className="from">
-                              {}
+                          </ListItem>
+                        </List>
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div className="mail">
+                        <List key={Friendlist.user_id}>
+                          <ListItem
+                            key={Friendlist.user_id}
+                            disabled={true}
+                            leftAvatar={
+                              <Avatar size={80} src={Friendlist.user_picture} />
+                            }
+                            rightIconButton={
+                              <RaisedButton
+                                label={"Remove Friend"}
+                                primary={true}
+                                onTouchTap={() => this._handleClick(Friendlist)}
+                                style={style}
+                              />
+                            }
+                          >
+                            <div
+                              className="searchContent"
+                              key={Friendlist.user_id}
+                            >
+                              <div className="subject">
+                                {Friendlist.user_id_name}
+                              </div>
+                              <br />
+                              <div className="from">
+                                {}
+                              </div>
+                              <br />
+                              <div className="subject">
+                                {}
+                              </div>
                             </div>
-                            <br />
-                            <div className="subject">
-                              {}
-                            </div>
-                          </div>
-                        </ListItem>
-                      </List>
-                    </div>
-                  );
+                          </ListItem>
+                        </List>
+                      </div>
+                    );
+                  }
                 })}
               </Scrollbars>
             </div>
