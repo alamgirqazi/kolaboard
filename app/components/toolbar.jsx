@@ -216,33 +216,6 @@ export default class ToolbarExamplesSimple extends React.Component {
 
     var location = "api/user/" + user_id;
 
-    // $.ajax({
-    //    url: location,
-    //    data: {
-    //       format: 'json'
-    //    },   tryCount : 0,
-    //   retryLimit : 3,
-    //    error: function() {
-    //      console.log('error in get');
-
-    //    dataType: 'json',
-    //    success: function(data) {
-
-    //      UserStore.obj=data[0];
-
-    //     localprofileparse = UserStore.obj.identities[0].provider;
-
-    // if(localprofileparse=="facebook" || localprofileparse=="google-oauth2")
-    // // if(localprofileparse.identities[0].provider=="facebook" || localprofileparse.identities[0].provider=="google-oauth2")
-
-    // UserStore.userrealname = UserStore.obj.name;
-    // else
-    // UserStore.userrealname = UserStore.obj.nickname;
-
-    //      },
-    //    type: 'GET'
-    // });
-
     $.ajax({
       url: location,
       type: "GET",
@@ -250,28 +223,10 @@ export default class ToolbarExamplesSimple extends React.Component {
         format: "json"
       },
       dataType: "json",
-      //    tryCount : 0,
-      // retryLimit : 10,
+
       success: function(data) {
-        //  if(data[0]==undefined)
-        //{
-        //             $.ajax(this);
-
-        //  if(Store.yum === true)
-        //  {
-        //                  $.ajax(this);
-        //                  Store.yum = false;
-        //  }
-
-        //}
-
-        // chatstore.user = data;
         UserStore.obj = data[0];
-        //   console.log('This is user object '+ UserStore.obj.rooms[1].roomId);
-        // if(UserStore.obj.name!= undefined)
-        // {
-        //   Store.yum==false
-        // }
+
         localprofileparse = UserStore.obj.identities[0].provider;
         UserStore.created_at = UserStore.obj.created_at;
         UserStore.emailverified = UserStore.obj.email_verified;
@@ -293,21 +248,6 @@ export default class ToolbarExamplesSimple extends React.Component {
           }
         } else UserStore.useraccount = "Email Account";
       },
-      //     error : function(xhr, textStatus, errorThrown ) {
-      //         if (textStatus == 'timeout') {
-      //             this.tryCount++;
-      //             if (this.tryCount <= this.retryLimit) {
-      //                 //try again
-      //                 $.ajax(this);
-      //                 return;
-      //             }
-      //             return;
-      //         }
-      //         if (xhr.status == 500) {
-      // console.log('this BS isnt working')
-      //   } else {
-      //             console.log('this BSs isnt working')        }
-      //     }
 
       error: function() {
         console.log("error in get");
@@ -328,11 +268,6 @@ export default class ToolbarExamplesSimple extends React.Component {
         4000
       ); // wait 5 seconds, then reset to false  }
     }
-
-    // var socket = io();
-    // socket.on('server event', function (data) {
-    //   socket.emit('client event', { socket: 'io' });
-    // });
   }
 
   render() {

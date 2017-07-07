@@ -1,13 +1,9 @@
 import mobx, { observable } from "mobx";
 
 class Store {
-  @observable todos = ["buy milk", "buy eggs"];
-
-  // @observable filter = "";
-  id = 6;
-
   @observable full = "";
   @observable yum = true;
+  @observable tabChange = true;
 
   @observable app = true;
   @observable timetable = false;

@@ -66,7 +66,8 @@ export default class FriendList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchTerm: ""
+      searchTerm: "",
+      yay: true
     };
   }
 
@@ -91,9 +92,9 @@ export default class FriendList extends React.Component {
     this.setState({ searchTerm: term });
   }
 
-  _handleClick(Friendlist) {
-    console.log(Friendlist.other_id_name);
-    alert(Friendlist.other_id);
+  _handleClick(id) {
+    console.log(id);
+    alert(id);
 
     // var data = {
     //   user_id: realuserid,
@@ -117,6 +118,15 @@ export default class FriendList extends React.Component {
   }
 
   render() {
+    setTimeout(
+      function() {
+        this.setState({
+          yay: false
+        });
+      }.bind(this),
+      7000
+    );
+
     const filteredEmails = friendlist.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
     );
@@ -160,7 +170,10 @@ export default class FriendList extends React.Component {
                   />}
               >
                 {filteredEmails.map(Friendlist => {
+                  var id;
                   if (Friendlist.user_id == UserStore.obj.user_id) {
+                    id = Friendlist.other_id;
+
                     return (
                       <div className="mail">
                         <List key={Friendlist.user_id}>
@@ -174,7 +187,7 @@ export default class FriendList extends React.Component {
                               <RaisedButton
                                 label={"Remove Friend"}
                                 primary={true}
-                                onTouchTap={() => this._handleClick(Friendlist)}
+                                onTouchTap={() => this._handleClick(id)}
                                 style={style}
                               />
                             }
@@ -200,6 +213,8 @@ export default class FriendList extends React.Component {
                       </div>
                     );
                   } else {
+                    id = Friendlist.user_id;
+
                     return (
                       <div className="mail">
                         <List key={Friendlist.user_id}>
@@ -213,7 +228,7 @@ export default class FriendList extends React.Component {
                               <RaisedButton
                                 label={"Remove Friend"}
                                 primary={true}
-                                onTouchTap={() => this._handleClick(Friendlist)}
+                                onTouchTap={() => this._handleClick(id)}
                                 style={style}
                               />
                             }
