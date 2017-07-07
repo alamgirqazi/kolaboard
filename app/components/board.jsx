@@ -34,7 +34,6 @@ export default class Board extends React.Component {
   }
 
   render() {
-    console.log(Store.todos[0]);
     return (
       <div className={Store.full} style={heightboard}>
         <Boardbar />
@@ -44,7 +43,6 @@ export default class Board extends React.Component {
           autoHeightMax={500}
           thumbMinSize={30}
         >
-
           {/*<h4 style={align}>Noteboard</h4>*/}
           <br />
           <div className="panel">
@@ -55,13 +53,10 @@ export default class Board extends React.Component {
             <br />
             <br />
             <br />
-
           </div>
-
         </Scrollbars>
 
         {/*</Infinite>*/}
-
       </div>
     );
   }
