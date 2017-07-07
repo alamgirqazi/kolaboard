@@ -18,7 +18,7 @@ import ListItem from "material-ui/List/ListItem";
 // import { observer } from "mobx-react";
 import Badge from "material-ui/Badge";
 
-import { greenA400 } from "material-ui/styles/colors";
+import { greenA400, red500 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import Store from "app/store/UIstore.js";
 import FriendshipsStore from "app/store/FriendshipsStore.js";
@@ -33,9 +33,9 @@ const KEYS_TO_FILTERS = ["email", "name", "nickname", "other_id_name"];
 const muiTheme = getMuiTheme({
   palette: {
     //   textColor: greenA400,
-    primary1Color: greenA400
+    primary1Color: greenA400,
     //  primary3Color:greenA400,
-    //   accent1Color: greenA400,
+    accent1Color: red500
     //   accent2Color: greenA400,
     //   accent3Color: greenA400
 
@@ -96,25 +96,22 @@ export default class FriendList extends React.Component {
     console.log(id);
     alert(id);
 
-    // var data = {
-    //   user_id: realuserid,
-    //   status: "pending",
-    //   picture: user.picture,
-    //   other_id_name: user.name,
-    //   other_id: user.user_id
-    // };
-    // // Submit form via jQuery/AJAX
-    // $.ajax({
-    //   type: "POST",
-    //   url: "/api/user/friendrequest",
-    //   data: data
-    // })
-    //   .done(function(data) {
-    //     console.log("POST req sent");
-    //   })
-    //   .fail(function(jqXhr) {
-    //     console.log("failed to register POST REQ");
-    //   });
+    var data = {
+      user_id: UserStore.obj.user_id,
+      other_id: id
+    };
+    // Submit form via jQuery/AJAX
+    $.ajax({
+      type: "POST",
+      url: "/api/user/removefriend",
+      data: data
+    })
+      .done(function(data) {
+        alert("its all over");
+      })
+      .fail(function(jqXhr) {
+        // console.log("failed to register POST REQ");
+      });
   }
 
   render() {
@@ -186,7 +183,7 @@ export default class FriendList extends React.Component {
                             rightIconButton={
                               <RaisedButton
                                 label={"Remove Friend"}
-                                primary={true}
+                                secondary={true}
                                 onTouchTap={() => this._handleClick(id)}
                                 style={style}
                               />
@@ -227,7 +224,7 @@ export default class FriendList extends React.Component {
                             rightIconButton={
                               <RaisedButton
                                 label={"Remove Friend"}
-                                primary={true}
+                                secondary={true}
                                 onTouchTap={() => this._handleClick(id)}
                                 style={style}
                               />

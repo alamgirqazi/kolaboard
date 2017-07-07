@@ -128,6 +128,28 @@ app.post("/api/user/friendrequest", function(req, res) {
     //}
   });
 });
+
+app.post("/api/user/removefriend", function(req, res) {
+  console.log("removing friend");
+  console.log(req.body);
+  console.log(req.body.user_id);
+
+  Friendships.findOne(
+    {
+      user_id: req.body.user_id,
+      other_id: req.body.other_id,
+      status: "friend"
+    },
+    function(error, friendship) {
+      console.log("This object will get deleted ");
+
+      console.log(friendship);
+      // friendship.remove();
+    }
+  );
+});
+//}
+
 //Routes
 // app.get('/app', function(req, res) {
 //     res.sendfile(__dirname + '/public/index.html');
