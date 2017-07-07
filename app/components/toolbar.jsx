@@ -257,6 +257,21 @@ export default class ToolbarExamplesSimple extends React.Component {
 
   componentDidMount() {
     // this.newfunc();
+    var profile = localStorage.getItem("profile");
+    var newprofile = JSON.parse(profile);
+
+    $.ajax({
+      type: "POST",
+      url: "/api/user",
+      data: newprofile
+    })
+      .done(function(data) {
+        console.log("done" + profile);
+      })
+      .fail(function(jqXhr) {
+        console.log("failed to register");
+      });
+
     this.newfunc();
 
     if (Store.yum) {
