@@ -11,6 +11,7 @@ class UserStore {
   @observable emailverified = false;
   @observable allUsers;
   @observable listy = false;
+  @observable emailnotif = true;
   @observable flisty = false;
   @observable groupName;
 }

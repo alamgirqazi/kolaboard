@@ -14,7 +14,7 @@ import Boards from "app/components/Note.jsx";
 import Dialog from "material-ui/Dialog";
 import TextField from "material-ui/TextField";
 import Snackbar from "material-ui/Snackbar";
-
+import Toggle from "material-ui/Toggle";
 // import Main from "app/components/main.jsx"
 // import Store from "app/store/UIstore.js";
 // import { observer } from "mobx-react";
@@ -30,7 +30,7 @@ import Avatar from "material-ui/Avatar";
 import FlatButton from "material-ui/FlatButton";
 import Chat from "app/components/chat.jsx";
 import Board from "app/components/board.jsx";
-import { greenA400 } from "material-ui/styles/colors";
+import { greenA400, red500 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import Store from "app/store/UIstore.js";
 import UserStore from "app/store/UserStore.js";
@@ -40,9 +40,9 @@ import RaisedButton from "material-ui/RaisedButton";
 const muiTheme = getMuiTheme({
   palette: {
     //   textColor: greenA400,
-    primary1Color: greenA400
+    primary1Color: greenA400,
     //  primary3Color:greenA400,
-    //   accent1Color: greenA400,
+    accent1Color: red500
     //   accent2Color: greenA400,
     //   accent3Color: greenA400
 
@@ -63,9 +63,21 @@ const header = {
 const spacing = {
   margin: 12
 };
+const headColor2 = {
+  color: "#A0A4A9",
+  marginBottom: 16,
+
+  fontSize: "22px"
+};
+const style = {
+  margin: 12
+};
 const headColor = {
   color: "#A0A4A9",
   fontSize: "22px"
+};
+const tableDisplay = {
+  display: "table"
 };
 const greyColor = {
   color: "#A0A4A9"
@@ -91,10 +103,48 @@ export default class Profile extends React.Component {
     super(props);
     this.state = {
       open: false,
-      snackbaropen: false
+      openDelete: false,
+      snackbaropen: false,
+      snackbardeleteopen: false
     };
   }
+
+  handleDeleteToggle = () => {
+    if (UserStore.emailnotif == true) {
+      UserStore.emailnotif = false;
+    } else UserStore.emailnotif = true;
+
+    var data = {
+      user_id: UserStore.obj.user_id,
+      emailnotif: UserStore.emailnotif
+    };
+    $.ajax({
+      type: "POST",
+      url: "/api/user/emailnotif",
+      data: data
+    })
+      .done(function(data) {
+        alert("its all over");
+      })
+      .fail(function(jqXhr) {
+        // console.log("failed to register POST REQ");
+      });
+    console.log(this.state.snackbardeleteopen);
+    this.setState({ snackbardeleteopen: true });
+
+    // this.setState({ open: false });
+    // if (UserStore.obj.desc == this.refs.txtDesc.getValue()) {
+    // } else {
+    //   UserStore.obj.desc = this.refs.txtDesc.getValue();
+    //   this.setState({
+    //     snackbaropen: true
+    //   });
+  };
+
   handleToggle = () => {
+    this.setState({
+      snackbardeleteopen: false
+    });
     var data = {
       user_id: UserStore.obj.user_id,
       desc: this.refs.txtDesc.getValue()
@@ -131,6 +181,19 @@ export default class Profile extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+
+  handleDeleteOpen = () => {
+    this.setState({
+      openDelete: true,
+      snackbardeleteopen: false,
+      snackbaropen: false
+    });
+  };
+
+  handleDeleteClose = () => {
+    this.setState({ openDelete: false });
+  };
+
   render() {
     const actions = [
       <RaisedButton
@@ -145,6 +208,20 @@ export default class Profile extends React.Component {
         onTouchTap={this.handleToggle}
       />
     ];
+
+    const actionsDelete = [
+      <RaisedButton
+        label="Cancel"
+        onTouchTap={this.handleDeleteClose}
+        style={style}
+      />,
+      <RaisedButton
+        label="Delete My Account"
+        secondary={true}
+        onTouchTap={this.handleDeleteClose}
+      />
+    ];
+
     // Store.timetable = true;
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
@@ -166,7 +243,12 @@ export default class Profile extends React.Component {
                 {UserStore.obj.name}
               </h3>
               <br />
-
+              <Snackbar
+                open={this.state.snackbardeleteopen}
+                message="Email Notification changed"
+                autoHideDuration={2500}
+                onRequestClose={this.handleRequestClose}
+              />
               <div style={inlinedisplay}>
                 <h3 style={greyColordesc}>
                   {UserStore.obj.desc}
@@ -192,6 +274,15 @@ export default class Profile extends React.Component {
             </div>
             <br />
             <br />
+            <Dialog
+              title="Delete my account"
+              actions={actionsDelete}
+              modal={false}
+              open={this.state.openDelete}
+              onRequestClose={this.handleDeleteClose}
+            >
+              Are you sure you want to delete? This action cannot be reversed.
+            </Dialog>
             <div className="row fullwidth">
               <div className="columns medium-6 large-6">
                 <Card>
@@ -224,6 +315,15 @@ export default class Profile extends React.Component {
                     <span style={tailColor} className="pull-right">
                       {UserStore.obj.user_id}
                     </span>
+                    <br />
+                    <br />
+                    <br />
+                    <Toggle
+                      onToggle={this.handleDeleteToggle}
+                      toggled={UserStore.emailnotif}
+                      label="Disable Email Notifications"
+                      style={[headColor2]}
+                    />
                   </CardText>
                 </Card>
               </div>
@@ -285,6 +385,18 @@ export default class Profile extends React.Component {
                     <span style={tailColor} className="pull-right">
                       {UserStore.created_at_day}
                     </span>
+                    <br />
+                    <br />
+                    <br />
+                    <div className="center-block">
+                      <RaisedButton
+                        className="center-block"
+                        label="Delete my account"
+                        secondary={true}
+                        style={tableDisplay}
+                        onTouchTap={this.handleDeleteOpen}
+                      />
+                    </div>
                   </CardText>
                 </Card>
                 <br />

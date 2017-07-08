@@ -68,6 +68,10 @@ var UserSchema = new Schema({
     type: String
     // required: "User is Must"
   },
+  emailnotif: {
+    type: Boolean
+    // required: "User is Must"
+  },
   rooms: [
     {
       roomId: "string",

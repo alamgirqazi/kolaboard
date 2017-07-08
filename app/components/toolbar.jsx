@@ -15,6 +15,8 @@ import NavigationExpandMoreIcon from "material-ui/svg-icons/navigation/expand-mo
 import { Menu, MenuItem } from "material-ui/Menu";
 import DropDownMenu from "material-ui/DropDownMenu";
 import RaisedButton from "material-ui/RaisedButton";
+import EventStore from "app/store/EventStore.js";
+
 import {
   Toolbar,
   ToolbarGroup,
@@ -206,7 +208,7 @@ export default class ToolbarExamplesSimple extends React.Component {
     Store.dashboard = false;
     browserHistory.replace("/notes");
   }
-
+  getEvents() {}
   newfunc() {
     if (UserStore.email == "") {
       UserStore.picture = "http://lorempixel.com/g/400/200";
@@ -232,6 +234,7 @@ export default class ToolbarExamplesSimple extends React.Component {
         UserStore.created_at = UserStore.obj.created_at;
         UserStore.created_at_day = UserStore.obj.created_at.substring(0, 10);
         UserStore.emailverified = UserStore.obj.email_verified;
+        UserStore.emailnotif = UserStore.obj.emailnotif;
 
         if (
           localprofileparse == "facebook" ||
@@ -287,6 +290,18 @@ export default class ToolbarExamplesSimple extends React.Component {
         console.log("friendlist mai msla");
       });
 
+    $.ajax({
+      type: "GET",
+      url: "/api/getEvents"
+    })
+      .done(function(data) {
+        console.log(data);
+        EventStore.event = data;
+        // users.splice(_.indexOf(users, _.findWhere(users, { uId : 117175967810648931400})), 1);
+      })
+      .fail(function(jqXhr) {
+        console.log("failed to register");
+      });
     this.newfunc();
 
     if (Store.yum) {

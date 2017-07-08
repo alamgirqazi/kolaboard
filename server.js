@@ -11,6 +11,7 @@ const bodyParser = require("body-parser");
 var router = express.Router();
 var User = require("./server/models/User.js");
 var Friendships = require("./server/models/Friendships.js");
+var Events = require("./server/models/Events.js");
 var rooms = require("./server/models/groupList.js");
 // var server = require("http").Server(app);
 // var io = require("socket.io")(server);
@@ -129,6 +130,23 @@ app.post("/api/user/friendrequest", function(req, res) {
   });
 });
 
+app.post("/api/user/createevent", function(req, res) {
+  // console.log(req.body)
+  var events = new Events(req.body);
+  console.log(req.body);
+  console.log(req.body.date);
+  Events.find({}, function(err, docs) {
+    //         if (docs.length){
+    // console.log('friendship exists');
+    //         }else{
+    events.save(function(err) {
+      if (err) {
+        console.log(err);
+      }
+    });
+  });
+});
+
 app.post("/api/user/removefriend", function(req, res) {
   console.log("removing friend");
   console.log(req.body);
@@ -164,6 +182,24 @@ app.post("/api/user/changedesc", function(req, res) {
         console.log("Something wrong when updating data!");
       }
       doc.update({});
+      console.log(doc);
+    }
+  );
+});
+
+app.post("/api/user/emailnotif", function(req, res) {
+  console.log("emailnotif");
+  console.log(req.body);
+
+  User.findOneAndUpdate(
+    { user_id: req.body.user_id },
+    { $set: { emailnotif: req.body.emailnotif } },
+    { upsert: true },
+    function(err, doc) {
+      if (err) {
+        console.log("Something wrong when updating data!");
+      }
+      // doc.update({});
       console.log(doc);
     }
   );
@@ -218,6 +254,12 @@ app.get("/api/userall", function(req, res) {
   User.find({}, function(err, users) {
     var userMap = {};
     res.send(users);
+  });
+});
+
+app.get("/api/getEvents", function(req, res) {
+  Events.find({}, function(err, events) {
+    res.send(events);
   });
 });
 app.get("/api/user/friendrequest", function(req, res) {

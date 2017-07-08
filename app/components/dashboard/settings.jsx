@@ -21,8 +21,9 @@ import UserStore from "app/store/UserStore.js";
 import RaisedButton from "material-ui/RaisedButton";
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
+import { observer } from "mobx-react";
+import Snackbar from "material-ui/Snackbar";
 import Toggle from "material-ui/Toggle";
-
 import {
   Card,
   CardActions,
@@ -69,6 +70,12 @@ const headColor = {
   color: "#A0A4A9",
   fontSize: "22px"
 };
+const headColor2 = {
+  color: "#A0A4A9",
+  marginBottom: 16,
+
+  fontSize: "22px"
+};
 const greyColor = {
   color: "#A0A4A9"
 };
@@ -79,20 +86,58 @@ const tailColor = {
 const togglestyle = {
   marginBottom: 16
 };
+
+@observer
 export default class Settings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
+      snackbaropen: false
     };
   }
 
   handleOpen = () => {
-    this.setState({ open: true });
+    this.setState({
+      open: true,
+      snackbaropen: false
+    });
   };
 
   handleClose = () => {
     this.setState({ open: false });
+  };
+
+  handleToggle = () => {
+    if (UserStore.emailnotif == true) {
+      UserStore.emailnotif = false;
+    } else UserStore.emailnotif = true;
+
+    var data = {
+      user_id: UserStore.obj.user_id,
+      emailnotif: UserStore.emailnotif
+    };
+    $.ajax({
+      type: "POST",
+      url: "/api/user/emailnotif",
+      data: data
+    })
+      .done(function(data) {
+        alert("its all over");
+      })
+      .fail(function(jqXhr) {
+        // console.log("failed to register POST REQ");
+      });
+    console.log(this.state.snackbaropen);
+    this.setState({ snackbaropen: true });
+
+    // this.setState({ open: false });
+    // if (UserStore.obj.desc == this.refs.txtDesc.getValue()) {
+    // } else {
+    //   UserStore.obj.desc = this.refs.txtDesc.getValue();
+    //   this.setState({
+    //     snackbaropen: true
+    //   });
   };
   render() {
     const actions = [
@@ -122,15 +167,17 @@ export default class Settings extends React.Component {
                   <CardTitle title="" />
                   <br />
                   <br />
-                  <span style={tailColor}>Date Created: </span>{" "}
+                  <span style={headColor}>Date Created: </span>{" "}
                   <span style={tailColor} className="pull-right">
-                    {UserStore.obj.email}
+                    {UserStore.created_at_day}
                   </span>
                   <br />
                   <br />
                   <Toggle
+                    onToggle={this.handleToggle}
+                    toggled={UserStore.emailnotif}
                     label="Disable Email Notifications"
-                    style={[togglestyle, headColor]}
+                    style={[headColor2]}
                   />
                   <br />
                   <br />
@@ -147,6 +194,12 @@ export default class Settings extends React.Component {
                     />
                   </div>
                   <CardText />
+                  <Snackbar
+                    open={this.state.snackbaropen}
+                    message="Email Notification changed"
+                    autoHideDuration={2500}
+                    onRequestClose={this.handleRequestClose}
+                  />
                   <br />
                 </Card>
 
