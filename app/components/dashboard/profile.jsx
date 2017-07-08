@@ -13,6 +13,7 @@ import FriendshipsStore from "app/store/FriendshipsStore.js";
 import Boards from "app/components/Note.jsx";
 import Dialog from "material-ui/Dialog";
 import TextField from "material-ui/TextField";
+import Snackbar from "material-ui/Snackbar";
 
 // import Main from "app/components/main.jsx"
 // import Store from "app/store/UIstore.js";
@@ -89,11 +90,33 @@ export default class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
+      snackbaropen: false
     };
   }
   handleToggle = () => {
-    alert("yo");
+    var data = {
+      user_id: UserStore.obj.user_id,
+      desc: this.refs.txtDesc.getValue()
+    };
+    // Submit form via jQuery/AJAX
+    $.ajax({
+      type: "POST",
+      url: "/api/user/changedesc",
+      data: data
+    })
+      .done(function(data) {
+        alert("its all over");
+      })
+      .fail(function(jqXhr) {
+        // console.log("failed to register POST REQ");
+      });
+    this.setState({ open: false });
+    this.setState({
+      snackbaropen: true
+    });
+
+    UserStore.obj.desc = this.refs.txtDesc.getValue();
   };
 
   handleOpen = () => {
@@ -114,7 +137,7 @@ export default class Profile extends React.Component {
       <RaisedButton
         label="Save"
         keyboardFocused={false}
-        onTouchTap={this.handleClose}
+        onTouchTap={this.handleToggle}
       />
     ];
     // Store.timetable = true;
@@ -200,6 +223,13 @@ export default class Profile extends React.Component {
                 </Card>
               </div>
               <div className="columns medium-1 large-1 padding " />
+
+              <Snackbar
+                open={this.state.snackbaropen}
+                message="Description changed"
+                autoHideDuration={2500}
+                onRequestClose={this.handleRequestClose}
+              />
               <div>
                 <Dialog
                   title="Description"
@@ -209,6 +239,7 @@ export default class Profile extends React.Component {
                   onRequestClose={this.handleClose}
                 >
                   <TextField
+                    ref="txtDesc"
                     defaultValue={UserStore.obj.desc}
                     floatingLabelFixed={true}
                     fullWidth={true}

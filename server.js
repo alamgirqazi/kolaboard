@@ -148,6 +148,26 @@ app.post("/api/user/removefriend", function(req, res) {
     }
   );
 });
+
+app.post("/api/user/changedesc", function(req, res) {
+  console.log("changing desc");
+  console.log(req.body);
+  console.log(req.body.desc);
+  console.log(req.body.user_id);
+
+  User.findOneAndUpdate(
+    { user_id: req.body.user_id },
+    { $set: { desc: req.body.desc } },
+    { upsert: true },
+    function(err, doc) {
+      if (err) {
+        console.log("Something wrong when updating data!");
+      }
+      doc.update({});
+      console.log(doc);
+    }
+  );
+});
 //}
 
 //Routes
