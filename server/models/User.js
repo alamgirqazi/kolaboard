@@ -26,6 +26,12 @@ var UserSchema = new Schema({
     // required: "Content is required",
     trim: true
   },
+  desc: {
+    type: String,
+    default: "",
+    // required: "Content is required",
+    trim: true
+  },
   picture: {
     type: String,
     default: "",

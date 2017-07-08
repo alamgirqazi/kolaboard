@@ -6,6 +6,8 @@ class UserStore {
   @observable userrealname = "";
   @observable useraccount = "";
   @observable created_at = "";
+  @observable created_at_day = "";
+  @observable desc = "";
   @observable emailverified = false;
   @observable allUsers;
   @observable listy = false;

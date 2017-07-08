@@ -9,8 +9,11 @@ import IconButton from "material-ui/IconButton";
 import IconMenu from "material-ui/IconMenu";
 import Toolbar from "app/components/toolbar.jsx";
 import { Scrollbars } from "react-custom-scrollbars";
-
+import FriendshipsStore from "app/store/FriendshipsStore.js";
 import Boards from "app/components/Note.jsx";
+import Dialog from "material-ui/Dialog";
+import TextField from "material-ui/TextField";
+
 // import Main from "app/components/main.jsx"
 // import Store from "app/store/UIstore.js";
 // import { observer } from "mobx-react";
@@ -31,6 +34,7 @@ import getMuiTheme from "material-ui/styles/getMuiTheme";
 import Store from "app/store/UIstore.js";
 import UserStore from "app/store/UserStore.js";
 import { observer } from "mobx-react";
+import RaisedButton from "material-ui/RaisedButton";
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -55,12 +59,23 @@ const muiTheme = getMuiTheme({
 const header = {
   textAlign: "center"
 };
+const spacing = {
+  margin: 12
+};
 const headColor = {
   color: "#A0A4A9",
   fontSize: "22px"
 };
 const greyColor = {
   color: "#A0A4A9"
+};
+const greyColordesc = {
+  // color: "#A0A4A9",
+  fontSize: "22px"
+};
+const inlinedisplay = {
+  // color: "#A0A4A9",
+  display: "inline"
 };
 const tailColor = {
   fontSize: "22px"
@@ -73,9 +88,35 @@ const boldFontWeight = {
 export default class Profile extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      open: false
+    };
   }
+  handleToggle = () => {
+    alert("yo");
+  };
 
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
   render() {
+    const actions = [
+      <RaisedButton
+        label="Cancel"
+        style={spacing}
+        keyboardFocused={false}
+        onTouchTap={this.handleClose}
+      />,
+      <RaisedButton
+        label="Save"
+        keyboardFocused={false}
+        onTouchTap={this.handleClose}
+      />
+    ];
     // Store.timetable = true;
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
@@ -96,6 +137,30 @@ export default class Profile extends React.Component {
               <h3 style={greyColor}>
                 {UserStore.obj.name}
               </h3>
+              <br />
+
+              <div style={inlinedisplay}>
+                <h3 style={greyColordesc}>
+                  {UserStore.obj.desc}
+                  <IconButton
+                    tooltip="edit"
+                    touch={true}
+                    onTouchTap={this.handleOpen}
+                    tooltipPosition="bottom-center"
+                  >
+                    <svg
+                      fill="#000000"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                      <path d="M0 0h24v24H0z" fill="none" />
+                    </svg>
+                  </IconButton>
+                </h3>
+              </div>
             </div>
             <br />
             <br />
@@ -135,7 +200,21 @@ export default class Profile extends React.Component {
                 </Card>
               </div>
               <div className="columns medium-1 large-1 padding " />
-
+              <div>
+                <Dialog
+                  title="Description"
+                  actions={actions}
+                  modal={false}
+                  open={this.state.open}
+                  onRequestClose={this.handleClose}
+                >
+                  <TextField
+                    defaultValue={UserStore.obj.desc}
+                    floatingLabelFixed={true}
+                    fullWidth={true}
+                  />{" "}
+                </Dialog>
+              </div>
               <div className="columns medium-5 large-5 padding ">
                 <Card>
                   <CardTitle
@@ -151,24 +230,25 @@ export default class Profile extends React.Component {
                     </span>
                     <br />
                     <br />
-                    <br /> <span style={headColor}>Account: </span>{" "}
+                    <br />
+                    <span style={headColor}>Account: </span>{" "}
                     <span style={tailColor} className="pull-right">
                       {UserStore.useraccount}
                     </span>
                     <br />
                     <br />
-                    <br /> <span style={headColor}>Date Created: </span>{" "}
+                    <br />
+                    <span style={headColor}>Total Friend:</span>{" "}
                     <span style={tailColor} className="pull-right">
-                      <br />
-                      <br />
-                      <br /> {UserStore.created_at}
-                    </span>
-                    <br /> <br />
-                    <br /> <span style={headColor}>Total Friend:</span>{" "}
-                    <span style={tailColor} className="pull-right">
-                      bleh
+                      {FriendshipsStore.friendlistcount}
                     </span>
                     <br />
+                    <br />
+                    <br />
+                    <span style={headColor}>Date Created: </span>{" "}
+                    <span style={tailColor} className="pull-right">
+                      {UserStore.created_at_day}
+                    </span>
                   </CardText>
                 </Card>
                 <br />

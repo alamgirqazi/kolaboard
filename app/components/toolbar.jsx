@@ -34,9 +34,10 @@ import Settings from "app/components/dashboard/settings.jsx";
 import chatstore from "../store/ChatStore";
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
-
+import FriendshipsStore from "app/store/FriendshipsStore.js";
 var user_id;
-
+let friendlist = [];
+let friendlistcount;
 var localprofileparse;
 
 // const backgroundhover = {
@@ -229,6 +230,7 @@ export default class ToolbarExamplesSimple extends React.Component {
 
         localprofileparse = UserStore.obj.identities[0].provider;
         UserStore.created_at = UserStore.obj.created_at;
+        UserStore.created_at_day = UserStore.obj.created_at.substring(0, 10);
         UserStore.emailverified = UserStore.obj.email_verified;
 
         if (
@@ -270,6 +272,19 @@ export default class ToolbarExamplesSimple extends React.Component {
       })
       .fail(function(jqXhr) {
         console.log("failed to register");
+      });
+
+    $.ajax({
+      type: "GET",
+      url: "/api/user/friendlist"
+    })
+      .done(function(data) {
+        friendlist = data;
+        friendlistcount = Object.keys(friendlist).length;
+        FriendshipsStore.friendlistcount = friendlistcount;
+      })
+      .fail(function(jqXhr) {
+        console.log("friendlist mai msla");
       });
 
     this.newfunc();
