@@ -75,6 +75,7 @@ const style = {
 };
 let theDate;
 let totalEvents = [];
+let data;
 @observer
 export default class Events extends React.Component {
   constructor(props) {
@@ -124,6 +125,20 @@ export default class Events extends React.Component {
       });
 
     this.setState({ open: false, snackbaropen: true });
+    $.ajax({
+      type: "GET",
+      url: "/api/getEvents"
+    })
+      .done(function(data) {
+        console.log(data);
+        EventStore.event = data;
+        totalEvents = data;
+
+        // users.splice(_.indexOf(users, _.findWhere(users, { uId : 117175967810648931400})), 1);
+      })
+      .fail(function(jqXhr) {
+        console.log("failed to register");
+      });
   };
 
   handleExpand = () => {
@@ -138,10 +153,9 @@ export default class Events extends React.Component {
 
   formatDate(e, date) {
     console.log(date);
-    console.log(Date.now());
-    theDate =
-      date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-    console.log(theDate);
+    theDate = date;
+    //   date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+    // console.log(theDate);
   }
 
   handleReduce = () => {
@@ -155,15 +169,45 @@ export default class Events extends React.Component {
       openDelete: true
     });
   };
-  handleDelete = () => {
+  handleDelete = event => {
+    // alert(event._id);
+    data = {
+      _id: event._id
+    };
     this.setState({
-      openDelete: true
+      openDelete: true,
+      opensnackbar: false
     });
   };
   handleDeleteEvent = () => {
+    $.ajax({
+      type: "POST",
+      url: "/api/deleteEvent",
+      data: data
+    })
+      .done(function(data) {
+        alert("its all over");
+      })
+      .fail(function(jqXhr) {
+        // console.log("failed to register POST REQ");
+      });
     this.setState({
       openDelete: false
     });
+    $.ajax({
+      type: "GET",
+      url: "/api/getEvents"
+    })
+      .done(function(data) {
+        console.log(data);
+        EventStore.event = data;
+        totalEvents = data;
+
+        // users.splice(_.indexOf(users, _.findWhere(users, { uId : 117175967810648931400})), 1);
+      })
+      .fail(function(jqXhr) {
+        console.log("failed to register");
+      });
   };
   componentDidMount() {
     $.ajax({
@@ -251,7 +295,7 @@ export default class Events extends React.Component {
                                 secondary={true}
                                 tooltip="Delete Event"
                                 tooltipPosition="bottom-center"
-                                onTouchTap={this.handleDelete}
+                                onTouchTap={() => this.handleDelete(event)}
                               >
                                 <ActionHome />
                               </IconButton>

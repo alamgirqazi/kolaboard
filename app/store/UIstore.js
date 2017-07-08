@@ -4,6 +4,7 @@ class Store {
   @observable full = "";
   @observable yum = true;
   @observable tabChange = true;
+  @observable eventChange = true;
 
   @observable app = true;
   @observable timetable = false;

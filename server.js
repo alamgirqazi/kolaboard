@@ -166,6 +166,25 @@ app.post("/api/user/removefriend", function(req, res) {
     }
   );
 });
+app.post("/api/deleteEvent", function(req, res) {
+  console.log(req.body._id);
+
+  Events.findOne(
+    {
+      _id: req.body._id
+    },
+    function(error, event) {
+      console.log("This object will get deleted ");
+      if (event == null || event == undefined) {
+        console.log(event);
+      } else {
+        console.log(event);
+
+        event.remove();
+      }
+    }
+  );
+});
 
 app.post("/api/user/changedesc", function(req, res) {
   console.log("changing desc");
@@ -258,9 +277,13 @@ app.get("/api/userall", function(req, res) {
 });
 
 app.get("/api/getEvents", function(req, res) {
-  Events.find({}, function(err, events) {
+  Events.find({}).sort({ date: "desc" }).exec(function(err, events) {
     res.send(events);
   });
+
+  // Events.find({}, function(err, events) {
+  //   res.send(events);
+  // });
 });
 app.get("/api/user/friendrequest", function(req, res) {
   Friendships.find({}, function(err, friendship) {
