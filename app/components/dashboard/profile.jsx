@@ -112,15 +112,20 @@ export default class Profile extends React.Component {
         // console.log("failed to register POST REQ");
       });
     this.setState({ open: false });
-    this.setState({
-      snackbaropen: true
-    });
-
-    UserStore.obj.desc = this.refs.txtDesc.getValue();
+    if (UserStore.obj.desc == this.refs.txtDesc.getValue()) {
+    } else {
+      UserStore.obj.desc = this.refs.txtDesc.getValue();
+      this.setState({
+        snackbaropen: true
+      });
+    }
   };
 
   handleOpen = () => {
     this.setState({ open: true });
+    this.setState({
+      snackbaropen: false
+    });
   };
 
   handleClose = () => {
