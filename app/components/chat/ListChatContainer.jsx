@@ -41,6 +41,7 @@ import UserStore from "app/store/UserStore.js";
 import axios from "axios";
 import ChatStore from "app/store/ChatStore.js";
 
+let rooms = [];
 let SelectableList = makeSelectable(List);
 function wrapState(ComposedComponent) {
   return class SelectableList extends Component {
@@ -107,6 +108,7 @@ export default class ListChatContainer extends React.Component {
     this._handleClick = this._handleClick.bind(this);
     socket = io.connect();
     this.state = {};
+    UserStore.obj.rooms = [{ _id: "" }];
   }
 
   _handleClick(Users) {
@@ -204,32 +206,37 @@ export default class ListChatContainer extends React.Component {
     //   .fail(function(jqXhr) {
     //     console.log('friendlist mai msla');
     //   });
+
+    console.log("UserStore");
+    console.log(UserStore);
+
     console.log("inside chatstore if");
     socket.on("msgs", function(data) {
       console.log("This is data in get msgs " + data.msg);
       ChatStore.msgs = data.msg;
       console.log("This is data in chatStore " + ChatStore.msgs);
     });
-    var location = "api/user";
-    $.ajax({
-      url: location,
-      type: "GET",
-      data: {
-        format: "json"
-      },
-      dataType: "json",
-      success: function(data) {
-        users = data[0].rooms;
-        UserStore.listy = true;
-        console.log("This is object " + users);
-        //  console.log('This is user  '+ users[1].roomName);
+    // var location = "api/user/" + UserStore.obj.user_id;
+    // $.ajax({
+    //   url: location,
+    //   type: "GET",
+    //   data: {
+    //     format: "json"
+    //   },
+    //   dataType: "json",
+    //   success: function(data) {
+    //     // users = data[0].rooms;
+    //     // UserStore.listy = true;
+    //     // console.log("This is object " + users);
+    //     //  console.log('This is user  '+ users[1].roomName);
+    //     console.log(data);
 
-        // console.log('This is users '+ UserStore.obj.rooms);
-      },
-      error: function() {
-        console.log("error in get");
-      }
-    });
+    //     // console.log('This is users '+ UserStore.obj.rooms);
+    //   },
+    //   error: function() {
+    //     console.log("error in get");
+    //   }
+    // });
     //    $.ajax({
     //     type: 'GET',
     //     url: '/api/user/groupList'
@@ -252,12 +259,15 @@ export default class ListChatContainer extends React.Component {
   render() {
     const liststatus = UserStore.listy;
 
+    rooms = UserStore.obj.rooms;
+
+    console.log(UserStore.obj.rooms);
+    console.log("rooms");
+    console.log(rooms);
     return (
       <div>
-
         <div className="margin" style={style}>
           <MobileTearSheet>
-
             <Msgbar />
             <input type="search" placeholder="Search Messages here....." />
             <Subheader>Today</Subheader>
@@ -268,46 +278,32 @@ export default class ListChatContainer extends React.Component {
               autoHeightMax={50}
               thumbMinSize={50}
             >
+              {rooms.map(Users => {
+                return (
+                  <div>
+                    <SelectableList defaultValue={3}>
+                      <div className="" key={Users}>
+                        <ListItem
+                          onTouchTap={() => this._handleClick(Users)}
+                          value={4}
+                          leftAvatar={
+                            <Avatar size={40} src={Users.pic}>
+                              <Badge badgeContent={4} primary={true} />
+                            </Avatar>
+                          }
+                          rightIconButton={rightIconMenu}
+                          primaryText={Users.roomName}
+                          secondaryText={<p>This is some random text</p>}
+                          secondaryTextLines={2}
+                        />
+                      </div>
 
-              {liststatus
-                ? <div>
-                    {users.map(Users => {
-                      return (
-                        <SelectableList defaultValue={3}>
-                          <div className="" key={Users}>
-
-                            <ListItem
-                              onTouchTap={() => this._handleClick(Users)}
-                              value={4}
-                              leftAvatar={
-                                <Avatar size={40} src={Users.pic}>
-                                  <Badge badgeContent={4} primary={true} />
-                                </Avatar>
-                              }
-                              rightIconButton={rightIconMenu}
-                              primaryText={Users.roomName}
-                              secondaryText={
-                                <p>
-                                  This is some random text
-                                </p>
-                              }
-                              secondaryTextLines={2}
-                            />
-                          </div>
-
-                          <Divider inset={true} />
-                        </SelectableList>
-                      );
-                    })}
+                      <Divider inset={true} />
+                    </SelectableList>
                   </div>
-                : <div />}
-
-              <br />
-              <br />
-              <br />
-              <br />
-
-              <br />
+                );
+              })}
+              }
               <br />
               <br />
               <br />
@@ -315,15 +311,45 @@ export default class ListChatContainer extends React.Component {
               <br />
               <br />
               <br />
-
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
               {/*</Infinite>*/}
             </Scrollbars>
-
           </MobileTearSheet>
-
         </div>
         );{" "}
       </div>
     );
   }
 }
+
+//  {liststatus
+//                 ? <div>
+//                     {rooms.map(Users => {
+//                       return (
+//                         <SelectableList defaultValue={3}>
+//                           <div className="" key={Users}>
+//                             <ListItem
+//                               onTouchTap={() => this._handleClick(Users)}
+//                               value={4}
+//                               leftAvatar={
+//                                 <Avatar size={40} src={Users.pic}>
+//                                   <Badge badgeContent={4} primary={true} />
+//                                 </Avatar>
+//                               }
+//                               rightIconButton={rightIconMenu}
+//                               primaryText={Users.roomName}
+//                               secondaryText={<p>This is some random text</p>}
+//                               secondaryTextLines={2}
+//                             />
+//                           </div>
+
+//                           <Divider inset={true} />
+//                         </SelectableList>
+//                       );
+//                     })}
+//                   </div>
+//                 : <div />}

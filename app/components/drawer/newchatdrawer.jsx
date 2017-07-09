@@ -68,6 +68,16 @@ export default class NewChatDrawer extends React.Component {
   };
   Next = () => {
     alert("next");
+
+    var myinfo = {
+      name: UserStore.userrealname,
+      picture: UserStore.obj.picture,
+      user_id: UserStore.obj.user_id
+    };
+    mapping.push(myinfo);
+    console.log("myinfo");
+    console.log(myinfo);
+
     var str = this.refs.groupname.getValue();
     var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
     var avatarletter = matches.join("");
@@ -112,6 +122,8 @@ export default class NewChatDrawer extends React.Component {
   //   );
   // }
   componentDidMount() {
+    // ChatStore.chipContent.push(myinfo);
+
     $.ajax({
       type: "GET",
       url: "/api/user/friendlist"
@@ -138,6 +150,7 @@ export default class NewChatDrawer extends React.Component {
     };
 
     ChatStore.chipContent.push(chip);
+
     // mapping = ChatStore.chipContent;
   }
   searchUpdated(term) {
