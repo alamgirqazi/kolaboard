@@ -237,8 +237,61 @@ app.post("/api/user/myuserid", function(req, res) {
 });
 
 app.post("/api/createGroup", function(req, res) {
-  console.log(req.body);
-  console.log(req.body.mapping);
+  console.log(req.body.groupname);
+  console.log(req.body.avatarletter);
+  let _id;
+  var data = {
+    groupname: req.body.groupname,
+    avatarletter: req.body.avatarletter,
+    conversation: [],
+    participants: req.body.mapping
+  };
+  var room = new rooms(data);
+
+  rooms.find({}, function(err, docs) {
+    // if (docs.length) {
+    //   console.log("friendship exists");
+    // }
+    // else {
+    room.save(function(err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        _id = docs._id;
+        console.log(_id);
+      }
+    });
+
+    var participants = JSON.parse(req.body.mapping);
+    console.log("a");
+    console.log(participants);
+    console.log(participants.length);
+    for (var i = 0; i < participants.length; i++) {
+      //  User.find({user_id: participants[i]._user_id}, function(err, docs) {
+      // if (docs.length) {
+      //   console.log("friendship exists");
+      // }
+      // else {
+      User.update(
+        { user_id: participants[i].user_id },
+        {
+          $push: {
+            rooms: {
+              roomId: _id,
+              roomName: req.body.groupname,
+              pic: req.body.avatarletter
+            }
+          }
+        },
+        function(err) {
+          if (err) console.log("This is errro " + err);
+          else {
+            console.log("Successful...!");
+          }
+        }
+      );
+    }
+  });
 });
 
 app.post("/api/user/acceptrequestadd", function(req, res) {

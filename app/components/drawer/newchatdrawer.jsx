@@ -72,17 +72,17 @@ export default class NewChatDrawer extends React.Component {
     var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
     var avatarletter = matches.join("");
     console.log(avatarletter);
-    console.log(mapping);
+    console.log("mapping.length" + mapping.length);
     var data = {
       groupname: this.refs.groupname.getValue(),
       avatarletter: avatarletter,
-      mapping: mapping
+      mapping: JSON.stringify(mapping)
     };
 
     $.ajax({
       type: "POST",
       url: "/api/createGroup",
-      data: JSON.stringify(data)
+      data: data
     })
       .done(function(data) {
         alert("its all over");
