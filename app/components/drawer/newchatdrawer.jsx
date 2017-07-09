@@ -7,16 +7,18 @@ import { observer } from "mobx-react";
 import NavigationClose from "material-ui/svg-icons/navigation/close";
 import IconButton from "material-ui/IconButton";
 import { Scrollbars } from "react-custom-scrollbars";
-
+import UserStore from "app/store/UserStore.js";
+import ChatStore from "app/store/ChatStore.js";
+import Avatar from "material-ui/Avatar";
+import Chip from "material-ui/Chip";
 import SearchInput, { createFilter } from "react-search-input";
 import List from "material-ui/List/List";
-import Avatar from "material-ui/Avatar";
 
 import ListItem from "material-ui/List/ListItem";
+import TextField from "material-ui/TextField";
 
 const KEYS_TO_FILTERS = ["email", "name", "nickname", "user_id"];
 import FriendshipsStore from "app/store/FriendshipsStore.js";
-import Chip from "material-ui/Chip";
 var Select = require("react-select");
 
 const topStyle = {
@@ -25,7 +27,10 @@ const topStyle = {
 
 let friendlist = [];
 // let friendlistcount;
-
+let userrealname;
+let userpicture;
+let userid;
+let mapping = [];
 const styles = {
   chip: {
     margin: 4
@@ -34,6 +39,9 @@ const styles = {
     display: "flex",
     flexWrap: "wrap"
   }
+};
+const style = {
+  margin: 12
 };
 
 var options = [
@@ -58,19 +66,51 @@ export default class NewChatDrawer extends React.Component {
   handleCloseToggle = () => {
     UIStore.newchatdrawer = false;
   };
+  Next = () => {
+    alert("next");
+    var str = this.refs.groupname.getValue();
+    var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
+    var avatarletter = matches.join("");
+    console.log(avatarletter);
+    console.log(mapping);
+    var data = {
+      groupname: this.refs.groupname.getValue(),
+      avatarletter: avatarletter,
+      mapping: mapping
+    };
+
+    $.ajax({
+      type: "POST",
+      url: "/api/createGroup",
+      data: JSON.stringify(data)
+    })
+      .done(function(data) {
+        alert("its all over");
+      })
+      .fail(function(jqXhr) {
+        // console.log("failed to register POST REQ");
+      });
+  };
+  handleRequestDelete = chipMap => {
+    // alert("a");
+    // UIStore.newchatdrawer = false;
+  };
+  handleTouchTap = () => {
+    // UIStore.newchatdrawer = false;
+  };
 
   handleClose = () => this.setState({ open: false });
   // Map Friendlist
 
   // Set Group Name
-  createChip() {
-    return (
-      <Chip style={styles.chip}>
-        <Avatar src="images/ok-128.jpg" />
-        Deletable Avatar Chip
-      </Chip>
-    );
-  }
+  // createChip() {
+  //   return (
+  //     // <Chip style={styles.chip}>
+  //     //   <Avatar src="images/ok-128.jpg" />
+  //     //   Deletable Avatar Chip
+  //     // </Chip>
+  //   );
+  // }
   componentDidMount() {
     $.ajax({
       type: "GET",
@@ -78,11 +118,6 @@ export default class NewChatDrawer extends React.Component {
     })
       .done(function(data) {
         // friendlist = data;
-        console.log("meri friendlist");
-        console.log(data);
-
-        console.log("aaaaaaaaa");
-
         // friendlistcount=Object.keys(friendlist).length;
         FriendshipsStore.totalfriends = data;
         friendlist = FriendshipsStore.totalfriends;
@@ -93,7 +128,18 @@ export default class NewChatDrawer extends React.Component {
         console.log("friendlist mai msla");
       });
   }
+  _handleClick(Friendlist) {
+    // alert(Friendlist._id);
+    let chip = {
+      _id: Friendlist._id,
+      name: userrealname,
+      picture: userpicture,
+      user_id: userid
+    };
 
+    ChatStore.chipContent.push(chip);
+    // mapping = ChatStore.chipContent;
+  }
   searchUpdated(term) {
     this.setState({ searchTerm: term });
   }
@@ -105,7 +151,7 @@ export default class NewChatDrawer extends React.Component {
     const filteredEmails = friendlist.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
     );
-
+    mapping = ChatStore.chipContent;
     return (
       <div>
         <Drawer
@@ -143,51 +189,125 @@ export default class NewChatDrawer extends React.Component {
                 style={{ display: "none" }}
               />}
           >
-            {friendlist.map(Friendlist => {
-              return (
-                <List key={Friendlist.user_id}>
-                  <ListItem
-                    onTouchTap={this.createChip}
-                    key={Friendlist.user_id}
-                    disabled={false}
-                    leftAvatar={<Avatar size={40} src={Friendlist.picture} />}
-                  >
-                    <div className="searchContent" key={Friendlist.other_id}>
-                      <div className="subject">
-                        {Friendlist.other_id_name}
-                      </div>
-                      <br />
-                      <div />
-                    </div>
-                  </ListItem>
-                </List>
-              );
-            })}
-
-            <Select
-              name="form-field-name"
-              value=""
-              options={options}
-              onChange={this.logChange}
+            <div>
+              {mapping.map(chipMap => {
+                return (
+                  <div>
+                    <Chip
+                      onRequestDelete={this.handleRequestDelete(chipMap)}
+                      style={styles.chip}
+                    >
+                      <Avatar src={chipMap.picture} />
+                      {chipMap.name}
+                    </Chip>
+                  </div>
+                );
+              })};
+            </div>
+            <TextField
+              ref="groupname"
+              floatingLabelFixed={true}
+              fullWidth={true}
+            />{" "}
+            <br />
+            <RaisedButton
+              label={"Next"}
+              primary={true}
+              onTouchTap={() => this.Next()}
+              style={style}
             />
+            {filteredEmails.map(Friendlist => {
+              var id;
+              if (Friendlist.user_id == UserStore.obj.user_id) {
+                id = Friendlist.other_id;
+
+                userpicture = Friendlist.picture;
+                userrealname = Friendlist.other_id_name;
+                userid = Friendlist.other_id;
+                return (
+                  <div className="mail">
+                    <List key={Friendlist.user_id}>
+                      <ListItem
+                        key={Friendlist.user_id}
+                        disabled={true}
+                        leftAvatar={
+                          <Avatar size={40} src={Friendlist.picture} />
+                        }
+                        rightIconButton={
+                          <RaisedButton
+                            label={"Add"}
+                            primary={true}
+                            onTouchTap={() => this._handleClick(Friendlist)}
+                            style={style}
+                          />
+                        }
+                      >
+                        <div
+                          className="searchContent"
+                          key={Friendlist.other_id}
+                        >
+                          <div className="subject">
+                            {Friendlist.other_id_name}
+                          </div>
+                          <br />
+                          <div className="from">
+                            {}
+                          </div>
+                          <br />
+                          <div className="subject">
+                            {}
+                          </div>
+                        </div>
+                      </ListItem>
+                    </List>
+                  </div>
+                );
+              } else {
+                id = Friendlist.user_id;
+                userpicture = Friendlist.user_picture;
+                userrealname = Friendlist.user_id_name;
+                userid = Friendlist.user_id;
+
+                return (
+                  <div className="mail">
+                    <List key={Friendlist.user_id}>
+                      <ListItem
+                        key={Friendlist.user_id}
+                        disabled={true}
+                        leftAvatar={
+                          <Avatar size={40} src={Friendlist.user_picture} />
+                        }
+                        rightIconButton={
+                          <RaisedButton
+                            label={"Add"}
+                            primary={true}
+                            onTouchTap={() => this._handleClick(id)}
+                            style={style}
+                          />
+                        }
+                      >
+                        <div className="searchContent" key={Friendlist.user_id}>
+                          <div className="subject">
+                            {Friendlist.user_id_name}
+                          </div>
+                          <br />
+                          <div className="from">
+                            {}
+                          </div>
+                          <br />
+                          <div className="subject">
+                            {}
+                          </div>
+                        </div>
+                      </ListItem>
+                    </List>
+                  </div>
+                );
+              }
+            })}
           </Scrollbars>
         </Drawer>
       </div>
     );
   }
 }
-
-// rightIconButton={<RaisedButton label={"Add"} primary={true} key={Acceptrequests.user_id} onTouchTap={() => this._handleClick(Acceptrequests)}
-//  style={style} />
-// }
-// >
-//     <div className="searchContent" key={Acceptrequests.user_id}>
-//                   <div className="subject">{Acceptrequests.status}</div>
-//                                     <br></br>
-// <div>                  {Acceptrequests.user_id} </div>
-//                   {Acceptrequests.status}
-//               </div>
-//     </ListItem>
-//                 </List>
-//               );
-//             })}

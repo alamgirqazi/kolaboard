@@ -236,6 +236,11 @@ app.post("/api/user/myuserid", function(req, res) {
   console.log(myuserid);
 });
 
+app.post("/api/createGroup", function(req, res) {
+  console.log(req.body);
+  console.log(req.body.mapping);
+});
+
 app.post("/api/user/acceptrequestadd", function(req, res) {
   var status = req.body.status;
   console.log("status: ");
