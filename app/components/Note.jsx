@@ -6,11 +6,13 @@ import Snackbar from "material-ui/Snackbar";
 var dragula = require("react-dragula");
 import Linkifier from "react-linkifier";
 import { Scrollbars } from "react-custom-scrollbars";
-
+import ChatStore from "app/store/ChatStore.js";
 const wordwrap = {
   wordWrap: "breakWord",
   overflow: "hidden"
 };
+
+let variable = [];
 
 const savebtn = {
   bottom: "1px"
@@ -60,30 +62,26 @@ class Note extends React.Component {
       <div className="">
         <div className="note">
           <div className="">
-            {" "}
-            <img src="assets/images/pin-icon.png" style={pinstyle} />
+            {" "}<img src="assets/images/pin-icon.png" style={pinstyle} />
           </div>
           <Scrollbars
             autoHeightMax={20}
-            renderTrackHorizontal={props => (
+            renderTrackHorizontal={props =>
               <div
                 {...props}
                 className="track-horizontal"
                 style={{ display: "none" }}
-              />
-            )}
-            renderThumbHorizontal={props => (
+              />}
+            renderThumbHorizontal={props =>
               <div
                 {...props}
                 className="thumb-horizontal"
                 style={{ display: "none" }}
-              />
-            )}
+              />}
           >
             {" "}<p>
               <Linkifier>
                 {this.props.children}
-
               </Linkifier>
             </p>
           </Scrollbars>
@@ -133,12 +131,7 @@ export default class Boards extends React.Component {
   constructor() {
     super();
     this.state = {
-      notes: [
-        "Quiz next tuesday",
-        "Reactjs on Github https://github.com/facebook/react",
-        "Football match at 4 p.m sharp",
-        "React is awesome!"
-      ],
+      notes: [{ text: "yo" }],
       open: false
     };
 
@@ -185,10 +178,14 @@ export default class Boards extends React.Component {
     });
   }
   eachNote(note, i) {
+    this.setState({
+      notes: ChatStore.notes
+    });
+    console.log("heloooo");
     return (
       <div className="displ">
         <Note key={i} index={i} onChange={this.update} onRemove={this.remove}>
-          {note}
+          {note.text}
         </Note>
       </div>
     );
@@ -198,6 +195,8 @@ export default class Boards extends React.Component {
     dragula([board]);
   }
   render() {
+    variable = ChatStore.notes;
+
     return (
       <div className="board">
         {this.state.notes.map(this.eachNote)}
@@ -217,7 +216,6 @@ export default class Boards extends React.Component {
             autoHideDuration={1200}
           />
           {/*onRequestClose={this.handleRequestClose}*/}
-
         </div>
       </div>
     );

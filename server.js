@@ -441,6 +441,20 @@ app.get("/api/user/:user_id", function(req, res) {
       res.send(JSON.stringify(User));
     });
 });
+app.get("/api/rooms/:roomId", function(req, res) {
+  console.log(req.body);
+
+  rooms.find({ _id: req.params.roomId }, function(err, room) {
+    if (err) {
+      console.log("There is an error");
+    } else {
+      console.log("returning room");
+      console.log(room);
+
+      res.send(room);
+    }
+  });
+});
 
 app.get("/api/user", function(req, res) {
   console.log("no one is executed");
@@ -552,6 +566,7 @@ io.on("connection", function(socket) {
       }
     });
   });
+
   socket.on("sending", function(data) {
     console.log("THis is data coming from roomId " + data);
     rooms.find({ _id: data }, function(err, rooms) {

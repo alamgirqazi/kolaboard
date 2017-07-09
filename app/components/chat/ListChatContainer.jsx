@@ -115,6 +115,7 @@ export default class ListChatContainer extends React.Component {
     console.log(Users._id + "_id");
     // console.log(Users.roomId + "_id");
     ChatStore.btnClick = true;
+
     console.log("listttt");
     // alert('ok')
     // console.log(Users.picture)
@@ -128,23 +129,25 @@ export default class ListChatContainer extends React.Component {
     console.log("THis is roomID in chat store " + roomId);
     console.log("room " + roomId);
     socket.emit("roomId", roomId);
-    // var location = 'api/user/' + roomId;
+    var location = "/api/rooms/" + roomId;
 
-    // $.ajax({
-    //     url : location,
-    //     type : 'GET',
-    //    data: {
-    //       format: 'json'
-    //    },dataType: 'json',
-    //     success : function(data) {
-    //       console.log('Successfull');
-    //       console.log('This is data comming '+ data);
-    // },
-    //    error: function(err) {
-    //      console.log('error in get of room'+err);
-    //    }
-
-    // });
+    socket.emit("noteSocket", roomId);
+    $.ajax({
+      url: location,
+      type: "GET",
+      data: {
+        format: "json"
+      },
+      dataType: "json",
+      success: function(data) {
+        console.log("Successfull Rooms got");
+        ChatStore.notes = data[0].notes;
+        console.log(data[0].notes);
+      },
+      error: function(err) {
+        console.log("error in get of room" + err);
+      }
+    });
   }
   componentDidMount() {
     // let userid = localStorage.getItem('userid');

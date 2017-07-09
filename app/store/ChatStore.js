@@ -7,6 +7,7 @@ class ChatStore {
   @observable roomData = [];
   @observable msgs = [];
   @observable chipContent = [];
+  @observable notes = [];
   // @observable fullscreen = !
 }
 

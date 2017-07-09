@@ -22,6 +22,14 @@ var roomsSchema = new Schema({
       time: String
     }
   ],
+  notes: [
+    {
+      from: String,
+      text: String,
+      date: String,
+      time: String
+    }
+  ],
   participants: [{}]
 });
 
