@@ -258,39 +258,43 @@ app.post("/api/createGroup", function(req, res) {
         console.log(err);
       } else {
         _id = docs._id;
-        console.log(_id);
+        console.log("docs");
+        console.log(docs);
+        console.log(docs._id);
+
+        console.log("_id" + _id);
+        var participants = JSON.parse(req.body.mapping);
+        console.log("a");
+        console.log(participants);
+        console.log(participants.length);
+        for (var i = 0; i < participants.length; i++) {
+          //  User.find({user_id: participants[i]._user_id}, function(err, docs) {
+          // if (docs.length) {
+          //   console.log("friendship exists");
+          // }
+          // else {
+          console.log("aski id" + _id);
+          User.update(
+            { user_id: participants[i].user_id },
+            {
+              $push: {
+                rooms: {
+                  roomId: _id,
+                  roomName: req.body.groupname,
+                  pic: req.body.avatarletter
+                }
+              }
+            },
+            function(err) {
+              if (err) console.log("This is errro " + err);
+              else {
+                console.log("Successful...!");
+              }
+            }
+          );
+        }
       }
     });
-
-    var participants = JSON.parse(req.body.mapping);
-    console.log("a");
-    console.log(participants);
-    console.log(participants.length);
-    for (var i = 0; i < participants.length; i++) {
-      //  User.find({user_id: participants[i]._user_id}, function(err, docs) {
-      // if (docs.length) {
-      //   console.log("friendship exists");
-      // }
-      // else {
-      User.update(
-        { user_id: participants[i].user_id },
-        {
-          $push: {
-            rooms: {
-              roomId: _id,
-              roomName: req.body.groupname,
-              pic: req.body.avatarletter
-            }
-          }
-        },
-        function(err) {
-          if (err) console.log("This is errro " + err);
-          else {
-            console.log("Successful...!");
-          }
-        }
-      );
-    }
   });
 });
 
@@ -473,13 +477,40 @@ io.on("connection", function(socket) {
     console.log("This is socket.usernmae " + socket.username);
     console.log("This is your message to save " + data.msg);
     console.log("This is room id in send message " + data.roomId);
+
+    var d = new Date(); // for now
+    d.getHours(); // => 9
+    d.getMinutes(); // =>  30
+    d.getSeconds(); // => 51
+    console.log(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
+    time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+
+    date = mm + "/" + dd + "/" + yyyy;
+
+    console.log("today");
+
     rooms.update(
-      { roomId: data.roomId },
+      { _id: data.roomId },
       {
         $push: {
           conversation: {
             from: socket.username,
-            message: data.msg
+            message: data.msg,
+            favourite: false,
+            date: date,
+            time: time
           }
         }
       },
@@ -506,7 +537,7 @@ io.on("connection", function(socket) {
   });
   socket.on("roomId", function(data) {
     console.log("THis is data coming from roomId " + data);
-    rooms.find({ roomId: data }, function(err, rooms) {
+    rooms.find({ _id: data }, function(err, rooms) {
       if (err) {
         console.log("There is an error");
       } else {
@@ -523,11 +554,12 @@ io.on("connection", function(socket) {
   });
   socket.on("sending", function(data) {
     console.log("THis is data coming from roomId " + data);
-    rooms.find({ roomId: data }, function(err, rooms) {
+    rooms.find({ _id: data }, function(err, rooms) {
       if (err) {
         console.log("There is an error");
       } else {
-        console.log("These are rooms from database " + rooms);
+        console.log("server.jssocket Sending");
+        console.log("These are rooms frm database " + rooms);
         console.log("This is for space");
         console.log("These are rooms.conversation from database " + rooms[0]);
         // console.log('This is for space');

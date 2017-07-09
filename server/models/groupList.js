@@ -12,10 +12,14 @@ var roomsSchema = new Schema({
     default: "",
     trim: true
   },
+
   conversation: [
     {
       from: String,
-      message: String
+      message: String,
+      favourite: Boolean,
+      date: String,
+      time: String
     }
   ],
   participants: [{}]

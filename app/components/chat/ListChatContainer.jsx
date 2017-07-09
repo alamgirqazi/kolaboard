@@ -112,6 +112,8 @@ export default class ListChatContainer extends React.Component {
   }
 
   _handleClick(Users) {
+    console.log(Users._id + "_id");
+    // console.log(Users.roomId + "_id");
     ChatStore.btnClick = true;
     console.log("listttt");
     // alert('ok')

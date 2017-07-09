@@ -66,7 +66,7 @@ export default class Chat extends React.Component {
     console.log("This is the text " + this.refs.newText.value);
     socket.emit("send message", {
       msg: this.refs.newText.value,
-      roomId: ChatStore.groupId
+      roomId: roomId
     });
     console.log("This is roomId " + roomId);
     socket.emit("sending", roomId);
@@ -109,6 +109,7 @@ export default class Chat extends React.Component {
     socket.on("returnmsgs", function(data) {
       console.log("This is data in get msgs " + data.msg);
       ChatStore.msgs = data.msg;
+      console.log(data.msg);
       console.log("This is data in chatStore " + ChatStore.msgs);
     });
   }
