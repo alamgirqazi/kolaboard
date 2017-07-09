@@ -144,11 +144,11 @@ export default class NewChatDrawer extends React.Component {
     // alert(Friendlist._id);
     let chip = {
       _id: Friendlist._id,
-      name: userrealname,
-      picture: userpicture,
-      user_id: userid
+      name: Friendlist.userrealname,
+      picture: Friendlist.userpicture,
+      user_id: Friendlist.userid
     };
-
+    console.log(chip);
     ChatStore.chipContent.push(chip);
 
     // mapping = ChatStore.chipContent;
@@ -234,14 +234,16 @@ export default class NewChatDrawer extends React.Component {
               if (Friendlist.user_id == UserStore.obj.user_id) {
                 id = Friendlist.other_id;
 
-                userpicture = Friendlist.picture;
-                userrealname = Friendlist.other_id_name;
-                userid = Friendlist.other_id;
+                Friendlist.userpicture = Friendlist.picture;
+
+                // userpicture = Friendlist.picture;
+                Friendlist.userrealname = Friendlist.other_id_name;
+                Friendlist.userid = Friendlist.other_id;
                 return (
                   <div className="mail">
-                    <List key={Friendlist.user_id}>
+                    <List key={Friendlist.other_id}>
                       <ListItem
-                        key={Friendlist.user_id}
+                        key={Friendlist.other_id}
                         disabled={true}
                         leftAvatar={
                           <Avatar size={40} src={Friendlist.picture} />
@@ -277,9 +279,9 @@ export default class NewChatDrawer extends React.Component {
                 );
               } else {
                 id = Friendlist.user_id;
-                userpicture = Friendlist.user_picture;
-                userrealname = Friendlist.user_id_name;
-                userid = Friendlist.user_id;
+                Friendlist.userpicture = Friendlist.user_picture;
+                Friendlist.userrealname = Friendlist.user_id_name;
+                Friendlist.userid = Friendlist.user_id;
 
                 return (
                   <div className="mail">
@@ -294,7 +296,7 @@ export default class NewChatDrawer extends React.Component {
                           <RaisedButton
                             label={"Add"}
                             primary={true}
-                            onTouchTap={() => this._handleClick(id)}
+                            onTouchTap={() => this._handleClick(Friendlist)}
                             style={style}
                           />
                         }

@@ -162,8 +162,14 @@ export default class AcceptRequests extends React.Component {
                     <div className="mail">
                       <List key={Acceptrequests.user_id}>
                         <ListItem
-                          key={Acceptrequests.user_id}
+                          key={A_id}
                           disabled={true}
+                          leftAvatar={
+                            <Avatar
+                              size={80}
+                              src={Acceptrequests.user_picture}
+                            />
+                          }
                           rightIconButton={
                             <RaisedButton
                               label={"Add Friend"}
@@ -179,7 +185,8 @@ export default class AcceptRequests extends React.Component {
                             className="searchContent"
                             key={Acceptrequests.user_id}
                           >
-                            <div className="subject">
+                            {Acceptrequests.user_id_name}
+                            <div className="subjeccceptrequests.usert">
                               {Acceptrequests.status}
                             </div>
                             <br />

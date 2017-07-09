@@ -151,7 +151,9 @@ export default class Chat extends React.Component {
                           <p>
                             {Users.message}
                           </p>
-                          <time>20:17</time>
+                          <time>
+                            {Users.time}
+                          </time>
                         </div>
                       </li>
                     );
@@ -165,8 +167,12 @@ export default class Chat extends React.Component {
                             {Users.message}
                           </p>
 
-                          <time>20:18</time>
-                          <sender>Usama</sender>
+                          <time>
+                            {Users.time}
+                          </time>
+                          <sender>
+                            {Users.from}
+                          </sender>
                         </div>
                       </li>
                     );
