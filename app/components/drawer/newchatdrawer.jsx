@@ -16,6 +16,7 @@ import List from "material-ui/List/List";
 import ContentAdd from "material-ui/svg-icons/image/navigate-next";
 import ContentPlus from "material-ui/svg-icons/content/add-circle-outline";
 import Snackbar from "material-ui/Snackbar";
+import AlertContainer from "react-alert";
 
 import ListItem from "material-ui/List/ListItem";
 import TextField from "material-ui/TextField";
@@ -64,7 +65,26 @@ export default class NewChatDrawer extends React.Component {
     };
     this.logChange = this.logChange.bind(this);
   }
+  alertOptions = {
+    offset: 14,
+    position: "bottom center",
+    theme: "light",
+    time: 2000,
+    transition: "scale"
+  };
 
+  showAlert = () => {
+    this.msg.show("Group Name field is empty", {
+      time: 2000,
+      type: "error"
+    });
+  };
+  showSecondAlert = () => {
+    this.msg.show("No User has been added", {
+      time: 2000,
+      type: "error"
+    });
+  };
   // handleToggle = () => this.setState({ open: !this.state.open });
   handleToggle = () => {
     UIStore.newchatdrawer = true;
@@ -73,56 +93,66 @@ export default class NewChatDrawer extends React.Component {
     UIStore.newchatdrawer = false;
   };
   Next = () => {
-    var myinfo = {
-      name: UserStore.userrealname,
-      picture: UserStore.obj.picture,
-      user_id: UserStore.obj.user_id
-    };
-    mapping.push(myinfo);
-    console.log("myinfo");
-    console.log(myinfo);
+    //error handling here
+    if (this.refs.groupname.getInputNode().value == "" || mapping.length == 0) {
+      console.log("mapping at imp time");
+      console.log(mapping.length);
+      {
+        if (mapping.length == 0) this.showSecondAlert();
+        else this.showAlert();
+      }
+    } else {
+      var myinfo = {
+        name: UserStore.userrealname,
+        picture: UserStore.obj.picture,
+        user_id: UserStore.obj.user_id
+      };
+      mapping.push(myinfo);
+      console.log("myinfo");
+      console.log(myinfo);
 
-    var str = this.refs.groupname.getValue();
-    var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
-    var avatarletter = matches.join("");
-    console.log(avatarletter);
-    console.log("mapping.length" + mapping.length);
-    var data = {
-      groupname: this.refs.groupname.getValue(),
-      avatarletter: avatarletter,
-      mapping: JSON.stringify(mapping)
-    };
+      var str = this.refs.groupname.getValue();
+      var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
+      var avatarletter = matches.join("");
+      console.log(avatarletter);
+      console.log("mapping.length" + mapping.length);
+      var data = {
+        groupname: this.refs.groupname.getValue(),
+        avatarletter: avatarletter,
+        mapping: JSON.stringify(mapping)
+      };
 
-    // $.ajax({
-    //   type: "POST",
-    //   url: "/api/createGroup",
-    //   data: data
-    // })
-    //   .done(function(data) {
-    //     alert("its all over");
-    //   })
-    //   .fail(function(jqXhr) {
-    //     // console.log("failed to register POST REQ");
-    //   });
-    this.setState({
-      snackbaropen: true
-    });
-    setTimeout(
-      function() {
-        UIStore.newchatdrawer = false;
-        mapping = [];
-        ChatStore.chipContent = [];
-        // console.log("mapping");
-        // console.log(mapping);
-        // console.log("ChatStore.chipContent");
-        // console.log(ChatStore.chipContent);
-        this.refs.groupname.getInputNode().value = "";
-        this.setState({
-          snackbaropen: false
-        });
-      }.bind(this),
-      2000
-    );
+      // $.ajax({
+      //   type: "POST",
+      //   url: "/api/createGroup",
+      //   data: data
+      // })
+      //   .done(function(data) {
+      //     alert("its all over");
+      //   })
+      //   .fail(function(jqXhr) {
+      //     // console.log("failed to register POST REQ");
+      //   });
+      this.setState({
+        snackbaropen: true
+      });
+      setTimeout(
+        function() {
+          UIStore.newchatdrawer = false;
+          mapping = [];
+          ChatStore.chipContent = [];
+          // console.log("mapping");
+          // console.log(mapping);
+          // console.log("ChatStore.chipContent");
+          // console.log(ChatStore.chipContent);
+          this.refs.groupname.getInputNode().value = "";
+          this.setState({
+            snackbaropen: false
+          });
+        }.bind(this),
+        2000
+      );
+    }
   };
 
   handleRequestDelete = chipMap => {
@@ -351,6 +381,7 @@ export default class NewChatDrawer extends React.Component {
               style={style}
             />
           </div>
+          <AlertContainer ref={a => (this.msg = a)} {...this.alertOptions} />
         </Drawer>
       </div>
     );
