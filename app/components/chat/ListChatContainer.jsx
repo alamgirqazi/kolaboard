@@ -108,7 +108,7 @@ export default class ListChatContainer extends React.Component {
     this._handleClick = this._handleClick.bind(this);
     socket = io.connect();
     this.state = {};
-    UserStore.obj.rooms = [{ _id: "" }];
+    // UserStore.obj.rooms = [];
   }
 
   _handleClick(Users) {
@@ -150,68 +150,6 @@ export default class ListChatContainer extends React.Component {
     });
   }
   componentDidMount() {
-    // let userid = localStorage.getItem('userid');
-
-    //    $.ajax({
-    //     type: 'GET',
-    //     url: '/api/userall'
-    //     })
-    //   .done(function(data) {
-    // // console.log(data)
-    // users = data;
-    // console.log("users");
-    // console.log(users);
-
-    // var index = users.findIndex(function(o){
-    //      return o.user_id ===userid;
-    // })
-    // users.splice(index, 1);
-
-    // UserStore.allUsers = users;
-    // UserStore.listy=true;
-    // })
-    //   .fail(function(jqXhr) {
-    //     console.log('failed to register');
-    //   });
-    // var otherusers = new Map(data.map((i) => [i.other_id]));
-    // var otherusers = new Map(data.map((i) => [i.key, i.other_id]));
-
-    // var otherusers = data.map(function() {
-    //   return data.other_id;
-    // });
-    // console.log(otherusers)
-
-    //  $.ajax({
-    //     type: 'GET',
-    //     url: '/api/user/friendlistuser'
-    //     })
-    //   .done(function(data) {
-    // console.log(data);
-    // users=data;
-    // UserStore.listy=true;
-
-    // })
-    //   .fail(function(jqXhr) {
-    //     console.log('friendlist mai msla');
-    //   });
-    //  $.ajax({
-    //     type: 'GET',
-    //     url: '/api/user/friendlist'
-    //     })
-    //   .done(function(data) {
-    // console.log("meri friendlist");
-    // console.log(data);
-
-    // users=data;
-    // // otherusers=data.other_id;
-    // // realusers=data.user_id;
-    // UserStore.listy=true;
-
-    // })
-    //   .fail(function(jqXhr) {
-    //     console.log('friendlist mai msla');
-    //   });
-
     console.log("UserStore");
     console.log(UserStore);
 
@@ -221,53 +159,16 @@ export default class ListChatContainer extends React.Component {
       ChatStore.msgs = data.msg;
       console.log("This is data in chatStore " + ChatStore.msgs);
     });
-    // var location = "api/user/" + UserStore.obj.user_id;
-    // $.ajax({
-    //   url: location,
-    //   type: "GET",
-    //   data: {
-    //     format: "json"
-    //   },
-    //   dataType: "json",
-    //   success: function(data) {
-    //     // users = data[0].rooms;
-    //     // UserStore.listy = true;
-    //     // console.log("This is object " + users);
-    //     //  console.log('This is user  '+ users[1].roomName);
-    //     console.log(data);
-
-    //     // console.log('This is users '+ UserStore.obj.rooms);
-    //   },
-    //   error: function() {
-    //     console.log("error in get");
-    //   }
-    // });
-    //    $.ajax({
-    //     type: 'GET',
-    //     url: '/api/user/groupList'
-    //     })
-    //   .done(function(data) {
-    // console.log("meri Group List");
-    // console.log(data);
-    // users=data;
-    // console.log('This is users '+ users);
-    // // otherusers=data.other_id;
-    // // realusers=data.user_id;
-    // UserStore.listy=true;
-
-    // })
-    //   .fail(function(jqXhr) {
-    //     console.log('Grouplist mai msla');
-    //   });
   }
 
   render() {
     const liststatus = UserStore.listy;
+    if (UserStore.obj.rooms == null || UserStore.obj.rooms == undefined)
+      rooms = [];
+    else rooms = UserStore.obj.rooms;
 
-    rooms = UserStore.obj.rooms;
-
-    console.log(UserStore.obj.rooms);
-    console.log("rooms");
+    // console.log(UserStore.obj.rooms);
+    // console.log("rooms");
     console.log(rooms);
     return (
       <div>

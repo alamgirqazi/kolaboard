@@ -13,14 +13,19 @@ import Avatar from "material-ui/Avatar";
 import Chip from "material-ui/Chip";
 import SearchInput, { createFilter } from "react-search-input";
 import List from "material-ui/List/List";
+import ContentAdd from "material-ui/svg-icons/image/navigate-next";
+import ContentPlus from "material-ui/svg-icons/content/add-circle-outline";
+import Snackbar from "material-ui/Snackbar";
 
 import ListItem from "material-ui/List/ListItem";
 import TextField from "material-ui/TextField";
 
-const KEYS_TO_FILTERS = ["email", "name", "nickname", "user_id"];
+const KEYS_TO_FILTERS = ["user_id_name", "other_id_name"];
 import FriendshipsStore from "app/store/FriendshipsStore.js";
 var Select = require("react-select");
-
+const tableDisplay = {
+  display: "table"
+};
 const topStyle = {
   top: "60px"
 };
@@ -54,6 +59,7 @@ export default class NewChatDrawer extends React.Component {
     super(props);
     this.state = {
       open: false,
+      snackbaropen: false,
       searchTerm: ""
     };
     this.logChange = this.logChange.bind(this);
@@ -67,8 +73,6 @@ export default class NewChatDrawer extends React.Component {
     UIStore.newchatdrawer = false;
   };
   Next = () => {
-    alert("next");
-
     var myinfo = {
       name: UserStore.userrealname,
       picture: UserStore.obj.picture,
@@ -89,22 +93,43 @@ export default class NewChatDrawer extends React.Component {
       mapping: JSON.stringify(mapping)
     };
 
-    $.ajax({
-      type: "POST",
-      url: "/api/createGroup",
-      data: data
-    })
-      .done(function(data) {
-        alert("its all over");
-      })
-      .fail(function(jqXhr) {
-        // console.log("failed to register POST REQ");
-      });
+    // $.ajax({
+    //   type: "POST",
+    //   url: "/api/createGroup",
+    //   data: data
+    // })
+    //   .done(function(data) {
+    //     alert("its all over");
+    //   })
+    //   .fail(function(jqXhr) {
+    //     // console.log("failed to register POST REQ");
+    //   });
+    this.setState({
+      snackbaropen: true
+    });
+    setTimeout(
+      function() {
+        UIStore.newchatdrawer = false;
+        mapping = [];
+        ChatStore.chipContent = [];
+        // console.log("mapping");
+        // console.log(mapping);
+        // console.log("ChatStore.chipContent");
+        // console.log(ChatStore.chipContent);
+        this.refs.groupname.getInputNode().value = "";
+        this.setState({
+          snackbaropen: false
+        });
+      }.bind(this),
+      2000
+    );
   };
+
   handleRequestDelete = chipMap => {
     // alert("a");
     // UIStore.newchatdrawer = false;
   };
+
   handleTouchTap = () => {
     // UIStore.newchatdrawer = false;
   };
@@ -169,24 +194,48 @@ export default class NewChatDrawer extends React.Component {
       <div>
         <Drawer
           docked={true}
-          width={350}
+          width={400}
           style={topStyle}
           open={UIStore.newchatdrawer}
         >
           <AppBar
-            title=""
+            title="Create Group"
             iconElementRight={
               <IconButton onTouchTap={this.handleCloseToggle}>
                 <NavigationClose />
               </IconButton>
             }
           />
-
+          <div>
+            {mapping.map(chipMap => {
+              return (
+                <div>
+                  <Chip
+                    onRequestDelete={this.handleRequestDelete(chipMap)}
+                    style={styles.chip}
+                  >
+                    <Avatar src={chipMap.picture} />
+                    {chipMap.name}
+                  </Chip>
+                </div>
+              );
+            })};
+          </div>
+          <br />
+          <TextField
+            ref="groupname"
+            hintText="Enter Group Name Here"
+            floatingLabelText="Group Name"
+            fullWidth={true}
+          />{" "}
+          <br />
+          <br />
           <SearchInput
+            ref="searchinput"
             className="search-input"
+            placeholder="Search User"
             onChange={this.searchUpdated.bind(this)}
           />
-
           <Scrollbars
             style={{ height: 300 }}
             renderTrackHorizontal={props =>
@@ -202,33 +251,6 @@ export default class NewChatDrawer extends React.Component {
                 style={{ display: "none" }}
               />}
           >
-            <div>
-              {mapping.map(chipMap => {
-                return (
-                  <div>
-                    <Chip
-                      onRequestDelete={this.handleRequestDelete(chipMap)}
-                      style={styles.chip}
-                    >
-                      <Avatar src={chipMap.picture} />
-                      {chipMap.name}
-                    </Chip>
-                  </div>
-                );
-              })};
-            </div>
-            <TextField
-              ref="groupname"
-              floatingLabelFixed={true}
-              fullWidth={true}
-            />{" "}
-            <br />
-            <RaisedButton
-              label={"Next"}
-              primary={true}
-              onTouchTap={() => this.Next()}
-              style={style}
-            />
             {filteredEmails.map(Friendlist => {
               var id;
               if (Friendlist.user_id == UserStore.obj.user_id) {
@@ -249,12 +271,15 @@ export default class NewChatDrawer extends React.Component {
                           <Avatar size={40} src={Friendlist.picture} />
                         }
                         rightIconButton={
-                          <RaisedButton
-                            label={"Add"}
+                          <IconButton
+                            tooltip="add"
+                            touch={true}
                             primary={true}
                             onTouchTap={() => this._handleClick(Friendlist)}
-                            style={style}
-                          />
+                            tooltipPosition="bottom-center"
+                          >
+                            <ContentPlus />
+                          </IconButton>
                         }
                       >
                         <div
@@ -263,14 +288,6 @@ export default class NewChatDrawer extends React.Component {
                         >
                           <div className="subject">
                             {Friendlist.other_id_name}
-                          </div>
-                          <br />
-                          <div className="from">
-                            {}
-                          </div>
-                          <br />
-                          <div className="subject">
-                            {}
                           </div>
                         </div>
                       </ListItem>
@@ -293,25 +310,20 @@ export default class NewChatDrawer extends React.Component {
                           <Avatar size={40} src={Friendlist.user_picture} />
                         }
                         rightIconButton={
-                          <RaisedButton
-                            label={"Add"}
+                          <IconButton
+                            tooltip="add"
+                            touch={true}
                             primary={true}
                             onTouchTap={() => this._handleClick(Friendlist)}
-                            style={style}
-                          />
+                            tooltipPosition="bottom-center"
+                          >
+                            <ContentPlus />
+                          </IconButton>
                         }
                       >
                         <div className="searchContent" key={Friendlist.user_id}>
                           <div className="subject">
                             {Friendlist.user_id_name}
-                          </div>
-                          <br />
-                          <div className="from">
-                            {}
-                          </div>
-                          <br />
-                          <div className="subject">
-                            {}
                           </div>
                         </div>
                       </ListItem>
@@ -321,6 +333,24 @@ export default class NewChatDrawer extends React.Component {
               }
             })}
           </Scrollbars>
+          <Snackbar
+            open={this.state.snackbaropen}
+            message="Group Created"
+            autoHideDuration={2500}
+            onRequestClose={this.handleRequestClose}
+          />
+          <div className="center-block" style={{ display: "table" }}>
+            <RaisedButton
+              className="center-block"
+              label={"Create Group"}
+              labelPosition="before"
+              icon={<ContentAdd />}
+              primary={true}
+              style={tableDisplay}
+              onTouchTap={() => this.Next()}
+              style={style}
+            />
+          </div>
         </Drawer>
       </div>
     );

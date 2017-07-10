@@ -5,7 +5,7 @@ import Toolbar from "Toolbar";
 import { Scrollbars } from "react-custom-scrollbars";
 import Avatar from "material-ui/Avatar";
 import FloatingActionButton from "material-ui/FloatingActionButton";
-import ContentAdd from "material-ui/svg-icons/content/add";
+// import ContentAdd from "material-ui/svg-icons/content/add";
 import Chatbar from "app/components/toolbars/chattoolbar.jsx";
 //import ReactScrollbar from 'react-scrollbar-js';
 import ChatStore from "app/store/ChatStore.js";
@@ -195,7 +195,11 @@ export default class Chat extends React.Component {
               placeholder="Please Enter Your message......."
               className="form-control"
             />
-            <IconButton tooltip="SVG Icon" onClick={this.sendMsg}>
+            <IconButton
+              tooltip="Send"
+              tooltipPosition="top-centre"
+              onClick={this.sendMsg}
+            >
               <svg
                 fill="#FFFFFF"
                 height="24"
