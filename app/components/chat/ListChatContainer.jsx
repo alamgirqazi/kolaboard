@@ -35,7 +35,7 @@ import { observer } from "mobx-react";
 import Chat from "app/components/chat.jsx";
 import Board from "app/components/board.jsx";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
-import { cyan500 } from "material-ui/styles/colors";
+import { cyan500, grey50, grey900 } from "material-ui/styles/colors";
 import { greenA400 } from "material-ui/styles/colors";
 import UserStore from "app/store/UserStore.js";
 import axios from "axios";
@@ -193,14 +193,14 @@ export default class ListChatContainer extends React.Component {
                           onTouchTap={() => this._handleClick(Users)}
                           value={4}
                           leftAvatar={
-                            <Avatar size={40} src={Users.pic}>
-                              <Badge badgeContent={4} primary={true} />
+                            <Avatar size={40} color={darkBlack}>
+                              {Users.pic}
                             </Avatar>
                           }
                           rightIconButton={rightIconMenu}
                           primaryText={Users.roomName}
-                          secondaryText={<p>This is some random text</p>}
-                          secondaryTextLines={2}
+                          secondaryText={<p>This</p>}
+                          secondaryTextLines={1}
                         />
                       </div>
 
@@ -258,4 +258,4 @@ export default class ListChatContainer extends React.Component {
 //                       );
 //                     })}
 //                   </div>
-//                 : <div />}
+//                 : <div />}                              <Badge badgeContent={4} primary={true} />

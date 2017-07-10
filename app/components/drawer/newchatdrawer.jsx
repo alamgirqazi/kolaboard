@@ -64,6 +64,7 @@ export default class NewChatDrawer extends React.Component {
       searchTerm: ""
     };
     this.logChange = this.logChange.bind(this);
+    this.handleRequestDelete = this.handleRequestDelete.bind(this);
   }
   alertOptions = {
     offset: 14,
@@ -91,6 +92,7 @@ export default class NewChatDrawer extends React.Component {
   };
   handleCloseToggle = () => {
     UIStore.newchatdrawer = false;
+    this.refs.groupname.getInputNode().value = "";
   };
   Next = () => {
     //error handling here
@@ -113,7 +115,8 @@ export default class NewChatDrawer extends React.Component {
 
       var str = this.refs.groupname.getValue();
       var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
-      var avatarletter = matches.join("");
+      var avatarletterlower = matches.join("");
+      var avatarletter = avatarletterlower.toUpperCase();
       console.log(avatarletter);
       console.log("mapping.length" + mapping.length);
       var data = {
@@ -156,14 +159,13 @@ export default class NewChatDrawer extends React.Component {
   };
 
   handleRequestDelete = chipMap => {
-    // alert("a");
+    var index = mapping.findIndex(function(o) {
+      return o._id === chipMap._id;
+    });
+    mapping.splice(index, 1);
+
     // UIStore.newchatdrawer = false;
   };
-
-  handleTouchTap = () => {
-    // UIStore.newchatdrawer = false;
-  };
-
   handleClose = () => this.setState({ open: false });
   // Map Friendlist
 
@@ -241,7 +243,11 @@ export default class NewChatDrawer extends React.Component {
               return (
                 <div>
                   <Chip
-                    onRequestDelete={this.handleRequestDelete(chipMap)}
+                    key={chipMap._id}
+                    onRequestDelete={this.handleRequestDelete.bind(
+                      this,
+                      chipMap
+                    )}
                     style={styles.chip}
                   >
                     <Avatar src={chipMap.picture} />
