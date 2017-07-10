@@ -23,6 +23,7 @@ import FontIcon from "material-ui/FontIcon";
 import ActionGrade from "material-ui/svg-icons/action/grade";
 import ChatStore from "app/store/ChatStore.js";
 import { observer } from "mobx-react";
+import Popup from "react-popup";
 
 const iconButtonElement = (
   <IconButton touch={true} tooltip="more" tooltipPosition="bottom-left">
@@ -35,12 +36,6 @@ const iconButtonElement = (
       <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
     </svg>{" "}
   </IconButton>
-);
-
-const rightIconMenu = (
-  <IconMenu iconButtonElement={iconButtonElement}>
-    <MenuItem>Group Info</MenuItem>
-  </IconMenu>
 );
 
 const bottomPadding = {
@@ -56,14 +51,24 @@ const styleSearch = {
 };
 @observer
 export default class Chatbar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   render() {
+    const rightIconMenu = (
+      <IconMenu iconButtonElement={iconButtonElement}>
+        <MenuItem>Group Info</MenuItem>
+      </IconMenu>
+    );
     return (
       <Toolbar>
         <ToolbarGroup firstChild={true}>
           <List>
             <ListItem
               leftAvatar={
-                <Avatar size={40}>
+                <Avatar size={40} color={darkBlack}>
                   {ChatStore.groupavatar}
                 </Avatar>
               }
@@ -114,6 +119,7 @@ export default class Chatbar extends React.Component {
     </IconButton>*/}
           <ListItem rightIconButton={rightIconMenu} />
         </ToolbarGroup>
+        <Popup />
       </Toolbar>
     );
   }

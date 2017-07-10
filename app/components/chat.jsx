@@ -163,16 +163,9 @@ export default class Chat extends React.Component {
                         <Avatar src="http://i.imgur.com/HYcn9xO.png" />
                         {/*<div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>*/}
                         <div className="msg">
-                          <p>
-                            {Users.message}
-                          </p>
-
-                          <time>
-                            {Users.time}
-                          </time>
-                          <sender>
-                            {Users.from}
-                          </sender>
+                          <p>{Users.message}</p>
+                          <time>{Users.time}</time>&emsp;
+                          <sender>{Users.from}</sender>
                         </div>
                       </li>
                     );

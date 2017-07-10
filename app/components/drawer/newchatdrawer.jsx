@@ -23,7 +23,6 @@ import TextField from "material-ui/TextField";
 
 const KEYS_TO_FILTERS = ["user_id_name", "other_id_name"];
 import FriendshipsStore from "app/store/FriendshipsStore.js";
-var Select = require("react-select");
 const tableDisplay = {
   display: "table"
 };
@@ -125,17 +124,17 @@ export default class NewChatDrawer extends React.Component {
         mapping: JSON.stringify(mapping)
       };
 
-      // $.ajax({
-      //   type: "POST",
-      //   url: "/api/createGroup",
-      //   data: data
-      // })
-      //   .done(function(data) {
-      //     alert("its all over");
-      //   })
-      //   .fail(function(jqXhr) {
-      //     // console.log("failed to register POST REQ");
-      //   });
+      $.ajax({
+        type: "POST",
+        url: "/api/createGroup",
+        data: data
+      })
+        .done(function(data) {
+          alert("its all over");
+        })
+        .fail(function(jqXhr) {
+          // console.log("failed to register POST REQ");
+        });
       this.setState({
         snackbaropen: true
       });
