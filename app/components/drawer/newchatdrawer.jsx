@@ -92,6 +92,7 @@ export default class NewChatDrawer extends React.Component {
   handleCloseToggle = () => {
     UIStore.newchatdrawer = false;
     this.refs.groupname.getInputNode().value = "";
+    mapping = [];
   };
   Next = () => {
     //error handling here

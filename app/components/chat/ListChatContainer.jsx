@@ -143,6 +143,7 @@ export default class ListChatContainer extends React.Component {
         console.log("Successfull Rooms got");
         ChatStore.notes = data[0].notes;
         console.log(data[0].notes);
+        ChatStore.participants = JSON.parse(data[0].participants);
       },
       error: function(err) {
         console.log("error in get of room" + err);

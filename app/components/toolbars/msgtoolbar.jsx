@@ -90,7 +90,6 @@ export default class Msgbar extends React.Component {
       <IconMenu iconButtonElement={iconButtonElement}>
         <MenuItem onClick={this.handleToggle}>New Group</MenuItem>
         <MenuItem onClick={this.profile}>Profile</MenuItem>
-        <MenuItem onClick={this.settings}>Settings</MenuItem>
       </IconMenu>
     );
     return (

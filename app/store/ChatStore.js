@@ -8,6 +8,7 @@ class ChatStore {
   @observable msgs = [];
   @observable chipContent = [];
   @observable notes = [];
+  @observable participants = [];
   // @observable fullscreen = !
 }
 
