@@ -7,12 +7,12 @@ var dragula = require("react-dragula");
 import Linkifier from "react-linkifier";
 import { Scrollbars } from "react-custom-scrollbars";
 import ChatStore from "app/store/ChatStore.js";
+import { observer } from "mobx-react";
+
 const wordwrap = {
   wordWrap: "breakWord",
   overflow: "hidden"
 };
-
-let variable = [];
 
 const savebtn = {
   bottom: "1px"
@@ -28,6 +28,7 @@ const style = {
   margin: 12,
   marginRight: 20
 };
+@observer
 class Note extends React.Component {
   constructor() {
     super();
@@ -127,6 +128,7 @@ class Note extends React.Component {
   }
 }
 
+@observer
 export default class Boards extends React.Component {
   constructor() {
     super();
@@ -154,7 +156,8 @@ export default class Boards extends React.Component {
   };
 
   update(newText, i) {
-    var arr = this.state.notes;
+    var arr = ChatStore.notes;
+    // var arr = this.state.notes;
     arr[i] = newText;
     this.setState({
       notes: arr,
@@ -163,14 +166,14 @@ export default class Boards extends React.Component {
   }
 
   add(text) {
-    var arr = this.state.notes;
+    var arr = ChatStore.notes;
     arr.push(text);
     this.setState({
       notes: arr
     });
   }
   remove(i) {
-    var arr = this.state.notes;
+    var arr = ChatStore.notes;
     arr.splice(i, 1);
     this.setState({
       notes: arr,
@@ -182,6 +185,7 @@ export default class Boards extends React.Component {
       notes: ChatStore.notes
     });
     console.log("heloooo");
+
     return (
       <div className="displ">
         <Note key={i} index={i} onChange={this.update} onRemove={this.remove}>
@@ -194,12 +198,28 @@ export default class Boards extends React.Component {
     var board = React.findDOMNode(this);
     dragula([board]);
   }
-  render() {
-    variable = ChatStore.notes;
 
+  render() {
+    var variable = ChatStore.notes;
+    console.log("variable");
+    console.log(variable);
     return (
-      <div className="board">
-        {this.state.notes.map(this.eachNote)}
+      <div>
+        {variable.map(Users => {
+          return (
+            <div className="displ">
+              <Note
+                key={i}
+                index={i}
+                onChange={this.update}
+                onRemove={this.remove}
+              >
+                {Users.text}
+              </Note>
+            </div>
+          );
+        })}
+
         <div className="fixedbutton">
           <FloatingActionButton
             style={style}

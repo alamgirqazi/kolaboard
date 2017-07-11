@@ -488,15 +488,15 @@ io.on("connection", function(socket) {
   });
 
   socket.on("send message", function(data) {
-    console.log("This is socket.usernmae " + socket.username);
-    console.log("This is your message to save " + data.msg);
-    console.log("This is room id in send message " + data.roomId);
+    // console.log("This is socket.usernmae " + socket.username);
+    // console.log("This is your message to save " + data.msg);
+    // console.log("This is room id in send message " + data.roomId);
 
     var d = new Date(); // for now
     d.getHours(); // => 9
     d.getMinutes(); // =>  30
     d.getSeconds(); // => 51
-    console.log(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
+    //console.log(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
     time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
     var today = new Date();
     var dd = today.getDate();
@@ -536,11 +536,29 @@ io.on("connection", function(socket) {
         }
       }
     );
+
     socket.emit("new message", {
       username: socket.username,
       msg: data,
       pic: socket.picture
     });
+  });
+  socket.on("favourite msg", function(data) {
+    console.log("favourite msg");
+    console.log(data);
+    rooms.findOneAndUpdate(
+      { _id: data },
+      { $set: { "conversation.$.favourite": true } },
+      { upsert: true },
+      function(err, doc) {
+        if (err) {
+          console.log(doc);
+          console.log("Something wrong when updating data!");
+        }
+        // doc.update({});
+        console.log(doc);
+      }
+    );
   });
   socket.on("add user", function(data) {
     console.log("This is data for add user " + data);
@@ -563,6 +581,21 @@ io.on("connection", function(socket) {
         // );
         // console.log('This is for space');
         socket.emit("msgs", { msg: rooms[0].conversation });
+        // res.send(rooms);
+      }
+    });
+  });
+  socket.on("note map", function(data) {
+    // console.log("THis is data coming from roomId " + data);
+    rooms.find({ _id: data }, function(err, rooms) {
+      if (err) {
+        console.log("There is an error");
+      } else {
+        console.log("These are rooms from database " + rooms);
+        console.log("This is for space");
+        console.log("These are rooms.notes from database " + rooms[0].notes);
+        // console.log('This is for space');
+        socket.emit("dbnotes", { dbnotes: rooms[0].notes });
         // res.send(rooms);
       }
     });

@@ -118,6 +118,7 @@ export default class ListChatContainer extends React.Component {
     var location = "/api/rooms/" + roomId;
 
     socket.emit("noteSocket", roomId);
+    socket.emit("note map", roomId);
     $.ajax({
       url: location,
       type: "GET",
@@ -127,8 +128,9 @@ export default class ListChatContainer extends React.Component {
       dataType: "json",
       success: function(data) {
         console.log("Successfull Rooms got");
-        ChatStore.notes = data[0].notes;
-        console.log(data[0].notes);
+        // ChatStore.notes = data[0].notes;
+
+        //  console.log(data[0].notes);
         ChatStore.participants = JSON.parse(data[0].participants);
       },
       error: function(err) {
@@ -145,6 +147,11 @@ export default class ListChatContainer extends React.Component {
       console.log("This is data in get msgs " + data.msg);
       ChatStore.msgs = data.msg;
       console.log("This is data in chatStore " + ChatStore.msgs);
+    });
+    socket.on("dbnotes", function(data) {
+      console.log("data.dbnotes");
+      console.log(data.dbnotes);
+      ChatStore.notes = data.dbnotes;
     });
   }
 

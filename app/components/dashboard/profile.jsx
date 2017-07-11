@@ -131,14 +131,6 @@ export default class Profile extends React.Component {
       });
     console.log(this.state.snackbardeleteopen);
     this.setState({ snackbardeleteopen: true });
-
-    // this.setState({ open: false });
-    // if (UserStore.obj.desc == this.refs.txtDesc.getValue()) {
-    // } else {
-    //   UserStore.obj.desc = this.refs.txtDesc.getValue();
-    //   this.setState({
-    //     snackbaropen: true
-    //   });
   };
 
   handleToggle = () => {

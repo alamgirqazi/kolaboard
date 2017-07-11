@@ -14,6 +14,9 @@ import IconButton from "material-ui/IconButton";
 import UserStore from "app/store/UserStore.js";
 import Store from "app/store/UIstore.js";
 import { map } from "mobx";
+import ActionGrade from "material-ui/svg-icons/action/grade";
+import SvgIcon from "material-ui/SvgIcon";
+import { blue500, red500, grey300 } from "material-ui/styles/colors";
 
 var socket;
 var today;
@@ -28,7 +31,16 @@ const chatinputbox = {
   height: "3.5rem",
   margin: "0 0 0rem"
 };
-
+const starstyle = {
+  float: "right",
+  height: "20px",
+  width: "20px",
+  color: "#ccc",
+  padding: "0px"
+};
+const starcolor = {
+  color: "#ccc"
+};
 const inputBoxStyle = {
   width: "100%"
 };
@@ -51,14 +63,32 @@ export default class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.sendMsg = this.sendMsg.bind(this);
-    //  this.getMsgs = this.getMsgs.bind(this);
     socket = io.connect();
-    // socket = io.connect('http://localhost:3000');
     this.state = {};
   }
   componentWillMount() {
     // console.log('This is your name '+ UserStore.userrealname)
   }
+
+  handleStar = Users => {
+    //    console.log(Users.favourite.toString());
+    var data = {
+      _id: Users._id
+    };
+
+    socket.emit("favourite msg", data);
+    // $.ajax({
+    //   type: "POST",
+    //   url: "/api/favouritemsg",
+    //   data: data
+    // })
+    //   .done(function(data) {
+    //     alert("its all over");
+    //   })
+    //   .fail(function(jqXhr) {
+    //     // console.log("failed to register POST REQ");
+    //   });
+  };
   sendMsg() {
     var roomId = ChatStore.groupId;
     socket.emit("add user", UserStore);
@@ -108,6 +138,10 @@ export default class Chat extends React.Component {
       top: "0px",
       position: "fixed"
     };
+    const HomeIcon = props =>
+      <SvgIcon {...props}>
+        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+      </SvgIcon>;
 
     return (
       <div className="" style={heightchat}>
@@ -127,12 +161,16 @@ export default class Chat extends React.Component {
                     return (
                       <li className="self">
                         <div className="msg">
-                          <p>
-                            {Users.message}
-                          </p>
-                          <time>
-                            {Users.time}
-                          </time>
+                          <p>{Users.message}</p>
+                          <IconButton
+                            onTouchTap={this.handleStar.bind(this, Users)}
+                            style={starstyle}
+                            tooltip="bottom-right"
+                            tooltipPosition="bottom-right"
+                          >
+                            <HomeIcon color={grey300} />
+                          </IconButton>
+                          <time>{Users.time}</time>&emsp;
                         </div>
                       </li>
                     );
@@ -142,9 +180,22 @@ export default class Chat extends React.Component {
                         <Avatar src={Users.picture} />
                         {/*<div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>*/}
                         <div className="msg">
-                          <p>{Users.message}</p>
-                          <time>{Users.time}</time>&emsp;
-                          <sender>{Users.from}</sender>
+                          <p>
+                            {Users.message}
+                          </p>
+                          <IconButton
+                            onTouchTap={this.handleStar.bind(this, Users)}
+                            style={starstyle}
+                            tooltip="bottom-right"
+                            tooltipPosition="bottom-right"
+                          >
+                            <HomeIcon color={grey300} />
+                          </IconButton>
+
+                          <div style={{ display: "inline" }}>
+                            <time>{Users.time}</time>&emsp;
+                            <sender>{Users.from}</sender>&emsp;{" "}
+                          </div>
                         </div>
                       </li>
                     );
