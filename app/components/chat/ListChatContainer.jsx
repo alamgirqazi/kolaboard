@@ -78,20 +78,6 @@ function wrapState(ComposedComponent) {
 
 SelectableList = wrapState(SelectableList);
 
-const iconButtonElement = (
-  <IconButton touch={true} tooltip="more" tooltipPosition="bottom-left">
-    <MoreVertIcon color={grey400} />
-  </IconButton>
-);
-
-const rightIconMenu = (
-  <IconMenu iconButtonElement={iconButtonElement}>
-    <MenuItem>Reply</MenuItem>
-    <MenuItem>Delete</MenuItem>
-    <MenuItem>Details</MenuItem>
-  </IconMenu>
-);
-
 const style = {
   height: "100%"
 };
@@ -163,6 +149,19 @@ export default class ListChatContainer extends React.Component {
   }
 
   render() {
+    const iconButtonElement = (
+      <IconButton touch={true} tooltip="more" tooltipPosition="bottom-left">
+        <MoreVertIcon color={grey400} />
+      </IconButton>
+    );
+
+    const rightIconMenu = (
+      <IconMenu iconButtonElement={iconButtonElement}>
+        <MenuItem>Details</MenuItem>
+        <MenuItem>Leave Group</MenuItem>
+      </IconMenu>
+    );
+
     const liststatus = UserStore.listy;
     if (UserStore.obj.rooms == null || UserStore.obj.rooms == undefined)
       rooms = [];

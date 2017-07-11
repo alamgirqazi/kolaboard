@@ -524,7 +524,8 @@ io.on("connection", function(socket) {
             message: data.msg,
             favourite: false,
             date: date,
-            time: time
+            time: time,
+            picture: data.picture
           }
         }
       },

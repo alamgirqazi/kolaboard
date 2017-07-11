@@ -66,7 +66,8 @@ export default class Chat extends React.Component {
     console.log("This is the text " + this.refs.newText.value);
     socket.emit("send message", {
       msg: this.refs.newText.value,
-      roomId: roomId
+      roomId: roomId,
+      picture: UserStore.obj.picture
     });
     console.log("This is roomId " + roomId);
     socket.emit("sending", roomId);
@@ -83,28 +84,6 @@ export default class Chat extends React.Component {
           "and this is picture " +
           data.pic
       );
-      // var list = document.getElementById("msgList");
-      // console.log("THis is my socket.id " + socket.id);
-      // // if(data.id == socket.io){
-      // var d = new Date();
-      // $("#msgList").append(
-      //   '<li class="other"><div class="avatar"><img src=' +
-      //     data.pic +
-      //     ' draggable="false"/></div><div class="msg"><p>' +
-      //     data.msg +
-      //     "</p><time>" +
-      //     d.getHours() +
-      //     ":" +
-      //     d.getMinutes() +
-      //     "</time><sender>" +
-      //     data.username +
-      //     "</sender></div></li>"
-      // );
-      // }
-      // else {
-      //   $("#msgList").append('<li class="self"><div class="msg"><p> '+data.msg+' </p><time>20:18</time></div></li>');
-      // }
-      // list.append('<div class="well"><strong>'+data.username+'</strong>:'+data.msg+'</div>')
     });
     socket.on("returnmsgs", function(data) {
       console.log("This is data in get msgs " + data.msg);
@@ -160,7 +139,7 @@ export default class Chat extends React.Component {
                   } else {
                     return (
                       <li className="other">
-                        <Avatar src="http://i.imgur.com/HYcn9xO.png" />
+                        <Avatar src={Users.picture} />
                         {/*<div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>*/}
                         <div className="msg">
                           <p>{Users.message}</p>
