@@ -189,19 +189,3 @@ export default class Chat extends React.Component {
     );
   }
 }
-// <li className="self">
-//     {/*<div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>*/}
-//   <div className="msg">
-//     <p>But first he stabs Dolores.</p>
-
-//     <time>20:18</time>
-//   </div>
-// // </li>
-//   <div className="avatar">
-//                           <div className="avatar">
-//                             <img
-//                               src="http://i.imgur.com/HYcn9xO.png"
-//                               draggable="false"
-//                             />
-//                           </div>
-//                         </div>
