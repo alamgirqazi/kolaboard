@@ -8,6 +8,7 @@ import Linkifier from "react-linkifier";
 import { Scrollbars } from "react-custom-scrollbars";
 import ChatStore from "app/store/ChatStore.js";
 import { observer } from "mobx-react";
+import UserStore from "app/store/UserStore.js";
 
 const wordwrap = {
   wordWrap: "breakWord",
@@ -23,7 +24,7 @@ const pinstyle = {
   margin: "0 auto",
   display: "block"
 };
-
+var socket;
 const style = {
   margin: 12,
   marginRight: 20
@@ -81,8 +82,12 @@ class Note extends React.Component {
               />}
           >
             {" "}<p>
+              <h6>
+                {" "}{this.props.children.from}
+              </h6>
+
               <Linkifier>
-                {this.props.children}
+                {this.props.children.text}
               </Linkifier>
             </p>
           </Scrollbars>
@@ -104,6 +109,7 @@ class Note extends React.Component {
   renderForm() {
     return (
       <div className="note" style={wordwrap}>
+        {Users.from}
         <textarea
           ref="newText"
           maxLength="250"
@@ -132,6 +138,8 @@ class Note extends React.Component {
 export default class Boards extends React.Component {
   constructor() {
     super();
+    socket = io.connect();
+
     this.state = {
       notes: [{ text: "yo" }],
       open: false
@@ -166,11 +174,47 @@ export default class Boards extends React.Component {
   }
 
   add(text) {
+    var d = new Date(); // for now
+    d.getHours(); // => 9
+    d.getMinutes(); // =>  30
+    d.getSeconds(); // => 51
+    //console.log(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
+    var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+
+    var date = mm + "/" + dd + "/" + yyyy;
+
     var arr = ChatStore.notes;
-    arr.push(text);
-    this.setState({
-      notes: arr
+    var data = {
+      roomId: ChatStore.groupId,
+      from: UserStore.userrealname,
+      date: today,
+      time: time,
+      text: text
+    };
+    arr.push(data);
+    socket.emit("addnote", {
+      roomId: ChatStore.groupId,
+      from: UserStore.userrealname,
+      date: today,
+      time: time,
+      text: text
     });
+
+    // this.setState({
+    //   notes: arr
+    // });
   }
   remove(i) {
     var arr = ChatStore.notes;
@@ -214,7 +258,7 @@ export default class Boards extends React.Component {
                 onChange={this.update}
                 onRemove={this.remove}
               >
-                {Users.text}
+                {Users}
               </Note>
             </div>
           );

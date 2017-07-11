@@ -560,6 +560,29 @@ io.on("connection", function(socket) {
       }
     );
   });
+  socket.on("addnote", function(data) {
+    console.log("add notes");
+    console.log(data);
+    rooms.update(
+      { _id: data.roomId },
+      {
+        $push: {
+          notes: {
+            from: data.from,
+            text: data.text,
+            date: data.date,
+            time: data.time
+          }
+        }
+      },
+      function(err) {
+        if (err) console.log("This is errro " + err);
+        else {
+          console.log("Successful...!");
+        }
+      }
+    );
+  });
   socket.on("add user", function(data) {
     console.log("This is data for add user " + data);
     socket.username = data.userrealname;
