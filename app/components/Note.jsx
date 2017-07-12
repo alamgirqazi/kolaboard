@@ -82,14 +82,11 @@ class Note extends React.Component {
               />}
           >
             {" "}<p>
-              <h6>
-                {" "}{this.props.children.from}
-              </h6>
-
               <Linkifier>
                 {this.props.children.text}
               </Linkifier>
             </p>
+            <h6> {this.props.children.from}</h6>
           </Scrollbars>
 
           <span>
@@ -245,8 +242,8 @@ export default class Boards extends React.Component {
 
   render() {
     var variable = ChatStore.notes;
-    console.log("variable");
-    console.log(variable);
+    // console.log("variable");
+    // console.log(variable);
     return (
       <div>
         {variable.map(Users => {

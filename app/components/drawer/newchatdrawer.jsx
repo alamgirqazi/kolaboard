@@ -49,10 +49,6 @@ const style = {
   margin: 12
 };
 
-var options = [
-  { value: "one", label: "One" },
-  { value: "two", label: "Two", clearableValue: false }
-];
 @observer
 export default class NewChatDrawer extends React.Component {
   constructor(props) {
@@ -97,8 +93,8 @@ export default class NewChatDrawer extends React.Component {
   Next = () => {
     //error handling here
     if (this.refs.groupname.getInputNode().value == "" || mapping.length == 0) {
-      console.log("mapping at imp time");
-      console.log(mapping.length);
+      // console.log("mapping at imp time");
+      // console.log(mapping.length);
       {
         if (mapping.length == 0) this.showSecondAlert();
         else this.showAlert();
@@ -110,15 +106,15 @@ export default class NewChatDrawer extends React.Component {
         user_id: UserStore.obj.user_id
       };
       mapping.push(myinfo);
-      console.log("myinfo");
-      console.log(myinfo);
+      // console.log("myinfo");
+      // console.log(myinfo);
 
       var str = this.refs.groupname.getValue();
       var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
       var avatarletterlower = matches.join("");
       var avatarletter = avatarletterlower.toUpperCase();
-      console.log(avatarletter);
-      console.log("mapping.length" + mapping.length);
+      // console.log(avatarletter);
+      // console.log("mapping.length" + mapping.length);
       var data = {
         groupname: this.refs.groupname.getValue(),
         avatarletter: avatarletter,
@@ -205,7 +201,7 @@ export default class NewChatDrawer extends React.Component {
       picture: Friendlist.userpicture,
       user_id: Friendlist.userid
     };
-    console.log(chip);
+    // console.log(chip);
     ChatStore.chipContent.push(chip);
 
     // mapping = ChatStore.chipContent;
@@ -214,7 +210,7 @@ export default class NewChatDrawer extends React.Component {
     this.setState({ searchTerm: term });
   }
   logChange(val) {
-    console.log("Selected: " + JSON.stringify(val));
+    //  console.log("Selected: " + JSON.stringify(val));
   }
 
   render() {

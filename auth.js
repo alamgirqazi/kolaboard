@@ -81,7 +81,6 @@ export function redirectVerify(nextState, replace) {
 
       if (emailverified) {
         browserHistory.push("/app");
-        console.log("if");
       }
     });
   });
@@ -95,13 +94,11 @@ export function requireAuth(nextState, replace) {
 export function redirect(nextState, replace) {
   var email = localStorage.getItem("ev");
   if (isLoggedIn() && email) {
-    console.log("redirecting if");
     replace({ pathname: "/app" });
   }
 }
 export function requireVerification(nextState, replace) {
   emailverified = localStorage.getItem("ev");
-  console.log("this shouldnt be undefined " + emailverified);
 
   if (!emailverified && isLoggedIn()) {
   } else if (emailverified == "true" && isLoggedIn()) {

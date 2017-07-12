@@ -544,25 +544,25 @@ io.on("connection", function(socket) {
     });
   });
   socket.on("favourite msg", function(data) {
-    console.log("favourite msg");
-    console.log(data);
+    // console.log("favourite msg");
+    // console.log(data);
     rooms.findOneAndUpdate(
       { _id: data },
       { $set: { "conversation.$.favourite": true } },
       { upsert: true },
       function(err, doc) {
         if (err) {
-          console.log(doc);
-          console.log("Something wrong when updating data!");
+          //  console.log(doc);
+          //    console.log("Something wrong when updating data!");
         }
         // doc.update({});
-        console.log(doc);
+        // console.log(doc);
       }
     );
   });
   socket.on("addnote", function(data) {
-    console.log("add notes");
-    console.log(data);
+    // console.log("add notes");
+    // console.log(data);
     rooms.update(
       { _id: data.roomId },
       {
@@ -587,7 +587,7 @@ io.on("connection", function(socket) {
     console.log("This is data for add user " + data);
     socket.username = data.userrealname;
     socket.picture = data.obj.picture;
-    console.log("This is picture " + socket.picture);
+    //console.log("This is picture " + socket.picture);
     // users.push(socket.username);
     users.push({ id: socket.id, username: data, pic: data.picture });
   });
@@ -597,8 +597,8 @@ io.on("connection", function(socket) {
       if (err) {
         console.log("There is an error");
       } else {
-        console.log("These are rooms from database " + rooms);
-        console.log("This is for space");
+        // console.log("These are rooms from database " + rooms);
+        // console.log("This is for space");
         // console.log(
         //   "These are rooms.conversation from database " + rooms[0].conversation
         // );
@@ -614,9 +614,9 @@ io.on("connection", function(socket) {
       if (err) {
         console.log("There is an error");
       } else {
-        console.log("These are rooms from database " + rooms);
-        console.log("This is for space");
-        console.log("These are rooms.notes from database " + rooms[0].notes);
+        // console.log("These are rooms from database " + rooms);
+        // console.log("This is for space");
+        // console.log("These are rooms.notes from database " + rooms[0].notes);
         // console.log('This is for space');
         socket.emit("dbnotes", { dbnotes: rooms[0].notes });
         // res.send(rooms);
@@ -630,10 +630,10 @@ io.on("connection", function(socket) {
       if (err) {
         console.log("There is an error");
       } else {
-        console.log("server.jssocket Sending");
-        console.log("These are rooms frm database " + rooms);
-        console.log("This is for space");
-        console.log("These are rooms.conversation from database " + rooms[0]);
+        // console.log("server.jssocket Sending");
+        // console.log("These are rooms frm database " + rooms);
+        // console.log("This is for space");
+        // console.log("These are rooms.conversation from database " + rooms[0]);
         // console.log('This is for space');
         socket.emit("returnmsgs", { msg: rooms[0].conversation });
         // res.send(rooms);

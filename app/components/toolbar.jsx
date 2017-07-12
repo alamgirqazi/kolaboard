@@ -76,23 +76,17 @@ const userRealName = {
 const paddingIcon = {
   paddingBottom: "48px"
 };
-const iconButtonElement = (
-  <IconButton
-    style={paddingIcon}
-    touch={true}
-    tooltip="more"
-    tooltipPosition="bottom-left"
-  >
-    <MoreVertIcon color={darkBlack} />
-  </IconButton>
-);
-const rightIconMenu = (
-  <IconMenu style={paddingIcon} iconButtonElement={iconButtonElement}>
-    <MenuItem>Reply</MenuItem>
-    <MenuItem>Forward</MenuItem>
-    <MenuItem>Delete</MenuItem>
-  </IconMenu>
-);
+// const iconButtonElement = (
+//   <IconButton
+//     style={paddingIcon}
+//     touch={true}
+//     tooltip="more"
+//     tooltipPosition="bottom-left"
+//   >
+//     <MoreVertIcon color={darkBlack} />
+//   </IconButton>
+// );
+
 const menuStyle = {
   height: "20px",
   width: "20px"
@@ -215,7 +209,7 @@ export default class ToolbarExamplesSimple extends React.Component {
     } else {
     }
     user_id = localStorage.getItem("userid");
-    console.log("userid " + user_id);
+    //console.log("userid " + user_id);
 
     var location = "api/user/" + user_id;
 
@@ -469,7 +463,6 @@ export default class ToolbarExamplesSimple extends React.Component {
                 <NavigationClose />
               </IconButton>
             }
-            iconElementLeft={""}
           />
           <div style={materialbackground}>
             <br />

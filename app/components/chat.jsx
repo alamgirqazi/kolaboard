@@ -77,58 +77,53 @@ export default class Chat extends React.Component {
     };
 
     socket.emit("favourite msg", data);
-    // $.ajax({
-    //   type: "POST",
-    //   url: "/api/favouritemsg",
-    //   data: data
-    // })
-    //   .done(function(data) {
-    //     alert("its all over");
-    //   })
-    //   .fail(function(jqXhr) {
-    //     // console.log("failed to register POST REQ");
-    //   });
   };
   sendMsg() {
     var roomId = ChatStore.groupId;
     socket.emit("add user", UserStore);
-    console.log("Send button is pressed");
-    console.log("This is the text " + this.refs.newText.value);
+    // console.log("Send button is pressed");
+    // console.log("This is the text " + this.refs.newText.value);
     socket.emit("send message", {
       msg: this.refs.newText.value,
       roomId: roomId,
       picture: UserStore.obj.picture
     });
-    console.log("This is roomId " + roomId);
+    //console.log("This is roomId " + roomId);
     socket.emit("sending", roomId);
     this.refs.newText.value = "";
 
     socket.on("new message", function(data) {
       var d = new Date();
       var n = d.getTime();
-      console.log(
-        "This is the username of " +
-          data.username +
-          "and this is message " +
-          data.msg +
-          "and this is picture " +
-          data.pic
-      );
+      // console.log(
+      //   "This is the username of " +
+      //     data.username +
+      //     "and this is message " +
+      //     data.msg +
+      //     "and this is picture " +
+      //     data.pic
+      // );
     });
+
+    // socket.emit("roomId", roomId);
+    // socket.on("roomId", function(data) {
+    //   ChatStore.msgs = data.msgs;
+    // });
+
     socket.on("returnmsgs", function(data) {
-      console.log("This is data in get msgs " + data.msg);
+      //  console.log("This is data in get msgs " + data.msg);
       ChatStore.msgs = data.msg;
-      console.log(data.msg);
-      console.log("This is data in chatStore " + ChatStore.msgs);
+      // console.log(data.msg);
+      //      console.log("This is data in chatStore " + ChatStore.msgs);
     });
   }
 
   render() {
-    console.log("This is data in store chat " + ChatStore.msgs);
+    //  console.log("This is data in store chat " + ChatStore.msgs);
     var users = ChatStore.msgs;
     const liststatus = UserStore.listy;
     // const numbers = [1, 2, 3, 4, 5];
-    console.log("THis is users  " + users);
+    // console.log("THis is users  " + users);
     const myScrollbar = {
       width: 400,
       height: 400
@@ -165,8 +160,6 @@ export default class Chat extends React.Component {
                           <IconButton
                             onTouchTap={this.handleStar.bind(this, Users)}
                             style={starstyle}
-                            tooltip="bottom-right"
-                            tooltipPosition="bottom-right"
                           >
                             <HomeIcon color={grey300} />
                           </IconButton>
@@ -186,8 +179,6 @@ export default class Chat extends React.Component {
                           <IconButton
                             onTouchTap={this.handleStar.bind(this, Users)}
                             style={starstyle}
-                            tooltip="bottom-right"
-                            tooltipPosition="bottom-right"
                           >
                             <HomeIcon color={grey300} />
                           </IconButton>
@@ -220,7 +211,7 @@ export default class Chat extends React.Component {
             />
             <IconButton
               tooltip="Send"
-              tooltipPosition="top-centre"
+              tooltipPosition="top-center"
               onClick={this.sendMsg}
             >
               <svg

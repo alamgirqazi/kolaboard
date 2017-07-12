@@ -97,6 +97,7 @@ export default class Chatbar extends React.Component {
               <div>
                 <div className="" key={Users.user_id}>
                   <ListItem
+                    key={Users.user_id}
                     leftAvatar={
                       <Avatar size={40} src={Users.picture}>
                         {Users.pic}

@@ -23,7 +23,6 @@ import IconButton from "material-ui/IconButton";
 import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert";
 import IconMenu from "material-ui/IconMenu";
 import MenuItem from "material-ui/MenuItem";
-var Infinite = require("react-infinite");
 import { Scrollbars } from "react-custom-scrollbars";
 import Msgbar from "app/components/toolbars/msgtoolbar.jsx";
 import Toolbar from "app/components/toolbar.jsx";
@@ -38,7 +37,6 @@ import getMuiTheme from "material-ui/styles/getMuiTheme";
 import { cyan500, grey50, grey900 } from "material-ui/styles/colors";
 import { greenA400 } from "material-ui/styles/colors";
 import UserStore from "app/store/UserStore.js";
-import axios from "axios";
 import ChatStore from "app/store/ChatStore.js";
 
 let rooms = [];
@@ -60,7 +58,7 @@ function wrapState(ComposedComponent) {
       this.setState({
         selectedIndex: index
       });
-      console.log("list clickedeed");
+      // console.log("list clickedeed");
     };
 
     render() {
@@ -98,26 +96,26 @@ export default class ListChatContainer extends React.Component {
   }
 
   _handleClick(Users) {
-    console.log(Users._id + "_id");
+    //console.log(Users._id + "_id");
     // console.log(Users.roomId + "_id");
     ChatStore.btnClick = true;
 
-    console.log("listttt");
+    // console.log("listttt");
     // alert('ok')
     // console.log(Users.picture)
     // ChatStore.groupavatar = Users.picture;
     ChatStore.groupId = Users.roomId;
     ChatStore.groupname = Users.roomName;
     ChatStore.groupavatar = Users.pic;
-    console.log("This is name " + ChatStore.groupname);
-    console.log("This is id " + ChatStore.groupId);
+    // console.log("This is name " + ChatStore.groupname);
+    //console.log("This is id " + ChatStore.groupId);
     var roomId = ChatStore.groupId;
-    console.log("THis is roomID in chat store " + roomId);
-    console.log("room " + roomId);
+    // console.log("THis is roomID in chat store " + roomId);
+    // console.log("room " + roomId);
     socket.emit("roomId", roomId);
     var location = "/api/rooms/" + roomId;
 
-    socket.emit("noteSocket", roomId);
+    // socket.emit("noteSocket", roomId);
     socket.emit("note map", roomId);
     $.ajax({
       url: location,
@@ -127,7 +125,7 @@ export default class ListChatContainer extends React.Component {
       },
       dataType: "json",
       success: function(data) {
-        console.log("Successfull Rooms got");
+        //console.log("Successfull Rooms got");
         // ChatStore.notes = data[0].notes;
 
         //  console.log(data[0].notes);
@@ -139,18 +137,18 @@ export default class ListChatContainer extends React.Component {
     });
   }
   componentDidMount() {
-    console.log("UserStore");
-    console.log(UserStore);
+    // console.log("UserStore");
+    // console.log(UserStore);
 
-    console.log("inside chatstore if");
+    //    console.log("inside chatstore if");
     socket.on("msgs", function(data) {
-      console.log("This is data in get msgs " + data.msg);
+      //  console.log("This is data in get msgs " + data.msg);
       ChatStore.msgs = data.msg;
-      console.log("This is data in chatStore " + ChatStore.msgs);
+      //  console.log("This is data in chatStore " + ChatStore.msgs);
     });
     socket.on("dbnotes", function(data) {
-      console.log("data.dbnotes");
-      console.log(data.dbnotes);
+      // console.log("data.dbnotes");
+      // console.log(data.dbnotes);
       ChatStore.notes = data.dbnotes;
     });
   }
@@ -174,9 +172,7 @@ export default class ListChatContainer extends React.Component {
       rooms = [];
     else rooms = UserStore.obj.rooms;
 
-    // console.log(UserStore.obj.rooms);
-    // console.log("rooms");
-    console.log(rooms);
+    //  console.log(rooms);
     return (
       <div>
         <div className="margin" style={style}>
@@ -197,6 +193,7 @@ export default class ListChatContainer extends React.Component {
                     <SelectableList defaultValue={3}>
                       <div className="" key={Users}>
                         <ListItem
+                          key={Users._id}
                           onTouchTap={() => this._handleClick(Users)}
                           value={4}
                           leftAvatar={
@@ -238,31 +235,3 @@ export default class ListChatContainer extends React.Component {
     );
   }
 }
-
-//  {liststatus
-//                 ? <div>
-//                     {rooms.map(Users => {
-//                       return (
-//                         <SelectableList defaultValue={3}>
-//                           <div className="" key={Users}>
-//                             <ListItem
-//                               onTouchTap={() => this._handleClick(Users)}
-//                               value={4}
-//                               leftAvatar={
-//                                 <Avatar size={40} src={Users.pic}>
-//                                   <Badge badgeContent={4} primary={true} />
-//                                 </Avatar>
-//                               }
-//                               rightIconButton={rightIconMenu}
-//                               primaryText={Users.roomName}
-//                               secondaryText={<p>This is some random text</p>}
-//                               secondaryTextLines={2}
-//                             />
-//                           </div>
-
-//                           <Divider inset={true} />
-//                         </SelectableList>
-//                       );
-//                     })}
-//                   </div>
-//                 : <div />}                              <Badge badgeContent={4} primary={true} />

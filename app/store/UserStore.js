@@ -20,4 +20,4 @@ var userstore = (window.userstore = new UserStore());
 
 export default userstore;
 
-autorun(() => console.log(userstore.obj));
+// autorun(() => console.log(userstore.obj));
