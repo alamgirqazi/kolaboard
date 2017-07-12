@@ -265,7 +265,7 @@ export default class ToolbarExamplesSimple extends React.Component {
       data: newprofile
     })
       .done(function(data) {
-        console.log("done" + profile);
+        //console.log("done" + profile);
       })
       .fail(function(jqXhr) {
         console.log("failed to register");
@@ -281,7 +281,7 @@ export default class ToolbarExamplesSimple extends React.Component {
         FriendshipsStore.friendlistcount = friendlistcount;
       })
       .fail(function(jqXhr) {
-        console.log("friendlist mai msla");
+        //   console.log("friendlist mai msla");
       });
 
     $.ajax({
@@ -289,7 +289,7 @@ export default class ToolbarExamplesSimple extends React.Component {
       url: "/api/getEvents"
     })
       .done(function(data) {
-        console.log(data);
+        //   console.log(data);
         EventStore.event = data;
         // users.splice(_.indexOf(users, _.findWhere(users, { uId : 117175967810648931400})), 1);
       })

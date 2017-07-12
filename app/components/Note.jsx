@@ -50,7 +50,7 @@ class Note extends React.Component {
   }
   save() {
     // this.props.onChange(this.refs.newText.getDOMNode().value, this.props.index);
-    this.props.onChange(this.refs.newText.value, this.props.index);
+    //  this.props.onChange(this.refs.newText.value, this.props.index);
     this.setState({
       editing: false,
       open: false
@@ -106,11 +106,10 @@ class Note extends React.Component {
   renderForm() {
     return (
       <div className="note" style={wordwrap}>
-        {Users.from}
         <textarea
           ref="newText"
           maxLength="250"
-          defaultValue={this.props.children}
+          defaultValue={this.props.children.text}
           className="form-control"
         />
 
@@ -163,7 +162,8 @@ export default class Boards extends React.Component {
   update(newText, i) {
     var arr = ChatStore.notes;
     // var arr = this.state.notes;
-    arr[i] = newText;
+    arr[i].text = newText;
+    ChatStore.notes[i].text = newText;
     this.setState({
       notes: arr,
       open: false
