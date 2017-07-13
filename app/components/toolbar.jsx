@@ -417,7 +417,13 @@ export default class ToolbarExamplesSimple extends React.Component {
             </IconButton>
           </ToolbarGroup>
           <ToolbarGroup>
-            <img src="Klogo.png" />
+            <img
+              src="Klogo.png"
+              style={{
+                height: "40px",
+                width: "160px"
+              }}
+            />
           </ToolbarGroup>
           <ToolbarGroup>
             <ToolbarGroup firstChild={true}>

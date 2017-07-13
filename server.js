@@ -587,39 +587,39 @@ io.on("connection", function(socket) {
     // console.log("add notes");
     console.log(data);
 
-    rooms.find({ _id: data.roomId, "conversation._id": data._id }, function(
-      err,
-      doc
-    ) {
-      if (err) {
-        //  console.log(doc);
-        //    console.log("Something wrong when updating data!");
-        console.log("cant");
-      }
-
-      // doc.update({});
-      console.log("doc");
-      console.log(doc);
-    });
-    // rooms.update(
-    //   { _id: data.roomId },
-    //   {
-    //     $push: {
-    //       notes: {
-    //         from: data.from,
-    //         text: data.text,
-    //         date: data.date,
-    //         time: data.time
-    //       }
-    //     }
-    //   },
-    //   function(err) {
-    //     if (err) console.log("This is errro " + err);
-    //     else {
-    //       console.log("Successful...!");
-    //     }
+    rooms
+      .findOneAndUpdate(
+        {
+          _id: data.roomId,
+          "notes._id": data._id
+        },
+        {
+          $set: {
+            "notes.$.text": data.newnote
+          }
+        }
+      )
+      .then(() => {
+        console.log("Success! new note saved");
+        // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+      })
+      .catch(err => {
+        console.log("err", err.stack);
+      });
+    // rooms.find({ _id: data.roomId, "conversation._id": data._id }, function(
+    //   err,
+    //   doc
+    // ) {
+    //   if (err) {
+    //     //  console.log(doc);
+    //     //    console.log("Something wrong when updating data!");
+    //     console.log("cant");
     //   }
-    // );
+
+    //   // doc.update({});
+    //   console.log("doc");
+    //   console.log(doc);
+    // });
   });
   socket.on("add user", function(data) {
     //console.log("This is data for add user " + data);

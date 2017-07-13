@@ -77,7 +77,7 @@ class Note extends React.Component {
       roomId: ChatStore.groupId
     };
     socket.emit("individualnote edit", data);
-
+    this.props.children.text = data.newnote;
     this.setState({
       editing: false,
       open: false

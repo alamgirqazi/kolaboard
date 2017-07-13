@@ -66,7 +66,7 @@ export default class Chat extends React.Component {
     socket = io.connect();
     this.state = {};
   }
-  componentWillMount() {
+  componentWillUpdate() {
     // console.log('This is your name '+ UserStore.userrealname)
   }
 
