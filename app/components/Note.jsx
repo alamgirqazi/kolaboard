@@ -9,6 +9,9 @@ import { Scrollbars } from "react-custom-scrollbars";
 import ChatStore from "app/store/ChatStore.js";
 import { observer } from "mobx-react";
 import UserStore from "app/store/UserStore.js";
+import ContentMore from "material-ui/svg-icons/navigation/expand-more";
+import ActionDelete from "material-ui/svg-icons/action/delete";
+import IconButton from "material-ui/IconButton";
 
 const wordwrap = {
   wordWrap: "breakWord",
@@ -21,8 +24,8 @@ const savebtn = {
 const pinstyle = {
   width: "22px",
   height: "22px",
-  margin: "0 auto",
-  display: "block"
+  margin: "0 50px",
+  display: "inline-block"
 };
 var socket;
 const style = {
@@ -62,9 +65,31 @@ class Note extends React.Component {
   renderDisplay() {
     return (
       <div className="">
-        <div className="note">
-          <div className="">
-            {" "}<img src="assets/images/pin-icon.png" style={pinstyle} />
+        <div
+          className="note"
+          style={{ backgroundColor: this.props.children.color }}
+        >
+          <div className="" style={{ display: "inline" }}>
+            {" "}<img
+              style={{ display: "inline-block", margin: "0 30px" }}
+              src="assets/images/pin-icon.png"
+              style={pinstyle}
+            />
+            <IconButton
+              style={{
+                display: "inline",
+                float: "right",
+                width: "22px",
+                height: "22px",
+                padding: "0px"
+              }}
+              tooltip="more"
+              touch={true}
+              onTouchTap={this.remove}
+              tooltipPosition="bottom-center"
+            >
+              <ContentMore />
+            </IconButton>
           </div>
           <Scrollbars
             autoHeightMax={20}
@@ -81,23 +106,42 @@ class Note extends React.Component {
                 style={{ display: "none" }}
               />}
           >
-            {" "}<p>
+            <p style={{ backgroundColor: this.props.children.color }}>
               <Linkifier>
                 {this.props.children.text}
               </Linkifier>
             </p>
-            <h6> {this.props.children.from}</h6>
+            <h6>
+              {" "}{this.props.children.firstname}
+            </h6>
           </Scrollbars>
 
           <span>
-            <button
-              onClick={this.edit}
-              className="btn btn-primary glyphicon glyphicon-pencil"
-            />
-            <button
-              onClick={this.remove}
-              className="btn btn-danger glyphicon glyphicon-trash"
-            />
+            <IconButton
+              tooltip="edit"
+              touch={true}
+              onTouchTap={this.edit}
+              tooltipPosition="bottom-center"
+            >
+              <svg
+                fill="#000000"
+                height="24"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                <path d="M0 0h24v24H0z" fill="none" />
+              </svg>
+            </IconButton>
+            <IconButton
+              tooltip="edit"
+              touch={true}
+              onTouchTap={this.remove}
+              tooltipPosition="bottom-center"
+            >
+              <ActionDelete />
+            </IconButton>
           </span>
         </div>
       </div>
@@ -226,10 +270,17 @@ export default class Boards extends React.Component {
       notes: ChatStore.notes
     });
     console.log("heloooo");
-
+    if (note.from == UserStore.userrealname) {
+      console.log("wohi bnda");
+    } else console.log("dusra");
     return (
       <div className="displ">
-        <Note key={i} index={i} onChange={this.update} onRemove={this.remove}>
+        <Note
+          key={note._id}
+          index={i}
+          onChange={this.update}
+          onRemove={this.remove}
+        >
           {note.text}
         </Note>
       </div>
@@ -244,21 +295,52 @@ export default class Boards extends React.Component {
     var variable = ChatStore.notes;
     // console.log("variable");
     // console.log(variable);
+    var b;
     return (
       <div>
         {variable.map(Users => {
-          return (
-            <div className="displ">
-              <Note
-                key={i}
-                index={i}
-                onChange={this.update}
-                onRemove={this.remove}
-              >
-                {Users}
-              </Note>
-            </div>
-          );
+          if (Users.from == UserStore.userrealname) {
+            Users.color = "#DCF8C6";
+            //  console.log(Users.color);
+            var a = Users.from;
+
+            b = a.split(/\s(.+)/)[0]; //everything before the first space
+            Users.firstname = b;
+            return (
+              <div className="displ" style={{ backgroundColor: Users.color }}>
+                <Note
+                  style={{ backgroundColor: Users.color }}
+                  key={Users._id}
+                  index={Users._id}
+                  onChange={this.update}
+                  onRemove={this.remove}
+                >
+                  {Users}
+                </Note>
+              </div>
+            );
+          } else {
+            Users.color = "#FFF9C4";
+            //   console.log(Users.color);
+            var a = Users.from;
+
+            b = a.split(/\s(.+)/)[0]; //everything before the first space
+            Users.firstname = b;
+            //console.log(b);
+            return (
+              <div className="displ" style={{ backgroundColor: Users.color }}>
+                <Note
+                  style={{ backgroundColor: Users.color }}
+                  key={Users._id}
+                  index={Users._id}
+                  onChange={this.update}
+                  onRemove={this.remove}
+                >
+                  {Users}
+                </Note>
+              </div>
+            );
+          }
         })}
 
         <div className="fixedbutton">
@@ -293,3 +375,8 @@ Boards.propTypes = {
     }
   }
 };
+
+//$AV_ASW// <button
+//   onClick={this.edit}
+//   className="btn btn-primary glyphicon glyphicon-pencil"
+// />
