@@ -90,7 +90,7 @@ export default class Chatbar extends React.Component {
           contentStyle={customContentStyle}
           open={this.state.open}
         >
-          <h3>Users in the group:</h3>
+          <h5>Users in the group:</h5>
           <br />
           {users.map(Users => {
             return (

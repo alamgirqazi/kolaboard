@@ -63,7 +63,7 @@ export default class NewChatDrawer extends React.Component {
   }
   alertOptions = {
     offset: 14,
-    position: "bottom center",
+    position: "bottom right",
     theme: "light",
     time: 2000,
     transition: "scale"

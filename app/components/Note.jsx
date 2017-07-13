@@ -9,10 +9,15 @@ import { Scrollbars } from "react-custom-scrollbars";
 import ChatStore from "app/store/ChatStore.js";
 import { observer } from "mobx-react";
 import UserStore from "app/store/UserStore.js";
+import UIStore from "app/store/UIstore.js";
 import ContentMore from "material-ui/svg-icons/navigation/expand-more";
 import ActionDelete from "material-ui/svg-icons/action/delete";
 import IconButton from "material-ui/IconButton";
-
+import IconMenu from "material-ui/IconMenu";
+import MenuItem from "material-ui/MenuItem";
+import Dialog from "material-ui/Dialog";
+import { List, ListItem } from "material-ui/List";
+let individualnotes;
 const wordwrap = {
   wordWrap: "breakWord",
   overflow: "hidden"
@@ -27,6 +32,10 @@ const pinstyle = {
   margin: "0 50px",
   display: "inline-block"
 };
+const customContentStyle = {
+  width: "30%",
+  maxWidth: "none"
+};
 var socket;
 const style = {
   margin: 12,
@@ -38,19 +47,23 @@ class Note extends React.Component {
     super();
 
     this.state = {
-      editing: false
+      editing: false,
+      openDialog: false
     };
 
     this.edit = this.edit.bind(this);
     this.save = this.save.bind(this);
     this.remove = this.remove.bind(this);
+    this.details = this.details.bind(this);
   }
+
   edit() {
     this.setState({
       editing: true,
       open: false
     });
   }
+
   save() {
     // this.props.onChange(this.refs.newText.getDOMNode().value, this.props.index);
     //  this.props.onChange(this.refs.newText.value, this.props.index);
@@ -59,94 +72,145 @@ class Note extends React.Component {
       open: false
     });
   }
+  details() {
+    UIStore.notedetails = true;
+    console.log(this.props.children);
+    ChatStore.individualnote = this.props.children;
+    individualnotes = this.props.children;
+  }
   remove() {
     this.props.onRemove(this.props.index);
   }
-  renderDisplay() {
-    return (
-      <div className="">
-        <div
-          className="note"
-          style={{ backgroundColor: this.props.children.color }}
-        >
-          <div className="" style={{ display: "inline" }}>
-            {" "}<img
-              style={{ display: "inline-block", margin: "0 30px" }}
-              src="assets/images/pin-icon.png"
-              style={pinstyle}
-            />
-            <IconButton
-              style={{
-                display: "inline",
-                float: "right",
-                width: "22px",
-                height: "22px",
-                padding: "0px"
-              }}
-              tooltip="more"
-              touch={true}
-              onTouchTap={this.remove}
-              tooltipPosition="bottom-center"
-            >
-              <ContentMore />
-            </IconButton>
-          </div>
-          <Scrollbars
-            autoHeightMax={20}
-            renderTrackHorizontal={props =>
-              <div
-                {...props}
-                className="track-horizontal"
-                style={{ display: "none" }}
-              />}
-            renderThumbHorizontal={props =>
-              <div
-                {...props}
-                className="thumb-horizontal"
-                style={{ display: "none" }}
-              />}
-          >
-            <p style={{ backgroundColor: this.props.children.color }}>
-              <Linkifier>
-                {this.props.children.text}
-              </Linkifier>
-            </p>
-            <h6>
-              {" "}{this.props.children.firstname}
-            </h6>
-          </Scrollbars>
 
-          <span>
-            <IconButton
-              tooltip="edit"
-              touch={true}
-              onTouchTap={this.edit}
-              tooltipPosition="bottom-center"
-            >
-              <svg
-                fill="#000000"
-                height="24"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
+  renderDisplay() {
+    if (this.props.children.from == UserStore.userrealname) {
+      return (
+        <div className="">
+          <div
+            className="note"
+            style={{ backgroundColor: this.props.children.color }}
+          >
+            <div className="" style={{ display: "inline" }}>
+              {" "}<img
+                style={{ display: "inline-block", margin: "0 30px" }}
+                src="assets/images/pin-icon.png"
+                style={pinstyle}
+              />
+              <IconMenu
+                iconButtonElement={
+                  <IconButton
+                    style={{
+                      display: "inline",
+                      float: "right",
+                      width: "22px",
+                      height: "22px",
+                      padding: "0px"
+                    }}
+                    tooltip="more"
+                    touch={true}
+                    tooltipPosition="bottom-center"
+                  >
+                    <ContentMore />
+                  </IconButton>
+                }
+                anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
+                targetOrigin={{ horizontal: "left", vertical: "bottom" }}
               >
-                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
-                <path d="M0 0h24v24H0z" fill="none" />
-              </svg>
-            </IconButton>
-            <IconButton
-              tooltip="edit"
-              touch={true}
-              onTouchTap={this.remove}
-              tooltipPosition="bottom-center"
+                <MenuItem primaryText="Edit" onTouchTap={this.edit} />
+                <MenuItem primaryText="Delete" onTouchTap={this.remove} />
+                <MenuItem primaryText="Details" onTouchTap={this.details} />
+              </IconMenu>
+            </div>
+            <Scrollbars
+              autoHeightMax={20}
+              renderTrackHorizontal={props =>
+                <div
+                  {...props}
+                  className="track-horizontal"
+                  style={{ display: "none" }}
+                />}
+              renderThumbHorizontal={props =>
+                <div
+                  {...props}
+                  className="thumb-horizontal"
+                  style={{ display: "none" }}
+                />}
             >
-              <ActionDelete />
-            </IconButton>
-          </span>
+              <p style={{ backgroundColor: this.props.children.color }}>
+                <Linkifier>
+                  {this.props.children.text}
+                </Linkifier>
+              </p>
+            </Scrollbars>
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="">
+          <div
+            className="note"
+            style={{ backgroundColor: this.props.children.color }}
+          >
+            <div className="" style={{ display: "inline" }}>
+              {" "}<img
+                style={{ display: "inline-block", margin: "0 30px" }}
+                src="assets/images/pin-icon.png"
+                style={pinstyle}
+              />
+              <IconMenu
+                iconButtonElement={
+                  <IconButton
+                    style={{
+                      display: "inline",
+                      float: "right",
+                      width: "22px",
+                      height: "22px",
+                      padding: "0px"
+                    }}
+                    tooltip="more"
+                    touch={true}
+                    tooltipPosition="bottom-center"
+                  >
+                    <ContentMore />
+                  </IconButton>
+                }
+                anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
+                targetOrigin={{ horizontal: "left", vertical: "bottom" }}
+              >
+                <MenuItem primaryText="Details" onTouchTap={this.details} />
+              </IconMenu>
+            </div>
+            <Scrollbars
+              autoHeightMax={20}
+              renderTrackHorizontal={props =>
+                <div
+                  {...props}
+                  className="track-horizontal"
+                  style={{ display: "none" }}
+                />}
+              renderThumbHorizontal={props =>
+                <div
+                  {...props}
+                  className="thumb-horizontal"
+                  style={{ display: "none" }}
+                />}
+            >
+              <p style={{ backgroundColor: this.props.children.color }}>
+                <Linkifier>
+                  {this.props.children.text}
+                </Linkifier>
+              </p>
+              <h6>
+                {" "}{this.props.children.firstname}
+              </h6>
+            </Scrollbars>
+          </div>
+        </div>
+      );
+    }
   }
+
   renderForm() {
     return (
       <div className="note" style={wordwrap}>
@@ -240,7 +304,7 @@ export default class Boards extends React.Component {
     var data = {
       roomId: ChatStore.groupId,
       from: UserStore.userrealname,
-      date: today,
+      date: date,
       time: time,
       text: text
     };
@@ -271,8 +335,10 @@ export default class Boards extends React.Component {
     });
     console.log("heloooo");
     if (note.from == UserStore.userrealname) {
-      console.log("wohi bnda");
-    } else console.log("dusra");
+      //  console.log("wohi bnda");
+    }
+
+    //  else console.log("dusra");
     return (
       <div className="displ">
         <Note
@@ -290,10 +356,14 @@ export default class Boards extends React.Component {
     var board = React.findDOMNode(this);
     dragula([board]);
   }
-
+  handleClose = () => {
+    // this.setState({ openDialog: false });
+    UIStore.notedetails = false;
+  };
   render() {
     var variable = ChatStore.notes;
     // console.log("variable");
+    // va = ChatStore.individualnote;
     // console.log(variable);
     var b;
     return (
@@ -352,7 +422,31 @@ export default class Boards extends React.Component {
           >
             <ContentAdd />
           </FloatingActionButton>
-
+          <Dialog
+            modal={false}
+            overlay={false}
+            onRequestClose={this.handleClose}
+            contentStyle={customContentStyle}
+            open={UIStore.notedetails}
+          >
+            <h5>Note details</h5>
+            <br />
+            <div className="">
+              <h5>
+                Creator : {ChatStore.individualnote.from}
+              </h5>
+              <h5>
+                Date : {ChatStore.individualnote.date}
+              </h5>
+              <h5>
+                Time : {ChatStore.individualnote.time}
+              </h5>
+              <h5>
+                Note: {ChatStore.individualnote.text}
+              </h5>
+            </div>
+            <br />
+          </Dialog>;
           <Snackbar
             open={this.state.open}
             message="New Note Added"
@@ -380,3 +474,31 @@ Boards.propTypes = {
 //   onClick={this.edit}
 //   className="btn btn-primary glyphicon glyphicon-pencil"
 // />
+
+//  <span>
+//               <IconButton
+//                 tooltip="edit"
+//                 touch={true}
+//                 onTouchTap={this.edit}
+//                 tooltipPosition="bottom-center"
+//               >
+//                 <svg
+//                   fill="#000000"
+//                   height="24"
+//                   viewBox="0 0 24 24"
+//                   width="24"
+//                   xmlns="http://www.w3.org/2000/svg"
+//                 >
+//                   <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+//                   <path d="M0 0h24v24H0z" fill="none" />
+//                 </svg>
+//               </IconButton>
+//               <IconButton
+//                 tooltip="edit"
+//                 touch={true}
+//                 onTouchTap={this.remove}
+//                 tooltipPosition="bottom-center"
+//               >
+//                 <ActionDelete />
+//               </IconButton>
+//             </span>
