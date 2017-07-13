@@ -646,6 +646,27 @@ io.on("connection", function(socket) {
       }
     });
   });
+  socket.on("timetable", function(data) {
+    //console.log("THis is data coming from roomId " + data);
+    console.log("data.id" + data);
+    User.find({ user_id: data }, function(err, user) {
+      if (err) {
+        console.log("There is an error");
+      } else {
+        // console.log("These are rooms from database " + rooms);
+        // console.log("This is for space");
+        // console.log(
+        //   "These are rooms.conversation from database " + rooms[0].conversation
+        // );
+        console.log("timetable");
+        console.log(user);
+        console.log(user[0].timetable[0].day[0]);
+        // console.log('This is for space');
+        //   socket.emit("msgs", { msg: rooms[0].conversation });
+        // res.send(rooms);
+      }
+    });
+  });
   socket.on("note map", function(data) {
     // console.log("THis is data coming from roomId " + data);
     rooms.find({ _id: data }, function(err, rooms) {

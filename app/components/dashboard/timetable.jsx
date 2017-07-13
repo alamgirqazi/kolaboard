@@ -3,7 +3,7 @@ import Drawer from "material-ui/Drawer";
 import MenuItem from "material-ui/MenuItem";
 // import RaisedButton from "material-ui/RaisedButton";
 // import muiThemeable from "material-ui/styles/muiThemeable";
- import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
 import IconButton from "material-ui/IconButton";
 import IconMenu from "material-ui/IconMenu";
@@ -20,11 +20,14 @@ import Store from "app/store/UIstore.js";
 import {
   Table,
   TableBody,
+  TableFooter,
   TableHeader,
   TableHeaderColumn,
   TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
+  TableRowColumn
+} from "material-ui/Table";
+import UserStore from "app/store/UserStore.js";
+import { observer } from "mobx-react";
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -48,318 +51,284 @@ const muiTheme = getMuiTheme({
 });
 
 const header = {
-  textAlign: 'center',
+  textAlign: "center"
 };
 
-const topdiv ={
-marginBottom: "10px",
-}
-const width = 
-{
-  width:"700px",
-}
+const topdiv = {
+  marginBottom: "10px"
+};
+const width = {
+  width: "700px"
+};
+let socket;
+@observer
 export default class TimeTable extends React.Component {
   constructor(props) {
     super(props);
+    socket = io.connect();
+
+    this.state = {
+      fixedHeader: true,
+      fixedFooter: true,
+      stripedRows: false,
+      showRowHover: false,
+      selectable: false,
+      multiSelectable: false,
+      enableSelectAll: false,
+      deselectOnClickaway: true,
+      showCheckboxes: false,
+      height: "300px"
+    };
   }
-
-
-
-
+  componentDidMount() {}
   render() {
+    socket.emit("timetable", UserStore.obj.user_id);
+    //Store.timetable = true;
+    //Store.timetable = true;
+    const tableData = [
+      {
+        name: "John Smith",
+        status: "Employed"
+      },
+      {
+        name: "Randal White",
+        status: "Unemployed"
+      },
+      {
+        name: "Stephanie Sanders",
+        status: "Employed"
+      },
+      {
+        name: "Steve Brown",
+        status: "Employed"
+      },
+      {
+        name: "Joyce Whitten",
+        status: "Employed"
+      },
+      {
+        name: "Samuel Roberts",
+        status: "Employed"
+      },
+      {
+        name: "Adam Moore",
+        status: "Employed"
+      }
+    ];
 
-	$(function(){
-			$('.left .item').draggable({
-				revert:true,
-				proxy:'clone'
-			});
-			$('.right td.drop').droppable({
-				onDragEnter:function(){
-					$(this).addClass('over');
-				},
-				onDragLeave:function(){
-					$(this).removeClass('over');
-				},
-				onDrop:function(e,source){
-					$(this).removeClass('over');
-					if ($(source).hasClass('assigned')){
-						$(this).append(source);
-					} else {
-						var c = $(source).clone().addClass('assigned');
-						$(this).empty().append(c);
-						c.draggable({
-							revert:true
-						});
-					}
-				}
-			});
-			$('.left').droppable({
-				accept:'.assigned',
-				onDragEnter:function(e,source){
-					$(source).addClass('trash');
-				},
-				onDragLeave:function(e,source){
-					$(source).removeClass('trash');
-				},
-				onDrop:function(e,source){
-					$(source).remove();
-				}
-			});
-  });
+    return (
+      <MuiThemeProvider muiTheme={muiTheme}>
+        <div>
+          <Toolbar />
+          <br />
+          <h1 style={header}>Timetable</h1>
 
+          <div className="demo-info" style={topdiv}>
+            <div className="demo-tip icon-tip">&nbsp;</div>
+            <div>Click and drag a className to timetable.</div>
+          </div>
 
-    Store.timetable = true;       
-             return(
-           
-           <MuiThemeProvider muiTheme={muiTheme}>
-            <div>
-             <Toolbar />
-<br></br>
-<h1 style={header}>Timetable</h1>
+          <div style={width}>
+            <div className="right" />
+          </div>
 
+          <Table
+            height={this.state.height}
+            fixedHeader={this.state.fixedHeader}
+            fixedFooter={this.state.fixedFooter}
+            selectable={this.state.selectable}
+            multiSelectable={this.state.multiSelectable}
+          >
+            <TableHeader
+              displaySelectAll={this.state.showCheckboxes}
+              adjustForCheckbox={this.state.showCheckboxes}
+              enableSelectAll={this.state.enableSelectAll}
+            >
+              <TableRow>
+                <TableHeaderColumn
+                  colSpan="3"
+                  tooltip="Super Header"
+                  style={{ textAlign: "center" }}
+                >
+                  Super Header
+                </TableHeaderColumn>
+              </TableRow>
+              <TableRow>
+                <TableHeaderColumn>Time</TableHeaderColumn>
+                <TableHeaderColumn>Monday</TableHeaderColumn>
+                <TableHeaderColumn>Tuesday</TableHeaderColumn>
+                <TableHeaderColumn>Wednesday</TableHeaderColumn>
+                <TableHeaderColumn>Thursday</TableHeaderColumn>
+                <TableHeaderColumn>Friday</TableHeaderColumn>
+                <TableHeaderColumn>Saturday</TableHeaderColumn>
+                <TableHeaderColumn>Sunday</TableHeaderColumn>
+              </TableRow>
+            </TableHeader>
 
-
-
-
-	<div className="demo-info" style={topdiv}>
-		<div className="demo-tip icon-tip">&nbsp;</div>
-		<div>Click and drag a className to timetable.</div>
-	</div>
-
-	<div style={width}>
-		<div className="left">
-			<table>
-				<tr>
-					<td><div className="item">English</div></td>
-				</tr>
-				<tr>
-					<td><div className="item">Science</div></td>
-				</tr>
-				<tr>
-					<td><div className="item">Music</div></td>
-				</tr>
-				<tr>
-					<td><div className="item">History</div></td>
-				</tr>
-				<tr>
-					<td><div className="item">Computer</div></td>
-				</tr>
-				<tr>
-					<td><div className="item">Mathematics</div></td>
-				</tr>
-				<tr>
-					<td><div className="item">Arts</div></td>
-				</tr>
-				<tr>
-					<td><div className="item">Ethics</div></td>
-				</tr>
-			</table>
-		</div>
-		<div className="right">
-			<table>
-				<tr>
-					<td className="blank"></td>
-					<td className="title">Monday</td>
-					<td className="title">Tuesday</td>
-					<td className="title">Wednesday</td>
-					<td className="title">Thursday</td>
-					<td className="title">Friday</td>
-				</tr>
-				<tr>
-					<td className="time">08:00</td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-				</tr>
-				<tr>
-					<td className="time">09:00</td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-				</tr>
-				<tr>
-					<td className="time">10:00</td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-				</tr>
-				<tr>
-					<td className="time">11:00</td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-				</tr>
-				<tr>
-					<td className="time">12:00</td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-				</tr>
-				<tr>
-					<td className="time">13:00</td>
-					<td className="lunch" colspan="5">Lunch</td>
-				</tr>
-				<tr>
-					<td className="time">14:00</td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-				</tr>
-				<tr>
-					<td className="time">15:00</td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-				</tr>
-				<tr>
-					<td className="time">16:00</td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-					<td className="drop"></td>
-				</tr>
-			</table>
-		</div>
-	</div>
-
-
-
-
-        </div> 
-</MuiThemeProvider>
-         );
+            <TableBody
+              displayRowCheckbox={this.state.showCheckboxes}
+              deselectOnClickaway={this.state.deselectOnClickaway}
+              showRowHover={this.state.showRowHover}
+              stripedRows={this.state.stripedRows}
+            >
+              {tableData.map((row, index) =>
+                <TableRow key={index}>
+                  <TableRowColumn />
+                  <TableRowColumn>
+                    {row.name}
+                  </TableRowColumn>
+                  <TableRowColumn>
+                    {row.status}
+                  </TableRowColumn>
+                  <TableRowColumn>
+                    {row.status}
+                  </TableRowColumn>
+                  <TableRowColumn>
+                    {row.status}
+                  </TableRowColumn>
+                  <TableRowColumn>
+                    {row.status}
+                  </TableRowColumn>
+                  <TableRowColumn>
+                    {row.status}
+                  </TableRowColumn>
+                  <TableRowColumn>
+                    {row.status}
+                  </TableRowColumn>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+      </MuiThemeProvider>
+    );
   }
 }
 
+//$AV_ASW
 
-
-	// <div className="demo-info" style={topdiv}>
-	// 	<div className="demo-tip icon-tip">&nbsp;</div>
-	// 	<div>Click and drag a className to timetable.</div>
-	// </div>
-
-	// <div style={width}>
-	// 	<div className="left">
-	// 		<table>
-	// 			<tr>
-	// 				<td><div className="item">English</div></td>
-	// 			</tr>
-	// 			<tr>
-	// 				<td><div className="item">Science</div></td>
-	// 			</tr>
-	// 			<tr>
-	// 				<td><div className="item">Music</div></td>
-	// 			</tr>
-	// 			<tr>
-	// 				<td><div className="item">History</div></td>
-	// 			</tr>
-	// 			<tr>
-	// 				<td><div className="item">Computer</div></td>
-	// 			</tr>
-	// 			<tr>
-	// 				<td><div className="item">Mathematics</div></td>
-	// 			</tr>
-	// 			<tr>
-	// 				<td><div className="item">Arts</div></td>
-	// 			</tr>
-	// 			<tr>
-	// 				<td><div className="item">Ethics</div></td>
-	// 			</tr>
-	// 		</table>
-	// 	</div>
-	// 	<div className="right">
-	// 		<table>
-	// 			<tr>
-	// 				<td className="blank"></td>
-	// 				<td className="title">Monday</td>
-	// 				<td className="title">Tuesday</td>
-	// 				<td className="title">Wednesday</td>
-	// 				<td className="title">Thursday</td>
-	// 				<td className="title">Friday</td>
-	// 			</tr>
-	// 			<tr>
-	// 				<td className="time">08:00</td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 			</tr>
-	// 			<tr>
-	// 				<td className="time">09:00</td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 			</tr>
-	// 			<tr>
-	// 				<td className="time">10:00</td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 			</tr>
-	// 			<tr>
-	// 				<td className="time">11:00</td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 			</tr>
-	// 			<tr>
-	// 				<td className="time">12:00</td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 			</tr>
-	// 			<tr>
-	// 				<td className="time">13:00</td>
-	// 				<td className="lunch" colspan="5">Lunch</td>
-	// 			</tr>
-	// 			<tr>
-	// 				<td className="time">14:00</td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 			</tr>
-	// 			<tr>
-	// 				<td className="time">15:00</td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 			</tr>
-	// 			<tr>
-	// 				<td className="time">16:00</td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 				<td className="drop"></td>
-	// 			</tr>
-	// 		</table>
-	// 	</div>
-	// </div>
+//{tableData.map((row, index) =>
+//     <TableRow key={index}>
+//       <TableRowColumn>
+//         {index}
+//       </TableRowColumn>
+//       <TableRowColumn>
+//         {row.name}
+//       </TableRowColumn>
+//       <TableRowColumn>
+//         {row.status}
+//       </TableRowColumn>
+//     </TableRow>
+//   )}
+//   <table>
+//     <tr>
+//       <td className="blank" />
+//       <td className="title">Monday</td>
+//       <td className="title">Tuesday</td>
+//       <td className="title">Wednesday</td>
+//       <td className="title">Thursday</td>
+//       <td className="title">Friday</td>
+//     </tr>
+//     <tr>
+//       <td className="time">08:00</td>
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//     </tr>
+//     <tr>
+//       <td className="time">09:00</td>
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//     </tr>
+//     <tr>
+//       <td className="time">10:00</td>
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//     </tr>
+//     <tr>
+//       <td className="time">11:00</td>
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//     </tr>
+//     <tr>
+//       <td className="time">12:00</td>
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//     </tr>
+//     <tr>
+//       <td className="time">13:00</td>
+//       <td className="lunch" colspan="5">
+//         Lunch
+//       </td>
+//     </tr>
+//     <tr>
+//       <td className="time">14:00</td>
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//     </tr>
+//     <tr>
+//       <td className="time">15:00</td>
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//     </tr>
+//     <tr>
+//       <td className="time">16:00</td>
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//     </tr>
+//     <tr>
+//       <td className="time">17:00</td>
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//     </tr>
+//     <tr>
+//       <td className="time">18:00</td>
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//     </tr>
+//     <tr>
+//       <td className="time">19:00</td>
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//     </tr>
+//     <tr>
+//       <td className="time">20:00</td>
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//       <td className="drop" />
+//     </tr>
+//   </table>

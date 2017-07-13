@@ -46,7 +46,6 @@ const style = {
 class Note extends React.Component {
   constructor() {
     super();
-    socket = io.connect();
 
     this.state = {
       editing: false,
@@ -71,6 +70,7 @@ class Note extends React.Component {
     //  this.props.onChange(this.refs.newText.value, this.props.index);
     // console.log(this.refs.newText.value);
     // console.log(this.props.children._id);
+    socket = io.connect();
     var data = {
       newnote: this.refs.newText.value,
       _id: this.props.children._id,

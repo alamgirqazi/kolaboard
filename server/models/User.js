@@ -79,6 +79,15 @@ var UserSchema = new Schema({
       pic: "string"
     }
   ],
+  timetable: [
+    {
+      day: [
+        {
+          time: "string"
+        }
+      ]
+    }
+  ],
   identities: {
     type: Object
     // required: "User is Must"

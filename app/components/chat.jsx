@@ -160,7 +160,9 @@ export default class Chat extends React.Component {
                     return (
                       <li className="self">
                         <div className="msg">
-                          <p>{Users.message}</p>
+                          <p style={{ wordWrap: "break-word" }}>
+                            {Users.message}
+                          </p>
                           <IconButton
                             onTouchTap={this.handleStar.bind(this, Users)}
                             style={starstyle}
@@ -209,6 +211,7 @@ export default class Chat extends React.Component {
           <div style={displayinline}>
             <textarea
               ref="newText"
+              maxLength="250"
               style={chatinputbox}
               placeholder="Please Enter Your message......."
               className="form-control"
