@@ -474,23 +474,6 @@ export default class ToolbarExamplesSimple extends React.Component {
           </div>
 
           <MenuItem
-            style={backgroundhoverdashboard}
-            onClick={this.showDashboard}
-            primaryText="Dashboard"
-            leftIcon={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
-              </svg>
-            }
-          >
-            {" "}
-          </MenuItem>
-          <MenuItem
             style={backgroundhover}
             onClick={this.showApp}
             primaryText="Chat"
@@ -580,14 +563,3 @@ export default class ToolbarExamplesSimple extends React.Component {
     );
   }
 }
-
-//     {" "}
-// <IndexLink  <Link to="/app">App</Link>
-//   to="/"
-//   activeClassName="active"
-//   activeStyle={{
-//   fontWeight: "bold"
-// }}>
-//   Go to App
-// </IndexLink>
-//  <img src="assets/images/materialpic.png" className="img-rounded materialimage" alt="Cinque Terre"/>

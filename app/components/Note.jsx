@@ -30,7 +30,8 @@ const pinstyle = {
   width: "22px",
   height: "22px",
   margin: "0 50px",
-  display: "inline-block"
+  display: "inline-block",
+  transform: "rotate(330deg)"
 };
 const customContentStyle = {
   width: "30%",
@@ -45,6 +46,7 @@ const style = {
 class Note extends React.Component {
   constructor() {
     super();
+    socket = io.connect();
 
     this.state = {
       editing: false,
@@ -67,6 +69,15 @@ class Note extends React.Component {
   save() {
     // this.props.onChange(this.refs.newText.getDOMNode().value, this.props.index);
     //  this.props.onChange(this.refs.newText.value, this.props.index);
+    // console.log(this.refs.newText.value);
+    // console.log(this.props.children._id);
+    var data = {
+      newnote: this.refs.newText.value,
+      _id: this.props.children._id,
+      roomId: ChatStore.groupId
+    };
+    socket.emit("individualnote edit", data);
+
     this.setState({
       editing: false,
       open: false
@@ -74,9 +85,9 @@ class Note extends React.Component {
   }
   details() {
     UIStore.notedetails = true;
-    console.log(this.props.children);
+    //console.log(this.props.children);
     ChatStore.individualnote = this.props.children;
-    individualnotes = this.props.children;
+    //individualnotes = this.props.children;
   }
   remove() {
     this.props.onRemove(this.props.index);
@@ -201,9 +212,7 @@ class Note extends React.Component {
                   {this.props.children.text}
                 </Linkifier>
               </p>
-              <h6>
-                {" "}{this.props.children.firstname}
-              </h6>
+              <time>{this.props.children.firstname}</time>&emsp;
             </Scrollbars>
           </div>
         </div>
@@ -312,7 +321,7 @@ export default class Boards extends React.Component {
     socket.emit("addnote", {
       roomId: ChatStore.groupId,
       from: UserStore.userrealname,
-      date: today,
+      date: date,
       time: time,
       text: text
     });
@@ -333,7 +342,7 @@ export default class Boards extends React.Component {
     this.setState({
       notes: ChatStore.notes
     });
-    console.log("heloooo");
+    // console.log("heloooo");
     if (note.from == UserStore.userrealname) {
       //  console.log("wohi bnda");
     }
@@ -469,36 +478,3 @@ Boards.propTypes = {
     }
   }
 };
-
-//$AV_ASW// <button
-//   onClick={this.edit}
-//   className="btn btn-primary glyphicon glyphicon-pencil"
-// />
-
-//  <span>
-//               <IconButton
-//                 tooltip="edit"
-//                 touch={true}
-//                 onTouchTap={this.edit}
-//                 tooltipPosition="bottom-center"
-//               >
-//                 <svg
-//                   fill="#000000"
-//                   height="24"
-//                   viewBox="0 0 24 24"
-//                   width="24"
-//                   xmlns="http://www.w3.org/2000/svg"
-//                 >
-//                   <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
-//                   <path d="M0 0h24v24H0z" fill="none" />
-//                 </svg>
-//               </IconButton>
-//               <IconButton
-//                 tooltip="edit"
-//                 touch={true}
-//                 onTouchTap={this.remove}
-//                 tooltipPosition="bottom-center"
-//               >
-//                 <ActionDelete />
-//               </IconButton>
-//             </span>

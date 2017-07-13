@@ -582,60 +582,16 @@ a {
 //     display: inline-block;
 //     margin-left: 4px;
 // }
-emoji {
-  display: inline-block;
-  height: 18px;
-  width: 18px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  margin-top: -7px;
-  margin-right: 2px;
-  transform: translate3d(0px, 3px, 0px);
-}
-
-emoji.please {
-  background-image: url(http://imgur.com/ftowh0s.png);
-}
-
-emoji.lmao {
-  background-image: url(http://i.imgur.com/MllSy5N.png);
-}
-
-emoji.happy {
-  background-image: url(http://imgur.com/5WUpcPZ.png);
-}
-
-emoji.pizza {
-  background-image: url(http://imgur.com/voEvJld.png);
-}
-
-emoji.cryalot {
-  background-image: url(http://i.imgur.com/UUrRRo6.png);
-}
-
-emoji.books {
-  background-image: url(http://i.imgur.com/UjZLf1R.png);
-}
-
-emoji.moai {
-  background-image: url(http://imgur.com/uSpaYy8.png);
-}
-
-emoji.suffocated {
-  background-image: url(http://i.imgur.com/jfTyB5F.png);
-}
-
-emoji.scream {
-  background-image: url(http://i.imgur.com/tOLNJgg.png);
-}
-
-emoji.hearth_blue {
-  background-image: url(http://i.imgur.com/gR9juts.png);
-}
-
-emoji.funny {
-  background-image: url(http://i.imgur.com/qKia58V.png);
-}
+// emoji {
+//   display: inline-block;
+//   height: 18px;
+//   width: 18px;
+//   background-size: cover;
+//   background-repeat: no-repeat;
+//   margin-top: -7px;
+//   margin-right: 2px;
+//   transform: translate3d(0px, 3px, 0px);
+// }
 
 // @-webikt-keyframes pulse {
 //     from {
@@ -692,20 +648,20 @@ input.textarea {
   font-weight: 400;
 }
 
-.emojis {
-  position: fixed;
-  display: block;
-  bottom: 8px;
-  left: 7px;
-  width: 34px;
-  height: 34px;
-  background-image: url(http://i.imgur.com/5WUpcPZ.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-  z-index: 100;
-  cursor: pointer;
-}
+// .emojis {
+//   position: fixed;
+//   display: block;
+//   bottom: 8px;
+//   left: 7px;
+//   width: 34px;
+//   height: 34px;
+//   background-image: url(http://i.imgur.com/5WUpcPZ.png);
+//   background-repeat: no-repeat;
+//   background-size: cover;
+//   z-index: 100;
+//   cursor: pointer;
+// }
 
-.emojis:active {
-  opacity: 0.9;
-}
+// .emojis:active {
+//   opacity: 0.9;
+// }

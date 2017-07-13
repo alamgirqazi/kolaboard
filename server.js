@@ -115,7 +115,7 @@ app.post("/api/user", function(req, res) {
 app.post("/api/user/friendrequest", function(req, res) {
   // console.log(req.body)
   var friendship = new Friendships(req.body);
-  console.log(req.body);
+  //console.log(req.body);
 
   Friendships.find({}, function(err, docs) {
     //         if (docs.length){
@@ -133,8 +133,8 @@ app.post("/api/user/friendrequest", function(req, res) {
 app.post("/api/user/createevent", function(req, res) {
   // console.log(req.body)
   var events = new Events(req.body);
-  console.log(req.body);
-  console.log(req.body.date);
+  //console.log(req.body);
+  //console.log(req.body.date);
   Events.find({}, function(err, docs) {
     //         if (docs.length){
     // console.log('friendship exists');
@@ -148,9 +148,9 @@ app.post("/api/user/createevent", function(req, res) {
 });
 
 app.post("/api/user/removefriend", function(req, res) {
-  console.log("removing friend");
-  console.log(req.body);
-  console.log(req.body.user_id);
+  // console.log("removing friend");
+  // console.log(req.body);
+  // console.log(req.body.user_id);
 
   Friendships.findOne(
     {
@@ -167,7 +167,7 @@ app.post("/api/user/removefriend", function(req, res) {
   );
 });
 app.post("/api/deleteEvent", function(req, res) {
-  console.log(req.body._id);
+  // console.log(req.body._id);
 
   Events.findOne(
     {
@@ -187,10 +187,10 @@ app.post("/api/deleteEvent", function(req, res) {
 });
 
 app.post("/api/user/changedesc", function(req, res) {
-  console.log("changing desc");
-  console.log(req.body);
-  console.log(req.body.desc);
-  console.log(req.body.user_id);
+  // console.log("changing desc");
+  // console.log(req.body);
+  // console.log(req.body.desc);
+  // console.log(req.body.user_id);
 
   User.findOneAndUpdate(
     { user_id: req.body.user_id },
@@ -207,8 +207,8 @@ app.post("/api/user/changedesc", function(req, res) {
 });
 
 app.post("/api/user/emailnotif", function(req, res) {
-  console.log("emailnotif");
-  console.log(req.body);
+  // console.log("emailnotif");
+  // console.log(req.body);
 
   User.findOneAndUpdate(
     { user_id: req.body.user_id },
@@ -219,7 +219,7 @@ app.post("/api/user/emailnotif", function(req, res) {
         console.log("Something wrong when updating data!");
       }
       // doc.update({});
-      console.log(doc);
+      //  console.log(doc);
     }
   );
 });
@@ -229,16 +229,15 @@ app.post("/api/user/emailnotif", function(req, res) {
 // app.get('/app', function(req, res) {
 //     res.sendfile(__dirname + '/public/index.html');
 // });
-app.post("/api/user/myuserid", function(req, res) {
-  console.log("myuserId is executed");
-  var myuserid = req.body.id;
-  console.log("myuserid server");
-  console.log(myuserid);
-});
+// app.post("/api/user/myuserid", function(req, res) {
+//   var myuserid = req.body.id;
+//   console.log("myuserid server");
+//   console.log(myuserid);
+// });
 
 app.post("/api/createGroup", function(req, res) {
-  console.log(req.body.groupname);
-  console.log(req.body.avatarletter);
+  // console.log(req.body.groupname);
+  // console.log(req.body.avatarletter);
   let _id;
   var data = {
     groupname: req.body.groupname,
@@ -258,22 +257,22 @@ app.post("/api/createGroup", function(req, res) {
         console.log(err);
       } else {
         _id = docs._id;
-        console.log("docs");
-        console.log(docs);
-        console.log(docs._id);
+        // console.log("docs");
+        // console.log(docs);
+        // console.log(docs._id);
 
-        console.log("_id" + _id);
+        //        console.log("_id" + _id);
         var participants = JSON.parse(req.body.mapping);
-        console.log("a");
-        console.log(participants);
-        console.log(participants.length);
+        // console.log("a");
+        // console.log(participants);
+        // console.log(participants.length);
         for (var i = 0; i < participants.length; i++) {
           //  User.find({user_id: participants[i]._user_id}, function(err, docs) {
           // if (docs.length) {
           //   console.log("friendship exists");
           // }
           // else {
-          console.log("aski id" + _id);
+          //  console.log("aski id" + _id);
           User.update(
             { user_id: participants[i].user_id },
             {
@@ -300,9 +299,9 @@ app.post("/api/createGroup", function(req, res) {
 
 app.post("/api/user/acceptrequestadd", function(req, res) {
   var status = req.body.status;
-  console.log("status: ");
-  console.log(status);
-  console.log(req.body.id);
+  // console.log("status: ");
+  // console.log(status);
+  // console.log(req.body.id);
 
   Friendships.findOne({ other_id: req.body.id }, function(err, friendship) {
     if (!err) {
@@ -406,26 +405,26 @@ app.get("/api/userbyuId/:uId", function(req, res) {
 });
 
 app.get("/api/user/:uId", function(req, res) {
-  console.log(":uId is executed");
+  // console.log(":uId is executed");
   // get the user's verified from the url and find that user
-  console.log("This is req.params id " + req.params.uId);
+  //  console.log("This is req.params id " + req.params.uId);
   mongoose.model("User").find({ user_id: req.params.uId }, function(err, User) {
     if (err) console.log(err);
     if (JSON.stringify(User)) {
       console.log("Does not founud");
     }
     res.send(JSON.stringify(User));
-    console.log("THis is in uId " + JSON.stringify(User));
+    //  console.log("THis is in uId " + JSON.stringify(User));
   });
 });
 app.get("/api/user/:roomId", function(req, res) {
   // get the user's verified from the url and find that user
-  console.log("This is req.params id in room" + req.params.roomId);
+  //console.log("This is req.params id in room" + req.params.roomId);
   rooms.find({ _id: req.params.roomId }, function(err, rooms) {
     if (err) {
       console.log("There is an error");
     } else {
-      console.log("These are rooms from database " + rooms);
+      // console.log("These are rooms from database " + rooms);
       res.send(rooms);
     }
   });
@@ -449,7 +448,7 @@ app.get("/api/rooms/:roomId", function(req, res) {
       console.log("There is an error");
     } else {
       console.log("returning room");
-      console.log(room);
+      //  console.log(room);
 
       res.send(room);
     }
@@ -457,7 +456,7 @@ app.get("/api/rooms/:roomId", function(req, res) {
 });
 
 app.get("/api/user", function(req, res) {
-  console.log("no one is executed");
+  //console.log("no one is executed");
   mongoose.model("User").find(function(err, User) {
     res.send(JSON.stringify(User));
     // console.log('THis is in no one '+ JSON.stringify(User));
@@ -513,7 +512,7 @@ io.on("connection", function(socket) {
 
     date = mm + "/" + dd + "/" + yyyy;
 
-    console.log("today");
+    // console.log("today");
 
     rooms.update(
       { _id: data.roomId },
@@ -583,8 +582,47 @@ io.on("connection", function(socket) {
       }
     );
   });
+
+  socket.on("individualnote edit", function(data) {
+    // console.log("add notes");
+    console.log(data);
+
+    rooms.find({ _id: data.roomId, "conversation._id": data._id }, function(
+      err,
+      doc
+    ) {
+      if (err) {
+        //  console.log(doc);
+        //    console.log("Something wrong when updating data!");
+        console.log("cant");
+      }
+
+      // doc.update({});
+      console.log("doc");
+      console.log(doc);
+    });
+    // rooms.update(
+    //   { _id: data.roomId },
+    //   {
+    //     $push: {
+    //       notes: {
+    //         from: data.from,
+    //         text: data.text,
+    //         date: data.date,
+    //         time: data.time
+    //       }
+    //     }
+    //   },
+    //   function(err) {
+    //     if (err) console.log("This is errro " + err);
+    //     else {
+    //       console.log("Successful...!");
+    //     }
+    //   }
+    // );
+  });
   socket.on("add user", function(data) {
-    console.log("This is data for add user " + data);
+    //console.log("This is data for add user " + data);
     socket.username = data.userrealname;
     socket.picture = data.obj.picture;
     //console.log("This is picture " + socket.picture);
@@ -592,7 +630,7 @@ io.on("connection", function(socket) {
     users.push({ id: socket.id, username: data, pic: data.picture });
   });
   socket.on("roomId", function(data) {
-    console.log("THis is data coming from roomId " + data);
+    //console.log("THis is data coming from roomId " + data);
     rooms.find({ _id: data }, function(err, rooms) {
       if (err) {
         console.log("There is an error");
@@ -625,7 +663,7 @@ io.on("connection", function(socket) {
   });
 
   socket.on("sending", function(data) {
-    console.log("THis is data coming from roomId " + data);
+    // console.log("THis is data coming from roomId " + data);
     rooms.find({ _id: data }, function(err, rooms) {
       if (err) {
         console.log("There is an error");

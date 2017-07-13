@@ -1,6 +1,5 @@
 import React from "react";
 import RaisedButton from "material-ui/RaisedButton";
-var Infinite = require("react-infinite");
 import Toolbar from "Toolbar";
 import { Scrollbars } from "react-custom-scrollbars";
 import Avatar from "material-ui/Avatar";
@@ -35,9 +34,10 @@ const starstyle = {
   float: "right",
   height: "20px",
   width: "20px",
-  color: "#ccc",
   padding: "0px"
 };
+// color: "#ccc",
+
 const starcolor = {
   color: "#ccc"
 };
@@ -152,6 +152,10 @@ export default class Chat extends React.Component {
             <div className="panel">
               <ol className="chat" id="msgList">
                 {users.map(Users => {
+                  if (Users.favourite == false) {
+                    Users.color = "#ccc";
+                    console.log(Users.color);
+                  } else Users.color = "#F44336";
                   if (Users.from == UserStore.userrealname) {
                     return (
                       <li className="self">
@@ -161,7 +165,7 @@ export default class Chat extends React.Component {
                             onTouchTap={this.handleStar.bind(this, Users)}
                             style={starstyle}
                           >
-                            <HomeIcon color={grey300} />
+                            <HomeIcon color={Users.color} />
                           </IconButton>
                           <time>{Users.time}</time>&emsp;
                         </div>
@@ -180,7 +184,7 @@ export default class Chat extends React.Component {
                             onTouchTap={this.handleStar.bind(this, Users)}
                             style={starstyle}
                           >
-                            <HomeIcon color={grey300} />
+                            <HomeIcon color={Users.color} />
                           </IconButton>
 
                           <div style={{ display: "inline" }}>
