@@ -514,9 +514,16 @@ a {
 .msg p {
   font-size: 0.8rem;
   margin: 0 0 0.2rem 0;
-  color: #777;
+  color: #555;
+  // color: #777;
+}
+.Morebutton {
+  opacity: 0;
 }
 
+.msg:hover .Morebutton {
+  opacity: 1;
+}
 .msg img {
   position: relative;
   display: block;
@@ -545,7 +552,8 @@ a {
 
 .msg time {
   font-size: 0.8rem;
-  color: #ccc;
+  color: #9e9e9e;
+  // color: #ccc;
   margin-top: 3px;
   float: right;
   cursor: default;
@@ -557,7 +565,7 @@ a {
 
 .msg sender {
   font-size: 0.8rem;
-  color: #ccc;
+  color: #555;
   margin-top: 3px;
   float: left;
   cursor: default;
@@ -644,7 +652,7 @@ input.textarea {
   outline: none;
   padding-left: 55px;
   padding-right: 55px;
-  color: #666;
+  color: #555;
   font-weight: 400;
 }
 

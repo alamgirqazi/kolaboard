@@ -129,7 +129,7 @@ export default class Profile extends React.Component {
       .fail(function(jqXhr) {
         // console.log("failed to register POST REQ");
       });
-    console.log(this.state.snackbardeleteopen);
+    //  console.log(this.state.snackbardeleteopen);
     this.setState({ snackbardeleteopen: true });
   };
 

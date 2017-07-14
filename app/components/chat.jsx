@@ -14,9 +14,12 @@ import UserStore from "app/store/UserStore.js";
 import Store from "app/store/UIstore.js";
 import { map } from "mobx";
 import ActionGrade from "material-ui/svg-icons/action/grade";
+import ActionMore from "material-ui/svg-icons/navigation/expand-more";
 import SvgIcon from "material-ui/SvgIcon";
 import { blue500, red500, grey300 } from "material-ui/styles/colors";
 
+import IconMenu from "material-ui/IconMenu";
+import MenuItem from "material-ui/MenuItem";
 var socket;
 var today;
 const style = {
@@ -32,6 +35,12 @@ const chatinputbox = {
 };
 const starstyle = {
   float: "right",
+  height: "20px",
+  width: "20px",
+  padding: "0px"
+};
+const delstyle = {
+  float: "left",
   height: "20px",
   width: "20px",
   padding: "0px"
@@ -141,12 +150,26 @@ export default class Chat extends React.Component {
                 {users.map(Users => {
                   if (Users.favourite == false) {
                     Users.color = "#ccc";
-                    console.log(Users.color);
                   } else Users.color = "#F44336";
                   if (Users.from == UserStore.userrealname) {
                     return (
                       <li className="self">
                         <div className="msg">
+                          <IconMenu
+                            style={{ display: "inline" }}
+                            iconButtonElement={
+                              <IconButton
+                                className="Morebutton"
+                                style={delstyle}
+                              >
+                                <ActionMore />
+                              </IconButton>
+                            }
+                          >
+                            <MenuItem primaryText="Edit" />
+                            <MenuItem primaryText="Delete" />
+                            <MenuItem primaryText="Details" />
+                          </IconMenu>
                           <p style={{ wordWrap: "break-word" }}>
                             {Users.message}
                           </p>

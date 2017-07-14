@@ -411,7 +411,7 @@ app.get("/api/user/:uId", function(req, res) {
   mongoose.model("User").find({ user_id: req.params.uId }, function(err, User) {
     if (err) console.log(err);
     if (JSON.stringify(User)) {
-      console.log("Does not founud");
+      //console.log("Not found");
     }
     res.send(JSON.stringify(User));
     //  console.log("THis is in uId " + JSON.stringify(User));
@@ -441,13 +441,13 @@ app.get("/api/user/:user_id", function(req, res) {
     });
 });
 app.get("/api/rooms/:roomId", function(req, res) {
-  console.log(req.body);
+  // console.log(req.body);
 
   rooms.find({ _id: req.params.roomId }, function(err, room) {
     if (err) {
       console.log("There is an error");
     } else {
-      console.log("returning room");
+      // console.log("returning room");
       //  console.log(room);
 
       res.send(room);
@@ -606,20 +606,31 @@ io.on("connection", function(socket) {
       .catch(err => {
         console.log("err", err.stack);
       });
-    // rooms.find({ _id: data.roomId, "conversation._id": data._id }, function(
-    //   err,
-    //   doc
-    // ) {
-    //   if (err) {
-    //     //  console.log(doc);
-    //     //    console.log("Something wrong when updating data!");
-    //     console.log("cant");
-    //   }
+  });
 
-    //   // doc.update({});
-    //   console.log("doc");
-    //   console.log(doc);
-    // });
+  socket.on("room leave", function(data) {
+    // console.log("add notes");
+    console.log(data);
+
+    // rooms
+    //   .findOneAndUpdate(
+    //     {
+    //       _id: data.roomId,
+    //       "notes._id": data._id
+    //     },
+    //     {
+    //       $set: {
+    //         "notes.$.text": data.newnote
+    //       }
+    //     }
+    //   )
+    //   .then(() => {
+    //     console.log("Success! new note saved");
+    //     // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+    //   })
+    //   .catch(err => {
+    //     console.log("err", err.stack);
+    //   });
   });
   socket.on("add user", function(data) {
     //console.log("This is data for add user " + data);

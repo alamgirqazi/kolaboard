@@ -66,10 +66,6 @@ class Note extends React.Component {
   }
 
   save() {
-    // this.props.onChange(this.refs.newText.getDOMNode().value, this.props.index);
-    //  this.props.onChange(this.refs.newText.value, this.props.index);
-    // console.log(this.refs.newText.value);
-    // console.log(this.props.children._id);
     socket = io.connect();
     var data = {
       newnote: this.refs.newText.value,

@@ -95,27 +95,24 @@ export default class ListChatContainer extends React.Component {
     // UserStore.obj.rooms = [];
   }
 
+  _handleLeave(Users) {
+    alert(Users._id);
+    var data = {
+      user_id: UserStore.obj.user_id,
+      roomId: Users._id
+    };
+    socket.emit("room leave", data);
+  }
   _handleClick(Users) {
-    //console.log(Users._id + "_id");
-    // console.log(Users.roomId + "_id");
     ChatStore.btnClick = true;
 
-    // console.log("listttt");
-    // alert('ok')
-    // console.log(Users.picture)
-    // ChatStore.groupavatar = Users.picture;
     ChatStore.groupId = Users.roomId;
     ChatStore.groupname = Users.roomName;
     ChatStore.groupavatar = Users.pic;
-    // console.log("This is name " + ChatStore.groupname);
-    //console.log("This is id " + ChatStore.groupId);
     var roomId = ChatStore.groupId;
-    // console.log("THis is roomID in chat store " + roomId);
-    // console.log("room " + roomId);
     socket.emit("roomId", roomId);
     var location = "/api/rooms/" + roomId;
 
-    // socket.emit("noteSocket", roomId);
     socket.emit("note map", roomId);
     $.ajax({
       url: location,
@@ -125,10 +122,6 @@ export default class ListChatContainer extends React.Component {
       },
       dataType: "json",
       success: function(data) {
-        //console.log("Successfull Rooms got");
-        // ChatStore.notes = data[0].notes;
-
-        //  console.log(data[0].notes);
         ChatStore.participants = JSON.parse(data[0].participants);
       },
       error: function(err) {
@@ -137,18 +130,12 @@ export default class ListChatContainer extends React.Component {
     });
   }
   componentDidMount() {
-    // console.log("UserStore");
-    // console.log(UserStore);
-
-    //    console.log("inside chatstore if");
     socket.on("msgs", function(data) {
       //  console.log("This is data in get msgs " + data.msg);
       ChatStore.msgs = data.msg;
       //  console.log("This is data in chatStore " + ChatStore.msgs);
     });
     socket.on("dbnotes", function(data) {
-      // console.log("data.dbnotes");
-      // console.log(data.dbnotes);
       ChatStore.notes = data.dbnotes;
     });
   }
@@ -158,13 +145,6 @@ export default class ListChatContainer extends React.Component {
       <IconButton touch={true} tooltip="more" tooltipPosition="bottom-left">
         <MoreVertIcon color={grey400} />
       </IconButton>
-    );
-
-    const rightIconMenu = (
-      <IconMenu iconButtonElement={iconButtonElement}>
-        <MenuItem>Details</MenuItem>
-        <MenuItem>Leave Group</MenuItem>
-      </IconMenu>
     );
 
     const liststatus = UserStore.listy;
@@ -201,7 +181,15 @@ export default class ListChatContainer extends React.Component {
                               {Users.pic}
                             </Avatar>
                           }
-                          rightIconButton={rightIconMenu}
+                          rightIconButton={
+                            <IconMenu iconButtonElement={iconButtonElement}>
+                              <MenuItem
+                                onTouchTap={this._handleLeave.bind(this, Users)}
+                              >
+                                Leave Group
+                              </MenuItem>
+                            </IconMenu>
+                          }
                           primaryText={Users.roomName}
                           secondaryText={<p>This</p>}
                           secondaryTextLines={1}
@@ -213,7 +201,7 @@ export default class ListChatContainer extends React.Component {
                   </div>
                 );
               })}
-              }
+
               <br />
               <br />
               <br />

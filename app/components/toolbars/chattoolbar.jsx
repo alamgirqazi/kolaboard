@@ -3,6 +3,8 @@ import Avatar from "material-ui/Avatar";
 import IconButton from "material-ui/IconButton";
 import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert";
 import IconMenu from "material-ui/IconMenu";
+import AppBar from "material-ui/AppBar";
+
 import {
   grey400,
   darkBlack,
@@ -12,6 +14,7 @@ import {
 import { List, ListItem } from "material-ui/List";
 import RaisedButton from "material-ui/RaisedButton";
 import NavigationExpandMoreIcon from "material-ui/svg-icons/navigation/expand-more";
+import NavigationClose from "material-ui/svg-icons/navigation/close";
 import MenuItem from "material-ui/MenuItem";
 import AlertContainer from "react-alert";
 
