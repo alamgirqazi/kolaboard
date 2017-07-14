@@ -78,14 +78,14 @@ export default class FriendList extends React.Component {
     })
       .done(function(data) {
         friendlist = data;
-        console.log("meri friendlist");
-        console.log(data);
+        // console.log("meri friendlist");
+        // console.log(data);
         friendlistcount = Object.keys(friendlist).length;
         FriendshipsStore.friendlistcount = friendlistcount;
-        console.log(friendlistcount);
+        // console.log(friendlistcount);
       })
       .fail(function(jqXhr) {
-        console.log("friendlist mai msla");
+        console.log("friendlist request fail");
       });
   }
   searchUpdated(term) {
@@ -93,7 +93,7 @@ export default class FriendList extends React.Component {
   }
 
   _handleClick(id) {
-    console.log(id);
+    // console.log(id);
     alert(id);
 
     var data = {

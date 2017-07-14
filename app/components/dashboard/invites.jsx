@@ -63,14 +63,14 @@ export default class Invites extends React.Component {
 
   componentDidMount() {
     var data = { id: UserStore.obj.user_id };
-    console.log("userstore.obj.user_id" + data);
+    // console.log("userstore.obj.user_id" + data);
     $.ajax({
       type: "POST",
       url: "/api/user/myuserid",
       data: data
     })
       .done(function(data) {
-        console.log("done my user id" + data);
+        // console.log("done my user id" + data);
       })
       .fail(function(jqXhr) {
         console.log("failed to register");

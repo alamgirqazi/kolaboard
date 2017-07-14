@@ -79,8 +79,8 @@ export default class FindFriends extends React.Component {
       .done(function(data) {
         // console.log(data)
         users = data;
-        console.log("frienlist");
-        console.log(users);
+        // console.log("frienlist");
+        // console.log(users);
 
         // users.splice(_.indexOf(users, _.findWhere(users, { uId : 117175967810648931400})), 1);
 
@@ -89,14 +89,14 @@ export default class FindFriends extends React.Component {
         });
         users.splice(index, 1);
 
-        console.log("new users");
-        console.log(users);
+        // console.log("new users");
+        // console.log(users);
 
         UserStore.allUsers = users;
         UserStore.flisty = true;
       })
       .fail(function(jqXhr) {
-        console.log("failed to register");
+        console.log("failed to register findfriends");
       });
   }
   _handleClick(user) {

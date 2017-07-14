@@ -69,7 +69,7 @@ export default class AcceptRequests extends React.Component {
   }
 
   _handleClick(acceptrequests) {
-    console.log(acceptrequests.other_id);
+    // console.log(acceptrequests.other_id);
 
     var data = {
       status: "friend",
@@ -101,10 +101,10 @@ export default class AcceptRequests extends React.Component {
         // console.log(data)
         acceptrequests = data;
         FriendshipsStore.acceptrequests = data;
-        console.log("accept requests array");
-        console.log(data);
+        //    console.log("accept requests array");
+        //    console.log(data);
         acceptrequestscount = Object.keys(acceptrequests).length;
-        console.log(acceptrequestscount);
+        //     console.log(acceptrequestscount);
         FriendshipsStore.stateAcceptRequest = true;
         FriendshipsStore.acceptrequestscount = acceptrequestscount;
       })

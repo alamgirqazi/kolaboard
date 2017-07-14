@@ -105,6 +105,7 @@ export default class NewChatDrawer extends React.Component {
         picture: UserStore.obj.picture,
         user_id: UserStore.obj.user_id
       };
+
       mapping.push(myinfo);
       // console.log("myinfo");
       // console.log(myinfo);
@@ -193,6 +194,7 @@ export default class NewChatDrawer extends React.Component {
         console.log("friendlist mai msla");
       });
   }
+
   _handleClick(Friendlist) {
     var val = [];
     // alert(Friendlist._id);
@@ -202,13 +204,19 @@ export default class NewChatDrawer extends React.Component {
       picture: Friendlist.userpicture,
       user_id: Friendlist.userid
     };
-    if (val.indexOf(chip) == -1) {
-      console.log(val.indexOf(chip));
-      val.push(chip);
-      ChatStore.chipContent.push(chip);
-      console.log(val.indexOf(chip));
-    }
+    ChatStore.chipContent.push(chip);
+
+    ChatStore.chipContent = ChatStore.chipContent.reduce(function(field, e1) {
+      var matches = field.filter(function(e2) {
+        return e1._id == e2._id;
+      });
+      if (matches.length == 0) {
+        field.push(e1);
+      }
+      return field;
+    }, []);
   }
+
   searchUpdated(term) {
     this.setState({ searchTerm: term });
   }
