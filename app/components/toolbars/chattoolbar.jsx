@@ -96,7 +96,7 @@ export default class Chatbar extends React.Component {
           <br />
           {users.map(Users => {
             return (
-              <div>
+              <div key={Users.user_id}>
                 <div className="" key={Users.user_id}>
                   <ListItem
                     key={Users.user_id}

@@ -26,6 +26,13 @@ const wordwrap = {
 const savebtn = {
   bottom: "1px"
 };
+const noteName = {
+  fontSize: "0.7rem",
+  left: "0",
+  bottom: "15px",
+  color: "#777",
+  position: "absolute"
+};
 const pinstyle = {
   width: "22px",
   height: "22px",
@@ -86,7 +93,7 @@ class Note extends React.Component {
     //individualnotes = this.props.children;
   }
   remove() {
-    this.props.onRemove(this.props.index);
+    // this.props.onRemove(this.props.index);
   }
 
   renderDisplay() {
@@ -208,7 +215,9 @@ class Note extends React.Component {
                   {this.props.children.text}
                 </Linkifier>
               </p>
-              <time>{this.props.children.firstname}</time>&emsp;
+              <div style={noteName}>
+                {this.props.children.firstname}
+              </div>
             </Scrollbars>
           </div>
         </div>
@@ -221,7 +230,7 @@ class Note extends React.Component {
       <div className="note" style={wordwrap}>
         <textarea
           ref="newText"
-          maxLength="250"
+          maxLength="210"
           defaultValue={this.props.children.text}
           className="form-control"
         />
@@ -313,10 +322,11 @@ export default class Boards extends React.Component {
       time: time,
       text: text
     };
-    socket.emit("addingnotes", data);
-    socket.on("roomNotes", function(data) {
-      arr.push(data);
-    });
+    // socket.emit("addingnotes", data);
+    arr.push(data);
+    // socket.on("roomNotes", function(data) {
+
+    // });
     socket.emit("addnote", {
       roomId: ChatStore.groupId,
       from: UserStore.userrealname,
@@ -475,13 +485,13 @@ export default class Boards extends React.Component {
   }
 }
 
-Boards.propTypes = {
-  count: function(props, propName) {
-    if (typeof props[propName] !== "number") {
-      return new Error("The count property must be a number");
-    }
-    if (props[propName] > 100) {
-      return new Error("Creating " + props[propName] + "notes is ridiculous");
-    }
-  }
-};
+// Boards.propTypes = {
+//   count: function(props, propName) {
+//     if (typeof props[propName] !== "number") {
+//       return new Error("The count property must be a number");
+//     }
+//     if (props[propName] > 100) {
+//       return new Error("Creating " + props[propName] + "notes is ridiculous");
+//     }
+//   }
+// };

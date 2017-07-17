@@ -542,23 +542,6 @@ io.on("connection", function(socket) {
       pic: socket.picture
     });
   });
-  socket.on("favourite msg", function(data) {
-    // console.log("favourite msg");
-    // console.log(data);
-    rooms.findOneAndUpdate(
-      { _id: data },
-      { $set: { "conversation.$.favourite": true } },
-      { upsert: true },
-      function(err, doc) {
-        if (err) {
-          //  console.log(doc);
-          //    console.log("Something wrong when updating data!");
-        }
-        // doc.update({});
-        // console.log(doc);
-      }
-    );
-  });
 
   socket.on("Join room", function(data) {
     room = data;
@@ -626,6 +609,30 @@ io.on("connection", function(socket) {
       )
       .then(() => {
         console.log("Success! new note saved");
+        // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+      })
+      .catch(err => {
+        console.log("err", err.stack);
+      });
+  });
+
+  socket.on("favourite msg", function(data) {
+    console.log(data);
+
+    rooms
+      .findOneAndUpdate(
+        {
+          _id: data.roomId,
+          "conversation._id": data._id
+        },
+        {
+          $set: {
+            "conversation.$.favourite": data.star
+          }
+        }
+      )
+      .then(() => {
+        console.log("Success! msg favourited");
         // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
       })
       .catch(err => {

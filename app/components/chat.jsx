@@ -88,8 +88,14 @@ export default class Chat extends React.Component {
 
   handleStar = Users => {
     //    console.log(Users.favourite.toString());
+    var result;
+    if (Users.favourite == true) {
+      result = false;
+    } else result = true;
     var data = {
-      _id: Users._id
+      _id: Users._id,
+      roomId: ChatStore.groupId,
+      star: result
     };
 
     socket.emit("favourite msg", data);
@@ -106,33 +112,13 @@ export default class Chat extends React.Component {
 
   handleDetails = Users => {
     Store.msgdetails = true;
-    //console.log(this.props.children);
     ChatStore.individualmsg = Users;
-    // alert(Users._id);
-    // var data = {
-    //   _id: Users._id
-    // };
-
-    //    socket.emit("msg details", data);
   };
   handleClose = () => {
     Store.msgdetails = false;
   };
   sendMsg() {
-    var msgs = ChatStore.msgs;
     var roomId = ChatStore.groupId;
-    var d = new Date();
-    var n = d.getTime();
-    socket.emit("pushingMsg", {
-      color: "#ccc",
-      date: d,
-      favourite: false,
-      from: UserStore.userrealname,
-      message: this.refs.newText.value,
-      picture: UserStore.obj.picture,
-      time: n
-    });
-
     socket.emit("add user", UserStore);
     // console.log("Send button is pressed");
     // console.log("This is the text " + this.refs.newText.value);
@@ -154,13 +140,6 @@ export default class Chat extends React.Component {
 
       socket.on("returnmsgs", function(data) {
         ChatStore.msgs = data.msg;
-      });
-      socket.on("roomMsg", function(data) {
-        console.log("THis is data coming in roomMsg " + JSON.stringify(data));
-        adding = data;
-        console.log("THis is messages " + msgs);
-        ChatStore.msgs.push(data);
-        // msgs.push(data);
       });
     }
   }
