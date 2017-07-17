@@ -326,6 +326,10 @@ app.post("/api/createGroup", function(req, res) {
               if (err) console.log("This is errro " + err);
               else {
                 console.log("Successful...!");
+
+                // User.find({ user_id: data.id }, function(err, docs) {
+                //   socket.emit("renderListChat", docs);
+                // });
               }
             }
           );
@@ -694,6 +698,14 @@ io.on("connection", function(socket) {
       { $pull: { rooms: { _id: data.roomId } } }
     )
       .then(docs => {
+        User.find({ user_id: data.user_id }, function(err, docs) {
+          //   var a = docs.from;
+          //   console.log(docs.from);
+          //   b = a.split(/\s(.+)/)[0]; //everything before the first space
+          //   // Users.firstname = b;
+          socket.emit("remaininggroups", docs);
+        });
+
         // console.log("docs");
         // console.log(docs);
         // socket.emit("dbnotes", { dbnotes: rooms[0].notes });

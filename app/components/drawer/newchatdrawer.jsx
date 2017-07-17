@@ -117,6 +117,7 @@ export default class NewChatDrawer extends React.Component {
       // console.log(avatarletter);
       // console.log("mapping.length" + mapping.length);
       var data = {
+        id: UserStore.obj.user_id,
         groupname: this.refs.groupname.getValue(),
         avatarletter: avatarletter,
         mapping: JSON.stringify(mapping)
@@ -136,6 +137,17 @@ export default class NewChatDrawer extends React.Component {
       this.setState({
         snackbaropen: true
       });
+
+      socket.on("renderListChat", function(data) {
+        console.log("da");
+        console.log(data[0].rooms);
+        // var a = data[0].from;
+        // console.log(data[0].from);
+        // b = a.split(/\s(.+)/)[0]; //everything before the first space
+        // data.firstname = b;
+        UserStore.obj.rooms = data[0].rooms;
+      });
+
       setTimeout(
         function() {
           UIStore.newchatdrawer = false;

@@ -102,6 +102,17 @@ export default class ListChatContainer extends React.Component {
       roomId: Users._id
     };
     socket.emit("room leave", data);
+
+    // socket.on("renderListChat", function(data) {
+    //   console.log("da");
+    //   console.log(data[0].rooms);
+    //   // var a = data[0].from;
+    //   // console.log(data[0].from);
+    //   // b = a.split(/\s(.+)/)[0]; //everything before the first space
+    //   // data.firstname = b;
+    //   UserStore.obj.rooms = data[0].rooms;
+    // });
+
     //this._handleClick();
   }
   _handleClick(Users) {
