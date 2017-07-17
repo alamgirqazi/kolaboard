@@ -110,6 +110,7 @@ export default class ListChatContainer extends React.Component {
     ChatStore.groupname = Users.roomName;
     ChatStore.groupavatar = Users.pic;
     var roomId = ChatStore.groupId;
+    socket.emit('Join room', ChatStore.groupname)
     socket.emit("roomId", roomId);
     var location = "/api/rooms/" + roomId;
 

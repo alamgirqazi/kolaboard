@@ -22,6 +22,8 @@ import IconMenu from "material-ui/IconMenu";
 import MenuItem from "material-ui/MenuItem";
 var socket;
 var today;
+var msgs;
+var adding;
 const style = {
   margin: 12
 };
@@ -88,7 +90,20 @@ export default class Chat extends React.Component {
     socket.emit("favourite msg", data);
   };
   sendMsg() {
+        var msgs = ChatStore.msgs;
     var roomId = ChatStore.groupId;
+        var d = new Date();
+        var n = d.getTime();
+    socket.emit('pushingMsg', {
+        color:"#ccc",
+        date: d,
+        favourite:false,
+        from:UserStore.userrealname,
+        message: this.refs.newText.value,
+        picture: UserStore.obj.picture,
+        time:n
+      })
+
     socket.emit("add user", UserStore);
     // console.log("Send button is pressed");
     // console.log("This is the text " + this.refs.newText.value);
@@ -111,9 +126,15 @@ export default class Chat extends React.Component {
       socket.on("returnmsgs", function(data) {
         ChatStore.msgs = data.msg;
       });
+          socket.on('roomMsg',function(data){
+  console.log('THis is data coming in roomMsg '+ JSON.stringify(data));
+      adding = data;
+  console.log('THis is messages '+ msgs);                
+        ChatStore.msgs.push(data);
+        // msgs.push(data);
+})
     }
   }
-
   render() {
     //  console.log("This is data in store chat " + ChatStore.msgs);
     var users = ChatStore.msgs;
@@ -124,7 +145,6 @@ export default class Chat extends React.Component {
       width: 400,
       height: 400
     };
-
     const toolbarstyle = {
       top: "0px",
       position: "fixed"

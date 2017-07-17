@@ -28,7 +28,6 @@ import FontIcon from "material-ui/FontIcon";
 import ActionGrade from "material-ui/svg-icons/action/grade";
 import ChatStore from "app/store/ChatStore.js";
 import { observer } from "mobx-react";
-import Popup from "react-popup";
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
 

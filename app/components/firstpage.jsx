@@ -4,7 +4,6 @@ import RaisedButton from "material-ui/RaisedButton";
 import Nav from "app/components/nav.jsx";
 import Homepage from "app/components/homepage.jsx";
 import { Scrollbars } from "react-custom-scrollbars";
-import DevTools from "mobx-react-devtools";
 
 var FirstPage = props => {
   return (

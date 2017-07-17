@@ -313,7 +313,10 @@ export default class Boards extends React.Component {
       time: time,
       text: text
     };
-    arr.push(data);
+    socket.emit('addingnotes',data);
+    socket.on('roomNotes',function(data){
+arr.push(data);
+    });
     socket.emit("addnote", {
       roomId: ChatStore.groupId,
       from: UserStore.userrealname,
@@ -321,6 +324,14 @@ export default class Boards extends React.Component {
       time: time,
       text: text
     });
+
+    //     var roomId = ChatStore.groupId;
+    // var interval =  setTimeout(function(){ socket.emit('gettingnotes', roomId); }, 1000);
+    // socket.emit('gettingnotes', roomId);
+    // socket.on('catching notes',function(data){
+    //   ChatStore.notes = data;
+    //   clearInterval(interval);
+    // })
 
     // this.setState({
     //   notes: arr

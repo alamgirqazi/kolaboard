@@ -74,7 +74,30 @@ const userRealName = {
   fontSize: "22px",
   textAlign: "center"
 };
+const wordwrap = {
+  wordWrap: "breakWord",
+  overflow: "hidden"
+};
 
+const savebtn = {
+  bottom: "1px"
+};
+const pinstyle = {
+  width: "22px",
+  height: "22px",
+  margin: "0 50px",
+  display: "inline-block",
+  transform: "rotate(330deg)"
+};
+const customContentStyle = {
+  width: "30%",
+  maxWidth: "none"
+};
+// var socket;
+// const style = {
+//   margin: 12,
+//   marginRight: 20
+// };
 const paddingIcon = {
   paddingBottom: "48px"
 };
