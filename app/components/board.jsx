@@ -40,7 +40,7 @@ export default class Board extends React.Component {
         <Scrollbars
           style={{ height: "100%" }}
           autoHeightMin={0}
-          autoHeightMax={500}
+          autoHeightMax={300}
           thumbMinSize={30}
         >
           {/*<h4 style={align}>Noteboard</h4>*/}

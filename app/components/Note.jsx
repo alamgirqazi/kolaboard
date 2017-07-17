@@ -313,9 +313,9 @@ export default class Boards extends React.Component {
       time: time,
       text: text
     };
-    socket.emit('addingnotes',data);
-    socket.on('roomNotes',function(data){
-arr.push(data);
+    socket.emit("addingnotes", data);
+    socket.on("roomNotes", function(data) {
+      arr.push(data);
     });
     socket.emit("addnote", {
       roomId: ChatStore.groupId,
@@ -462,7 +462,7 @@ arr.push(data);
               </h5>
             </div>
             <br />
-          </Dialog>;
+          </Dialog>
           <Snackbar
             open={this.state.open}
             message="New Note Added"

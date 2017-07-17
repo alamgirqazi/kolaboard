@@ -7,16 +7,17 @@ import FloatingActionButton from "material-ui/FloatingActionButton";
 // import ContentAdd from "material-ui/svg-icons/content/add";
 import Chatbar from "app/components/toolbars/chattoolbar.jsx";
 //import ReactScrollbar from 'react-scrollbar-js';
-import ChatStore from "app/store/ChatStore.js";
 import { observer } from "mobx-react";
 import IconButton from "material-ui/IconButton";
 import UserStore from "app/store/UserStore.js";
 import Store from "app/store/UIstore.js";
+import ChatStore from "app/store/ChatStore.js";
 import { map } from "mobx";
 import ActionGrade from "material-ui/svg-icons/action/grade";
 import ActionMore from "material-ui/svg-icons/navigation/expand-more";
 import SvgIcon from "material-ui/SvgIcon";
 import { blue500, red500, grey300 } from "material-ui/styles/colors";
+import Dialog from "material-ui/Dialog";
 
 import IconMenu from "material-ui/IconMenu";
 import MenuItem from "material-ui/MenuItem";
@@ -26,6 +27,10 @@ var msgs;
 var adding;
 const style = {
   margin: 12
+};
+const customContentStyle = {
+  width: "30%",
+  maxWidth: "none"
 };
 const displayinline = {
   display: "flex",
@@ -89,20 +94,44 @@ export default class Chat extends React.Component {
 
     socket.emit("favourite msg", data);
   };
+  handleDelete = Users => {
+    // alert(Users._id);
+    var data = {
+      _id: Users._id,
+      roomId: ChatStore.groupId
+    };
+
+    socket.emit("msg delete", data);
+  };
+
+  handleDetails = Users => {
+    Store.msgdetails = true;
+    //console.log(this.props.children);
+    ChatStore.individualmsg = Users;
+    // alert(Users._id);
+    // var data = {
+    //   _id: Users._id
+    // };
+
+    //    socket.emit("msg details", data);
+  };
+  handleClose = () => {
+    Store.msgdetails = false;
+  };
   sendMsg() {
-        var msgs = ChatStore.msgs;
+    var msgs = ChatStore.msgs;
     var roomId = ChatStore.groupId;
-        var d = new Date();
-        var n = d.getTime();
-    socket.emit('pushingMsg', {
-        color:"#ccc",
-        date: d,
-        favourite:false,
-        from:UserStore.userrealname,
-        message: this.refs.newText.value,
-        picture: UserStore.obj.picture,
-        time:n
-      })
+    var d = new Date();
+    var n = d.getTime();
+    socket.emit("pushingMsg", {
+      color: "#ccc",
+      date: d,
+      favourite: false,
+      from: UserStore.userrealname,
+      message: this.refs.newText.value,
+      picture: UserStore.obj.picture,
+      time: n
+    });
 
     socket.emit("add user", UserStore);
     // console.log("Send button is pressed");
@@ -126,13 +155,13 @@ export default class Chat extends React.Component {
       socket.on("returnmsgs", function(data) {
         ChatStore.msgs = data.msg;
       });
-          socket.on('roomMsg',function(data){
-  console.log('THis is data coming in roomMsg '+ JSON.stringify(data));
-      adding = data;
-  console.log('THis is messages '+ msgs);                
+      socket.on("roomMsg", function(data) {
+        console.log("THis is data coming in roomMsg " + JSON.stringify(data));
+        adding = data;
+        console.log("THis is messages " + msgs);
         ChatStore.msgs.push(data);
         // msgs.push(data);
-})
+      });
     }
   }
   render() {
@@ -186,9 +215,14 @@ export default class Chat extends React.Component {
                               </IconButton>
                             }
                           >
-                            <MenuItem primaryText="Edit" />
-                            <MenuItem primaryText="Delete" />
-                            <MenuItem primaryText="Details" />
+                            <MenuItem
+                              primaryText="Delete"
+                              onTouchTap={this.handleDelete.bind(this, Users)}
+                            />
+                            <MenuItem
+                              primaryText="Details"
+                              onTouchTap={this.handleDetails.bind(this, Users)}
+                            />
                           </IconMenu>
                           <p style={{ wordWrap: "break-word" }}>
                             {Users.message}
@@ -234,10 +268,39 @@ export default class Chat extends React.Component {
               <br />
               <br />
               <br />
+              <br />
+              <br />
+              <br />
+              <br />
             </div>
           </div>
         </Scrollbars>
         <div className="fixedchatbox">
+          <Dialog
+            modal={false}
+            overlay={false}
+            onRequestClose={this.handleClose}
+            contentStyle={customContentStyle}
+            open={Store.msgdetails}
+          >
+            <h5>Msg details</h5>
+            <br />
+            <div className="">
+              <h5>
+                Creator : {ChatStore.individualmsg.from}
+              </h5>
+              <h5>
+                Date : {ChatStore.individualmsg.date}
+              </h5>
+              <h5>
+                Time : {ChatStore.individualmsg.time}
+              </h5>
+              <h5>
+                msg: {ChatStore.individualmsg.message}
+              </h5>
+            </div>
+            <br />
+          </Dialog>
           <div style={displayinline}>
             <textarea
               ref="newText"

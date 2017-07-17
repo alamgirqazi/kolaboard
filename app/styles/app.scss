@@ -14,6 +14,21 @@ $sixthColor: #dadbd3;
   filter: alpha(opacity=80);
 }
 
+// .hideScrollbar {
+//   overflow: scroll !important;
+//   overflow-x: hidden !important;
+// }
+
+// .hideScrollbar ::-webkit-scrollbar {
+//   width: 0px !important; /* remove scrollbar space */
+//   background: transparent !important;
+//   display: none !important; /* optional: just make scrollbar invisible */
+// }
+// /* optional: show position indicator in red */
+// .hideScrollbar ::-webkit-scrollbar-thumb {
+//   background: #ff0000;
+// }
+
 // react-search-input
 
 .search-input {
@@ -565,7 +580,7 @@ a {
 
 .msg sender {
   font-size: 0.8rem;
-  color: #555;
+  color: #9e9e9e;
   margin-top: 3px;
   float: left;
   cursor: default;

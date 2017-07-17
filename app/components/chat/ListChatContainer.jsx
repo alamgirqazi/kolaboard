@@ -102,7 +102,7 @@ export default class ListChatContainer extends React.Component {
       roomId: Users._id
     };
     socket.emit("room leave", data);
-    this._handleClick();
+    //this._handleClick();
   }
   _handleClick(Users) {
     ChatStore.btnClick = true;
