@@ -96,12 +96,13 @@ export default class ListChatContainer extends React.Component {
   }
 
   _handleLeave(Users) {
-    alert(Users._id);
+    //alert(Users._id);
     var data = {
       user_id: UserStore.obj.user_id,
       roomId: Users._id
     };
     socket.emit("room leave", data);
+    this._handleClick();
   }
   _handleClick(Users) {
     ChatStore.btnClick = true;
@@ -110,7 +111,7 @@ export default class ListChatContainer extends React.Component {
     ChatStore.groupname = Users.roomName;
     ChatStore.groupavatar = Users.pic;
     var roomId = ChatStore.groupId;
-    socket.emit('Join room', ChatStore.groupname)
+    socket.emit("Join room", ChatStore.groupname);
     socket.emit("roomId", roomId);
     var location = "/api/rooms/" + roomId;
 

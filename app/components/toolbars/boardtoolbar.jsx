@@ -11,8 +11,7 @@ import {
 } from "material-ui/styles/colors";
 import { List, ListItem } from "material-ui/List";
 import RaisedButton from "material-ui/RaisedButton";
-import NavigationExpandMoreIcon
-  from "material-ui/svg-icons/navigation/expand-more";
+import NavigationExpandMoreIcon from "material-ui/svg-icons/navigation/expand-more";
 import MenuItem from "material-ui/MenuItem";
 import {
   Toolbar,
@@ -22,6 +21,7 @@ import {
 } from "material-ui/Toolbar";
 import FontIcon from "material-ui/FontIcon";
 import Store from "app/store/UIstore.js";
+import ChatStore from "app/store/ChatStore.js";
 import { observer } from "mobx-react";
 
 // const style = {
@@ -66,18 +66,23 @@ export default class Boardbar extends React.Component {
     return (
       <Toolbar>
         <ToolbarGroup>
-          <ToolbarTitle text="Noteboard" />
+          <ToolbarTitle text={"Noteboard | " + ChatStore.groupname} />
         </ToolbarGroup>
-<ToolbarGroup lastChild={true}>
+        <ToolbarGroup lastChild={true}>
           <IconButton
             tooltip="expand"
             touch={true}
             tooltipPosition="bottom-center"
             onClick={this.handleFullscreen}
           >
-
-     									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 18 18"><path d="M4.5 11H3v4h4v-1.5H4.5V11zM3 7h1.5V4.5H7V3H3v4zm10.5 6.5H11V15h4v-4h-1.5v2.5zM11 3v1.5h2.5V7H15V3h-4z"/></svg>								
-
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 18 18"
+            >
+              <path d="M4.5 11H3v4h4v-1.5H4.5V11zM3 7h1.5V4.5H7V3H3v4zm10.5 6.5H11V15h4v-4h-1.5v2.5zM11 3v1.5h2.5V7H15V3h-4z" />
+            </svg>
           </IconButton>
         </ToolbarGroup>
       </Toolbar>
