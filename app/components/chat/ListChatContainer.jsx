@@ -160,7 +160,6 @@ export default class ListChatContainer extends React.Component {
         <div className="margin" style={style}>
           <MobileTearSheet>
             <Msgbar />
-            <input type="search" placeholder="Search Messages here....." />
             <Subheader>Today</Subheader>
 
             <Scrollbars
@@ -171,21 +170,25 @@ export default class ListChatContainer extends React.Component {
             >
               {rooms.map(Users => {
                 return (
-                  <div>
-                    <SelectableList defaultValue={3}>
-                      <div className="" key={Users}>
+                  <div key={Users._id}>
+                    <SelectableList defaultValue={3} key={Users._id}>
+                      <div className="" key={Users._id}>
                         <ListItem
                           key={Users._id}
                           onTouchTap={() => this._handleClick(Users)}
                           value={4}
                           leftAvatar={
-                            <Avatar size={40} color={darkBlack}>
+                            <Avatar size={40} key={Users._id} color={darkBlack}>
                               {Users.pic}
                             </Avatar>
                           }
                           rightIconButton={
-                            <IconMenu iconButtonElement={iconButtonElement}>
+                            <IconMenu
+                              key={Users._id}
+                              iconButtonElement={iconButtonElement}
+                            >
                               <MenuItem
+                                key={Users._id}
                                 onTouchTap={this._handleLeave.bind(this, Users)}
                               >
                                 Leave Group
@@ -193,7 +196,7 @@ export default class ListChatContainer extends React.Component {
                             </IconMenu>
                           }
                           primaryText={Users.roomName}
-                          secondaryText={<p>This</p>}
+                          secondaryText={<p />}
                           secondaryTextLines={1}
                         />
                       </div>

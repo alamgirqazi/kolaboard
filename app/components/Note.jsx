@@ -93,6 +93,12 @@ class Note extends React.Component {
     //individualnotes = this.props.children;
   }
   remove() {
+    var data = {
+      _id: this.props.children._id,
+      roomId: ChatStore.groupId
+    };
+    socket.emit("note delete", data);
+
     // this.props.onRemove(this.props.index);
   }
 
@@ -403,7 +409,11 @@ export default class Boards extends React.Component {
             b = a.split(/\s(.+)/)[0]; //everything before the first space
             Users.firstname = b;
             return (
-              <div className="displ" style={{ backgroundColor: Users.color }}>
+              <div
+                className="displ"
+                key={Users._id}
+                style={{ backgroundColor: Users.color }}
+              >
                 <Note
                   style={{ backgroundColor: Users.color }}
                   key={Users._id}

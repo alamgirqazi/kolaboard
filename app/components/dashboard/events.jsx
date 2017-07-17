@@ -152,7 +152,7 @@ export default class Events extends React.Component {
   // };
 
   formatDate(e, date) {
-    console.log(date);
+    // console.log(date);
     theDate = date;
     //   date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     // console.log(theDate);
@@ -285,12 +285,12 @@ export default class Events extends React.Component {
                 {totalEvents.map(event => {
                   if (event.user_name == UserStore.userrealname) {
                     return (
-                      <div>
+                      <div key={event._id}>
                         <Card key={event._id}>
-                          <h3>
+                          <h3 key={event._id}>
                             {event.title}
 
-                            <div className="pull-right">
+                            <div className="pull-right" key={event._id}>
                               <IconButton
                                 secondary={true}
                                 tooltip="Delete Event"
@@ -303,12 +303,13 @@ export default class Events extends React.Component {
                           </h3>
 
                           <CardHeader
+                            key={event._id}
                             title={event.description}
                             actAsExpander={true}
                             showExpandableButton={true}
                           />
 
-                          <CardText expandable={true}>
+                          <CardText key={event._id} expandable={true}>
                             <h5 className="pull-right">
                               {" "}{"Event Date: " + event.date}
                             </h5>

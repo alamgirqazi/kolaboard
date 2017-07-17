@@ -248,7 +248,7 @@ export default class NewChatDrawer extends React.Component {
           <div>
             {mapping.map(chipMap => {
               return (
-                <div>
+                <div key={chipMap._id}>
                   <Chip
                     key={chipMap._id}
                     onRequestDelete={this.handleRequestDelete.bind(
@@ -257,7 +257,7 @@ export default class NewChatDrawer extends React.Component {
                     )}
                     style={styles.chip}
                   >
-                    <Avatar src={chipMap.picture} />
+                    <Avatar key={chipMap._id} src={chipMap.picture} />
                     {chipMap.name}
                   </Chip>
                 </div>

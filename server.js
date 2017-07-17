@@ -682,6 +682,27 @@ io.on("connection", function(socket) {
       });
   });
 
+  socket.on("note delete", function(data) {
+    // console.log("add notes");
+    console.log(data);
+
+    // rooms
+    //   .findOneAndUpdate(
+    //     {
+    //       _id: data.roomId
+    //     },
+    //     { $pull: { conversation: { _id: data._id } } }
+    //   )
+    //   .then(docs => {
+    //     // console.log("docs");
+    //     console.log(docs);
+    //     // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+    //   })
+    //   .catch(err => {
+    //     console.log("err", err.stack);
+    //   });
+  });
+
   socket.on("add user", function(data) {
     //console.log("This is data for add user " + data);
     socket.username = data.userrealname;

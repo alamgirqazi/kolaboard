@@ -52,6 +52,12 @@ const delstyle = {
   width: "20px",
   padding: "0px"
 };
+const morestyle = {
+  float: "right",
+  height: "20px",
+  width: "20px",
+  padding: "0px"
+};
 // color: "#ccc",
 
 const starcolor = {
@@ -80,7 +86,9 @@ export default class Chat extends React.Component {
     super(props);
     this.sendMsg = this.sendMsg.bind(this);
     socket = io.connect();
-    this.state = {};
+    this.state = {
+      status: false
+    };
   }
   componentWillUpdate() {
     // console.log('This is your name '+ UserStore.userrealname)
@@ -99,6 +107,9 @@ export default class Chat extends React.Component {
     };
 
     socket.emit("favourite msg", data);
+    this.setState({
+      status: true
+    });
   };
   handleDelete = Users => {
     // alert(Users._id);
@@ -181,9 +192,10 @@ export default class Chat extends React.Component {
                   } else Users.color = "#F44336";
                   if (Users.from == UserStore.userrealname) {
                     return (
-                      <li className="self">
-                        <div className="msg">
+                      <li className="self" key={Users._id}>
+                        <div className="msg" key={Users._id}>
                           <IconMenu
+                            key={Users._id}
                             style={{ display: "inline" }}
                             iconButtonElement={
                               <IconButton
@@ -218,10 +230,25 @@ export default class Chat extends React.Component {
                     );
                   } else {
                     return (
-                      <li className="other">
+                      <li className="other" key={Users._id}>
                         <Avatar src={Users.picture} />
-                        {/*<div className="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>*/}
-                        <div className="msg">
+                        <div className="msg" key={Users._id}>
+                          <IconMenu
+                            style={{ display: "inline" }}
+                            iconButtonElement={
+                              <IconButton
+                                className="Morebutton"
+                                style={morestyle}
+                              >
+                                <ActionMore />
+                              </IconButton>
+                            }
+                          >
+                            <MenuItem
+                              primaryText="Details"
+                              onTouchTap={this.handleDetails.bind(this, Users)}
+                            />
+                          </IconMenu>
                           <p>
                             {Users.message}
                           </p>
