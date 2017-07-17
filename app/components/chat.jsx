@@ -110,6 +110,15 @@ export default class Chat extends React.Component {
     this.setState({
       status: true
     });
+    socket.on("remainingmsgs", function(data) {
+      console.log("da");
+      console.log(data[0].conversation);
+      // var a = data[0].from;
+      // console.log(data[0].from);
+      // b = a.split(/\s(.+)/)[0]; //everything before the first space
+      // data.firstname = b;
+      ChatStore.msgs = data[0].conversation;
+    });
   };
   handleDelete = Users => {
     // alert(Users._id);
@@ -119,6 +128,16 @@ export default class Chat extends React.Component {
     };
 
     socket.emit("msg delete", data);
+
+    socket.on("remainingmsgs", function(data) {
+      console.log("da");
+      console.log(data[0].conversation);
+      // var a = data[0].from;
+      // console.log(data[0].from);
+      // b = a.split(/\s(.+)/)[0]; //everything before the first space
+      // data.firstname = b;
+      ChatStore.msgs = data[0].conversation;
+    });
   };
 
   handleDetails = Users => {

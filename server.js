@@ -18,6 +18,7 @@ var rooms = require("./server/models/groupList.js");
 
 var server = require("http").Server(app);
 var io = require("socket.io")(server);
+var multer = require("multer");
 
 let user_id_server;
 var myuserid;
@@ -37,6 +38,11 @@ mongoose.connect("mongodb://localhost/kola");
 var db = mongoose.Connection;
 
 // must use cookieParser before expressSession
+var upload = multer({ dest: "./uploads" });
+var mongo = require("mongodb");
+var Grid = require("gridfs-stream");
+Grid.mongo = mongo;
+var fs = require("fs");
 
 //some other code
 // app.use(bodyParser.json());
@@ -112,6 +118,38 @@ app.post("/api/user", function(req, res) {
     }
   });
 });
+
+app.post("/file/send", function(req, res, next) {
+  console.log(req.body);
+  //   gfs = Grid(db);
+  //   console.log(req.files);
+  //   var ss = req.files;
+  //   for (var j = 0; j < ss.length; j++) {
+  //     var originalName = ss[j].originalname;
+  //     var filename = ss[j].filename;
+  //     var writestream = gfs.createWriteStream({
+  //       filename: originalName
+  //     });
+  //     fs.createReadStream("./uploads/" + filename).pipe(writestream);
+  //   }
+});
+app.post("/upload", function(req, res) {
+  console.log("req.files"); // the uploaded file object
+  console.log(req.files); // the uploaded file object
+  console.log(req); // the uploaded file object
+  //   gfs = Grid(db);
+  //   console.log(req.files);
+  //   var ss = req.files;
+  //   for (var j = 0; j < ss.length; j++) {
+  //     var originalName = ss[j].originalname;
+  //     var filename = ss[j].filename;
+  //     var writestream = gfs.createWriteStream({
+  //       filename: originalName
+  //     });
+  //     fs.createReadStream("./uploads/" + filename).pipe(writestream);
+  //   }
+});
+
 app.post("/api/user/friendrequest", function(req, res) {
   // console.log(req.body)
   var friendship = new Friendships(req.body);
@@ -505,15 +543,10 @@ io.on("connection", function(socket) {
     if (dd < 10) {
       dd = "0" + dd;
     }
-
     if (mm < 10) {
       mm = "0" + mm;
     }
-
     date = mm + "/" + dd + "/" + yyyy;
-
-    // console.log("today");
-
     rooms.update(
       { _id: data.roomId },
       {
@@ -633,6 +666,14 @@ io.on("connection", function(socket) {
       )
       .then(() => {
         console.log("Success! msg favourited");
+        rooms.find({ _id: data.roomId }, function(err, docs) {
+          //   var a = docs.from;
+          //   console.log(docs.from);
+          //   b = a.split(/\s(.+)/)[0]; //everything before the first space
+          //   // Users.firstname = b;
+          socket.emit("remainingmsgs", docs);
+        });
+
         // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
       })
       .catch(err => {
@@ -674,7 +715,14 @@ io.on("connection", function(socket) {
       )
       .then(docs => {
         // console.log("docs");
-        console.log(docs);
+        //console.log(docs);
+        rooms.find({ _id: data.roomId }, function(err, docs) {
+          //   var a = docs.from;
+          //   console.log(docs.from);
+          //   b = a.split(/\s(.+)/)[0]; //everything before the first space
+          //   // Users.firstname = b;
+          socket.emit("remainingmsgs", docs);
+        });
         // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
       })
       .catch(err => {
@@ -686,21 +734,34 @@ io.on("connection", function(socket) {
     // console.log("add notes");
     console.log(data);
 
-    // rooms
-    //   .findOneAndUpdate(
-    //     {
-    //       _id: data.roomId
-    //     },
-    //     { $pull: { conversation: { _id: data._id } } }
-    //   )
-    //   .then(docs => {
-    //     // console.log("docs");
-    //     console.log(docs);
-    //     // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
-    //   })
-    //   .catch(err => {
-    //     console.log("err", err.stack);
-    //   });
+    rooms
+      .findOneAndUpdate(
+        {
+          _id: data.roomId
+        },
+        { $pull: { notes: { _id: data._id } } }
+      )
+      .then(docs => {
+        // console.log(docs);
+        rooms.find({ _id: data.roomId }, function(err, docs) {
+          //   var a = docs.from;
+          //   console.log(docs.from);
+          //   b = a.split(/\s(.+)/)[0]; //everything before the first space
+          //   // Users.firstname = b;
+          socket.emit("remainingnotes", docs);
+        });
+      })
+      .catch(err => {
+        console.log("err", err.stack);
+      });
+
+    rooms.find({ _id: data.roomId }, function(err, docs) {
+      //   var a = docs.from;
+      //   console.log(docs.from);
+      //   b = a.split(/\s(.+)/)[0]; //everything before the first space
+      //   // Users.firstname = b;
+      socket.emit("remainingnotes", docs);
+    });
   });
 
   socket.on("add user", function(data) {
@@ -754,17 +815,9 @@ io.on("connection", function(socket) {
       if (err) {
         console.log("There is an error");
       } else {
-        // console.log("These are rooms from database " + rooms);
-        // console.log("This is for space");
-        // console.log(
-        //   "These are rooms.conversation from database " + rooms[0].conversation
-        // );
         console.log("timetable");
         // console.log(user);
         console.log(JSON.stringify(user[0].timetable[0].day[0]));
-        // console.log('This is for space');
-        //   socket.emit("msgs", { msg: rooms[0].conversation });
-        // res.send(rooms);
       }
     });
   });
@@ -774,10 +827,6 @@ io.on("connection", function(socket) {
       if (err) {
         console.log("There is an error");
       } else {
-        // console.log("These are rooms from database " + rooms);
-        // console.log("This is for space");
-        // console.log("These are rooms.notes from database " + rooms[0].notes);
-        // console.log('This is for space');
         socket.emit("dbnotes", { dbnotes: rooms[0].notes });
         // res.send(rooms);
       }
@@ -844,11 +893,6 @@ io.on("connection", function(socket) {
       if (err) {
         console.log("There is an error");
       } else {
-        // console.log("server.jssocket Sending");
-        // console.log("These are rooms frm database " + rooms);
-        // console.log("This is for space");
-        // console.log("These are rooms.conversation from database " + rooms[0]);
-        // console.log('This is for space');
         socket.emit("returnmsgs", { msg: rooms[0].conversation });
         // res.send(rooms);
       }
@@ -859,10 +903,3 @@ io.on("connection", function(socket) {
     io.sockets.emit("get users", users);
   }
 });
-
-// io.on('connection', function(socket) {
-// })
-
-// app.listen(PORT, function() {
-//   console.log("Express server is up on port: " + PORT);
-// });

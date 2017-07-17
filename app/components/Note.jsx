@@ -99,6 +99,15 @@ class Note extends React.Component {
     };
     socket.emit("note delete", data);
 
+    socket.on("remainingnotes", function(data) {
+      console.log("da");
+      console.log(data[0].notes);
+      // var a = data[0].from;
+      // console.log(data[0].from);
+      // b = a.split(/\s(.+)/)[0]; //everything before the first space
+      // data.firstname = b;
+      ChatStore.notes = data[0].notes;
+    });
     // this.props.onRemove(this.props.index);
   }
 
@@ -222,7 +231,7 @@ class Note extends React.Component {
                 </Linkifier>
               </p>
               <div style={noteName}>
-                {this.props.children.firstname}
+                {this.props.children.from}
               </div>
             </Scrollbars>
           </div>
@@ -404,16 +413,12 @@ export default class Boards extends React.Component {
           if (Users.from == UserStore.userrealname) {
             Users.color = "#DCF8C6";
             //  console.log(Users.color);
-            var a = Users.from;
+            // var a = Users.from;
 
-            b = a.split(/\s(.+)/)[0]; //everything before the first space
-            Users.firstname = b;
+            // b = a.split(/\s(.+)/)[0]; //everything before the first space
+            // Users.firstname = b;
             return (
-              <div
-                className="displ"
-                key={Users._id}
-                style={{ backgroundColor: Users.color }}
-              >
+              <div className="displ" style={{ backgroundColor: Users.color }}>
                 <Note
                   style={{ backgroundColor: Users.color }}
                   key={Users._id}
@@ -428,10 +433,10 @@ export default class Boards extends React.Component {
           } else {
             Users.color = "#FFF9C4";
             //   console.log(Users.color);
-            var a = Users.from;
+            // var a = Users.from;
 
-            b = a.split(/\s(.+)/)[0]; //everything before the first space
-            Users.firstname = b;
+            // b = a.split(/\s(.+)/)[0]; //everything before the first space
+            // Users.firstname = b;
             //console.log(b);
             return (
               <div className="displ" style={{ backgroundColor: Users.color }}>

@@ -19,9 +19,17 @@ const style = {
 
 const heightboard = {
   height: "100%",
-  backgroundColor: "white"
+  backgroundColor: "white",
+  marginBottom: "0%"
 };
-
+const panel = {
+  border: "none%",
+  boxShadow: "none",
+  webkitBoxShadow: "none"
+};
+// let scrolling = {
+//   marginBottom: "15%"
+// };
 @observer
 export default class Board extends React.Component {
   constructor() {
@@ -29,35 +37,115 @@ export default class Board extends React.Component {
     this.handle = this.handle.bind(this);
   }
   handle() {
-    if (Store.full == "fullScreen") Store.full = "";
-    else Store.full = "fullScreen";
+    if (Store.full == "fullScreen") {
+      Store.full = "";
+      // scrolling = {
+      //   marginBottom: "0%"
+      // };
+    } else {
+      Store.full = "fullScreen";
+      // scrolling = {
+      //   marginBottom: "15%"
+      // };
+    }
   }
 
   render() {
-    return (
-      <div className={Store.full} style={heightboard}>
-        <Boardbar />
-        <Scrollbars
-          style={{ height: "100%" }}
-          autoHeightMin={0}
-          autoHeightMax={300}
-          thumbMinSize={30}
-        >
-          {/*<h4 style={align}>Noteboard</h4>*/}
-          <br />
-          <div className="panel">
-            <Boards count={10} />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-          </div>
-        </Scrollbars>
+    if (Store.full != "fullScreen")
+      return (
+        <div className={Store.full} style={heightboard}>
+          <Boardbar />
 
-        {/*</Infinite>*/}
-      </div>
-    );
+          <Scrollbars
+            style={{ height: "100%" }}
+            autoHeightMin={0}
+            autoHeightMax={300}
+            thumbMinSize={30}
+            renderTrackHorizontal={props =>
+              <div
+                {...props}
+                className="track-horizontal"
+                style={{ display: "none" }}
+              />}
+            renderThumbHorizontal={props =>
+              <div
+                {...props}
+                className="thumb-horizontal"
+                style={{ display: "none" }}
+              />}
+            renderView={props => <div {...props} className="view BoardClass" />}
+          >
+            {/*<h4 style={align}>Noteboard</h4>*/}
+            <br />
+            <div className="panel" className="">
+              <Boards count={10} />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+            </div>
+          </Scrollbars>
+
+          {/*</Infinite>*/}
+        </div>
+      );
+    else
+      return (
+        <div className={Store.full} style={heightboard}>
+          <Boardbar />
+
+          <Scrollbars
+            style={{ height: "100%" }}
+            autoHeightMin={0}
+            autoHeightMax={300}
+            thumbMinSize={30}
+            renderTrackHorizontal={props =>
+              <div
+                {...props}
+                className="track-horizontal"
+                style={{ display: "none" }}
+              />}
+            renderThumbHorizontal={props =>
+              <div
+                {...props}
+                className="thumb-horizontal"
+                style={{ display: "none" }}
+              />}
+            renderView={props => <div {...props} className="view FullHeight" />}
+          >
+            {/*<h4 style={align}>Noteboard</h4>*/}
+            <br />
+            <div className="panel" className="">
+              <Boards count={10} />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+            </div>
+          </Scrollbars>
+
+          {/*</Infinite>*/}
+        </div>
+      );
   }
 }
