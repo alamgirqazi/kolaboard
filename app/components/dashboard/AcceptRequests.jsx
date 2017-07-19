@@ -13,6 +13,7 @@ import List from "material-ui/List/List";
 import ListItem from "material-ui/List/ListItem";
 import SearchInput, { createFilter } from "react-search-input";
 import Badge from "material-ui/Badge";
+import Avatar from "material-ui/Avatar";
 
 // import Main from "app/components/main.jsx"
 // import Store from "app/store/UIstore.js";
@@ -162,7 +163,7 @@ export default class AcceptRequests extends React.Component {
                     <div className="mail">
                       <List key={Acceptrequests.user_id}>
                         <ListItem
-                          key={A_id}
+                          key={Acceptrequests}
                           disabled={true}
                           leftAvatar={
                             <Avatar

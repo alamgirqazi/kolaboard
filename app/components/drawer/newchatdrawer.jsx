@@ -138,15 +138,24 @@ export default class NewChatDrawer extends React.Component {
         snackbaropen: true
       });
 
-      socket.on("renderListChat", function(data) {
-        console.log("da");
-        console.log(data[0].rooms);
-        // var a = data[0].from;
-        // console.log(data[0].from);
-        // b = a.split(/\s(.+)/)[0]; //everything before the first space
-        // data.firstname = b;
-        UserStore.obj.rooms = data[0].rooms;
-      });
+      // socket.emit("createGroup", function(data) {
+      //   console.log("da");
+      //   console.log(data[0].rooms);
+      //   // var a = data[0].from;
+      //   // console.log(data[0].from);
+      //   // b = a.split(/\s(.+)/)[0]; //everything before the first space
+      //   // data.firstname = b;
+      //   UserStore.obj.rooms = data[0].rooms;
+      // });
+      // socket.on("renderListChat", function(data) {
+      //   console.log("da");
+      //   console.log(data[0].rooms);
+      //   // var a = data[0].from;
+      //   // console.log(data[0].from);
+      //   // b = a.split(/\s(.+)/)[0]; //everything before the first space
+      //   // data.firstname = b;
+      //   UserStore.obj.rooms = data[0].rooms;
+      // });
 
       setTimeout(
         function() {
