@@ -190,12 +190,7 @@ export default class FindFriends extends React.Component {
                               key={user.user_id}
                               disabled={true}
                               leftAvatar={
-                                <Avatar size={80} src={user.picture}>
-                                  <Badge
-                                    badgeContent={<NotificationsIcon />}
-                                    primary={true}
-                                  />
-                                </Avatar>
+                                <Avatar size={80} src={user.picture} />
                               }
                               rightIconButton={
                                 <RaisedButton
@@ -210,8 +205,14 @@ export default class FindFriends extends React.Component {
                             >
                               <div className="searchContent" key={user.user_id}>
                                 <div className="subject">
-                                  {user.name}
+                                  <Badge
+                                    badgeContent={<NotificationsIcon />}
+                                    primary={true}
+                                  >
+                                    {user.name}
+                                  </Badge>
                                 </div>
+
                                 <br />
                                 <div className="from">
                                   {}
