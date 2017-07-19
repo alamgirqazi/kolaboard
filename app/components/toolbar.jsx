@@ -293,7 +293,7 @@ export default class ToolbarExamplesSimple extends React.Component {
         //console.log("done" + profile);
       })
       .fail(function(jqXhr) {
-        console.log("failed to register");
+        // console.log("failed to register");
       });
 
     $.ajax({
@@ -302,6 +302,8 @@ export default class ToolbarExamplesSimple extends React.Component {
     })
       .done(function(data) {
         friendlist = data;
+        FriendshipsStore.myfriendslist = data;
+
         friendlistcount = Object.keys(friendlist).length;
         FriendshipsStore.friendlistcount = friendlistcount;
       })

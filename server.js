@@ -714,6 +714,18 @@ io.on("connection", function(socket) {
         console.log("err", err.stack);
       });
   });
+
+  socket.on("newdata", function(data) {
+    // console.log("add notes");
+    console.log(data);
+
+    User.find({
+      user_id: data
+    }).then(docs => {
+      socket.emit("remainingchatlist", docs);
+    });
+    // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+  });
   socket.on("msg delete", function(data) {
     // console.log("add notes");
     console.log(data);

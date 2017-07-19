@@ -9,7 +9,7 @@ class UserStore {
   @observable created_at_day = "";
   @observable desc = "";
   @observable emailverified = false;
-  @observable allUsers;
+  @observable allUsers = [];
   @observable listy = false;
   @observable emailnotif = true;
   @observable flisty = false;

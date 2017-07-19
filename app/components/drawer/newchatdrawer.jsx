@@ -48,11 +48,12 @@ const styles = {
 const style = {
   margin: 12
 };
-
+var socket;
 @observer
 export default class NewChatDrawer extends React.Component {
   constructor(props) {
     super(props);
+    socket = io.connect();
     this.state = {
       open: false,
       snackbaropen: false,
@@ -136,6 +137,16 @@ export default class NewChatDrawer extends React.Component {
         });
       this.setState({
         snackbaropen: true
+      });
+
+      var newdata = UserStore.obj.user_id;
+      socket.emit("newdata", newdata);
+
+      socket.on("remainingchatlist", function(data) {
+        // console.log("da");
+        //console.log(data[0].rooms);
+
+        UserStore.obj.rooms = data[0].rooms;
       });
 
       // socket.emit("createGroup", function(data) {

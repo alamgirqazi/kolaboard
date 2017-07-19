@@ -5,6 +5,7 @@ class FriendshipsStore {
   @observable stateAcceptRequest = false;
 
   @observable friendlistcount;
+  @observable myfriendslist = [];
   @observable acceptrequestscount;
   @observable totalfriends = [];
 

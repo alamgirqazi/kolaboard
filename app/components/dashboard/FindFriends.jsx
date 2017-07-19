@@ -13,6 +13,9 @@ import Avatar from "material-ui/Avatar";
 import List from "material-ui/List/List";
 import ListItem from "material-ui/List/ListItem";
 import { Scrollbars } from "react-custom-scrollbars";
+import FriendshipStore from "app/store/FriendshipsStore.js";
+import Badge from "material-ui/Badge";
+import NotificationsIcon from "material-ui/svg-icons/action/check-circle";
 
 // import Main from "app/components/main.jsx"
 // import Store from "app/store/UIstore.js";
@@ -79,26 +82,37 @@ export default class FindFriends extends React.Component {
       .done(function(data) {
         // console.log(data)
         users = data;
-        // console.log("frienlist");
-        // console.log(users);
-
-        // users.splice(_.indexOf(users, _.findWhere(users, { uId : 117175967810648931400})), 1);
-
         var index = users.findIndex(function(o) {
           return o.user_id === userid;
         });
         users.splice(index, 1);
-
-        // console.log("new users");
-        // console.log(users);
-
         UserStore.allUsers = users;
+
+        UserStore.allUsers.forEach(function(user_id) {
+          for (var i = 0; i < 2; i++) {
+            if (
+              user_id.user_id == FriendshipStore.myfriendslist[i].other_id ||
+              user_id.user_id == FriendshipStore.myfriendslist[i].user_id
+            ) {
+              UserStore.allUsers[i].nickname = "yay";
+              //      console.log(users.yes);
+            } else {
+            }
+          }
+          // var x = arrayItem.prop1 + 2;
+          // alert(x);
+        });
+
         UserStore.flisty = true;
       })
       .fail(function(jqXhr) {
         console.log("failed to register findfriends");
       });
   }
+  _handleRemove(user) {
+    alert(user.user_id);
+  }
+
   _handleClick(user) {
     let realuserid = localStorage.getItem("userid");
 
@@ -132,11 +146,10 @@ export default class FindFriends extends React.Component {
     this.setState({ searchTerm: term });
   }
   render() {
-    const filteredEmails = users.filter(
+    const filteredEmails = UserStore.allUsers.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
     );
 
-    var self = this;
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
@@ -169,42 +182,89 @@ export default class FindFriends extends React.Component {
                     />}
                 >
                   {filteredEmails.map(user => {
-                    return (
-                      <List key={user.user_id}>
-                        <div className="mail" key={user.user_id}>
-                          <ListItem
-                            key={user.user_id}
-                            disabled={true}
-                            leftAvatar={<Avatar size={80} src={user.picture} />}
-                            rightIconButton={
-                              <RaisedButton
-                                label={"Add Friend"}
-                                primary={true}
-                                key={user.user_id}
-                                onTouchTap={() => this._handleClick(user)}
-                                style={style}
-                              />
-                            }
-                            // rightIconButton={<RaisedButton label="Send Request" primary={true} onClick={this.btnClick(user)} style={style} />
-                            // }
-                          >
-                            <div className="searchContent" key={user.user_id}>
-                              <div className="subject">
-                                {user.name}
+                    if (user.nickname == "yay") {
+                      return (
+                        <List key={user.user_id}>
+                          <div className="mail" key={user.user_id}>
+                            <ListItem
+                              key={user.user_id}
+                              disabled={true}
+                              leftAvatar={
+                                <Avatar size={80} src={user.picture}>
+                                  <Badge
+                                    badgeContent={<NotificationsIcon />}
+                                    primary={true}
+                                  />
+                                </Avatar>
+                              }
+                              rightIconButton={
+                                <RaisedButton
+                                  label={"Remove Friend"}
+                                  key={user.user_id}
+                                  onTouchTap={() => this._handleRemove(user)}
+                                  style={style}
+                                />
+                              }
+                              // rightIconButton={<RaisedButton label="Send Request" primary={true} onClick={this.btnClick(user)} style={style} />
+                              // }
+                            >
+                              <div className="searchContent" key={user.user_id}>
+                                <div className="subject">
+                                  {user.name}
+                                </div>
+                                <br />
+                                <div className="from">
+                                  {}
+                                </div>
+                                <br />
+                                <div className="subject">
+                                  {}
+                                </div>
                               </div>
-                              <br />
-                              <div className="from">
-                                {}
+                            </ListItem>
+                          </div>
+                        </List>
+                      );
+                    } else {
+                      return (
+                        <List key={user.user_id}>
+                          <div className="mail" key={user.user_id}>
+                            <ListItem
+                              key={user.user_id}
+                              disabled={true}
+                              leftAvatar={
+                                <Avatar size={80} src={user.picture} />
+                              }
+                              rightIconButton={
+                                <RaisedButton
+                                  label={"Add Friend"}
+                                  primary={true}
+                                  key={user.user_id}
+                                  onTouchTap={() => this._handleClick(user)}
+                                  style={style}
+                                />
+                              }
+                              // rightIconButton={<RaisedButton label="Send Request" primary={true} onClick={this.btnClick(user)} style={style} />
+                              // }
+                            >
+                              <div className="searchContent" key={user.user_id}>
+                                <div className="subject">
+                                  {user.name}
+                                </div>
+                                <br />
+                                <div className="from">
+                                  {}
+                                </div>
+                                <br />
+                                <div className="subject">
+                                  {}
+                                </div>
                               </div>
-                              <br />
-                              <div className="subject">
-                                {}
-                              </div>
-                            </div>
-                          </ListItem>
-                        </div>
-                      </List>
-                    );
+                            </ListItem>
+                          </div>
+                        </List>
+                      );
+                    }
                   })}
                 </Scrollbars>
               </div>
