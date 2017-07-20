@@ -90,8 +90,23 @@ export default class Chat extends React.Component {
       status: false
     };
   }
-  componentWillUpdate() {
-    // console.log('This is your name '+ UserStore.userrealname)
+
+  componentDidMount() {
+    setInterval(
+      function() {
+        var data = {
+          roomId: ChatStore.groupId
+        };
+        socket.emit("retrieve msgs", data);
+
+        socket.on("chat msgs", function(data) {
+          console.log("data in didmount chat msgs");
+          console.log(data);
+          //ChatStore.msgs = data[0].conversation;
+        });
+      }.bind(this),
+      5000
+    );
   }
 
   handleStar = Users => {
@@ -111,12 +126,9 @@ export default class Chat extends React.Component {
       status: true
     });
     socket.on("remainingmsgs", function(data) {
-      console.log("da");
+      ///   console.log("da");
       console.log(data[0].conversation);
-      // var a = data[0].from;
-      // console.log(data[0].from);
-      // b = a.split(/\s(.+)/)[0]; //everything before the first space
-      // data.firstname = b;
+
       ChatStore.msgs = data[0].conversation;
     });
   };

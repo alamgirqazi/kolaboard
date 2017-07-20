@@ -338,14 +338,14 @@ export default class ToolbarExamplesSimple extends React.Component {
 
   render() {
     // this.newfunc();
-    setTimeout(
-      function() {
-        this.setState({
-          yay: false
-        });
-      }.bind(this),
-      5000
-    ); // wait 5 seconds, then reset to false  }
+    // setTimeout(
+    //   function() {
+    //     this.setState({
+    //       yay: false
+    //     });
+    //   }.bind(this),
+    //   5000
+    // ); // wait 5 seconds, then reset to false  }
 
     const actions = [
       <RaisedButton

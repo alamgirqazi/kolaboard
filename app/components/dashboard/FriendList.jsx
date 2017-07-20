@@ -115,14 +115,14 @@ export default class FriendList extends React.Component {
   }
 
   render() {
-    setTimeout(
-      function() {
-        this.setState({
-          yay: false
-        });
-      }.bind(this),
-      7000
-    );
+    // setTimeout(
+    //   function() {
+    //     this.setState({
+    //       yay: false
+    //     });
+    //   }.bind(this),
+    //   7000
+    // );
 
     const filteredEmails = friendlist.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
@@ -172,13 +172,17 @@ export default class FriendList extends React.Component {
                     id = Friendlist.other_id;
 
                     return (
-                      <div className="mail">
+                      <div className="mail" key={Friendlist.user_id}>
                         <List key={Friendlist.user_id}>
                           <ListItem
                             key={Friendlist.user_id}
                             disabled={true}
                             leftAvatar={
-                              <Avatar size={80} src={Friendlist.picture} />
+                              <Avatar
+                                size={80}
+                                key={Friendlist.user_id}
+                                src={Friendlist.picture}
+                              />
                             }
                             rightIconButton={
                               <RaisedButton
@@ -213,13 +217,17 @@ export default class FriendList extends React.Component {
                     id = Friendlist.user_id;
 
                     return (
-                      <div className="mail">
+                      <div className="mail" key={Friendlist.user_id}>
                         <List key={Friendlist.user_id}>
                           <ListItem
                             key={Friendlist.user_id}
                             disabled={true}
                             leftAvatar={
-                              <Avatar size={80} src={Friendlist.user_picture} />
+                              <Avatar
+                                size={80}
+                                key={Friendlist.user_id}
+                                src={Friendlist.user_picture}
+                              />
                             }
                             rightIconButton={
                               <RaisedButton

@@ -923,6 +923,18 @@ io.on("connection", function(socket) {
     });
   });
 
+  socket.on("retrieve msgs", function(data) {
+    // console.log("THis is data coming from roomId " + data);
+    rooms.find({ _id: data }, function(err, rooms) {
+      if (err) {
+        //  console.log("There is an error");
+      } else {
+        socket.emit("chat msgs", { msg: rooms[0].conversation });
+        // res.send(rooms);
+      }
+    });
+  });
+
   function updateUsernames() {
     io.sockets.emit("get users", users);
   }
