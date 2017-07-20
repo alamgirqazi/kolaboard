@@ -91,7 +91,9 @@ export default class ListChatContainer extends React.Component {
     super(props);
     this._handleClick = this._handleClick.bind(this);
     socket = io.connect();
-    this.state = {};
+    this.state = {
+      data: []
+    };
     // UserStore.obj.rooms = [];
   }
 
@@ -103,19 +105,10 @@ export default class ListChatContainer extends React.Component {
     };
     socket.emit("room leave", data);
     socket.on("remaininggroups", function(data) {
+      console.log("data[0].rooms");
+      console.log(data[0].rooms);
       UserStore.obj.rooms = data[0].rooms;
     });
-    // socket.on("renderListChat", function(data) {
-    //   console.log("da");
-    //   console.log(data[0].rooms);
-    //   // var a = data[0].from;
-    //   // console.log(data[0].from);
-    //   // b = a.split(/\s(.+)/)[0]; //everything before the first space
-    //   // data.firstname = b;
-    //   UserStore.obj.rooms = data[0].rooms;
-    // });
-
-    //this._handleClick();
   }
   _handleClick(Users) {
     ChatStore.btnClick = true;
@@ -146,15 +139,28 @@ export default class ListChatContainer extends React.Component {
   }
   componentDidMount() {
     socket.on("msgs", function(data) {
-      //  console.log("This is data in get msgs " + data.msg);
       ChatStore.msgs = data.msg;
-      //  console.log("This is data in chatStore " + ChatStore.msgs);
     });
     socket.on("dbnotes", function(data) {
       ChatStore.notes = data.dbnotes;
     });
-  }
+    this.state.data = UserStore.obj.rooms;
 
+    // setInterval(
+    //   function() {
+    //     if (UserStore.obj.rooms == null || UserStore.obj.rooms == undefined)
+    //       rooms = [];
+    //     // else rooms = UserStore.obj.rooms;
+    //     // console.log(rooms);
+    //     // console.log("timing out");
+    //     this.state.data = UserStore.obj.rooms;
+    //   }.bind(this),
+    //   5000
+    // );
+  }
+  _handleContinuousRender() {
+    //alert(Users._id);
+  }
   render() {
     const iconButtonElement = (
       <IconButton touch={true} tooltip="more" tooltipPosition="bottom-left">
@@ -167,6 +173,14 @@ export default class ListChatContainer extends React.Component {
       rooms = [];
     else rooms = UserStore.obj.rooms;
 
+    // setTimeout(
+    //   function() {
+    //     if (UserStore.obj.rooms == null || UserStore.obj.rooms == undefined)
+    //       rooms = [];
+    //     else rooms = UserStore.obj.rooms;
+    //   }.bind(this),
+    //   1000
+    // ); //
     //  console.log(rooms);
     return (
       <div>

@@ -131,6 +131,20 @@ export default class NewChatDrawer extends React.Component {
       })
         .done(function(data) {
           alert("its all over");
+
+          // var newdata = UserStore.obj.user_id;
+          // socket.emit("newdata", newdata);
+          // socket.on("remaininggroups", function(data) {
+          //   console.log("data[0].rooms");
+          //   console.log(data[0].rooms);
+          //   UserStore.obj.rooms = data[0].rooms;
+          // });
+          // socket.on("remainingchatlist", function(data) {
+          //   // console.log("da");
+          //   //console.log(data[0].rooms);
+
+          //   UserStore.obj.rooms = data[0].rooms;
+          // });
         })
         .fail(function(jqXhr) {
           // console.log("failed to register POST REQ");
@@ -139,44 +153,22 @@ export default class NewChatDrawer extends React.Component {
         snackbaropen: true
       });
 
-      var newdata = UserStore.obj.user_id;
-      socket.emit("newdata", newdata);
-
-      socket.on("remainingchatlist", function(data) {
-        // console.log("da");
-        //console.log(data[0].rooms);
-
-        UserStore.obj.rooms = data[0].rooms;
-      });
-
-      // socket.emit("createGroup", function(data) {
-      //   console.log("da");
-      //   console.log(data[0].rooms);
-      //   // var a = data[0].from;
-      //   // console.log(data[0].from);
-      //   // b = a.split(/\s(.+)/)[0]; //everything before the first space
-      //   // data.firstname = b;
-      //   UserStore.obj.rooms = data[0].rooms;
-      // });
-      // socket.on("renderListChat", function(data) {
-      //   console.log("da");
-      //   console.log(data[0].rooms);
-      //   // var a = data[0].from;
-      //   // console.log(data[0].from);
-      //   // b = a.split(/\s(.+)/)[0]; //everything before the first space
-      //   // data.firstname = b;
-      //   UserStore.obj.rooms = data[0].rooms;
-      // });
-
       setTimeout(
         function() {
           UIStore.newchatdrawer = false;
           mapping = [];
           ChatStore.chipContent = [];
-          // console.log("mapping");
-          // console.log(mapping);
-          // console.log("ChatStore.chipContent");
-          // console.log(ChatStore.chipContent);
+          var newdata = UserStore.obj.user_id;
+          socket.emit("newdata", newdata);
+          socket.on("remaininggroups", function(data) {
+            // console.log("data[0].rooms");
+            // console.log(data[0].rooms);
+            UserStore.obj.rooms = data[0].rooms;
+          });
+          socket.on("remainingchatlist", function(data) {
+            UserStore.obj.rooms = data[0].rooms;
+          });
+
           this.refs.groupname.getInputNode().value = "";
           this.setState({
             snackbaropen: false
@@ -196,31 +188,15 @@ export default class NewChatDrawer extends React.Component {
     // UIStore.newchatdrawer = false;
   };
   handleClose = () => this.setState({ open: false });
-  // Map Friendlist
 
-  // Set Group Name
-  // createChip() {
-  //   return (
-  //     // <Chip style={styles.chip}>
-  //     //   <Avatar src="images/ok-128.jpg" />
-  //     //   Deletable Avatar Chip
-  //     // </Chip>
-  //   );
-  // }
   componentDidMount() {
-    // ChatStore.chipContent.push(myinfo);
-
     $.ajax({
       type: "GET",
       url: "/api/user/friendlist"
     })
       .done(function(data) {
-        // friendlist = data;
-        // friendlistcount=Object.keys(friendlist).length;
         FriendshipsStore.totalfriends = data;
         friendlist = FriendshipsStore.totalfriends;
-
-        // console.log(friendlistcount);
       })
       .fail(function(jqXhr) {
         console.log("friendlist mai msla");
@@ -229,7 +205,6 @@ export default class NewChatDrawer extends React.Component {
 
   _handleClick(Friendlist) {
     var val = [];
-    // alert(Friendlist._id);
     let chip = {
       _id: Friendlist._id,
       name: Friendlist.userrealname,
@@ -252,9 +227,7 @@ export default class NewChatDrawer extends React.Component {
   searchUpdated(term) {
     this.setState({ searchTerm: term });
   }
-  logChange(val) {
-    //  console.log("Selected: " + JSON.stringify(val));
-  }
+  logChange(val) {}
 
   render() {
     const filteredEmails = friendlist.filter(
