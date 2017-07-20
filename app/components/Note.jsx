@@ -418,7 +418,11 @@ export default class Boards extends React.Component {
             // b = a.split(/\s(.+)/)[0]; //everything before the first space
             // Users.firstname = b;
             return (
-              <div className="displ" style={{ backgroundColor: Users.color }}>
+              <div
+                className="displ"
+                key={Users._id}
+                style={{ backgroundColor: Users.color }}
+              >
                 <Note
                   style={{ backgroundColor: Users.color }}
                   key={Users._id}
@@ -439,7 +443,11 @@ export default class Boards extends React.Component {
             // Users.firstname = b;
             //console.log(b);
             return (
-              <div className="displ" style={{ backgroundColor: Users.color }}>
+              <div
+                className="displ"
+                key={Users._id}
+                style={{ backgroundColor: Users.color }}
+              >
                 <Note
                   style={{ backgroundColor: Users.color }}
                   key={Users._id}

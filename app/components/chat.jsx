@@ -92,20 +92,18 @@ export default class Chat extends React.Component {
   }
 
   componentDidMount() {
+    console.log("mounted Chat");
     setInterval(
       function() {
         var data = {
           roomId: ChatStore.groupId
         };
         socket.emit("retrieve msgs", data);
-
         socket.on("chat msgs", function(data) {
-          console.log("data in didmount chat msgs");
-          console.log(data);
-          //ChatStore.msgs = data[0].conversation;
+          ChatStore.msgs = data[0].conversation;
         });
       }.bind(this),
-      5000
+      1500
     );
   }
 

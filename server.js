@@ -925,11 +925,13 @@ io.on("connection", function(socket) {
 
   socket.on("retrieve msgs", function(data) {
     // console.log("THis is data coming from roomId " + data);
-    rooms.find({ _id: data }, function(err, rooms) {
+    rooms.find({ _id: data.roomId }, function(err, rooms) {
       if (err) {
         //  console.log("There is an error");
       } else {
-        socket.emit("chat msgs", { msg: rooms[0].conversation });
+        console.log("docs retrieve msgs");
+        console.log(rooms);
+        socket.emit("chat msgs", rooms);
         // res.send(rooms);
       }
     });
