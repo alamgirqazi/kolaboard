@@ -93,15 +93,21 @@ var UserSchema = new Schema({
       ]
     }
   ],
-  timetable: [
-    {
-      day: [
-        {
-          time: "string"
-        }
-      ]
-    }
-  ],
+  timetable: {
+    day: [
+      {
+        id: "String",
+        time: "String",
+        M: "String",
+        T: "String",
+        W: "String",
+        Th: "String",
+        F: "String",
+        S: "String",
+        Su: "String"
+      }
+    ]
+  },
   identities: {
     type: Object
     // required: "User is Must"

@@ -38,11 +38,12 @@ mongoose.connect("mongodb://localhost/kola");
 var db = mongoose.Connection;
 
 // must use cookieParser before expressSession
-var upload = multer({ dest: "./uploads" });
+var upload = multer({ dest: "public/uploads/" });
 var mongo = require("mongodb");
 var Grid = require("gridfs-stream");
 Grid.mongo = mongo;
 var fs = require("fs");
+var router = express.Router();
 
 //some other code
 // app.use(bodyParser.json());
@@ -91,6 +92,15 @@ app.get("/", function(req, res) {
   //Sets name=express
 });
 
+// router.post("/saveBlog", upload.any(), function(req, res, next) {
+//   console.log(req.body, "Body");
+//   console.log(req.files, "files");
+//   res.end();
+// });
+// router.post("/app", upload.any(), function(req, res, next) {
+//   console.log(req.files);
+//   res.send(req.files);
+// });
 app.post("/api/user", function(req, res) {
   // console.log(req.body)
   var user = new User(req.body);
@@ -951,19 +961,21 @@ io.on("connection", function(socket) {
     //     });
     // }
   });
-  socket.on("timetable", function(data) {
-    //console.log("THis is data coming from roomId " + data);
-    console.log("data.id" + data);
-    User.find({ user_id: data }, function(err, user) {
-      if (err) {
-        console.log("There is an error");
-      } else {
-        console.log("timetable");
-        // console.log(user);
-        console.log(JSON.stringify(user[0].timetable[0].day[0]));
-      }
-    });
-  });
+  // socket.on("timetable", function(data) {
+  //   //console.log("THis is data coming from roomId " + data);
+  //   console.log("data.id" + data);
+  //   User.find({ user_id: data }, function(err, user) {
+  //     if (err) {
+  //       console.log("There is an error");
+  //     } else {
+  //       console.log("timetable");
+  //       // console.log(user);
+  //       console.log(JSON.stringify(user[0].timetable[0]));
+
+  //       socket.emit("timetable send", user[0].timetable[0]);
+  //     }
+  //   });
+  // });
   socket.on("note map", function(data) {
     // console.log("THis is data coming from roomId " + data);
     rooms.find({ _id: data }, function(err, rooms) {
@@ -974,6 +986,215 @@ io.on("connection", function(socket) {
         // res.send(rooms);
       }
     });
+  });
+
+  socket.on("HandleOpen", function(data) {
+    console.log(data);
+    if (data.currentFunction == "M") {
+      User.findOneAndUpdate(
+        {
+          user_id: data.user_id,
+          "timetable.day.id": data.id
+        },
+        {
+          $set: {
+            "timetable.day.$.M": data.value
+          }
+        }
+      )
+        .then(docs => {
+          User.find({
+            user_id: data.user_id
+          }).then(docs => {
+            console.log("user find");
+            console.log(docs);
+            socket.emit("timetable", docs);
+          });
+        })
+        .catch(err => {
+          console.log("err", err.stack);
+        });
+    } else if (data.currentFunction == "T") {
+      User.findOneAndUpdate(
+        {
+          user_id: data.user_id,
+          "timetable.day.id": data.id
+        },
+        {
+          $set: {
+            "timetable.day.$.T": data.value
+          }
+        }
+      )
+        .then(docs => {
+          User.find({
+            user_id: data.user_id
+          }).then(docs => {
+            User.find({
+              user_id: data.user_id
+            }).then(docs => {
+              console.log("user find");
+              console.log(docs);
+              socket.emit("timetable", docs);
+            });
+            console.log("user find");
+            console.log(docs);
+            // socket.emit("timetable", docs);
+          });
+
+          // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+        })
+        .catch(err => {
+          console.log("err", err.stack);
+        });
+    } else if (data.currentFunction == "W") {
+      User.findOneAndUpdate(
+        {
+          user_id: data.user_id,
+          "timetable.day.id": data.id
+        },
+        {
+          $set: {
+            "timetable.day.$.W": data.value
+          }
+        }
+      )
+        .then(docs => {
+          User.find({
+            user_id: data.user_id
+          }).then(docs => {
+            console.log("user find");
+            console.log(docs);
+            socket.emit("timetable", docs);
+          });
+          // console.log("Success! handleOpen saved");
+          // console.log("docs");
+          // console.log(docs);
+          // socket.emit("timetable", docs);
+
+          // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+        })
+        .catch(err => {
+          console.log("err", err.stack);
+        });
+    } else if (data.currentFunction == "Th") {
+      User.findOneAndUpdate(
+        {
+          user_id: data.user_id,
+          "timetable.day.id": data.id
+        },
+        {
+          $set: {
+            "timetable.day.$.Th": data.value
+          }
+        }
+      )
+        .then(docs => {
+          User.find({
+            user_id: data.user_id
+          }).then(docs => {
+            console.log("user find");
+            console.log(docs);
+            socket.emit("timetable", docs);
+          });
+          // console.log("Success! handleOpen saved");
+          // console.log("docs");
+          // console.log(docs);
+          // socket.emit("timetable", docs);
+          // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+        })
+        .catch(err => {
+          console.log("err", err.stack);
+        });
+    } else if (data.currentFunction == "F") {
+      User.findOneAndUpdate(
+        {
+          user_id: data.user_id,
+          "timetable.day.id": data.id
+        },
+        {
+          $set: {
+            "timetable.day.$.F": data.value
+          }
+        }
+      )
+        .then(docs => {
+          User.find({
+            user_id: data.user_id
+          }).then(docs => {
+            console.log("user find");
+            console.log(docs);
+            socket.emit("timetable", docs);
+          });
+          console.log("Success! handleOpen saved");
+          console.log("docs");
+          console.log(docs);
+          // socket.emit("timetable", docs);
+
+          // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+        })
+        .catch(err => {
+          console.log("err", err.stack);
+        });
+    } else if (data.currentFunction == "S") {
+      User.findOneAndUpdate(
+        {
+          user_id: data.user_id,
+          "timetable.day.id": data.id
+        },
+        {
+          $set: {
+            "timetable.day.$.S": data.value
+          }
+        }
+      )
+        .then(docs => {
+          console.log("Success! handleOpen saved");
+          User.find({
+            user_id: data.user_id
+          }).then(docs => {
+            console.log("user find");
+            console.log(docs);
+            socket.emit("timetable", docs);
+          }); // socket.emit("timetable", docs);
+
+          console.log("docs");
+          console.log(docs);
+          // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+        })
+        .catch(err => {
+          console.log("err", err.stack);
+        });
+    } else if (data.currentFunction == "Su") {
+      User.findOneAndUpdate(
+        {
+          user_id: data.user_id,
+          "timetable.day.id": data.id
+        },
+        {
+          $set: {
+            "timetable.day.$.Su": data.value
+          }
+        }
+      )
+        .then(docs => {
+          // socket.emit("timetable", docs);
+          User.find({
+            user_id: data.user_id
+          }).then(docs => {
+            console.log("user find");
+            console.log(docs);
+            socket.emit("timetable", docs);
+          });
+          console.log("Success! handleOpen saved");
+          console.log("docs");
+          console.log(docs);
+          // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+        })
+        .catch(err => {
+          console.log("err", err.stack);
+        });
+    }
   });
 
   // socket.on("calculate conversations", function(data) {

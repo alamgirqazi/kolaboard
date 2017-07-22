@@ -14,6 +14,9 @@ class UserStore {
   @observable emailnotif = true;
   @observable flisty = false;
   @observable groupName;
+  @observable currentFunction;
+  @observable currentId;
+  @observable currentValue;
 }
 
 var userstore = (window.userstore = new UserStore());
