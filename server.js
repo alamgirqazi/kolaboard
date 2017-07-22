@@ -584,9 +584,13 @@ io.on("connection", function(socket) {
     );
 
     socket.emit("new message", {
-      username: socket.username,
-      msg: data,
-      pic: socket.picture
+      from: socket.username,
+      message: data.msg,
+      pic: socket.picture,
+      favourite: false,
+      date: date,
+      time: time,
+      picture: data.picture
     });
   });
 

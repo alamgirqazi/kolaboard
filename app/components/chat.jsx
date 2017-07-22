@@ -197,6 +197,7 @@ export default class Chat extends React.Component {
       socket.on("new message", function(data) {
         var d = new Date();
         var n = d.getTime();
+        ChatStore.msgs.push(data);
       });
 
       socket.on("returnmsgs", function(data) {
