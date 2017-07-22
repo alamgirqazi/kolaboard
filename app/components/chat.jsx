@@ -86,25 +86,49 @@ export default class Chat extends React.Component {
     super(props);
     this.sendMsg = this.sendMsg.bind(this);
     socket = io.connect();
+
+    var data = {
+      roomId: ChatStore.groupId
+    };
+    socket.emit("retrieve msgs", data);
+    socket.on("chat msgs", function(data) {
+      ChatStore.msgs = data[0].conversation;
+    });
     this.state = {
       status: false
     };
   }
+  componentWillReceiveProps(nextProps) {
+    var data = {
+      roomId: ChatStore.groupId
+    };
+    socket.emit("retrieve msgs", data);
+    socket.on("chat msgs", function(data) {
+      ChatStore.msgs = data[0].conversation;
+    });
+  }
 
   componentDidMount() {
-    console.log("mounted Chat");
-    setInterval(
-      function() {
-        var data = {
-          roomId: ChatStore.groupId
-        };
-        socket.emit("retrieve msgs", data);
-        socket.on("chat msgs", function(data) {
-          ChatStore.msgs = data[0].conversation;
-        });
-      }.bind(this),
-      1500
-    );
+    var data = {
+      roomId: ChatStore.groupId
+    };
+    socket.emit("retrieve msgs", data);
+    socket.on("chat msgs", function(data) {
+      ChatStore.msgs = data[0].conversation;
+    });
+
+    // setInterval(
+    //   function() {
+    //     var data = {
+    //       roomId: ChatStore.groupId
+    //     };
+    //     socket.emit("retrieve msgs", data);
+    //     socket.on("chat msgs", function(data) {
+    //       ChatStore.msgs = data[0].conversation;
+    //     });
+    //   }.bind(this),
+    //   1500
+    // );
   }
 
   handleStar = Users => {
@@ -142,10 +166,7 @@ export default class Chat extends React.Component {
     socket.on("remainingmsgs", function(data) {
       console.log("da");
       console.log(data[0].conversation);
-      // var a = data[0].from;
-      // console.log(data[0].from);
-      // b = a.split(/\s(.+)/)[0]; //everything before the first space
-      // data.firstname = b;
+
       ChatStore.msgs = data[0].conversation;
     });
   };
@@ -181,6 +202,17 @@ export default class Chat extends React.Component {
       socket.on("returnmsgs", function(data) {
         ChatStore.msgs = data.msg;
       });
+
+      var data = {
+        user_id: UserStore.obj.user_id,
+        _id: ChatStore.groupId,
+        count: ChatStore.msgs,
+        participants: ChatStore.participants
+
+        //ChatStore.readcount = Object.keys(data[0].conversation).length;
+      };
+      socket.emit("readcount send", data);
+      // socket.emit("calculate conversations", result);
     }
   }
   render() {

@@ -105,14 +105,14 @@ export default class ListChatContainer extends React.Component {
     };
     socket.emit("room leave", data);
     socket.on("remaininggroups", function(data) {
-      console.log("data[0].rooms");
-      console.log(data[0].rooms);
+      // console.log("data[0].rooms");
+      // console.log(data[0].rooms);
       UserStore.obj.rooms = data[0].rooms;
     });
   }
   _handleClick(Users) {
     ChatStore.btnClick = true;
-
+    // console.log(JSON.stringify(Users));
     ChatStore.groupId = Users.roomId;
     ChatStore.groupname = Users.roomName;
     ChatStore.groupavatar = Users.pic;
@@ -131,6 +131,15 @@ export default class ListChatContainer extends React.Component {
       dataType: "json",
       success: function(data) {
         ChatStore.participants = JSON.parse(data[0].participants);
+        ChatStore.readcount = Object.keys(data[0].conversation).length;
+        console.log(ChatStore.readcount);
+        var data = {
+          user_id: UserStore.obj.user_id,
+          _id: Users._id,
+          count: ChatStore.readcount.toString()
+        };
+
+        socket.emit("readcountmsg", data);
       },
       error: function(err) {
         console.log("error in get of room" + err);
@@ -144,19 +153,32 @@ export default class ListChatContainer extends React.Component {
     socket.on("dbnotes", function(data) {
       ChatStore.notes = data.dbnotes;
     });
-    this.state.data = UserStore.obj.rooms;
+    // this.state.data = UserStore.obj.rooms;
 
-    // setInterval(
-    //   function() {
-    //     if (UserStore.obj.rooms == null || UserStore.obj.rooms == undefined)
-    //       rooms = [];
-    //     // else rooms = UserStore.obj.rooms;
-    //     // console.log(rooms);
-    //     // console.log("timing out");
-    //     this.state.data = UserStore.obj.rooms;
-    //   }.bind(this),
-    //   5000
-    // );
+    setInterval(
+      function() {
+        socket.emit("read sync", UserStore.obj.user_id);
+
+        socket.on("sync success", function(data) {
+          // console.log("data[0].rooms");
+          // console.log(data[0].rooms);
+          UserStore.obj.rooms = data[0].rooms;
+
+          var result = UserStore.obj.rooms.map(function(a) {
+            return a.roomId;
+          });
+
+          //  console.log("result");
+          //    console.log(result);
+        });
+
+        socket.on("calculated conversations", function(data) {
+          // console.log("data[0].rooms");
+          //  console.log(data);
+        });
+      }.bind(this),
+      6000
+    );
   }
   _handleContinuousRender() {
     //alert(Users._id);
@@ -223,7 +245,11 @@ export default class ListChatContainer extends React.Component {
                             </IconMenu>
                           }
                           primaryText={Users.roomName}
-                          secondaryText={<p />}
+                          secondaryText={
+                            <p>
+                              {Users.total_count - Users.read_count}
+                            </p>
+                          }
                           secondaryTextLines={1}
                         />
                       </div>

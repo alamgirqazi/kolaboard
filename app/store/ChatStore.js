@@ -12,6 +12,7 @@ class ChatStore {
   @observable individualnote = [];
   @observable individualmsg = [];
   @observable note = [];
+  @observable readcount;
   // @observable fullscreen = !
 }
 
