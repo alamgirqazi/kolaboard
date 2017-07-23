@@ -48,12 +48,12 @@ const styles = {
 const style = {
   margin: 12
 };
-var socket;
+// var socket;
 @observer
 export default class NewChatDrawer extends React.Component {
   constructor(props) {
     super(props);
-    socket = io.connect();
+    // socket = io.connect();
     this.state = {
       open: false,
       snackbaropen: false,

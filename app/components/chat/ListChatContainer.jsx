@@ -113,6 +113,7 @@ export default class ListChatContainer extends React.Component {
   _handleClick(Users) {
     ChatStore.btnClick = true;
     // console.log(JSON.stringify(Users));
+    // ChatStore.sendTo = Users.roomName;
     ChatStore.groupId = Users.roomId;
     ChatStore.groupname = Users.roomName;
     ChatStore.groupavatar = Users.pic;

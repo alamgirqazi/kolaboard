@@ -203,26 +203,63 @@ export default class Chat extends React.Component {
     // console.log("This is the text " + this.refs.newText.value);
     if (this.refs.newText.value == "") {
     } else {
+      ChatStore.msgs.push({
+        from: UserStore.userrealname,
+        message: this.refs.newText.value,
+        favourite: false,
+        date: new Date(),
+        time: new Date().getTime(),
+        //   var d = new Date();
+        //   var n = d.getTime();
+        picture: UserStore.obj.picture
+      });
+
+      // var data1 = {
+      //   favourite: false,
+      //   msg: this.refs.newText.value,
+      //   picture: UserStore.obj.picture
+      // };
+      // socket.emit("chat message", data1);
+      console.log("ChatStore.groupname");
+      console.log(ChatStore.groupname);
+      socket.on("chat messagey", function(msg) {
+        ChatStore.msgs.push(msg);
+
+        socket.emit("recieving msgs", ChatStore.groupId);
+        socket.on("remaining msgs", function(data) {
+          ///   console.log("da");
+          console.log(data[0].conversation);
+
+          ChatStore.msgs = data[0].conversation;
+        });
+
+        // ChatStore.msgs.push(msg);
+        // console.log(msg);
+        console.log("212321");
+      });
+      console.log("ChatStore.groupname");
+      console.log(ChatStore.groupname);
       socket.emit("send message", {
         msg: this.refs.newText.value,
         roomId: roomId,
-        picture: UserStore.obj.picture
+        picture: UserStore.obj.picture,
+        sendTo: ChatStore.groupname
       });
-      socket.emit("emt", "abc");
+      // socket.emit("emt", "abc");
       //console.log("This is roomId " + roomId);
-      socket.emit("sending", roomId);
+      // socket.emit("sending", roomId);
       this.refs.newText.value = "";
 
-      socket.on("new message", function(data) {
-        var d = new Date();
-        var n = d.getTime();
-        ChatStore.msgs.push(data);
-        console.log("kuch bhi");
-      });
+      // socket.on("new message", function(data) {
+      //   var d = new Date();
+      //   var n = d.getTime();
+      //   ChatStore.msgs.push(data);
+      //   console.log("kuch bhi");
+      // });
 
-      socket.on("returnmsgs", function(data) {
-        ChatStore.msgs = data.msg;
-      });
+      // socket.on("returnmsgs", function(data) {
+      //   ChatStore.msgs = data.msg;
+      // });
 
       var data = {
         user_id: UserStore.obj.user_id,

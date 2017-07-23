@@ -529,7 +529,26 @@ app.get("*", function(request, response) {
 io.on("connection", function(socket) {
   connections.push(socket);
   console.log("Connected: %s sockets connected", connections.length);
+  socket.on("chat message", function(data) {
+    var d = new Date(); // for now
+    d.getHours(); // => 9
+    d.getMinutes(); // =>  30
+    d.getSeconds(); // => 51
+    //console.log(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
+    time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
 
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+    date = mm + "/" + dd + "/" + yyyy;
+  });
   //Disconnect
   socket.on("disconnect", function(data) {
     users.splice(users.indexOf(socket.username), 1);
@@ -582,16 +601,34 @@ io.on("connection", function(socket) {
         }
       }
     );
-
-    socket.emit("new message", {
+    console.log("data.sendTo");
+    console.log(data.sendTo);
+    socket.broadcast.emit("chat messagey", {
       from: socket.username,
       message: data.msg,
-      pic: socket.picture,
       favourite: false,
       date: date,
       time: time,
       picture: data.picture
     });
+    // io.emit("chat messagey", {
+    //   from: socket.username,
+    //   message: data.msg,
+    //   favourite: false,
+    //   date: date,
+    //   time: time,
+    //   picture: data.picture
+    // });
+
+    // socket.emit("new message", {
+    //   from: socket.username,
+    //   message: data.msg,
+    //   pic: socket.picture,
+    //   favourite: false,
+    //   date: date,
+    //   time: time,
+    //   picture: data.picture
+    // });
   });
 
   socket.on("Join room", function(data) {
@@ -600,12 +637,18 @@ io.on("connection", function(socket) {
     // io.sockets.in(data).emit('roomMsg', data);
     // console.log(socket.rooms[0]);
   });
-  socket.on("emt", function(data) {
-    console.log("THis is  " + data);
-    socket.emit("emtt", "abcd");
-    // io.sockets.in(data).emit('roomMsg', data);
-    // console.log(socket.rooms[0]);
+
+  socket.on("recieving msgs", function(data) {
+    rooms.find({ _id: data }, function(err, docs) {
+      socket.emit("remaining msgs", docs);
+    });
   });
+  // socket.on("emt", function(data) {
+  //   console.log("THis is  " + data);
+  //   socket.emit("emtt", "abcd");
+  //   // io.sockets.in(data).emit('roomMsg', data);
+  //   // console.log(socket.rooms[0]);
+  // });
   socket.on("pushingMsg", function(data) {
     socket.join("room", function() {
       console.log("This is socket.id " + socket.id);
@@ -1325,17 +1368,6 @@ io.on("connection", function(socket) {
         }
       }
     );
-  });
-  socket.on("sending", function(data) {
-    // console.log("THis is data coming from roomId " + data);
-    rooms.find({ _id: data }, function(err, rooms) {
-      if (err) {
-        console.log("There is an error");
-      } else {
-        socket.emit("returnmsgs", { msg: rooms[0].conversation });
-        // res.send(rooms);
-      }
-    });
   });
 
   socket.on("retrieve msgs", function(data) {

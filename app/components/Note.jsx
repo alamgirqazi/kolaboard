@@ -273,7 +273,7 @@ class Note extends React.Component {
 export default class Boards extends React.Component {
   constructor() {
     super();
-    socket = io.connect();
+    // socket = io.connect();
 
     this.state = {
       notes: [{ text: "yo" }],
