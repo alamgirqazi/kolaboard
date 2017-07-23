@@ -164,25 +164,25 @@ export default class ListChatContainer extends React.Component {
           // console.log(data[0].rooms);
           UserStore.obj.rooms = data[0].rooms;
 
-          var result = UserStore.obj.rooms.map(function(a) {
-            return a.roomId;
-          });
+          // var result = UserStore.obj.rooms.map(function(a) {
+          //   return a.roomId;
+          // });
 
           //  console.log("result");
           //    console.log(result);
         });
 
-        socket.on("calculated conversations", function(data) {
-          // console.log("data[0].rooms");
-          //  console.log(data);
-        });
+        // socket.on("calculated conversations", function(data) {
+        //   // console.log("data[0].rooms");
+        //   //  console.log(data);
+        // });
       }.bind(this),
       6000
     );
   }
-  _handleContinuousRender() {
-    //alert(Users._id);
-  }
+  // _handleContinuousRender() {
+  //   //alert(Users._id);
+  // }
   render() {
     const iconButtonElement = (
       <IconButton touch={true} tooltip="more" tooltipPosition="bottom-left">
@@ -297,14 +297,28 @@ export default class ListChatContainer extends React.Component {
                               </IconMenu>
                             }
                             primaryText={
-                              <Badge
-                                primary={true}
-                                badgeContent={
-                                  Users.total_count - Users.read_count
-                                }
-                              >
+                              <div>
                                 {Users.roomName}
-                              </Badge>
+                                &nbsp;
+                                <Badge
+                                  badgeStyle={{
+                                    color: "black"
+                                  }}
+                                  primary={true}
+                                  badgeContent={
+                                    Users.total_count - Users.read_count
+                                  }
+                                />
+                                &nbsp; &nbsp; &nbsp;
+                                <Badge
+                                  badgeStyle={{
+                                    backgroundColor: "#FFEB3B"
+                                  }}
+                                  badgeContent={
+                                    Users.total_count - Users.read_count
+                                  }
+                                />
+                              </div>
                             }
                           />
                         </div>
