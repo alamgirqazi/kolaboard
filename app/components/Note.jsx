@@ -340,16 +340,31 @@ export default class Boards extends React.Component {
       text: text
     };
     // socket.emit("addingnotes", data);
-    arr.push(data);
+    // arr.push(data);
+    ChatStore.notes.push(data);
     // socket.on("roomNotes", function(data) {
 
     // });
+
     socket.emit("addnote", {
       roomId: ChatStore.groupId,
       from: UserStore.userrealname,
       date: date,
       time: time,
       text: text
+    });
+    socket.on("note messagey", function(msg) {
+      console.log("data[0].noteskkkkkkkkkkkkkkkkkkkkkkk");
+
+      ChatStore.notes.push(msg);
+      // arr.push(data);
+      socket.emit("recieving msgs", ChatStore.groupId);
+      socket.on("remaining msgs", function(data) {
+        ///   console.log("da");
+        console.log(data[0].notes);
+
+        ChatStore.notes = data[0].notes;
+      });
     });
 
     var data = {
@@ -361,7 +376,7 @@ export default class Boards extends React.Component {
       //ChatStore.readcount = Object.keys(data[0].conversation).length;
     };
     socket.emit("readnotes send", data);
-    socket.emit("emt", "aq");
+    // socket.emit("emt", "aq");
     //     var roomId = ChatStore.groupId;
     // var interval =  setTimeout(function(){ socket.emit('gettingnotes', roomId); }, 1000);
     // socket.emit('gettingnotes', roomId);
@@ -373,6 +388,15 @@ export default class Boards extends React.Component {
     // this.setState({
     //   notes: arr
     // });
+
+    setTimeout(
+      function() {
+        this.setState({
+          open: false
+        });
+      }.bind(this),
+      2500
+    ); //
   }
   remove(i) {
     var arr = ChatStore.notes;

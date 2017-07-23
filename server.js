@@ -668,8 +668,8 @@ io.on("connection", function(socket) {
     });
   });
   socket.on("addnote", function(data) {
-    // console.log("add notes");
-    // console.log(data);
+    console.log("add notes");
+    console.log(data);
     rooms.update(
       { _id: data.roomId },
       {
@@ -686,6 +686,12 @@ io.on("connection", function(socket) {
         if (err) console.log("This is errro " + err);
         else {
           console.log("Successful...!");
+          socket.broadcast.emit("note messagey", {
+            from: data.from,
+            text: data.text,
+            date: data.date,
+            time: data.time
+          });
         }
       }
     );
