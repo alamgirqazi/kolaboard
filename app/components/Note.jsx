@@ -46,7 +46,7 @@ const customContentStyle = {
   width: "30%",
   maxWidth: "none"
 };
-var socket;
+// var
 const style = {
   margin: 12,
   marginRight: 20
@@ -75,7 +75,7 @@ class Note extends React.Component {
   }
 
   save() {
-    socket = io.connect();
+    // socket = io.connect();
     var data = {
       newnote: this.refs.newText.value,
       _id: this.props.children._id,

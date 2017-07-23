@@ -67,13 +67,13 @@ const topdiv = {
 const width = {
   width: "700px"
 };
-let socket;
+// let socket;
 var mydata = [];
 @observer
 export default class TimeTable extends React.Component {
   constructor(props) {
     super(props);
-    socket = io.connect();
+    // socket = io.connect();
     // UserStore.obj.timetable[0].monday = [{"":""}];
     this.state = {
       open: false,

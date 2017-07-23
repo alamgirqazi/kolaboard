@@ -84,13 +84,13 @@ let users = [];
 // let otherusers = [];
 let realusers = [];
 
-var socket;
+// var socket;
 @observer
 export default class ListChatContainer extends React.Component {
   constructor(props) {
     super(props);
     this._handleClick = this._handleClick.bind(this);
-    socket = io.connect();
+    // socket = io.connect();
     this.state = {
       data: []
     };

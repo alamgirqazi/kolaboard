@@ -42,7 +42,7 @@ import TextField from "material-ui/TextField";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
 
-var socket;
+// var socket;
 var note;
 const muiTheme = getMuiTheme({
   palette: {
@@ -142,7 +142,7 @@ export default class PrivateNotes extends React.Component {
       openDelete: false,
       opennotes: false
     };
-    socket = io.connect();
+    // socket = io.connect();
   }
   add(text) {
     var d = new Date(); // for now

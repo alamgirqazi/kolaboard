@@ -23,7 +23,7 @@ import Dialog from "material-ui/Dialog";
 
 import IconMenu from "material-ui/IconMenu";
 import MenuItem from "material-ui/MenuItem";
-var socket;
+// var socket;
 var today;
 var msgs;
 var adding;
@@ -87,7 +87,7 @@ export default class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.sendMsg = this.sendMsg.bind(this);
-    socket = io.connect();
+    // socket = io.connect();
     this.scrollToBottom = this.scrollToBottom.bind(this);
 
     var data = {
