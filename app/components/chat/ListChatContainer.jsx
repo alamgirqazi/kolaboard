@@ -218,46 +218,102 @@ export default class ListChatContainer extends React.Component {
               thumbMinSize={50}
             >
               {rooms.map(Users => {
-                return (
-                  <div key={Users._id}>
-                    <SelectableList defaultValue={3} key={Users._id}>
-                      <div className="" key={Users._id}>
-                        <ListItem
-                          key={Users._id}
-                          onTouchTap={() => this._handleClick(Users)}
-                          value={4}
-                          leftAvatar={
-                            <Avatar size={40} key={Users._id} color={darkBlack}>
-                              {Users.pic}
-                            </Avatar>
-                          }
-                          rightIconButton={
-                            <IconMenu
-                              key={Users._id}
-                              iconButtonElement={iconButtonElement}
-                            >
-                              <MenuItem
+                if (Users.total_count - Users.read_count == 0) {
+                  return (
+                    <div key={Users._id}>
+                      <SelectableList defaultValue={3} key={Users._id}>
+                        <div className="" key={Users._id}>
+                          <ListItem
+                            key={Users._id}
+                            onTouchTap={() => this._handleClick(Users)}
+                            value={4}
+                            leftAvatar={
+                              <Avatar
+                                size={40}
                                 key={Users._id}
-                                onTouchTap={this._handleLeave.bind(this, Users)}
+                                color={darkBlack}
                               >
-                                Leave Group
-                              </MenuItem>
-                            </IconMenu>
-                          }
-                          primaryText={Users.roomName}
-                          secondaryText={
-                            <p>
-                              {Users.total_count - Users.read_count}
-                            </p>
-                          }
-                          secondaryTextLines={1}
-                        />
-                      </div>
+                                {Users.pic}
+                              </Avatar>
+                            }
+                            rightIconButton={
+                              <IconMenu
+                                key={Users._id}
+                                iconButtonElement={iconButtonElement}
+                              >
+                                <MenuItem
+                                  key={Users._id}
+                                  onTouchTap={this._handleLeave.bind(
+                                    this,
+                                    Users
+                                  )}
+                                >
+                                  Leave Group
+                                </MenuItem>
+                              </IconMenu>
+                            }
+                            primaryText={Users.roomName}
+                            secondaryText={<p />}
+                            secondaryTextLines={1}
+                          />
+                        </div>
 
-                      <Divider inset={true} />
-                    </SelectableList>
-                  </div>
-                );
+                        <Divider inset={true} />
+                      </SelectableList>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div key={Users._id}>
+                      <SelectableList defaultValue={3} key={Users._id}>
+                        <div className="" key={Users._id}>
+                          <ListItem
+                            key={Users._id}
+                            onTouchTap={() => this._handleClick(Users)}
+                            value={4}
+                            leftAvatar={
+                              <Avatar
+                                size={40}
+                                key={Users._id}
+                                color={darkBlack}
+                              >
+                                {Users.pic}
+                              </Avatar>
+                            }
+                            rightIconButton={
+                              <IconMenu
+                                key={Users._id}
+                                iconButtonElement={iconButtonElement}
+                              >
+                                <MenuItem
+                                  key={Users._id}
+                                  onTouchTap={this._handleLeave.bind(
+                                    this,
+                                    Users
+                                  )}
+                                >
+                                  Leave Group
+                                </MenuItem>
+                              </IconMenu>
+                            }
+                            primaryText={
+                              <Badge
+                                primary={true}
+                                badgeContent={
+                                  Users.total_count - Users.read_count
+                                }
+                              >
+                                {Users.roomName}
+                              </Badge>
+                            }
+                          />
+                        </div>
+
+                        <Divider inset={true} />
+                      </SelectableList>
+                    </div>
+                  );
+                }
               })}
 
               <br />
