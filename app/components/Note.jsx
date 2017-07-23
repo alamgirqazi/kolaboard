@@ -352,6 +352,16 @@ export default class Boards extends React.Component {
       text: text
     });
 
+    var data = {
+      user_id: UserStore.obj.user_id,
+      _id: ChatStore.groupId,
+      count: ChatStore.notes,
+      participants: ChatStore.participants
+
+      //ChatStore.readcount = Object.keys(data[0].conversation).length;
+    };
+    socket.emit("readnotes send", data);
+    socket.emit("emt", "aq");
     //     var roomId = ChatStore.groupId;
     // var interval =  setTimeout(function(){ socket.emit('gettingnotes', roomId); }, 1000);
     // socket.emit('gettingnotes', roomId);

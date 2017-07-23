@@ -600,6 +600,12 @@ io.on("connection", function(socket) {
     // io.sockets.in(data).emit('roomMsg', data);
     // console.log(socket.rooms[0]);
   });
+  socket.on("emt", function(data) {
+    console.log("THis is  " + data);
+    socket.emit("emtt", "abcd");
+    // io.sockets.in(data).emit('roomMsg', data);
+    // console.log(socket.rooms[0]);
+  });
   socket.on("pushingMsg", function(data) {
     socket.join("room", function() {
       console.log("This is socket.id " + socket.id);
@@ -719,26 +725,6 @@ io.on("connection", function(socket) {
   socket.on("readcount send", function(data) {
     console.log(data.count.length);
 
-    // User.findOneAndUpdate(
-    //   {
-    //     user_id: data.user_id,
-    //     "rooms.roomId": data._id
-    //   },
-    //   {
-    //     $set: {
-    //       "rooms.$.total_count": data.count.length + 1
-    //     }
-    //   }
-    // )
-    //   .then(docs => {
-    //     console.log("Success! count saved");
-    //     //   console.log(docs);
-    //     // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
-    //   })
-    //   .catch(err => {
-    //     console.log("err", err.stack);
-    //   });
-
     for (var i = 0; i < data.participants.length; i++) {
       if (data.user_id == data.participants[i].user_id) {
         User.findOneAndUpdate(
@@ -770,6 +756,55 @@ io.on("connection", function(socket) {
           {
             $set: {
               "rooms.$.total_count": data.count.length + 1
+            }
+          }
+        )
+          .then(docs => {
+            console.log("Success! count saved");
+            //   console.log(docs);
+            // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+          })
+          .catch(err => {
+            console.log("err", err.stack);
+          });
+      }
+    }
+  });
+
+  socket.on("readnotes send", function(data) {
+    console.log(data.count.length);
+
+    for (var i = 0; i < data.participants.length; i++) {
+      if (data.user_id == data.participants[i].user_id) {
+        User.findOneAndUpdate(
+          {
+            user_id: data.participants[i].user_id,
+            "rooms.roomId": data._id
+          },
+          {
+            $set: {
+              "rooms.$.total_notes_count": data.count.length,
+              "rooms.$.read_notes_count": data.count.length
+            }
+          }
+        )
+          .then(docs => {
+            console.log("Success! count saved");
+            //   console.log(docs);
+            // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+          })
+          .catch(err => {
+            console.log("err", err.stack);
+          });
+      } else {
+        User.findOneAndUpdate(
+          {
+            user_id: data.participants[i].user_id,
+            "rooms.roomId": data._id
+          },
+          {
+            $set: {
+              "rooms.$.total_notes_count": data.count.length
             }
           }
         )
@@ -920,9 +955,10 @@ io.on("connection", function(socket) {
   });
 
   socket.on("readcountmsg", function(data) {
-    console.log("readcountmsg");
-    // console.log(data.count);
-    console.log(data.participants);
+    // console.log("readcountmsg");
+    // // console.log(data.count);
+    console.log(data.notescount);
+    // console.log(data.participants);
     User.findOneAndUpdate(
       {
         user_id: data.user_id,
@@ -930,7 +966,8 @@ io.on("connection", function(socket) {
       },
       {
         $set: {
-          "rooms.$.read_count": data.count
+          "rooms.$.read_count": data.count,
+          "rooms.$.read_notes_count": data.notescount
         }
       }
     )

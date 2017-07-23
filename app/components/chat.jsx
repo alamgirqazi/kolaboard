@@ -208,6 +208,7 @@ export default class Chat extends React.Component {
         roomId: roomId,
         picture: UserStore.obj.picture
       });
+      socket.emit("emt", "abc");
       //console.log("This is roomId " + roomId);
       socket.emit("sending", roomId);
       this.refs.newText.value = "";
@@ -216,6 +217,7 @@ export default class Chat extends React.Component {
         var d = new Date();
         var n = d.getTime();
         ChatStore.msgs.push(data);
+        console.log("kuch bhi");
       });
 
       socket.on("returnmsgs", function(data) {
@@ -231,9 +233,14 @@ export default class Chat extends React.Component {
         //ChatStore.readcount = Object.keys(data[0].conversation).length;
       };
       socket.emit("readcount send", data);
+      socket.on("emtt", function(data) {
+        console.log(data);
+      });
+
       // socket.emit("calculate conversations", result);
     }
   }
+
   render() {
     //  console.log("This is data in store chat " + ChatStore.msgs);
     var users = ChatStore.msgs;

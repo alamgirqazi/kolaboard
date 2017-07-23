@@ -132,11 +132,14 @@ export default class ListChatContainer extends React.Component {
       success: function(data) {
         ChatStore.participants = JSON.parse(data[0].participants);
         ChatStore.readcount = Object.keys(data[0].conversation).length;
-        // console.log(ChatStore.readcount);
+        ChatStore.notescount = Object.keys(data[0].notes).length;
+        console.log("data[0].notes");
+        console.log(data[0].notes.length);
         var data = {
           user_id: UserStore.obj.user_id,
           _id: Users._id,
-          count: ChatStore.readcount.toString()
+          count: ChatStore.readcount.toString(),
+          notescount: ChatStore.notescount.toString()
         };
 
         socket.emit("readcountmsg", data);
@@ -218,7 +221,10 @@ export default class ListChatContainer extends React.Component {
               thumbMinSize={50}
             >
               {rooms.map(Users => {
-                if (Users.total_count - Users.read_count == 0) {
+                if (
+                  Users.total_count - Users.read_count == 0 &&
+                  Users.total_notes_count - Users.read_notes_count == 0
+                ) {
                   return (
                     <div key={Users._id}>
                       <SelectableList defaultValue={3} key={Users._id}>
@@ -315,7 +321,8 @@ export default class ListChatContainer extends React.Component {
                                     backgroundColor: "#FFEB3B"
                                   }}
                                   badgeContent={
-                                    Users.total_count - Users.read_count
+                                    Users.total_notes_count -
+                                    Users.read_notes_count
                                   }
                                 />
                               </div>

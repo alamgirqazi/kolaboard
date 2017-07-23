@@ -78,7 +78,9 @@ var UserSchema = new Schema({
       roomName: "String",
       pic: "string",
       read_count: "string",
-      total_count: "string"
+      total_count: "string",
+      read_notes_count: "string",
+      total_notes_count: "string"
     }
   ],
   privatenotes: [
