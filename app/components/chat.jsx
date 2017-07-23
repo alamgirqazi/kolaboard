@@ -6,6 +6,8 @@ import Avatar from "material-ui/Avatar";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 // import ContentAdd from "material-ui/svg-icons/content/add";
 import Chatbar from "app/components/toolbars/chattoolbar.jsx";
+var ReactDOM = require("react-dom");
+
 //import ReactScrollbar from 'react-scrollbar-js';
 import { observer } from "mobx-react";
 import IconButton from "material-ui/IconButton";
@@ -86,6 +88,7 @@ export default class Chat extends React.Component {
     super(props);
     this.sendMsg = this.sendMsg.bind(this);
     socket = io.connect();
+    this.scrollToBottom = this.scrollToBottom.bind(this);
 
     var data = {
       roomId: ChatStore.groupId
@@ -113,23 +116,33 @@ export default class Chat extends React.Component {
       roomId: ChatStore.groupId
     };
     socket.emit("retrieve msgs", data);
+    this.scrollToBottom();
+
     socket.on("chat msgs", function(data) {
       ChatStore.msgs = data[0].conversation;
     });
-
-    // setInterval(
-    //   function() {
-    //     var data = {
-    //       roomId: ChatStore.groupId
-    //     };
-    //     socket.emit("retrieve msgs", data);
-    //     socket.on("chat msgs", function(data) {
-    //       ChatStore.msgs = data[0].conversation;
-    //     });
-    //   }.bind(this),
-    //   1500
-    // );
   }
+  scrollToBottom = () => {
+    const messagesContainer = ReactDOM.findDOMNode(this.messagesContainer);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  };
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  // setInterval(
+  //   function() {
+  //     var data = {
+  //       roomId: ChatStore.groupId
+  //     };
+  //     socket.emit("retrieve msgs", data);
+  //     socket.on("chat msgs", function(data) {
+  //       ChatStore.msgs = data[0].conversation;
+  //     });
+  //   }.bind(this),
+  //   1500
+  // );
 
   handleStar = Users => {
     //    console.log(Users.favourite.toString());
@@ -178,9 +191,14 @@ export default class Chat extends React.Component {
   handleClose = () => {
     Store.msgdetails = false;
   };
+  // renderView = () => {
+  //   // this.refs.scrollbars.scrollToTop();
+  // };
   sendMsg() {
     var roomId = ChatStore.groupId;
     socket.emit("add user", UserStore);
+    // this.refs.scrollbars.scrollToTop();
+
     // console.log("Send button is pressed");
     // console.log("This is the text " + this.refs.newText.value);
     if (this.refs.newText.value == "") {
@@ -240,6 +258,7 @@ export default class Chat extends React.Component {
         <Chatbar style={toolbarstyle} />
         {/*<Infinite containerHeight={500} elementHeight={4} displayBottomUpwards style={styling}> */}
         <Scrollbars
+          ref="scrollbars"
           style={{ height: "100%" }}
           autoHeightMin={0}
           autoHeightMax={500}
@@ -332,7 +351,11 @@ export default class Chat extends React.Component {
                 })}
               </ol>
 
-              <br />
+              <br
+                ref={el => {
+                  this.messagesContainer = el;
+                }}
+              />
               <br />
               <br />
               <br />

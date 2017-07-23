@@ -132,7 +132,7 @@ export default class ListChatContainer extends React.Component {
       success: function(data) {
         ChatStore.participants = JSON.parse(data[0].participants);
         ChatStore.readcount = Object.keys(data[0].conversation).length;
-        console.log(ChatStore.readcount);
+        // console.log(ChatStore.readcount);
         var data = {
           user_id: UserStore.obj.user_id,
           _id: Users._id,
@@ -177,7 +177,7 @@ export default class ListChatContainer extends React.Component {
         //   //  console.log(data);
         // });
       }.bind(this),
-      6000
+      5000
     );
   }
   // _handleContinuousRender() {

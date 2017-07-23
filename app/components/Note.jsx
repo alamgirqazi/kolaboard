@@ -17,6 +17,8 @@ import IconMenu from "material-ui/IconMenu";
 import MenuItem from "material-ui/MenuItem";
 import Dialog from "material-ui/Dialog";
 import { List, ListItem } from "material-ui/List";
+var ReactDOM = require("react-dom");
+
 let individualnotes;
 const wordwrap = {
   wordWrap: "breakWord",
@@ -394,7 +396,8 @@ export default class Boards extends React.Component {
     );
   }
   componentDidMount() {
-    var board = React.findDOMNode(this);
+    var board = ReactDOM.findDOMNode(this);
+    // var board = React.findDOMNode(this);
     dragula([board]);
   }
   handleClose = () => {

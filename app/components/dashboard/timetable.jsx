@@ -317,9 +317,9 @@ export default class TimeTable extends React.Component {
         <div>
           <Toolbar />
           <br />
-          <h1 style={header}>Timetable</h1>
+          <h3 style={header}>Weekly timetable</h3>
           <Dialog
-            title="New Event"
+            title="Set Up Weekly Schedule"
             actions={actions}
             modal={false}
             open={this.state.open}
@@ -327,7 +327,7 @@ export default class TimeTable extends React.Component {
           >
             <TextField
               ref="txtname"
-              floatingLabelText="Name"
+              floatingLabelText="Schedule for the hour"
               hintText="Enter here..."
               maxLength="12"
               floatingLabelFixed={true}
