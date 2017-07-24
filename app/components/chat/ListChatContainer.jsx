@@ -223,8 +223,10 @@ export default class ListChatContainer extends React.Component {
             >
               {rooms.map(Users => {
                 if (
-                  Users.total_count - Users.read_count == 0 &&
-                  Users.total_notes_count - Users.read_notes_count == 0
+                  (Users.total_count - Users.read_count == 0 &&
+                    Users.total_notes_count - Users.read_notes_count == 0) ||
+                  (Users.total_count - Users.read_count == NaN &&
+                    Users.total_notes_count - Users.read_notes_count == NaN)
                 ) {
                   return (
                     <div key={Users._id}>

@@ -274,9 +274,15 @@ export default class ToolbarExamplesSimple extends React.Component {
 
         setTimeout(
           function() {
-            this.setState({
-              yay: !this.state.yay
-            });
+            if (this.state.yay == false) {
+              this.setState({
+                yay: true
+              });
+            } else {
+              this.setState({
+                yay: false
+              });
+            }
           }.bind(this),
           3000
         );

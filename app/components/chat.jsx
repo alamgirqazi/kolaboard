@@ -198,7 +198,24 @@ export default class Chat extends React.Component {
     var roomId = ChatStore.groupId;
     socket.emit("add user", UserStore);
     // this.refs.scrollbars.scrollToTop();
+    var d = new Date(); // for now
+    d.getHours(); // => 9
+    d.getMinutes(); // =>  30
+    d.getSeconds(); // => 51
+    //console.log(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
+    var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
 
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+    var date = mm + "/" + dd + "/" + yyyy;
     // console.log("Send button is pressed");
     // console.log("This is the text " + this.refs.newText.value);
     if (this.refs.newText.value == "") {
@@ -207,8 +224,8 @@ export default class Chat extends React.Component {
         from: UserStore.userrealname,
         message: this.refs.newText.value,
         favourite: false,
-        date: new Date(),
-        time: new Date().getTime(),
+        date: date,
+        time: time,
         //   var d = new Date();
         //   var n = d.getTime();
         picture: UserStore.obj.picture

@@ -267,7 +267,7 @@ export default class NewChatDrawer extends React.Component {
                   </Chip>
                 </div>
               );
-            })};
+            })}
           </div>
           <br />
           <TextField
