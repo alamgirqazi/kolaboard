@@ -89,7 +89,7 @@ export default class FindFriends extends React.Component {
         UserStore.allUsers = users;
 
         UserStore.allUsers.forEach(function(user_id) {
-          for (var i = 0; i < FriendshipStore.friendlistcount; i++) {
+          for (var i = 0; i < users.length; i++) {
             if (
               user_id.user_id == FriendshipStore.myfriendslist[i].other_id ||
               user_id.user_id == FriendshipStore.myfriendslist[i].user_id

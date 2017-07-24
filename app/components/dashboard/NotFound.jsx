@@ -19,6 +19,7 @@ import Board from "app/components/board.jsx";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import { cyan500 } from "material-ui/styles/colors";
 import { greenA400 } from "material-ui/styles/colors";
+
 import { browserHistory } from "react-router";
 
 // import Store from "app/store/UIstore.js";

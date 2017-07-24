@@ -229,9 +229,9 @@ export default class TimeTable extends React.Component {
     this.setState({
       open: true
     });
-    UserStore.currentValue = row.M;
+    UserStore.currentValue = row.Th;
     UserStore.currentId = row.id;
-    UserStore.currentFunction = "M";
+    UserStore.currentFunction = "Th";
 
     var data = {
       user_id: UserStore.obj.user_id,
