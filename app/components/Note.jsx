@@ -354,14 +354,14 @@ export default class Boards extends React.Component {
       text: text
     });
     socket.on("note messagey", function(msg) {
-      console.log("data[0].noteskkkkkkkkkkkkkkkkkkkkkkk");
+      //  console.log("data[0].noteskkkkkkkkkkkkkkkkkkkkkkk");
 
       ChatStore.notes.push(msg);
       // arr.push(data);
       socket.emit("recieving msgs", ChatStore.groupId);
       socket.on("remaining msgs", function(data) {
         ///   console.log("da");
-        console.log(data[0].notes);
+        // console.log(data[0].notes);
 
         ChatStore.notes = data[0].notes;
       });

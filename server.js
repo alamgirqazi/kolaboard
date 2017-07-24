@@ -271,21 +271,8 @@ app.post("/api/user/emailnotif", function(req, res) {
     }
   );
 });
-//}
-
-//Routes
-// app.get('/app', function(req, res) {
-//     res.sendfile(__dirname + '/public/index.html');
-// });
-// app.post("/api/user/myuserid", function(req, res) {
-//   var myuserid = req.body.id;
-//   console.log("myuserid server");
-//   console.log(myuserid);
-// });
 
 app.post("/api/createGroup", function(req, res) {
-  // console.log(req.body.groupname);
-  // console.log(req.body.avatarletter);
   let _id;
   var data = {
     groupname: req.body.groupname,
@@ -305,22 +292,10 @@ app.post("/api/createGroup", function(req, res) {
         console.log(err);
       } else {
         _id = docs._id;
-        // console.log("docs");
-        // console.log(docs);
-        // console.log(docs._id);
 
-        //        console.log("_id" + _id);
         var participants = JSON.parse(req.body.mapping);
-        // console.log("a");
-        // console.log(participants);
-        // console.log(participants.length);
+
         for (var i = 0; i < participants.length; i++) {
-          //  User.find({user_id: participants[i]._user_id}, function(err, docs) {
-          // if (docs.length) {
-          //   console.log("friendship exists");
-          // }
-          // else {
-          //  console.log("aski id" + _id);
           User.update(
             { user_id: participants[i].user_id },
             {
@@ -336,10 +311,6 @@ app.post("/api/createGroup", function(req, res) {
               if (err) console.log("This is errro " + err);
               else {
                 console.log("Successful...!");
-
-                // User.find({ user_id: data.id }, function(err, docs) {
-                //   socket.emit("renderListChat", docs);
-                // });
               }
             }
           );
@@ -351,35 +322,25 @@ app.post("/api/createGroup", function(req, res) {
 
 app.post("/api/user/acceptrequestadd", function(req, res) {
   var status = req.body.status;
-  // console.log("status: ");
-  // console.log(status);
-  // console.log(req.body.id);
-
-  Friendships.findOne({ other_id: req.body.id }, function(err, friendship) {
-    if (!err) {
-      if (!friendship) {
-        friendship = new Friendships();
-        friendship.status = status;
+  Friendships.findOneAndUpdate(
+    {
+      user_id: req.body.uid,
+      other_id: req.body.user_id,
+      status: "pending"
+    },
+    {
+      $set: {
+        status: status
       }
-      friendship.status = status;
-
-      friendship.save(function(err) {
-        if (!err) {
-          console.log("done");
-        } else {
-          console.log("Error: could not save");
-        }
-      });
     }
-  });
-
-  // Friendships.findOneAndUpdate({other_id: req.body.id}, {$set:{status:"friend"}}, {upsert: true}, function(err, doc){
-  //     if(err){
-  //         console.log("Something wrong when updating data!");
-  //     }
-
-  //     console.log(doc);
-  // });
+  )
+    .then(() => {
+      console.log("Success! new note saved");
+      // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+    })
+    .catch(err => {
+      console.log("err", err.stack);
+    });
 });
 
 app.get("/api/userall", function(req, res) {
@@ -633,7 +594,7 @@ io.on("connection", function(socket) {
 
   socket.on("Join room", function(data) {
     room = data;
-    console.log("THis is room name " + room);
+    //  console.log("THis is room name " + room);
     // io.sockets.in(data).emit('roomMsg', data);
     // console.log(socket.rooms[0]);
   });
@@ -668,8 +629,8 @@ io.on("connection", function(socket) {
     });
   });
   socket.on("addnote", function(data) {
-    console.log("add notes");
-    console.log(data);
+    // console.log("add notes");
+    // console.log(data);
     rooms.update(
       { _id: data.roomId },
       {
@@ -699,7 +660,7 @@ io.on("connection", function(socket) {
 
   socket.on("individualnote edit", function(data) {
     // console.log("add notes");
-    console.log(data);
+    // console.log(data);
 
     rooms
       .findOneAndUpdate(
@@ -723,7 +684,7 @@ io.on("connection", function(socket) {
   });
 
   socket.on("favourite msg", function(data) {
-    console.log(data);
+    //  console.log(data);
 
     rooms
       .findOneAndUpdate(
@@ -754,13 +715,13 @@ io.on("connection", function(socket) {
       });
   });
   socket.on("read sync", function(data) {
-    console.log(data);
+    // console.log(data);
 
     User.find({
       user_id: data
     })
       .then(docs => {
-        console.log("Success! unread sync");
+        // console.log("Success! unread sync");
 
         socket.emit("sync success", docs);
 
@@ -772,7 +733,7 @@ io.on("connection", function(socket) {
   });
 
   socket.on("readcount send", function(data) {
-    console.log(data.count.length);
+    //  console.log(data.count.length);
 
     for (var i = 0; i < data.participants.length; i++) {
       if (data.user_id == data.participants[i].user_id) {
@@ -871,7 +832,7 @@ io.on("connection", function(socket) {
 
   socket.on("room leave", function(data) {
     // console.log("add notes");
-    console.log(data);
+    // console.log(data);
 
     User.findOneAndUpdate(
       {
@@ -901,7 +862,7 @@ io.on("connection", function(socket) {
 
   socket.on("newdata", function(data) {
     // console.log("add notes");
-    console.log(data);
+    // console.log(data);
 
     User.find({
       user_id: data
@@ -912,7 +873,7 @@ io.on("connection", function(socket) {
   });
   socket.on("msg delete", function(data) {
     // console.log("add notes");
-    console.log(data);
+    // console.log(data);
 
     rooms
       .findOneAndUpdate(
@@ -940,7 +901,7 @@ io.on("connection", function(socket) {
 
   socket.on("note delete", function(data) {
     // console.log("add notes");
-    console.log(data);
+    // console.log(data);
 
     rooms
       .findOneAndUpdate(
@@ -1006,7 +967,7 @@ io.on("connection", function(socket) {
   socket.on("readcountmsg", function(data) {
     // console.log("readcountmsg");
     // // console.log(data.count);
-    console.log(data.notescount);
+    // console.log(data.notescount);
     // console.log(data.participants);
     User.findOneAndUpdate(
       {
@@ -1028,44 +989,8 @@ io.on("connection", function(socket) {
       .catch(err => {
         console.log("err", err.stack);
       });
-
-    // for (var i = 0; i < data.participants.length; i++) {
-    //   User.findOneAndUpdate(
-    //     {
-    //       user_id: data.participants[i].user_id,
-    //       "rooms.roomId": data._id
-    //     },
-    //     {
-    //       $set: {
-    //         "rooms.$.total_count": data.count.length + 1
-    //       }
-    //     }
-    //   )
-    //     .then(docs => {
-    //       console.log("Success! count saved");
-    //       //   console.log(docs);
-    //       // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
-    //     })
-    //     .catch(err => {
-    //       console.log("err", err.stack);
-    //     });
-    // }
   });
-  // socket.on("timetable", function(data) {
-  //   //console.log("THis is data coming from roomId " + data);
-  //   console.log("data.id" + data);
-  //   User.find({ user_id: data }, function(err, user) {
-  //     if (err) {
-  //       console.log("There is an error");
-  //     } else {
-  //       console.log("timetable");
-  //       // console.log(user);
-  //       console.log(JSON.stringify(user[0].timetable[0]));
 
-  //       socket.emit("timetable send", user[0].timetable[0]);
-  //     }
-  //   });
-  // });
   socket.on("note map", function(data) {
     // console.log("THis is data coming from roomId " + data);
     rooms.find({ _id: data }, function(err, rooms) {
@@ -1079,7 +1004,7 @@ io.on("connection", function(socket) {
   });
 
   socket.on("HandleOpen", function(data) {
-    console.log(data);
+    // console.log(data);
     if (data.currentFunction == "M") {
       User.findOneAndUpdate(
         {

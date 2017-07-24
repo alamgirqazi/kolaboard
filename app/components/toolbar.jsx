@@ -271,6 +271,15 @@ export default class ToolbarExamplesSimple extends React.Component {
             UserStore.useraccount = "Google";
           }
         } else UserStore.useraccount = "Email Account";
+
+        setTimeout(
+          function() {
+            this.setState({
+              yay: !this.state.yay
+            });
+          }.bind(this),
+          3000
+        );
       },
 
       error: function() {
@@ -324,7 +333,14 @@ export default class ToolbarExamplesSimple extends React.Component {
         console.log("failed to register");
       });
     this.newfunc();
-
+    setTimeout(
+      function() {
+        this.setState({
+          yay: false
+        });
+      }.bind(this),
+      4000
+    ); // wait 5 seconds, then reset to false  }
     if (Store.yum) {
       setTimeout(
         function() {

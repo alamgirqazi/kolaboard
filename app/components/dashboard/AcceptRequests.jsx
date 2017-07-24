@@ -14,6 +14,7 @@ import ListItem from "material-ui/List/ListItem";
 import SearchInput, { createFilter } from "react-search-input";
 import Badge from "material-ui/Badge";
 import Avatar from "material-ui/Avatar";
+import UserStore from "app/store/UserStore.js";
 
 // import Main from "app/components/main.jsx"
 // import Store from "app/store/UIstore.js";
@@ -74,7 +75,9 @@ export default class AcceptRequests extends React.Component {
 
     var data = {
       status: "friend",
-      id: acceptrequests.other_id
+      id: acceptrequests.other_id,
+      uid: acceptrequests.user_id,
+      user_id: UserStore.obj.user_id
     };
     $.ajax({
       type: "POST",

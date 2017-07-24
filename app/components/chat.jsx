@@ -127,9 +127,9 @@ export default class Chat extends React.Component {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
   };
 
-  componentDidUpdate() {
-    this.scrollToBottom();
-  }
+  // componentDidUpdate() {
+  //   this.scrollToBottom();
+  // }
 
   // setInterval(
   //   function() {
