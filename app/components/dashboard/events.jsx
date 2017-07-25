@@ -308,11 +308,16 @@ export default class Events extends React.Component {
                             actAsExpander={true}
                             showExpandableButton={true}
                           />
-
+                          <img
+                            src="https://thumb.ibb.co/iq4Jjk/homepage_futsalarena_pitch_01.jpg"
+                            alt="homepage futsalarena pitch 01"
+                            border="0"
+                          />
                           <CardText key={event._id} expandable={true}>
                             <h5 className="pull-right">
                               {" "}{"Event Date: " + event.date}
                             </h5>
+                            <div />
                             <h5 className="pull-left">
                               {"Created by: " + event.user_name}
                             </h5>
@@ -393,13 +398,11 @@ export default class Events extends React.Component {
                   <FloatingActionButton
                     style={style}
                     onTouchTap={this.handleTouchTap}
-                    label="yo"
                   >
                     <ContentAdd />
                   </FloatingActionButton>
                 </div>
 
-                <div>footer</div>
                 <br />
                 <br />
                 <br />
