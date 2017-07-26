@@ -237,18 +237,10 @@ export default class Chat extends React.Component {
       //   picture: UserStore.obj.picture
       // };
       // socket.emit("chat message", data1);
-      console.log("ChatStore.groupname");
-      console.log(ChatStore.groupname);
+      //console.log("ChatStore.groupname");
+      //console.log(ChatStore.groupname);
       socket.on("chat messagey", function(msg) {
         ChatStore.msgs.push(msg);
-
-        socket.emit("recieving msgs", ChatStore.groupId);
-        socket.on("remaining msgs", function(data) {
-          ///   console.log("da");
-          console.log(data[0].conversation);
-
-          ChatStore.msgs = data[0].conversation;
-        });
 
         // ChatStore.msgs.push(msg);
         // console.log(msg);
@@ -261,6 +253,13 @@ export default class Chat extends React.Component {
         roomId: roomId,
         picture: UserStore.obj.picture,
         sendTo: ChatStore.groupname
+      });
+      socket.emit("recieving msgs", ChatStore.groupId);
+      socket.on("remaining msgs", function(data) {
+        ///   console.log("da");
+        console.log(data[0].conversation);
+
+        ChatStore.msgs = data[0].conversation;
       });
       // socket.emit("emt", "abc");
       //console.log("This is roomId " + roomId);

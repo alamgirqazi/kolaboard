@@ -358,15 +358,14 @@ export default class Boards extends React.Component {
 
       ChatStore.notes.push(msg);
       // arr.push(data);
-      socket.emit("recieving msgs", ChatStore.groupId);
-      socket.on("remaining msgs", function(data) {
-        ///   console.log("da");
-        // console.log(data[0].notes);
-
-        ChatStore.notes = data[0].notes;
-      });
     });
+    socket.emit("recieving msgs", ChatStore.groupId);
+    socket.on("remaining msgs", function(data) {
+      ///   console.log("da");
+      // console.log(data[0].notes);
 
+      ChatStore.notes = data[0].notes;
+    });
     var data = {
       user_id: UserStore.obj.user_id,
       _id: ChatStore.groupId,
@@ -534,7 +533,7 @@ export default class Boards extends React.Component {
             <br />
           </Dialog>
           <Snackbar
-            open={this.state.open}
+            open={this.state.openasds}
             message="New Note Added"
             autoHideDuration={1200}
           />
