@@ -14,6 +14,10 @@ class ChatStore {
   @observable note = [];
   @observable readcount;
   @observable notescount;
+
+  @observable leaveinfo;
+  @observable leavegroupname = "";
+
   // @observable fullscreen = !
 }
 
