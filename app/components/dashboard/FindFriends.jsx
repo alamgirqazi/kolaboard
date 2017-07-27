@@ -148,7 +148,8 @@ export default class FindFriends extends React.Component {
 
       // console.log(data);
       FriendshipsStore.myfriendslist = data;
-
+      var friendlistcount = Object.keys(data).length;
+      FriendshipsStore.friendlistcount = friendlistcount;
       var userid = UserStore.obj.user_id;
       var index = users.findIndex(function(o) {
         return o.user_id === userid;
@@ -272,6 +273,9 @@ export default class FindFriends extends React.Component {
                       return (
                         <List key={user.user_id}>
                           <div className="mail" key={user.user_id}>
+                            <div>
+                              {" "}{isLoggedIn ? "currently" : "not"}
+                            </div>
                             <ListItem
                               key={user.user_id}
                               disabled={true}

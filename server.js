@@ -844,16 +844,8 @@ io.on("connection", function(socket) {
     )
       .then(docs => {
         User.find({ user_id: data.user_id }, function(err, docs) {
-          //   var a = docs.from;
-          //   console.log(docs.from);
-          //   b = a.split(/\s(.+)/)[0]; //everything before the first space
-          //   // Users.firstname = b;
           socket.emit("remaininggroups", docs);
         });
-
-        // console.log("docs");
-        // console.log(docs);
-        // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
       })
       .catch(err => {
         console.log("err", err.stack);

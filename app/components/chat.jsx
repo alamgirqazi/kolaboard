@@ -178,9 +178,6 @@ export default class Chat extends React.Component {
     socket.emit("msg delete", data);
 
     socket.on("remainingmsgs", function(data) {
-      console.log("da");
-      console.log(data[0].conversation);
-
       ChatStore.msgs = data[0].conversation;
     });
   };
@@ -188,6 +185,24 @@ export default class Chat extends React.Component {
   handleDetails = Users => {
     Store.msgdetails = true;
     ChatStore.individualmsg = Users;
+  };
+  handleNote = Users => {
+    // Store.msgdetails = true;
+    // ChatStore.individualmsg = Users;
+    // console.log(Users);
+    var data = {
+      roomId: ChatStore.groupId,
+      from: Users.from,
+      text: Users.message,
+      date: Users.date,
+      time: Users.time
+    };
+    socket.emit("addnote", data);
+    // ChatStore.notes.push(data);
+    socket.emit("recieving msgs", ChatStore.groupId);
+    socket.on("remaining msgs", function(data) {
+      ChatStore.notes = data[0].notes;
+    });
   };
   handleClose = () => {
     Store.msgdetails = false;
@@ -354,12 +369,16 @@ export default class Chat extends React.Component {
                             }
                           >
                             <MenuItem
-                              primaryText="Delete"
-                              onTouchTap={this.handleDelete.bind(this, Users)}
+                              primaryText="Add To Noteboard"
+                              onTouchTap={this.handleNote.bind(this, Users)}
                             />
                             <MenuItem
                               primaryText="Details"
                               onTouchTap={this.handleDetails.bind(this, Users)}
+                            />
+                            <MenuItem
+                              primaryText="Delete"
+                              onTouchTap={this.handleDelete.bind(this, Users)}
                             />
                           </IconMenu>
                           <p style={{ wordWrap: "break-word" }}>
