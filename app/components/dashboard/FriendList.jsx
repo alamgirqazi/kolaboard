@@ -28,7 +28,13 @@ import { Scrollbars } from "react-custom-scrollbars";
 
 import SearchInput, { createFilter } from "react-search-input";
 
-const KEYS_TO_FILTERS = ["email", "name", "nickname", "other_id_name"];
+const KEYS_TO_FILTERS = [
+  "email",
+  "name",
+  "nickname",
+  "other_id_name",
+  "user_id_name"
+];
 
 const muiTheme = getMuiTheme({
   palette: {

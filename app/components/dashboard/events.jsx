@@ -282,7 +282,7 @@ export default class Events extends React.Component {
             </Dialog>
             <div className="row">
               <div className="col-xs-12 col-md-12 col-lg-12">
-                {totalEvents.map(event => {
+                {EventStore.event.map(event => {
                   if (event.user_name == UserStore.userrealname) {
                     return (
                       <div key={event._id}>

@@ -16,17 +16,19 @@ import { Scrollbars } from "react-custom-scrollbars";
 import FriendshipStore from "app/store/FriendshipsStore.js";
 import Badge from "material-ui/Badge";
 import NotificationsIcon from "material-ui/svg-icons/action/check-circle";
+import Dialog from "material-ui/Dialog";
 
 // import Main from "app/components/main.jsx"
 // import Store from "app/store/UIstore.js";
 import { observer } from "mobx-react";
-import { greenA400 } from "material-ui/styles/colors";
+import { greenA400, red500 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import Store from "app/store/UIstore.js";
 import SearchInput, { createFilter } from "react-search-input";
 import FontIcon from "material-ui/FontIcon";
 import CommunicationChatBubble from "material-ui/svg-icons/communication/chat-bubble";
 import UserStore from "app/store/UserStore.js";
+import FriendshipsStore from "app/store/FriendshipsStore.js";
 
 // const KEYS_TO_FILTERS = ["user.name", "subject", "dest.name"];
 const KEYS_TO_FILTERS = ["email", "name", "nickname", "user_id"];
@@ -41,9 +43,9 @@ const header = {
 const muiTheme = getMuiTheme({
   palette: {
     //   textColor: greenA400,
-    primary1Color: greenA400
+    primary1Color: greenA400,
     //  primary3Color:greenA400,
-    //   accent1Color: greenA400,
+    accent1Color: red500
     //   accent2Color: greenA400,
     //   accent3Color: greenA400
 
@@ -66,7 +68,8 @@ export default class FindFriends extends React.Component {
     super(props);
 
     this.state = {
-      searchTerm: ""
+      searchTerm: "",
+      openDelete: false
     };
 
     this._handleClick = this._handleClick.bind(this);
@@ -87,20 +90,25 @@ export default class FindFriends extends React.Component {
         });
         users.splice(index, 1);
         UserStore.allUsers = users;
-
-        UserStore.allUsers.forEach(function(user_id) {
-          for (var i = 0; i < users.length; i++) {
+        var array = [];
+        users.forEach(function(a) {
+          for (var i = 0; i < FriendshipStore.myfriendslist.length; i++) {
+            //console.log(FriendshipStore.myfriendslist.length);
             if (
-              user_id.user_id == FriendshipStore.myfriendslist[i].other_id ||
-              user_id.user_id == FriendshipStore.myfriendslist[i].user_id
+              a.user_id == FriendshipStore.myfriendslist[i].other_id ||
+              a.user_id == FriendshipStore.myfriendslist[i].user_id
             ) {
-              UserStore.allUsers[i].nickname = "yay";
-              //      console.log(users.yes);
+              array[i] = a.user_id;
             } else {
             }
           }
-          // var x = arrayItem.prop1 + 2;
-          // alert(x);
+        });
+        array.forEach(function(a) {
+          for (var i = 0; i < users.length; i++) {
+            if (a == UserStore.allUsers[i].user_id) {
+              UserStore.allUsers[i].nickname = "bla";
+            }
+          }
         });
 
         UserStore.flisty = true;
@@ -110,8 +118,66 @@ export default class FindFriends extends React.Component {
       });
   }
   _handleRemove(user) {
-    alert(user.user_id);
+    // alert(user.user_id);
+    // console.log(user);
+    this.setState({ openDelete: true });
+    var data = {
+      other_id: user.user_id,
+      user_id: UserStore.obj.user_id
+    };
+    FriendshipStore.findremovefriend = data;
   }
+
+  handleDeleteClose = () => {
+    this.setState({ openDelete: false });
+  };
+
+  handleUnfriend = () => {
+    var data = FriendshipStore.findremovefriend;
+
+    for (var i = 0; i < UserStore.allUsers.length; i++) {
+      if (UserStore.allUsers[i].user_id == data.other_id) {
+        UserStore.allUsers[i].nickname = "";
+      } else {
+      }
+    }
+    socket.emit("unfriend user", data);
+
+    socket.on("return remain users", function(data) {
+      var users = UserStore.allUsers;
+
+      // console.log(data);
+      FriendshipsStore.myfriendslist = data;
+
+      var userid = UserStore.obj.user_id;
+      var index = users.findIndex(function(o) {
+        return o.user_id === userid;
+      });
+      users.splice(index, 1);
+      var array = [];
+      users.forEach(function(a) {
+        for (var i = 0; i < FriendshipStore.myfriendslist.length; i++) {
+          //console.log(FriendshipStore.myfriendslist.length);
+          if (
+            a.user_id == FriendshipStore.myfriendslist[i].other_id ||
+            a.user_id == FriendshipStore.myfriendslist[i].user_id
+          ) {
+            array[i] = a.user_id;
+          } else {
+          }
+        }
+      });
+      array.forEach(function(a) {
+        for (var i = 0; i < users.length; i++) {
+          if (a == UserStore.allUsers[i].user_id) {
+            UserStore.allUsers[i].nickname = "bla";
+            // console.log("in socket 6");
+          }
+        }
+      });
+    });
+    this.setState({ openDelete: false });
+  };
 
   _handleClick(user) {
     let realuserid = localStorage.getItem("userid");
@@ -149,7 +215,18 @@ export default class FindFriends extends React.Component {
     const filteredEmails = UserStore.allUsers.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
     );
-
+    const actionsDelete = [
+      <RaisedButton
+        label="Cancel"
+        onTouchTap={this.handleDeleteClose}
+        style={style}
+      />,
+      <RaisedButton
+        label="Unfriend the User"
+        secondary={true}
+        onTouchTap={this.handleUnfriend}
+      />
+    ];
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
@@ -165,7 +242,16 @@ export default class FindFriends extends React.Component {
                   onChange={this.searchUpdated.bind(this)}
                 />
                 <br />
-
+                <Dialog
+                  title="Unfriend the User"
+                  actions={actionsDelete}
+                  modal={false}
+                  open={this.state.openDelete}
+                  onRequestClose={this.handleDeleteClose}
+                >
+                  Are you sure you want to delete? This action cannot be
+                  reversed.
+                </Dialog>
                 <Scrollbars
                   style={{ height: 350 }}
                   renderTrackHorizontal={props =>
@@ -182,7 +268,7 @@ export default class FindFriends extends React.Component {
                     />}
                 >
                   {filteredEmails.map(user => {
-                    if (user.nickname == "yay") {
+                    if (user.nickname == "bla") {
                       return (
                         <List key={user.user_id}>
                           <div className="mail" key={user.user_id}>

@@ -952,6 +952,38 @@ io.on("connection", function(socket) {
       }
     });
   });
+  socket.on("unfriend user", function(data) {
+    //console.log("THis is data coming from roomId " + data);
+    Friendships.findOneAndRemove(
+      {
+        $or: [
+          { user_id: data.user_id, other_id: data.other_id, status: "friend" },
+          { user_id: data.other_id, user_id: data.user_id, status: "friend" }
+        ]
+      },
+      function(err, rooms) {
+        if (err) {
+          console.log("There is an error");
+        } else {
+          Friendships.find(
+            {
+              $or: [
+                { status: "friend", other_id: data.user_id },
+                { status: "friend", user_id: data.user_id }
+              ]
+            },
+            function(err, friendship) {
+              // res.send(friendship);
+              socket.emit("return remain users", friendship);
+            }
+          );
+          User.find({}, function(err, users) {});
+          //     console.log("to be removed ");
+          //     console.log(rooms); // res.send(rooms);
+        }
+      }
+    );
+  });
   socket.on("Show Favourites", function(data) {
     //console.log("THis is data coming from roomId " + data);
     rooms.find({ _id: data }, function(err, rooms) {
