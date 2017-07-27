@@ -11,6 +11,7 @@ class ChatStore {
   @observable participants = [];
   @observable individualnote = [];
   @observable individualmsg = [];
+  @observable favourites = [];
   @observable note = [];
   @observable readcount;
   @observable notescount;

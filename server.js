@@ -952,6 +952,17 @@ io.on("connection", function(socket) {
       }
     });
   });
+  socket.on("Show Favourites", function(data) {
+    //console.log("THis is data coming from roomId " + data);
+    rooms.find({ _id: data }, function(err, rooms) {
+      if (err) {
+        console.log("There is an error in group ID");
+      } else {
+        socket.emit("returned favs", { msg: rooms[0].conversation });
+        // res.send(rooms);
+      }
+    });
+  });
   socket.on("gettingnotes", function(data) {
     //console.log("THis is data coming from roomId " + data);
     rooms.find({ _id: data }, function(err, rooms) {

@@ -98,7 +98,8 @@ export default class Chat extends React.Component {
       ChatStore.msgs = data[0].conversation;
     });
     this.state = {
-      status: false
+      status: false,
+      showfav: false
     };
   }
   componentWillReceiveProps(nextProps) {
@@ -190,6 +191,11 @@ export default class Chat extends React.Component {
   };
   handleClose = () => {
     Store.msgdetails = false;
+  };
+  handleCloseFav = () => {
+    this.setState({
+      showfav: false
+    });
   };
   // renderView = () => {
   //   // this.refs.scrollbars.scrollToTop();
@@ -452,6 +458,7 @@ export default class Chat extends React.Component {
             </div>
             <br />
           </Dialog>
+
           <div style={displayinline}>
             <textarea
               ref="newText"
