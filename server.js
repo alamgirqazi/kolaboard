@@ -296,7 +296,7 @@ app.post("/api/createGroup", function(req, res) {
         var participants = JSON.parse(req.body.mapping);
 
         for (var i = 0; i < participants.length; i++) {
-          User.update(
+          User.findOneAndUpdate(
             { user_id: participants[i].user_id },
             {
               $push: {
@@ -310,7 +310,7 @@ app.post("/api/createGroup", function(req, res) {
             function(err) {
               if (err) console.log("This is errro " + err);
               else {
-                console.log("Successful...!");
+                console.log("create event");
               }
             }
           );
@@ -744,8 +744,8 @@ io.on("connection", function(socket) {
           },
           {
             $set: {
-              "rooms.$.total_count": data.count.length + 1,
-              "rooms.$.read_count": data.count.length + 1
+              "rooms.$.total_count": data.count,
+              "rooms.$.read_count": data.count
             }
           }
         )
@@ -765,7 +765,7 @@ io.on("connection", function(socket) {
           },
           {
             $set: {
-              "rooms.$.total_count": data.count.length + 1
+              "rooms.$.total_count": data.count
             }
           }
         )

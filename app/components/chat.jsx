@@ -174,8 +174,15 @@ export default class Chat extends React.Component {
       _id: Users._id,
       roomId: ChatStore.groupId
     };
+    var data1 = {
+      user_id: UserStore.obj.user_id,
+      _id: ChatStore.groupId,
+      count: ChatStore.msgs.length,
+      participants: ChatStore.participants
+    };
 
     socket.emit("msg delete", data);
+    socket.emit("readcount send", data1);
 
     socket.on("remainingmsgs", function(data) {
       ChatStore.msgs = data[0].conversation;
@@ -252,23 +259,11 @@ export default class Chat extends React.Component {
         picture: UserStore.obj.picture
       });
 
-      // var data1 = {
-      //   favourite: false,
-      //   msg: this.refs.newText.value,
-      //   picture: UserStore.obj.picture
-      // };
-      // socket.emit("chat message", data1);
-      //console.log("ChatStore.groupname");
-      //console.log(ChatStore.groupname);
       socket.on("chat messagey", function(msg) {
         ChatStore.msgs.push(msg);
-
-        // ChatStore.msgs.push(msg);
-        // console.log(msg);
-        console.log("212321");
       });
-      console.log("ChatStore.groupname");
-      console.log(ChatStore.groupname);
+      // console.log("ChatStore.groupname");
+      // console.log(ChatStore.groupname);
       socket.emit("send message", {
         msg: this.refs.newText.value,
         roomId: roomId,
@@ -277,39 +272,20 @@ export default class Chat extends React.Component {
       });
       socket.emit("recieving msgs", ChatStore.groupId);
       socket.on("remaining msgs", function(data) {
-        ///   console.log("da");
-        console.log(data[0].conversation);
-
         ChatStore.msgs = data[0].conversation;
       });
-      // socket.emit("emt", "abc");
-      //console.log("This is roomId " + roomId);
-      // socket.emit("sending", roomId);
+
       this.refs.newText.value = "";
-
-      // socket.on("new message", function(data) {
-      //   var d = new Date();
-      //   var n = d.getTime();
-      //   ChatStore.msgs.push(data);
-      //   console.log("kuch bhi");
-      // });
-
-      // socket.on("returnmsgs", function(data) {
-      //   ChatStore.msgs = data.msg;
-      // });
 
       var data = {
         user_id: UserStore.obj.user_id,
         _id: ChatStore.groupId,
-        count: ChatStore.msgs,
+        count: ChatStore.msgs.length + 1,
         participants: ChatStore.participants
 
         //ChatStore.readcount = Object.keys(data[0].conversation).length;
       };
       socket.emit("readcount send", data);
-      socket.on("emtt", function(data) {
-        console.log(data);
-      });
 
       // socket.emit("calculate conversations", result);
     }
@@ -349,6 +325,11 @@ export default class Chat extends React.Component {
             <div className="panel">
               <ol className="chat" id="msgList">
                 {users.map(Users => {
+                  var left;
+                  if (Users.message == "HAS LEFT THE GROUP") {
+                    left = true;
+                  }
+
                   if (Users.favourite == false) {
                     Users.color = "#ccc";
                   } else Users.color = "#F44336";
@@ -395,42 +376,61 @@ export default class Chat extends React.Component {
                       </li>
                     );
                   } else {
-                    return (
-                      <li className="other" key={Users._id}>
-                        <Avatar src={Users.picture} />
-                        <div className="msg" key={Users._id}>
-                          <IconMenu
-                            style={{ display: "inline" }}
-                            iconButtonElement={
-                              <IconButton
-                                className="Morebutton"
-                                style={morestyle}
-                              >
-                                <ActionMore />
-                              </IconButton>
-                            }
-                          >
-                            <MenuItem
-                              primaryText="Details"
-                              onTouchTap={this.handleDetails.bind(this, Users)}
-                            />
-                          </IconMenu>
-                          <p>
-                            {Users.message}
-                          </p>
-                          <IconButton
-                            onTouchTap={this.handleStar.bind(this, Users)}
-                            style={starstyle}
-                          >
-                            <HomeIcon color={Users.color} />
-                          </IconButton>
-
-                          <div style={{ display: "inline" }}>
-                            <time>{Users.time}</time>&emsp;
-                            <sender>{Users.from}</sender>&emsp;{" "}
-                          </div>
+                    if (Users.message == "USER HAS LEFT THE GROUP") {
+                      return (
+                        <div>
+                          {Users.from + " has left the group"}
                         </div>
-                      </li>
+                      );
+                    }
+                    return (
+                      <div>
+                        {left
+                          ? <h1>USER HAS LEFT THE GROUP</h1>
+                          : <div>
+                              <li className="other" key={Users._id}>
+                                <Avatar src={Users.picture} />
+                                <div className="msg" key={Users._id}>
+                                  <IconMenu
+                                    style={{ display: "inline" }}
+                                    iconButtonElement={
+                                      <IconButton
+                                        className="Morebutton"
+                                        style={morestyle}
+                                      >
+                                        <ActionMore />
+                                      </IconButton>
+                                    }
+                                  >
+                                    <MenuItem
+                                      primaryText="Details"
+                                      onTouchTap={this.handleDetails.bind(
+                                        this,
+                                        Users
+                                      )}
+                                    />
+                                  </IconMenu>
+                                  <p>
+                                    {Users.message}
+                                  </p>
+                                  <IconButton
+                                    onTouchTap={this.handleStar.bind(
+                                      this,
+                                      Users
+                                    )}
+                                    style={starstyle}
+                                  >
+                                    <HomeIcon color={Users.color} />
+                                  </IconButton>
+
+                                  <div style={{ display: "inline" }}>
+                                    <time>{Users.time}</time>&emsp;
+                                    <sender>{Users.from}</sender>&emsp;{" "}
+                                  </div>
+                                </div>
+                              </li>
+                            </div>}
+                      </div>
                     );
                   }
                 })}

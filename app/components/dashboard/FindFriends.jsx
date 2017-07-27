@@ -17,6 +17,7 @@ import FriendshipStore from "app/store/FriendshipsStore.js";
 import Badge from "material-ui/Badge";
 import NotificationsIcon from "material-ui/svg-icons/action/check-circle";
 import Dialog from "material-ui/Dialog";
+import Snackbar from "material-ui/Snackbar";
 
 // import Main from "app/components/main.jsx"
 // import Store from "app/store/UIstore.js";
@@ -74,7 +75,11 @@ export default class FindFriends extends React.Component {
 
     this._handleClick = this._handleClick.bind(this);
   }
-
+  handleDeleteClose = () => {
+    this.setState({
+      snackbarsendreq: false
+    });
+  };
   componentDidMount() {
     let userid = localStorage.getItem("userid");
 
@@ -182,6 +187,7 @@ export default class FindFriends extends React.Component {
 
   _handleClick(user) {
     let realuserid = localStorage.getItem("userid");
+    this.setState({ snackbarsendreq: true });
 
     // console.log(user.name);
     // console.log(user.picture);
@@ -250,11 +256,17 @@ export default class FindFriends extends React.Component {
                   open={this.state.openDelete}
                   onRequestClose={this.handleDeleteClose}
                 >
-                  Are you sure you want to delete? This action cannot be
+                  Are you sure you want to Unfriend? This action cannot be
                   reversed.
                 </Dialog>
+                <Snackbar
+                  open={this.state.snackbarsendreq}
+                  message="A friendship request has been sent"
+                  autoHideDuration={2500}
+                  onRequestClose={this.handleRequestClose}
+                />
                 <Scrollbars
-                  style={{ height: 350 }}
+                  style={{ height: 380 }}
                   renderTrackHorizontal={props =>
                     <div
                       {...props}
@@ -273,9 +285,7 @@ export default class FindFriends extends React.Component {
                       return (
                         <List key={user.user_id}>
                           <div className="mail" key={user.user_id}>
-                            <div>
-                              {" "}{isLoggedIn ? "currently" : "not"}
-                            </div>
+                            <div />
                             <ListItem
                               key={user.user_id}
                               disabled={true}
@@ -366,11 +376,3 @@ export default class FindFriends extends React.Component {
     );
   }
 }
-// <button>{email.name}</button>
-// <div className="from">
-//                               {user.email}
-//                             </div>
-//                             <br />
-//                             <div className="subject">
-//                               {user.identities[0].provider}
-//                             </div>

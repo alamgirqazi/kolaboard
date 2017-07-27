@@ -131,20 +131,7 @@ export default class NewChatDrawer extends React.Component {
       })
         .done(function(data) {
           alert("its all over");
-
-          // var newdata = UserStore.obj.user_id;
-          // socket.emit("newdata", newdata);
-          // socket.on("remaininggroups", function(data) {
-          //   console.log("data[0].rooms");
-          //   console.log(data[0].rooms);
-          //   UserStore.obj.rooms = data[0].rooms;
-          // });
-          // socket.on("remainingchatlist", function(data) {
-          //   // console.log("da");
-          //   //console.log(data[0].rooms);
-
-          //   UserStore.obj.rooms = data[0].rooms;
-          // });
+          console.log(data);
         })
         .fail(function(jqXhr) {
           // console.log("failed to register POST REQ");
@@ -152,7 +139,7 @@ export default class NewChatDrawer extends React.Component {
       this.setState({
         snackbaropen: true
       });
-
+      console.log(data);
       setTimeout(
         function() {
           UIStore.newchatdrawer = false;
@@ -161,8 +148,6 @@ export default class NewChatDrawer extends React.Component {
           var newdata = UserStore.obj.user_id;
           socket.emit("newdata", newdata);
           socket.on("remaininggroups", function(data) {
-            // console.log("data[0].rooms");
-            // console.log(data[0].rooms);
             UserStore.obj.rooms = data[0].rooms;
           });
           socket.on("remainingchatlist", function(data) {

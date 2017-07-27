@@ -158,7 +158,7 @@ export default class FriendList extends React.Component {
               <br />
 
               <Scrollbars
-                style={{ height: 300 }}
+                style={{ height: 380 }}
                 renderTrackHorizontal={props =>
                   <div
                     {...props}
