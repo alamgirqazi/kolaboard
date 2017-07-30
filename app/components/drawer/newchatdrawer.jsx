@@ -139,7 +139,7 @@ export default class NewChatDrawer extends React.Component {
       this.setState({
         snackbaropen: true
       });
-      console.log(data);
+      // console.log(data);
       setTimeout(
         function() {
           UIStore.newchatdrawer = false;

@@ -283,10 +283,6 @@ app.post("/api/createGroup", function(req, res) {
   var room = new rooms(data);
 
   rooms.find({}, function(err, docs) {
-    // if (docs.length) {
-    //   console.log("friendship exists");
-    // }
-    // else {
     room.save(function(err, docs) {
       if (err) {
         console.log(err);
@@ -310,7 +306,7 @@ app.post("/api/createGroup", function(req, res) {
             function(err) {
               if (err) console.log("This is errro " + err);
               else {
-                console.log("create event");
+                console.log("create event! updated in all users");
               }
             }
           );
@@ -1315,7 +1311,7 @@ io.on("connection", function(socket) {
   });
   socket.on("addingprivatenotes", function(data) {
     console.log("inside adding notes " + JSON.stringify(data));
-    console.log("inside adding notes " + JSON.stringify(data));
+    // console.log("inside adding notes " + JSON.stringify(data));
     User.update(
       { _id: data.id },
       {
@@ -1349,6 +1345,58 @@ io.on("connection", function(socket) {
       }
     });
   });
+  socket.on("manipulate group", function(data) {
+    // console.log("THis is data coming from roomId " + data);
+    var d = new Date(); // for now
+    d.getHours(); // => 9
+    d.getMinutes(); // =>  30
+    d.getSeconds(); // => 51
+    //console.log(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
+    time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+    date = mm + "/" + dd + "/" + yyyy;
+    rooms.update(
+      { _id: data.roomId },
+      {
+        $push: {
+          conversation: {
+            from: data.user_name,
+            message: data.message,
+            favourite: false,
+            date: date,
+            time: time
+          }
+        }
+      },
+      function(err) {
+        if (err) console.log("This is errro " + err);
+        else {
+          console.log("Successful...!");
+        }
+      }
+    );
+  });
+
+  // rooms.find({ _id: data.roomId }, function(err, rooms) {
+  //   if (err) {
+  //     //  console.log("There is an error");
+  //   } else {
+  //     console.log("docs retrieve msgs");
+  //     console.log(rooms);
+  //     socket.emit("chat msgs", rooms);
+  //     // res.send(rooms);
+  //   }
+  //  });
 
   function updateUsernames() {
     io.sockets.emit("get users", users);

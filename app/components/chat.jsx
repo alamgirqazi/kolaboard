@@ -68,6 +68,12 @@ const starcolor = {
 const inputBoxStyle = {
   width: "100%"
 };
+const leftGroup = {
+  textAlign: "center",
+  fontStyle: "italic",
+  fontSize: "16px",
+  color: "#F44336"
+};
 
 const fixedPosition = {
   margin: 12,
@@ -386,7 +392,9 @@ export default class Chat extends React.Component {
                     return (
                       <div>
                         {left
-                          ? <h1>USER HAS LEFT THE GROUP</h1>
+                          ? <h6 style={leftGroup}>
+                              {Users.from} has left the group.
+                            </h6>
                           : <div>
                               <li className="other" key={Users._id}>
                                 <Avatar src={Users.picture} />
