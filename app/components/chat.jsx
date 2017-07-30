@@ -267,6 +267,9 @@ export default class Chat extends React.Component {
 
       socket.on("chat messagey", function(msg) {
         ChatStore.msgs.push(msg);
+        socket.on("remaining msgs", function(data) {
+          ChatStore.msgs = data[0].conversation;
+        });
       });
       // console.log("ChatStore.groupname");
       // console.log(ChatStore.groupname);

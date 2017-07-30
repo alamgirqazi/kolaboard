@@ -1,4 +1,3 @@
-
 var React = require("react");
 var { Link, IndexLink } = require("react-router");
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
@@ -11,7 +10,7 @@ import Chat from "app/components/chat.jsx";
 import Board from "app/components/board.jsx";
 import MainContainer from "app/components/MainContainer.jsx";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
-import { cyan500 } from "material-ui/styles/colors";
+import { cyan500, red500 } from "material-ui/styles/colors";
 import { greenA400 } from "material-ui/styles/colors";
 
 // This replaces the textColor value on the palette
@@ -20,10 +19,10 @@ import { greenA400 } from "material-ui/styles/colors";
 const muiTheme = getMuiTheme({
   palette: {
     //   textColor: greenA400,
-    primary1Color: greenA400
+    primary1Color: greenA400,
     //   primary2Color: greenA400,
     //  primary3Color:greenA400,
-    //   accent1Color: greenA400,
+    accent1Color: red500
     //   accent2Color: greenA400,
     //   accent3Color: greenA400
 
@@ -40,13 +39,12 @@ const muiTheme = getMuiTheme({
 });
 
 const style = {
-  height: '100%',
-}
+  height: "100%"
+};
 
 var Main = () => {
   return (
     <MuiThemeProvider muiTheme={muiTheme}>
-
       <div style={style}>
         {/*<NewNav />*/}
         <Toolbar />

@@ -558,8 +558,8 @@ io.on("connection", function(socket) {
         }
       }
     );
-    console.log("data.sendTo");
-    console.log(data.sendTo);
+    // console.log("data.sendTo");
+    // console.log(data.sendTo);
     socket.broadcast.emit("chat messagey", {
       from: socket.username,
       message: data.msg,
@@ -568,24 +568,6 @@ io.on("connection", function(socket) {
       time: time,
       picture: data.picture
     });
-    // io.emit("chat messagey", {
-    //   from: socket.username,
-    //   message: data.msg,
-    //   favourite: false,
-    //   date: date,
-    //   time: time,
-    //   picture: data.picture
-    // });
-
-    // socket.emit("new message", {
-    //   from: socket.username,
-    //   message: data.msg,
-    //   pic: socket.picture,
-    //   favourite: false,
-    //   date: date,
-    //   time: time,
-    //   picture: data.picture
-    // });
   });
 
   socket.on("Join room", function(data) {
@@ -1382,6 +1364,31 @@ io.on("connection", function(socket) {
         if (err) console.log("This is errro " + err);
         else {
           console.log("Successful...!");
+          // console.log(data.user_id);
+          // rooms.find(
+          //   {
+          //     _id: data.roomId,
+          //     "participants0].$.user_id": data.user_id
+          //   },
+          //   // {
+          //   //   $push: {
+          //   //     conversation: {
+          //   //       from: data.user_name,
+          //   //       message: data.message,
+          //   //       favourite: false,
+          //   //       date: date,
+          //   //       time: time
+          //   //     }
+          //   //   }
+          //   // }
+
+          //   function(err, docs) {
+          //     if (err) console.log("This is errro " + err);
+          //     else {
+          //       console.log(docs);
+          //     }
+          //   }
+          // );
         }
       }
     );

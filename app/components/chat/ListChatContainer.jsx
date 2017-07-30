@@ -184,16 +184,16 @@ export default class ListChatContainer extends React.Component {
     });
     // this.state.data = UserStore.obj.rooms;
 
-    setInterval(
-      function() {
-        socket.emit("read sync", UserStore.obj.user_id);
+    // setInterval(
+    //   function() {
+    //     socket.emit("read sync", UserStore.obj.user_id);
 
-        socket.on("sync success", function(data) {
-          UserStore.obj.rooms = data[0].rooms;
-        });
-      }.bind(this),
-      5000
-    );
+    //     socket.on("sync success", function(data) {
+    //       UserStore.obj.rooms = data[0].rooms;
+    //     });
+    //   }.bind(this),
+    //   5000
+    // );
   }
   handleLeaveDialog = () => {
     //  console.log(ChatStore.leaveinfo);
@@ -257,11 +257,11 @@ export default class ListChatContainer extends React.Component {
     const actionsDelete = [
       <RaisedButton
         label="Cancel"
-        primary={true}
         onTouchTap={this.handleDeleteClose}
         style={stylebtn}
       />,
       <RaisedButton
+        secondary={true}
         label="Leave the Group"
         onTouchTap={this.handleLeaveDialog}
       />
