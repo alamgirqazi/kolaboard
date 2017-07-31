@@ -180,15 +180,18 @@ export default class Chat extends React.Component {
       _id: Users._id,
       roomId: ChatStore.groupId
     };
+
+    socket.emit("msg delete", data);
+
     var data1 = {
       user_id: UserStore.obj.user_id,
       _id: ChatStore.groupId,
       count: ChatStore.msgs.length,
       participants: ChatStore.participants
     };
+    socket.emit("readcount delete", data1);
 
-    socket.emit("msg delete", data);
-    socket.emit("readcount send", data1);
+    // socket.emit("readcount send", data1);
 
     socket.on("remainingmsgs", function(data) {
       ChatStore.msgs = data[0].conversation;

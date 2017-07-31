@@ -290,7 +290,7 @@ app.post("/api/createGroup", function(req, res) {
         _id = docs._id;
 
         var participants = JSON.parse(req.body.mapping);
-
+        var val = 0;
         for (var i = 0; i < participants.length; i++) {
           User.findOneAndUpdate(
             { user_id: participants[i].user_id },
@@ -299,7 +299,11 @@ app.post("/api/createGroup", function(req, res) {
                 rooms: {
                   roomId: _id,
                   roomName: req.body.groupname,
-                  pic: req.body.avatarletter
+                  pic: req.body.avatarletter,
+                  read_notes_count: val,
+                  read_count: val,
+                  total_count: val,
+                  total_notes_count: val
                 }
               }
             },
@@ -747,6 +751,55 @@ io.on("connection", function(socket) {
           {
             $set: {
               "rooms.$.total_count": data.count
+            }
+          }
+        )
+          .then(docs => {
+            console.log("Success! count saved");
+            //   console.log(docs);
+            // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+          })
+          .catch(err => {
+            console.log("err", err.stack);
+          });
+      }
+    }
+  });
+  socket.on("readcount delete", function(data) {
+    //  console.log(data.count.length);
+
+    for (var i = 0; i < data.participants.length; i++) {
+      if (data.user_id == data.participants[i].user_id) {
+        User.findOneAndUpdate(
+          {
+            user_id: data.participants[i].user_id,
+            "rooms.roomId": data._id
+          },
+          {
+            $set: {
+              "rooms.$.total_count": data.count - 1,
+              "rooms.$.read_count": data.count - 1
+            }
+          }
+        )
+          .then(docs => {
+            console.log("Success! count saved");
+            //   console.log(docs);
+            // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+          })
+          .catch(err => {
+            console.log("err", err.stack);
+          });
+      } else {
+        User.findOneAndUpdate(
+          {
+            user_id: data.participants[i].user_id,
+            "rooms.roomId": data._id
+          },
+          {
+            $set: {
+              "rooms.$.total_count": data.count - 1,
+              "rooms.$.read_count": data.count - 1
             }
           }
         )

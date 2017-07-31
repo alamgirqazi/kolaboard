@@ -310,12 +310,6 @@ export default class Profile extends React.Component {
                     <br />
                     <br />
                     <br />
-                    <Toggle
-                      onToggle={this.handleDeleteToggle}
-                      toggled={UserStore.emailnotif}
-                      label="Disable Email Notifications"
-                      style={[headColor2]}
-                    />
                   </CardText>
                 </Card>
               </div>
@@ -408,3 +402,9 @@ export default class Profile extends React.Component {
 
 // <div className="fullWidth fullheight row expanded">
 //
+// <Toggle
+//   onToggle={this.handleDeleteToggle}
+//   toggled={UserStore.emailnotif}
+//   label="Disable Email Notifications"
+//   style={[headColor2]}
+// />
