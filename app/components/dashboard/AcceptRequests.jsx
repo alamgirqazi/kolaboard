@@ -15,6 +15,7 @@ import SearchInput, { createFilter } from "react-search-input";
 import Badge from "material-ui/Badge";
 import Avatar from "material-ui/Avatar";
 import UserStore from "app/store/UserStore.js";
+import Snackbar from "material-ui/Snackbar";
 
 // import Main from "app/components/main.jsx"
 // import Store from "app/store/UIstore.js";
@@ -65,14 +66,19 @@ export default class AcceptRequests extends React.Component {
     super(props);
 
     this.state = {
-      searchTerm: " "
+      searchTerm: " ",
+      snackbarsendreq: false
     };
     this._handleClick = this._handleClick.bind(this);
   }
-
+  handleRequestClose = () => {
+    this.setState({ snackbarsendreq: false });
+  };
   _handleClick(acceptrequests) {
     // console.log(acceptrequests.other_id);
-
+    this.setState({
+      snackbarsendreq: true
+    });
     var data = {
       status: "friend",
       id: acceptrequests.other_id,
@@ -84,13 +90,35 @@ export default class AcceptRequests extends React.Component {
       url: "/api/user/acceptrequestadd",
       data: data
     })
-      .done(function(data) {
-        // console.log(data)
-
-        console.log(data);
-      })
+      .done(function(data) {})
       .fail(function(jqXhr) {
         console.log("failed to register");
+      });
+
+    $.ajax({
+      type: "GET",
+      url: "/api/user/friendlist"
+    })
+      .done(function(data) {
+        FriendshipsStore.mylist = data;
+        FriendshipsStore.friendlistcount = Object.keys(data).length;
+
+        $.ajax({
+          type: "GET",
+          url: "/api/user/acceptrequest"
+        })
+          .done(function(data) {
+            FriendshipsStore.acceptrequests = data;
+            FriendshipsStore.acceptrequestscount = Object.keys(data).length;
+            FriendshipsStore.stateAcceptRequest = true;
+            //   FriendshipsStore.acceptrequestscount = acceptrequestscount;
+          })
+          .fail(function(jqXhr) {
+            console.log("failed to register");
+          });
+      })
+      .fail(function(jqXhr) {
+        console.log("friendlist request fail");
       });
   }
 
@@ -122,7 +150,7 @@ export default class AcceptRequests extends React.Component {
   }
 
   render() {
-    const filteredEmails = acceptrequests.filter(
+    const filteredEmails = FriendshipsStore.acceptrequests.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
     );
     return (
@@ -139,7 +167,12 @@ export default class AcceptRequests extends React.Component {
                 />
               </h3>
               <br />
-
+              <Snackbar
+                open={this.state.snackbarsendreq}
+                message="Friend has been added"
+                autoHideDuration={2500}
+                onRequestClose={this.handleRequestClose}
+              />
               <SearchInput
                 className="search-input"
                 onChange={this.searchUpdated.bind(this)}

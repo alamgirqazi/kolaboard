@@ -106,7 +106,7 @@ export default class FriendList extends React.Component {
   }
 
   _handleClick = Friendship => {
-    console.log(Friendship);
+    // console.log(Friendship);
 
     var data = {
       user_id: UserStore.obj.user_id,
@@ -128,10 +128,10 @@ export default class FriendList extends React.Component {
         friendlist = data;
         FriendshipsStore.mylist = data;
         // console.log("meri friendlist");
-        console.log(data);
+        // console.log(data);
         friendlistcount = Object.keys(friendlist).length;
         FriendshipsStore.friendlistcount = friendlistcount;
-        console.log(friendlistcount);
+        // console.log(friendlistcount);
       })
       .fail(function(jqXhr) {
         console.log("friendlist request fail");
@@ -229,7 +229,7 @@ export default class FriendList extends React.Component {
                 {filteredEmails.map(Friendlist => {
                   var id;
                   if (Friendlist.user_id == UserStore.obj.user_id) {
-                    console.log(Friendlist.user_id);
+                    // console.log(Friendlist.user_id);
                     id = Friendlist.other_id;
 
                     return (
