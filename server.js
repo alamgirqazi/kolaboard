@@ -863,6 +863,55 @@ io.on("connection", function(socket) {
       }
     }
   });
+  socket.on("readnotes edit", function(data) {
+    // console.log(data.count.length);
+
+    for (var i = 0; i < data.participants.length; i++) {
+      if (data.user_id == data.participants[i].user_id) {
+        User.findOneAndUpdate(
+          {
+            user_id: data.participants[i].user_id,
+            "rooms.roomId": data._id
+          },
+          {
+            $set: {
+              "rooms.$.total_notes_count": data.count.length,
+              "rooms.$.read_notes_count": data.count.length
+            }
+          }
+        )
+          .then(docs => {
+            console.log("Success! count saved");
+            //   console.log(docs);
+            // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+          })
+          .catch(err => {
+            console.log("err", err.stack);
+          });
+      } else {
+        User.findOneAndUpdate(
+          {
+            user_id: data.participants[i].user_id,
+            "rooms.roomId": data._id
+          },
+          {
+            $set: {
+              "rooms.$.total_notes_count": data.count.length,
+              "rooms.$.read_notes_count": data.count.length - 1
+            }
+          }
+        )
+          .then(docs => {
+            console.log("Success! count saved");
+            //   console.log(docs);
+            // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+          })
+          .catch(err => {
+            console.log("err", err.stack);
+          });
+      }
+    }
+  });
   socket.on("readnotes delete", function(data) {
     console.log(data.count.length);
 

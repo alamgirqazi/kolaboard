@@ -87,6 +87,15 @@ class Note extends React.Component {
       editing: false,
       open: false
     });
+    var data = {
+      user_id: UserStore.obj.user_id,
+      _id: ChatStore.groupId,
+      count: ChatStore.notes,
+      participants: ChatStore.participants
+
+      //ChatStore.readcount = Object.keys(data[0].conversation).length;
+    };
+    socket.emit("readnotes edit", data);
   }
   details() {
     UIStore.notedetails = true;
