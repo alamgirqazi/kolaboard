@@ -438,6 +438,10 @@ export default class Boards extends React.Component {
     UIStore.notedetails = false;
   };
   render() {
+    var groupSelected;
+    if (ChatStore.groupname == " ") {
+      groupSelected = true;
+    } else false;
     var variable = ChatStore.notes;
     // console.log("variable");
     // va = ChatStore.individualnote;
@@ -499,14 +503,17 @@ export default class Boards extends React.Component {
         })}
 
         <div className="fixedbutton">
-          <FloatingActionButton
-            style={style}
-            onTouchTap={this.handleTouchTap}
-            label="yo"
-            onClick={this.add.bind(null, "new note")}
-          >
-            <ContentAdd />
-          </FloatingActionButton>
+          {groupSelected
+            ? <div />
+            : <FloatingActionButton
+                style={style}
+                onTouchTap={this.handleTouchTap}
+                label="yo"
+                onClick={this.add.bind(null, "new note")}
+              >
+                <ContentAdd />
+              </FloatingActionButton>}
+
           <Dialog
             modal={false}
             overlay={false}

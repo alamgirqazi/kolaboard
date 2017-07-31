@@ -11,6 +11,9 @@ import Toolbar from "app/components/toolbar.jsx";
 import Boards from "app/components/Note.jsx";
 import List from "material-ui/List/List";
 import Avatar from "material-ui/Avatar";
+import FriendshipStore from "app/store/FriendshipsStore.js";
+import Dialog from "material-ui/Dialog";
+import Snackbar from "material-ui/Snackbar";
 
 import ListItem from "material-ui/List/ListItem";
 // import Main from "app/components/main.jsx"
@@ -73,7 +76,9 @@ export default class FriendList extends React.Component {
     super(props);
     this.state = {
       searchTerm: "",
-      yay: true
+      yay: true,
+      snackbarsendreq: false,
+      openDelete: false
     };
   }
 
@@ -98,27 +103,46 @@ export default class FriendList extends React.Component {
     this.setState({ searchTerm: term });
   }
 
-  _handleClick(id) {
-    // console.log(id);
-    alert(id);
+  _handleClick = Friendship => {
+    console.log(Friendship);
 
     var data = {
       user_id: UserStore.obj.user_id,
-      other_id: id
+      other_id: Friendship
     };
-    // Submit form via jQuery/AJAX
+    this.setState({ openDelete: true });
+
+    FriendshipStore.findremovefriend = data;
+  };
+  handleUnfriend = () => {
+    var data = FriendshipStore.findremovefriend;
+    socket.emit("unfriend friendlist", data);
+
     $.ajax({
-      type: "POST",
-      url: "/api/user/removefriend",
-      data: data
+      type: "GET",
+      url: "/api/user/friendlist"
     })
       .done(function(data) {
-        alert("its all over");
+        friendlist = data;
+        // console.log("meri friendlist");
+        console.log(data);
+        friendlistcount = Object.keys(friendlist).length;
+        FriendshipsStore.friendlistcount = friendlistcount;
+        console.log(friendlistcount);
       })
       .fail(function(jqXhr) {
-        // console.log("failed to register POST REQ");
+        console.log("friendlist request fail");
       });
-  }
+    this.setState({ snackbarsendreq: true });
+
+    this.setState({ openDelete: false });
+  };
+  handleDeleteClose = () => {
+    this.setState({ openDelete: false });
+  };
+  handleRequestClose = () => {
+    this.setState({ snackbarsendreq: false });
+  };
 
   render() {
     // setTimeout(
@@ -129,7 +153,18 @@ export default class FriendList extends React.Component {
     //   }.bind(this),
     //   7000
     // );
-
+    const actionsDelete = [
+      <RaisedButton
+        label="Cancel"
+        onTouchTap={this.handleDeleteClose}
+        style={style}
+      />,
+      <RaisedButton
+        label="Unfriend the User"
+        secondary={true}
+        onTouchTap={this.handleUnfriend}
+      />
+    ];
     const filteredEmails = friendlist.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
     );
@@ -156,6 +191,22 @@ export default class FriendList extends React.Component {
                 onChange={this.searchUpdated.bind(this)}
               />
               <br />
+              <Dialog
+                title="Unfriend the User"
+                actions={actionsDelete}
+                modal={false}
+                open={this.state.openDelete}
+                onRequestClose={this.handleDeleteClose}
+              >
+                Are you sure you want to Unfriend? This action cannot be
+                reversed.
+              </Dialog>
+              <Snackbar
+                open={this.state.snackbarsendreq}
+                message="Friend has been removed"
+                autoHideDuration={2500}
+                onRequestClose={this.handleRequestClose}
+              />
 
               <Scrollbars
                 style={{ height: 380 }}
@@ -194,7 +245,7 @@ export default class FriendList extends React.Component {
                               <RaisedButton
                                 label={"Remove Friend"}
                                 secondary={true}
-                                onTouchTap={() => this._handleClick(id)}
+                                onTouchTap={() => this._handleClick(Friendlist)}
                                 style={style}
                               />
                             }

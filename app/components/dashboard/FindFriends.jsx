@@ -32,7 +32,7 @@ import UserStore from "app/store/UserStore.js";
 import FriendshipsStore from "app/store/FriendshipsStore.js";
 
 // const KEYS_TO_FILTERS = ["user.name", "subject", "dest.name"];
-const KEYS_TO_FILTERS = ["email", "name", "nickname", "user_id"];
+const KEYS_TO_FILTERS = ["email", "name", "nickname"];
 
 const style = {
   margin: 12

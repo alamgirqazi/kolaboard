@@ -245,8 +245,16 @@ export default class ListChatContainer extends React.Component {
       }.bind(this),
       1500
     ); //
-  };
 
+    var tempTimer = 0;
+    var startedTimer = Date.now();
+    setInterval(this.goTimer(), 250); // a little more often in case of drift
+  };
+  goTimer = () => {
+    tempTimer = Math.floor((Date.now() - startedTimer) / 500);
+    // $("#timer").val(tempTimer);
+    console.log("yesss");
+  };
   handleDeleteClose = () => {
     this.setState({ openDelete: false });
   };

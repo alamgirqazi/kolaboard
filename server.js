@@ -109,7 +109,7 @@ app.post("/api/user", function(req, res) {
   myuserid = req.body.user_id;
   // res.cookie('name', 'express').send('cookie set'); //Sets name=express
   res.cookie("name", "express");
-  console.log("logging /"); //Sets name=express
+  // console.log("logging /"); //Sets name=express
   //   console.log(req.cookie);
   req.session.userId = req.body.user_id;
 
@@ -121,7 +121,7 @@ app.post("/api/user", function(req, res) {
     } else {
       user.save(function(err) {
         if (err) {
-          console.log("user exists");
+          // console.log("user exists");
           //  return handleError(err);
         }
       });
@@ -560,14 +560,17 @@ io.on("connection", function(socket) {
     );
     // console.log("data.sendTo");
     // console.log(data.sendTo);
-    socket.broadcast.emit("chat messagey", {
+
+    var msg = {
       from: socket.username,
       message: data.msg,
       favourite: false,
       date: date,
       time: time,
       picture: data.picture
-    });
+    };
+    io.emit("chat messagey", msg);
+    console.log("emitted");
   });
 
   socket.on("Join room", function(data) {
@@ -923,18 +926,22 @@ io.on("connection", function(socket) {
     });
   });
   socket.on("unfriend user", function(data) {
+    console.log(data);
+    console.log(data.user_id);
+    console.log(data.other_id);
     //console.log("THis is data coming from roomId " + data);
     Friendships.findOneAndRemove(
       {
         $or: [
-          { user_id: data.user_id, other_id: data.other_id, status: "friend" },
-          { user_id: data.other_id, user_id: data.user_id, status: "friend" }
+          { user_id: data.other_id, other_id: data.user_id, status: "friend" },
+          { user_id: data.user_id, other_id: data.other_id, status: "friend" }
         ]
       },
       function(err, rooms) {
         if (err) {
           console.log("There is an error");
         } else {
+          console.log(rooms);
           Friendships.find(
             {
               $or: [
@@ -950,6 +957,25 @@ io.on("connection", function(socket) {
           User.find({}, function(err, users) {});
           //     console.log("to be removed ");
           //     console.log(rooms); // res.send(rooms);
+        }
+      }
+    );
+  });
+  socket.on("unfriend friendlist", function(data) {
+    console.log("unfriend");
+    console.log(data);
+    Friendships.findOneAndRemove(
+      {
+        $or: [
+          { user_id: data.user_id, other_id: data.other_id, status: "friend" },
+          { user_id: data.other_id, other_id: data.user_id, status: "friend" }
+        ]
+      },
+      function(err, rooms) {
+        if (err) {
+          console.log("There is an error");
+        } else {
+          console.log(rooms); // res.send(rooms);
         }
       }
     );
@@ -1320,8 +1346,8 @@ io.on("connection", function(socket) {
       if (err) {
         //  console.log("There is an error");
       } else {
-        console.log("docs retrieve msgs");
-        console.log(rooms);
+        // console.log("docs retrieve msgs");
+        // console.log(rooms);
         socket.emit("chat msgs", rooms);
         // res.send(rooms);
       }

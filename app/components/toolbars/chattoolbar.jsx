@@ -100,6 +100,10 @@ export default class Chatbar extends React.Component {
   };
 
   render() {
+    var groupSelected;
+    if (ChatStore.groupname == " ") {
+      groupSelected = true;
+    } else false;
     users = ChatStore.participants;
     // favourites = ChatStore.favourites.msgs;
     const rightIconMenu = (
@@ -167,19 +171,21 @@ export default class Chatbar extends React.Component {
           <br />
         </Dialog>
         <Toolbar>
-          <ToolbarGroup firstChild={true}>
-            <List>
-              <ListItem
-                onTouchTap={this.handleOpen}
-                leftAvatar={
-                  <Avatar size={40} color={darkBlack}>
-                    {ChatStore.groupavatar}
-                  </Avatar>
-                }
-                primaryText={ChatStore.groupname}
-              />
-            </List>
-          </ToolbarGroup>
+          {groupSelected
+            ? <div />
+            : <ToolbarGroup firstChild={true}>
+                <List>
+                  <ListItem
+                    onTouchTap={this.handleOpen}
+                    leftAvatar={
+                      <Avatar size={40} color={darkBlack}>
+                        {ChatStore.groupavatar}
+                      </Avatar>
+                    }
+                    primaryText={ChatStore.groupname}
+                  />
+                </List>
+              </ToolbarGroup>}
 
           <ToolbarGroup lastChild={true} style={bottomPadding}>
             {/*<IconButton tooltip="top-center" touch={true} tooltipPosition="top-center">

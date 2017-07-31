@@ -272,20 +272,14 @@ export default class ToolbarExamplesSimple extends React.Component {
           }
         } else UserStore.useraccount = "Email Account";
 
-        setTimeout(
-          function() {
-            if (this.state.yay == false) {
-              this.setState({
-                yay: true
-              });
-            } else {
-              this.setState({
-                yay: false
-              });
-            }
-          }.bind(this),
-          3000
-        );
+        // setTimeout(
+        //   function() {
+        //     this.setState({
+        //       yay: true
+        //     });
+        //   }.bind(this),
+        //   3000
+        // );
       },
 
       error: function() {
@@ -339,14 +333,14 @@ export default class ToolbarExamplesSimple extends React.Component {
         console.log("failed to register");
       });
     this.newfunc();
-    setTimeout(
-      function() {
-        this.setState({
-          yay: false
-        });
-      }.bind(this),
-      4000
-    ); // wait 5 seconds, then reset to false  }
+    // setTimeout(
+    //   function() {
+    //     this.setState({
+    //       yay: false
+    //     });
+    //   }.bind(this),
+    //   4000
+    // ); // wait 5 seconds, then reset to false  }
     if (Store.yum) {
       setTimeout(
         function() {
