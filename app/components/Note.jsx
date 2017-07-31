@@ -101,13 +101,19 @@ class Note extends React.Component {
     };
     socket.emit("note delete", data);
 
+    var data1 = {
+      user_id: UserStore.obj.user_id,
+      _id: ChatStore.groupId,
+      count: ChatStore.notes,
+      participants: ChatStore.participants
+
+      //ChatStore.readcount = Object.keys(data[0].conversation).length;
+    };
+    socket.emit("readnotes delete", data1);
     socket.on("remainingnotes", function(data) {
-      console.log("da");
-      console.log(data[0].notes);
-      // var a = data[0].from;
-      // console.log(data[0].from);
-      // b = a.split(/\s(.+)/)[0]; //everything before the first space
-      // data.firstname = b;
+      // console.log("da");
+      // console.log(data[0].notes);
+
       ChatStore.notes = data[0].notes;
     });
     // this.props.onRemove(this.props.index);
