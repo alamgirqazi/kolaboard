@@ -964,6 +964,9 @@ io.on("connection", function(socket) {
   socket.on("unfriend friendlist", function(data) {
     console.log("unfriend");
     console.log(data);
+
+    console.log("data");
+
     Friendships.findOneAndRemove(
       {
         $or: [

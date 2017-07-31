@@ -89,6 +89,8 @@ export default class FriendList extends React.Component {
     })
       .done(function(data) {
         friendlist = data;
+        FriendshipsStore.mylist = data;
+
         // console.log("meri friendlist");
         // console.log(data);
         friendlistcount = Object.keys(friendlist).length;
@@ -108,14 +110,14 @@ export default class FriendList extends React.Component {
 
     var data = {
       user_id: UserStore.obj.user_id,
-      other_id: Friendship
+      other_id: Friendship.other_id
     };
     this.setState({ openDelete: true });
 
-    FriendshipStore.findremovefriend = data;
+    FriendshipStore.removefriendlistfriend = data;
   };
   handleUnfriend = () => {
-    var data = FriendshipStore.findremovefriend;
+    var data = FriendshipStore.removefriendlistfriend;
     socket.emit("unfriend friendlist", data);
 
     $.ajax({
@@ -124,6 +126,7 @@ export default class FriendList extends React.Component {
     })
       .done(function(data) {
         friendlist = data;
+        FriendshipsStore.mylist = data;
         // console.log("meri friendlist");
         console.log(data);
         friendlistcount = Object.keys(friendlist).length;
@@ -165,7 +168,7 @@ export default class FriendList extends React.Component {
         onTouchTap={this.handleUnfriend}
       />
     ];
-    const filteredEmails = friendlist.filter(
+    const filteredEmails = FriendshipsStore.mylist.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
     );
 
@@ -226,18 +229,19 @@ export default class FriendList extends React.Component {
                 {filteredEmails.map(Friendlist => {
                   var id;
                   if (Friendlist.user_id == UserStore.obj.user_id) {
+                    console.log(Friendlist.user_id);
                     id = Friendlist.other_id;
 
                     return (
-                      <div className="mail" key={Friendlist.user_id}>
-                        <List key={Friendlist.user_id}>
+                      <div className="mail" key={Friendlist.other_id}>
+                        <List key={Friendlist.other_id}>
                           <ListItem
-                            key={Friendlist.user_id}
+                            key={Friendlist.other_id}
                             disabled={true}
                             leftAvatar={
                               <Avatar
                                 size={80}
-                                key={Friendlist.user_id}
+                                key={Friendlist.other_id}
                                 src={Friendlist.picture}
                               />
                             }

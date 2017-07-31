@@ -8,8 +8,9 @@ class FriendshipsStore {
   @observable myfriendslist = [];
   @observable acceptrequestscount;
   @observable totalfriends = [];
+  @observable mylist = [];
   @observable findremovefriend;
-
+  @observable removefriendlistfriend;
   // @observable fullscreen = !
 }
 
