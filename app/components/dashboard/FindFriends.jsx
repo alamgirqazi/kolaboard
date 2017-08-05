@@ -96,6 +96,7 @@ export default class FindFriends extends React.Component {
         users.splice(index, 1);
         UserStore.allUsers = users;
         var array = [];
+        var secondarray = [];
         users.forEach(function(a) {
           for (var i = 0; i < FriendshipStore.myfriendslist.length; i++) {
             //console.log(FriendshipStore.myfriendslist.length);
@@ -104,10 +105,19 @@ export default class FindFriends extends React.Component {
               a.user_id == FriendshipStore.myfriendslist[i].user_id
             ) {
               array[i] = a.user_id;
+              secondarray[i] = {
+                picture: a.picture,
+                name: a.name,
+                user_id: a.user_id
+              };
             } else {
             }
           }
         });
+        // console.log("array");
+        // console.log(array);
+        // console.log(secondarray);
+        FriendshipsStore.mappedFriends = secondarray;
         array.forEach(function(a) {
           for (var i = 0; i < users.length; i++) {
             if (a == UserStore.allUsers[i].user_id) {

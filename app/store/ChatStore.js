@@ -3,6 +3,7 @@ import mobx, { observable } from "mobx";
 class ChatStore {
   @observable groupname = " ";
   @observable groupavatar = " ";
+  @observable admin_id = " ";
   @observable groupId = " ";
   @observable roomData = [];
   @observable msgs = [];

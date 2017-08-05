@@ -12,6 +12,9 @@ class FriendshipsStore {
   @observable mylist = [];
   @observable findremovefriend;
   @observable removefriendlistfriend;
+
+  @observable mappedFriends = [];
+
   // @observable fullscreen = !
 }
 

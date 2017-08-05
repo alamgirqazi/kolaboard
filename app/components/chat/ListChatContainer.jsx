@@ -159,6 +159,8 @@ export default class ListChatContainer extends React.Component {
         ChatStore.participants = data[0].participants;
         ChatStore.readcount = Object.keys(data[0].conversation).length;
         ChatStore.notescount = Object.keys(data[0].notes).length;
+        ChatStore.admin_id = data[0].admin_id;
+
         //  console.log("data[0].notes");
         // console.log(data[0].notes.length);
         var data = {

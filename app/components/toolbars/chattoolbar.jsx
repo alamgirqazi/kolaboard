@@ -4,6 +4,8 @@ import IconButton from "material-ui/IconButton";
 import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert";
 import IconMenu from "material-ui/IconMenu";
 import AppBar from "material-ui/AppBar";
+import UserStore from "app/store/UserStore.js";
+import FriendshipStore from "app/store/FriendshipsStore.js";
 
 import {
   grey400,
@@ -67,10 +69,49 @@ export default class Chatbar extends React.Component {
     super(props);
     this.state = {
       open: false,
-      openDialog: false
+      openDialog: false,
+      openAdmin: false
     };
   }
+  componentDidMount() {
+    let userid = localStorage.getItem("userid");
 
+    $.ajax({
+      type: "GET",
+      url: "/api/userall"
+    }).done(function(data) {
+      // console.log(data)
+      users = data;
+      var index = users.findIndex(function(o) {
+        return o.user_id === userid;
+      });
+      users.splice(index, 1);
+      UserStore.allUsers = users;
+      // var array = [];
+      var secondarray = [];
+      users.forEach(function(a) {
+        for (var i = 0; i < FriendshipStore.myfriendslist.length; i++) {
+          //console.log(FriendshipStore.myfriendslist.length);
+          if (
+            a.user_id == FriendshipStore.myfriendslist[i].other_id ||
+            a.user_id == FriendshipStore.myfriendslist[i].user_id
+          ) {
+            // array[i] = a.user_id;
+            secondarray[i] = {
+              picture: a.picture,
+              name: a.name,
+              user_id: a.user_id
+            };
+          } else {
+          }
+        }
+      });
+      // console.log("array");
+      // console.log(array);
+      // console.log(secondarray);
+      FriendshipStore.mappedFriends = secondarray;
+    });
+  }
   handleOpen = () => {
     this.setState({ open: true });
   };
@@ -79,14 +120,27 @@ export default class Chatbar extends React.Component {
     socket.emit("Show Favourites", data);
 
     socket.on("returned favs", function(data) {
-      console.log(data.msg);
+      // console.log(data.msg);
       ChatStore.favourites = data.msg;
     });
     this.setState({ openDialog: true });
   };
+  handleAdmin = () => {
+    // var data = ChatStore.groupId;
+    // socket.emit("Show Favourites", data);
+
+    // socket.on("returned favs", function(data) {
+    //   // console.log(data.msg);
+    //   ChatStore.favourites = data.msg;
+    // });
+    this.setState({ openAdmin: true });
+  };
 
   handleClose = () => {
     this.setState({ open: false });
+  };
+  handleAdminClose = () => {
+    this.setState({ openAdmin: false });
   };
   handleCloseFav = () => {
     this.setState({ openDialog: false });
@@ -101,15 +155,24 @@ export default class Chatbar extends React.Component {
 
   render() {
     var groupSelected;
+    var admin;
     if (ChatStore.groupname == " ") {
       groupSelected = true;
     } else false;
-    users = ChatStore.participants;
+
+    if (ChatStore.admin_id == UserStore.obj.user_id) {
+      admin = true;
+    } else false;
+
+    // users = ChatStore.participants;
     // favourites = ChatStore.favourites.msgs;
     const rightIconMenu = (
       <IconMenu iconButtonElement={iconButtonElement}>
         <MenuItem onTouchTap={this.handleOpen}>Group Info</MenuItem>
         <MenuItem onTouchTap={this.handleShowFav}>Show Favourites</MenuItem>
+        {admin
+          ? <MenuItem onTouchTap={this.handleAdmin}>Admin</MenuItem>
+          : <div />}
       </IconMenu>
     );
 
@@ -124,17 +187,13 @@ export default class Chatbar extends React.Component {
         >
           <h5>Users in the group:</h5>
           <br />
-          {users.map(Users => {
+          {ChatStore.participants.map(Users => {
             return (
               <div key={Users.user_id}>
                 <div className="" key={Users.user_id}>
                   <ListItem
                     key={Users.user_id}
-                    leftAvatar={
-                      <Avatar size={40} src={Users.picture}>
-                        {Users.pic}
-                      </Avatar>
-                    }
+                    leftAvatar={<Avatar size={40} src={Users.picture} />}
                     primaryText={Users.name}
                   />
                 </div>
@@ -142,6 +201,29 @@ export default class Chatbar extends React.Component {
             );
           })}
           <br />
+        </Dialog>
+        <Dialog
+          modal={false}
+          overlay={false}
+          onRequestClose={this.handleAdminClose}
+          contentStyle={customContentStyle}
+          open={this.state.openAdmin}
+        >
+          <h5>Add more friends</h5>
+          <br />
+          <br />
+          {FriendshipStore.mappedFriends.map(Users => {
+            return (
+              <div key={Users.user_id}>
+                <ListItem
+                  key={Users.user_id}
+                  leftAvatar={<Avatar size={40} src={Users.picture} />}
+                  primaryText={Users.name}
+                />{" "}
+                <br />
+              </div>
+            );
+          })}
         </Dialog>
         <Dialog
           modal={false}
@@ -188,9 +270,6 @@ export default class Chatbar extends React.Component {
               </ToolbarGroup>}
 
           <ToolbarGroup lastChild={true} style={bottomPadding}>
-            {/*<IconButton tooltip="top-center" touch={true} tooltipPosition="top-center">
-      <ActionGrade />
-    </IconButton>*/}
             <ListItem rightIconButton={rightIconMenu} />
           </ToolbarGroup>
         </Toolbar>

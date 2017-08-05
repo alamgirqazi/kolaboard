@@ -12,6 +12,10 @@ var roomsSchema = new Schema({
     default: "",
     trim: true
   },
+  admin_id: {
+    type: String,
+    default: ""
+  },
 
   conversation: [
     {
