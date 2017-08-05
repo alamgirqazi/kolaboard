@@ -273,12 +273,13 @@ app.post("/api/user/emailnotif", function(req, res) {
 });
 
 app.post("/api/createGroup", function(req, res) {
+  console.log("createGroup", req.body);
   let _id;
   var data = {
     groupname: req.body.groupname,
     avatarletter: req.body.avatarletter,
     conversation: [],
-    participants: req.body.mapping
+    participants: JSON.parse(req.body.mapping)
   };
   var room = new rooms(data);
 
@@ -735,7 +736,7 @@ io.on("connection", function(socket) {
           }
         )
           .then(docs => {
-            console.log("Success! count saved");
+            console.log("Success! count saved readcount");
             //   console.log(docs);
             // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
           })
@@ -755,7 +756,7 @@ io.on("connection", function(socket) {
           }
         )
           .then(docs => {
-            console.log("Success! count saved");
+            console.log("Success! count saved else readcount");
             //   console.log(docs);
             // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
           })
@@ -1509,66 +1510,14 @@ io.on("connection", function(socket) {
   });
   socket.on("manipulate group", function(data) {
     // console.log("THis is data coming from roomId " + data);
-    var d = new Date(); // for now
-    d.getHours(); // => 9
-    d.getMinutes(); // =>  30
-    d.getSeconds(); // => 51
-    //console.log(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
-    time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth() + 1; //January is 0!
-    var yyyy = today.getFullYear();
-
-    if (dd < 10) {
-      dd = "0" + dd;
-    }
-    if (mm < 10) {
-      mm = "0" + mm;
-    }
-    date = mm + "/" + dd + "/" + yyyy;
-    rooms.update(
+    rooms.findOneAndUpdate(
       { _id: data.roomId },
-      {
-        $push: {
-          conversation: {
-            from: data.user_name,
-            message: data.message,
-            favourite: false,
-            date: date,
-            time: time
-          }
-        }
-      },
-      function(err) {
+      { $pull: { participants: { user_id: data.user_id } } },
+      function(err, docs) {
         if (err) console.log("This is errro " + err);
         else {
-          console.log("Successful...!");
-          // console.log(data.user_id);
-          // rooms.find(
-          //   {
-          //     _id: data.roomId,
-          //     "participants0].$.user_id": data.user_id
-          //   },
-          //   // {
-          //   //   $push: {
-          //   //     conversation: {
-          //   //       from: data.user_name,
-          //   //       message: data.message,
-          //   //       favourite: false,
-          //   //       date: date,
-          //   //       time: time
-          //   //     }
-          //   //   }
-          //   // }
-
-          //   function(err, docs) {
-          //     if (err) console.log("This is errro " + err);
-          //     else {
-          //       console.log(docs);
-          //     }
-          //   }
-          // );
+          console.log("docs");
+          console.log(docs);
         }
       }
     );

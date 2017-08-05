@@ -169,7 +169,7 @@ export default class Chat extends React.Component {
     });
     socket.on("remainingmsgs", function(data) {
       ///   console.log("da");
-      console.log(data[0].conversation);
+      // console.log(data[0].conversation);
 
       ChatStore.msgs = data[0].conversation;
     });

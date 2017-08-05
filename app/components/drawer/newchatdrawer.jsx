@@ -131,7 +131,7 @@ export default class NewChatDrawer extends React.Component {
       })
         .done(function(data) {
           alert("its all over");
-          console.log(data);
+          // console.log(data);
         })
         .fail(function(jqXhr) {
           // console.log("failed to register POST REQ");

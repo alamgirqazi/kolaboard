@@ -81,7 +81,7 @@ export default class Events extends React.Component {
   constructor(props) {
     super(props);
 
-    EventStore.event = [{ title: "" }];
+    // EventStore.event = [{ title: "" }];
     this.state = {
       expanded: false,
       open: false,
@@ -111,7 +111,7 @@ export default class Events extends React.Component {
       user_name: UserStore.userrealname
     };
 
-    console.log(data);
+    // console.log(data);
     $.ajax({
       type: "POST",
       url: "/api/user/createevent",
@@ -130,7 +130,7 @@ export default class Events extends React.Component {
       url: "/api/getEvents"
     })
       .done(function(data) {
-        console.log(data);
+        // console.log(data);
         EventStore.event = data;
         totalEvents = data;
 
@@ -199,7 +199,7 @@ export default class Events extends React.Component {
       url: "/api/getEvents"
     })
       .done(function(data) {
-        console.log(data);
+        // console.log(data);
         EventStore.event = data;
         totalEvents = data;
 
@@ -215,7 +215,7 @@ export default class Events extends React.Component {
       url: "/api/getEvents"
     })
       .done(function(data) {
-        console.log(data);
+        // console.log(data);
         EventStore.event = data;
         totalEvents = data;
 

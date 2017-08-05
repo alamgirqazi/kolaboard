@@ -124,7 +124,7 @@ export default class ListChatContainer extends React.Component {
 
   _handleLeave(Users) {
     //alert(Users._id);
-    console.log(Users);
+    // console.log(Users);
     this.setState({
       openDelete: true
     });
@@ -156,7 +156,7 @@ export default class ListChatContainer extends React.Component {
       },
       dataType: "json",
       success: function(data) {
-        ChatStore.participants = JSON.parse(data[0].participants);
+        ChatStore.participants = data[0].participants;
         ChatStore.readcount = Object.keys(data[0].conversation).length;
         ChatStore.notescount = Object.keys(data[0].notes).length;
         //  console.log("data[0].notes");
@@ -192,7 +192,7 @@ export default class ListChatContainer extends React.Component {
     //       UserStore.obj.rooms = data[0].rooms;
     //     });
     //   }.bind(this),
-    //   5000
+    //   2000
     // );
   }
   handleLeaveDialog = () => {
@@ -246,15 +246,15 @@ export default class ListChatContainer extends React.Component {
       1500
     ); //
 
-    var tempTimer = 0;
-    var startedTimer = Date.now();
-    setInterval(this.goTimer(), 250); // a little more often in case of drift
+    // var tempTimer = 0;
+    // var startedTimer = Date.now();
+    // setInterval(this.goTimer(), 250); // a little more often in case of drift
   };
-  goTimer = () => {
-    tempTimer = Math.floor((Date.now() - startedTimer) / 500);
-    // $("#timer").val(tempTimer);
-    console.log("yesss");
-  };
+  // goTimer = () => {
+  //   tempTimer = Math.floor((Date.now() - startedTimer) / 500);
+  //   // $("#timer").val(tempTimer);
+  //   console.log("yesss");
+  // };
   handleDeleteClose = () => {
     this.setState({ openDelete: false });
   };
