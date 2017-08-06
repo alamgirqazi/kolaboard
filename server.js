@@ -279,7 +279,8 @@ app.post("/api/createGroup", function(req, res) {
     groupname: req.body.groupname,
     avatarletter: req.body.avatarletter,
     conversation: [],
-    participants: JSON.parse(req.body.mapping)
+    participants: JSON.parse(req.body.mapping),
+    admin_id: req.body.id
   };
   var room = new rooms(data);
 
@@ -996,6 +997,58 @@ io.on("connection", function(socket) {
     });
     // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
   });
+  socket.on("create group event", function(data) {
+    let _id;
+    var mydata = {
+      groupname: data.groupname,
+      avatarletter: data.avatarletter,
+      conversation: [],
+      participants: JSON.parse(data.mapping),
+      admin_id: data.id
+    };
+    var room = new rooms(mydata);
+
+    rooms.find({}, function(err, docs) {
+      room.save(function(err, docs) {
+        if (err) {
+          console.log(err);
+        } else {
+          _id = docs._id;
+
+          var participants = JSON.parse(data.mapping);
+          var val = 0;
+          for (var i = 0; i < participants.length; i++) {
+            User.findOneAndUpdate(
+              { user_id: participants[i].user_id },
+              {
+                $push: {
+                  rooms: {
+                    roomId: _id,
+                    roomName: data.groupname,
+                    pic: data.avatarletter,
+                    read_notes_count: val,
+                    read_count: val,
+                    total_count: val,
+                    total_notes_count: val
+                  }
+                }
+              },
+              function(err) {
+                if (err) console.log("This is errro " + err);
+                else {
+                  console.log("create event! updated in all users");
+                }
+              }
+            );
+          }
+        }
+      });
+    });
+
+    // console.log("add notes");
+    // console.log(data);
+    // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+  });
   socket.on("msg delete", function(data) {
     // console.log("add notes");
     // console.log(data);
@@ -1078,9 +1131,9 @@ io.on("connection", function(socket) {
     });
   });
   socket.on("unfriend user", function(data) {
-    console.log(data);
-    console.log(data.user_id);
-    console.log(data.other_id);
+    // console.log(data);
+    // console.log(data.user_id);
+    // console.log(data.other_id);
     //console.log("THis is data coming from roomId " + data);
     Friendships.findOneAndRemove(
       {
@@ -1093,7 +1146,7 @@ io.on("connection", function(socket) {
         if (err) {
           console.log("There is an error");
         } else {
-          console.log(rooms);
+          // console.log(rooms);
           Friendships.find(
             {
               $or: [
@@ -1114,10 +1167,10 @@ io.on("connection", function(socket) {
     );
   });
   socket.on("unfriend friendlist", function(data) {
-    console.log("unfriend");
-    console.log(data);
+    // console.log("unfriend");
+    // console.log(data);
 
-    console.log("data");
+    // console.log("data");
 
     Friendships.findOneAndRemove(
       {
@@ -1130,7 +1183,7 @@ io.on("connection", function(socket) {
         if (err) {
           console.log("There is an error");
         } else {
-          console.log(rooms); // res.send(rooms);
+          // console.log(rooms); // res.send(rooms);
         }
       }
     );
@@ -1215,8 +1268,8 @@ io.on("connection", function(socket) {
           User.find({
             user_id: data.user_id
           }).then(docs => {
-            console.log("user find");
-            console.log(docs);
+            // console.log("user find");
+            // console.log(docs);
             socket.emit("timetable", docs);
           });
         })
@@ -1242,12 +1295,12 @@ io.on("connection", function(socket) {
             User.find({
               user_id: data.user_id
             }).then(docs => {
-              console.log("user find");
-              console.log(docs);
+              // console.log("user find");
+              // console.log(docs);
               socket.emit("timetable", docs);
             });
-            console.log("user find");
-            console.log(docs);
+            // console.log("user find");
+            // console.log(docs);
             // socket.emit("timetable", docs);
           });
 
@@ -1272,8 +1325,8 @@ io.on("connection", function(socket) {
           User.find({
             user_id: data.user_id
           }).then(docs => {
-            console.log("user find");
-            console.log(docs);
+            // console.log("user find");
+            // console.log(docs);
             socket.emit("timetable", docs);
           });
           // console.log("Success! handleOpen saved");
@@ -1302,8 +1355,8 @@ io.on("connection", function(socket) {
           User.find({
             user_id: data.user_id
           }).then(docs => {
-            console.log("user find");
-            console.log(docs);
+            // console.log("user find");
+            // console.log(docs);
             socket.emit("timetable", docs);
           });
           // console.log("Success! handleOpen saved");
@@ -1331,13 +1384,13 @@ io.on("connection", function(socket) {
           User.find({
             user_id: data.user_id
           }).then(docs => {
-            console.log("user find");
-            console.log(docs);
+            // console.log("user find");
+            // console.log(docs);
             socket.emit("timetable", docs);
           });
           console.log("Success! handleOpen saved");
-          console.log("docs");
-          console.log(docs);
+          // console.log("docs");
+          // console.log(docs);
           // socket.emit("timetable", docs);
 
           // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
@@ -1362,13 +1415,13 @@ io.on("connection", function(socket) {
           User.find({
             user_id: data.user_id
           }).then(docs => {
-            console.log("user find");
-            console.log(docs);
+            // console.log("user find");
+            // console.log(docs);
             socket.emit("timetable", docs);
           }); // socket.emit("timetable", docs);
 
-          console.log("docs");
-          console.log(docs);
+          // console.log("docs");
+          // console.log(docs);
           // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
         })
         .catch(err => {
@@ -1391,13 +1444,13 @@ io.on("connection", function(socket) {
           User.find({
             user_id: data.user_id
           }).then(docs => {
-            console.log("user find");
-            console.log(docs);
+            // console.log("user find");
+            // console.log(docs);
             socket.emit("timetable", docs);
           });
-          console.log("Success! handleOpen saved");
-          console.log("docs");
-          console.log(docs);
+          // console.log("Success! handleOpen saved");
+          // console.log("docs");
+          // console.log(docs);
           // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
         })
         .catch(err => {
@@ -1440,8 +1493,8 @@ io.on("connection", function(socket) {
   //);
   // });
   socket.on("createpnotes", function(data) {
-    console.log("Creating pnotes");
-    console.log(JSON.stringify(data.desc));
+    // console.log("Creating pnotes");
+    // console.log(JSON.stringify(data.desc));
     User.update(
       { _id: data.id },
       {
@@ -1462,18 +1515,18 @@ io.on("connection", function(socket) {
     );
   });
   socket.on("gettingpnotes", function(data) {
-    console.log("inside creating notes " + data);
+    // console.log("inside creating notes " + data);
     User.find({ _id: data }, function(err, notes) {
       if (err) {
         console.log("There is an error" + err);
       } else {
-        console.log("THis is gettingnotes " + notes[0].privatenotes);
+        // console.log("THis is gettingnotes " + notes[0].privatenotes);
         socket.emit("addingpnotes", notes[0].privatenotes);
       }
     });
   });
   socket.on("addingprivatenotes", function(data) {
-    console.log("inside adding notes " + JSON.stringify(data));
+    // console.log("inside adding notes " + JSON.stringify(data));
     // console.log("inside adding notes " + JSON.stringify(data));
     User.update(
       { _id: data.id },
@@ -1516,8 +1569,8 @@ io.on("connection", function(socket) {
       function(err, docs) {
         if (err) console.log("This is errro " + err);
         else {
-          console.log("docs");
-          console.log(docs);
+          // console.log("docs");
+          // console.log(docs);
         }
       }
     );

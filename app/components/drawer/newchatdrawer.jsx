@@ -124,18 +124,20 @@ export default class NewChatDrawer extends React.Component {
         mapping: JSON.stringify(mapping)
       };
 
-      $.ajax({
-        type: "POST",
-        url: "/api/createGroup",
-        data: data
-      })
-        .done(function(data) {
-          alert("its all over");
-          // console.log(data);
-        })
-        .fail(function(jqXhr) {
-          // console.log("failed to register POST REQ");
-        });
+      // $.ajax({
+      //   type: "POST",
+      //   url: "/api/createGroup",
+      //   data: data
+      // })
+      //   .done(function(data) {
+      //     alert("its all over");
+      //     // console.log(data);
+      //   })
+      //   .fail(function(jqXhr) {
+      //     // console.log("failed to register POST REQ");
+      //   });
+      socket.emit("create group event", data);
+
       this.setState({
         snackbaropen: true
       });
