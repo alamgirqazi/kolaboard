@@ -257,16 +257,16 @@ export default class Chat extends React.Component {
     // console.log("This is the text " + this.refs.newText.value);
     if (this.refs.newText.value == "") {
     } else {
-      // ChatStore.msgs.push({
-      //   from: UserStore.userrealname,
-      //   message: this.refs.newText.value,
-      //   favourite: false,
-      //   date: date,
-      //   time: time,
-      //   //   var d = new Date();
-      //   //   var n = d.getTime();
-      //   picture: UserStore.obj.picture
-      // });
+      ChatStore.msgs.push({
+        from: UserStore.userrealname,
+        message: this.refs.newText.value,
+        favourite: false,
+        date: date,
+        time: time,
+        //   var d = new Date();
+        //   var n = d.getTime();
+        picture: UserStore.obj.picture
+      });
 
       // console.log("ChatStore.groupname");
       // console.log(ChatStore.groupname);

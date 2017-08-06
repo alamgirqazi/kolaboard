@@ -57,7 +57,8 @@ export default class NewChatDrawer extends React.Component {
     this.state = {
       open: false,
       snackbaropen: false,
-      searchTerm: ""
+      searchTerm: "",
+      buttonStatus: false
     };
     this.logChange = this.logChange.bind(this);
     this.handleRequestDelete = this.handleRequestDelete.bind(this);
@@ -93,6 +94,9 @@ export default class NewChatDrawer extends React.Component {
   };
   Next = () => {
     //error handling here
+    this.setState({
+      buttonStatus: true
+    });
     if (this.refs.groupname.getInputNode().value == "" || mapping.length == 0) {
       // console.log("mapping at imp time");
       // console.log(mapping.length);
@@ -158,7 +162,8 @@ export default class NewChatDrawer extends React.Component {
 
           this.refs.groupname.getInputNode().value = "";
           this.setState({
-            snackbaropen: false
+            snackbaropen: false,
+            buttonStatus: false
           });
         }.bind(this),
         2000
@@ -376,6 +381,7 @@ export default class NewChatDrawer extends React.Component {
           />
           <div className="center-block" style={{ display: "table" }}>
             <RaisedButton
+              disabled={this.state.buttonStatus}
               className="center-block"
               label={"Create Group"}
               labelPosition="before"
