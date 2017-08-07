@@ -117,6 +117,9 @@ Mongoose (ODM for MongoDB) http://mongoosejs.com/
 
 <img src="https://image.ibb.co/g1r0CF/Find_Friends.png" width="800" height="500" />
 
+<br/>
+<br/>
+
 ### Friendlist:
 
 <img src="https://image.ibb.co/mRT2Ra/friendlist.png" width="800" height="500" />
@@ -125,9 +128,6 @@ Mongoose (ODM for MongoDB) http://mongoosejs.com/
 <br/>
 
 ### Accept Requests:
-
-<br/>
-<br/>
 
 <img src="https://image.ibb.co/nMPLCF/Accept_Requests.png" width="800" height="500" />
 
