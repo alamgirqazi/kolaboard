@@ -1,9 +1,18 @@
-### A Reactjs app  
+## A Real-time chat, collaboration and productivity enhancement application for teams built using React.js, Node.js, MobX, MongoDB.  
+
+### Major features include
+
+* Real-time Noteboard / Chat
+* Create/Leave groups
+* Find/Add/Remove Friends
+* Manage Private Notes
+* Arrange Private Notes by folders
+* Set up weekly timetable schedule
+* View Nearby Events
+* Manage Profile
 
 
-> This app is also hosted at Heroku http://sheltered-shore-36732.herokuapp.com/ for testing purposes.
-
-How to run:
+## How to run:
 
 Clone the repo
 
@@ -21,13 +30,13 @@ Go to localhost:3000
 
 ```
 
-Libs/tools used: 
+## Libs/tools used: 
 
 Javascript ES6 
 
 React.js    https://github.com/facebook/react
 
-Material-UI     http://www.material-ui.com/#/
+Material-UI     http://www.material-ui.com/
 
 SASS for styling    http://sass-lang.com/
 
@@ -38,3 +47,7 @@ ExpressJs Framework https://expressjs.com/
 MobX (State Management) https://mobx.js.org/
 
 Mongoose (ODM for MongoDB) http://mongoosejs.com/
+
+
+## Screenshots
+
