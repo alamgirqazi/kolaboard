@@ -4,6 +4,7 @@ class ChatStore {
   @observable groupname = " ";
   @observable groupavatar = " ";
   @observable admin_id = " ";
+  @observable created_on = " ";
   @observable groupId = " ";
   @observable roomData = [];
   @observable msgs = [];

@@ -201,6 +201,9 @@ export default class Chatbar extends React.Component {
             );
           })}
           <br />
+          <h5>
+            Created on {ChatStore.created_on}
+          </h5>
         </Dialog>
         <Dialog
           modal={false}

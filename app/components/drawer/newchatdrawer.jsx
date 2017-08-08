@@ -76,11 +76,17 @@ export default class NewChatDrawer extends React.Component {
       time: 2000,
       type: "error"
     });
+    this.setState({
+      buttonStatus: false
+    });
   };
   showSecondAlert = () => {
     this.msg.show("No User has been added", {
       time: 2000,
       type: "error"
+    });
+    this.setState({
+      buttonStatus: false
     });
   };
   // handleToggle = () => this.setState({ open: !this.state.open });
@@ -121,11 +127,24 @@ export default class NewChatDrawer extends React.Component {
       var avatarletter = avatarletterlower.toUpperCase();
       // console.log(avatarletter);
       // console.log("mapping.length" + mapping.length);
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth() + 1; //January is 0!
+      var yyyy = today.getFullYear();
+
+      if (dd < 10) {
+        dd = "0" + dd;
+      }
+      if (mm < 10) {
+        mm = "0" + mm;
+      }
+      var date = dd + "-" + mm + "-" + yyyy;
       var data = {
         id: UserStore.obj.user_id,
         groupname: this.refs.groupname.getValue(),
         avatarletter: avatarletter,
-        mapping: JSON.stringify(mapping)
+        mapping: JSON.stringify(mapping),
+        created_on: date
       };
 
       // $.ajax({

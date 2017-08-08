@@ -16,6 +16,10 @@ var roomsSchema = new Schema({
     type: String,
     default: ""
   },
+  created_on: {
+    type: String,
+    default: ""
+  },
 
   conversation: [
     {

@@ -1005,7 +1005,8 @@ io.on("connection", function(socket) {
       conversation: [],
       participants: JSON.parse(data.mapping),
       remainparticipants: JSON.parse(data.mapping),
-      admin_id: data.id
+      admin_id: data.id,
+      created_on: data.created_on
     };
     var room = new rooms(mydata);
 
