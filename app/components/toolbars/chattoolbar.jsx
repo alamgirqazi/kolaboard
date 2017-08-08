@@ -19,6 +19,7 @@ import NavigationExpandMoreIcon from "material-ui/svg-icons/navigation/expand-mo
 import NavigationClose from "material-ui/svg-icons/navigation/close";
 import MenuItem from "material-ui/MenuItem";
 import AlertContainer from "react-alert";
+import ActionInfo from "material-ui/svg-icons/action/account-circle";
 
 import {
   Toolbar,
@@ -156,6 +157,7 @@ export default class Chatbar extends React.Component {
   render() {
     var groupSelected;
     var admin;
+    // var admin_id = ChatStore.admin_id;
     if (ChatStore.groupname == " ") {
       groupSelected = true;
     } else false;
@@ -188,17 +190,32 @@ export default class Chatbar extends React.Component {
           <h5>Users in the group:</h5>
           <br />
           {ChatStore.remainparticipants.map(Users => {
-            return (
-              <div key={Users.user_id}>
-                <div className="" key={Users.user_id}>
-                  <ListItem
-                    key={Users.user_id}
-                    leftAvatar={<Avatar size={40} src={Users.picture} />}
-                    primaryText={Users.name}
-                  />
+            if (Users.user_id == ChatStore.admin_id) {
+              return (
+                <div key={Users.user_id}>
+                  <div className="" key={Users.user_id}>
+                    <ListItem
+                      key={Users.user_id}
+                      leftAvatar={<Avatar size={40} src={Users.picture} />}
+                      primaryText={Users.name}
+                      rightIcon={<ActionInfo />}
+                    />
+                  </div>
                 </div>
-              </div>
-            );
+              );
+            } else {
+              return (
+                <div key={Users.user_id}>
+                  <div className="" key={Users.user_id}>
+                    <ListItem
+                      key={Users.user_id}
+                      leftAvatar={<Avatar size={40} src={Users.picture} />}
+                      primaryText={Users.name}
+                    />
+                  </div>
+                </div>
+              );
+            }
           })}
           <br />
           <h5>
