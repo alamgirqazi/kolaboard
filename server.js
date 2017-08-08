@@ -1562,18 +1562,39 @@ io.on("connection", function(socket) {
     });
   });
   socket.on("manipulate group", function(data) {
-    // console.log("THis is data coming from roomId " + data);
-    rooms.findOneAndUpdate(
+    rooms.update(
       { _id: data.roomId },
-      { $pull: { participants: { user_id: data.user_id } } },
-      function(err, docs) {
+      {
+        $push: {
+          conversation: {
+            from: data.from,
+            message: data.message,
+            favourite: false,
+            date: data.date,
+            time: data.time,
+            picture: data.picture
+          }
+        }
+      },
+      function(err) {
         if (err) console.log("This is errro " + err);
         else {
-          // console.log("docs");
-          // console.log(docs);
+          console.log("Successful...!");
+          rooms.findOneAndUpdate(
+            { _id: data.roomId },
+            { $pull: { participants: { user_id: data.user_id } } },
+            function(err, docs) {
+              if (err) console.log("This is errro " + err);
+              else {
+                // console.log("docs");
+                // console.log(docs);
+              }
+            }
+          );
         }
       }
     );
+    // console.log("THis is data coming from roomId " + data);
   });
 
   // rooms.find({ _id: data.roomId }, function(err, rooms) {
