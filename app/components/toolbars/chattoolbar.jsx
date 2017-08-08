@@ -187,7 +187,7 @@ export default class Chatbar extends React.Component {
         >
           <h5>Users in the group:</h5>
           <br />
-          {ChatStore.participants.map(Users => {
+          {ChatStore.remainparticipants.map(Users => {
             return (
               <div key={Users.user_id}>
                 <div className="" key={Users.user_id}>

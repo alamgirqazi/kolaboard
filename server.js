@@ -1004,6 +1004,7 @@ io.on("connection", function(socket) {
       avatarletter: data.avatarletter,
       conversation: [],
       participants: JSON.parse(data.mapping),
+      remainparticipants: JSON.parse(data.mapping),
       admin_id: data.id
     };
     var room = new rooms(mydata);
@@ -1582,7 +1583,7 @@ io.on("connection", function(socket) {
           console.log("Successful...!");
           rooms.findOneAndUpdate(
             { _id: data.roomId },
-            { $pull: { participants: { user_id: data.user_id } } },
+            { $pull: { remainparticipants: { user_id: data.user_id } } },
             function(err, docs) {
               if (err) console.log("This is errro " + err);
               else {

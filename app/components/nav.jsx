@@ -63,8 +63,8 @@ export default class NewNav extends React.Component {
   render() {
     const style = {
       margin: 12,
-      width: "160px",
-      height: "40px"
+      width: "275px",
+      height: "45px"
     };
 
     const colormodal = {

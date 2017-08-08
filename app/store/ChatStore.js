@@ -10,6 +10,7 @@ class ChatStore {
   @observable chipContent = [];
   @observable notes = [];
   @observable participants = [];
+  @observable remainparticipants = [];
   @observable individualnote = [];
   @observable individualmsg = [];
   @observable favourites = [];

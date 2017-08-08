@@ -35,7 +35,8 @@ var roomsSchema = new Schema({
       time: String
     }
   ],
-  participants: [{}]
+  participants: [{}],
+  remainparticipants: [{}]
 });
 
 // groupListSchema.index({ "user_id": 1, "other_id": 1 }, { "unique": true });
