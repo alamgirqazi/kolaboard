@@ -172,32 +172,6 @@ export default class Homepage extends React.Component {
             {/*<img src="noticeboard.jpg" alt="Mountain View" style={styleimg}/>*/}
           </div>
 
-          <div className="thirdPage">
-            <br />
-            <h1>How it works?</h1>
-            <br />
-            <p style={aligncenter}>
-              Watch the simple one minute explainer for<br /> kolaboard{" "}
-            </p>
-            <br />
-            {/*<video width="450" controls>
-  <source src="test.mp4" type="video/mp4"/>
-</video>*/}
-            {/*
-  <object data="https://youtu.be/M1kz70Vgm94"
-   width="450" height="315"></object>*/}
-
-            <iframe
-              width="600"
-              height="315"
-              src="https://www.youtube.com/embed/xky48zyL9iA"
-              frameborder="0"
-              allowfullscreen
-            />
-            <br />
-            <br />
-          </div>
-
           <div className="fourthPage">
             <h2 style={style}>What are you waiting for?</h2>
 
@@ -241,3 +215,28 @@ export default class Homepage extends React.Component {
   }
 }
 //  <RaisedButton onTouchTap={this.openLogin} />
+//           <div className="thirdPage">
+//             <br />
+//             <h1>How it works?</h1>
+//             <br />
+//             <p style={aligncenter}>
+//               Watch the simple one minute explainer for<br /> kolaboard{" "}
+//             </p>
+//             <br />
+//             {/*<video width="450" controls>
+//   <source src="test.mp4" type="video/mp4"/>
+// </video>*/}
+//             {/*
+//   <object data="https://youtu.be/M1kz70Vgm94"
+//    width="450" height="315"></object>*/}
+
+//             <iframe
+//               width="600"
+//               height="315"
+//               src="https://www.youtube.com/embed/xky48zyL9iA"
+//               frameborder="0"
+//               allowfullscreen
+//             />
+//             <br />
+//             <br />
+//           </div>
