@@ -463,8 +463,8 @@ export default class ToolbarExamplesSimple extends React.Component {
             <img
               src="Klogo.png"
               style={{
-                height: "40px",
-                width: "160px"
+                height: "45px",
+                width: "235px"
               }}
             />
           </ToolbarGroup>
