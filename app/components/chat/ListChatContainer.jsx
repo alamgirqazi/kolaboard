@@ -4,6 +4,7 @@ import muiThemeable from "material-ui/styles/muiThemeable";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
 import Snackbar from "material-ui/Snackbar";
+import FriendshipStore from "app/store/FriendshipsStore.js";
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
@@ -173,6 +174,65 @@ export default class ListChatContainer extends React.Component {
         };
 
         socket.emit("readcountmsg", data);
+        var filtered = [];
+        var unaddedarray = [];
+        var newarray = FriendshipStore.mappedFriends;
+        var mappedlength = FriendshipStore.mappedFriends.length;
+        var length = ChatStore.remainparticipants.length;
+        var remain = ChatStore.remainparticipants;
+        remain.forEach(function(a) {
+          for (var i = 0; i < mappedlength; i++) {
+            if (a.user_id == FriendshipStore.mappedFriends[i].user_id) {
+              // console.log("yers");
+              FriendshipStore.mappedFriends[i].present = true;
+              // unaddedarray[i].user_id = ChatStore.remainparticipants[i].user_id;
+              // unaddedarray[i].name = ChatStore.remainparticipants[i].name;
+              // unaddedarray[i].picture = ChatStore.remainparticipants[i].picture;
+              // var data = {
+              //   user_id: FriendshipStore.mappedFriends[i].user_id,
+              //   name: FriendshipStore.mappedFriends[i].name,
+              //   picture: FriendshipStore.mappedFriends[i].picture
+              // };
+              // unaddedarray[i] = data;
+              // filtered = newarray.filter(function(el) {
+              //   return el.user_id != FriendshipStore.mappedFriends[i].user_id;
+              // });
+            } else {
+              // var data = {
+              //   user_id: FriendshipStore.mappedFriends[i].user_id,
+              //   name: FriendshipStore.mappedFriends[i].name,
+              //   picture: FriendshipStore.mappedFriends[i].picture
+              // };
+              // unaddedarray[i] = data;
+              // console.log("running for");
+            }
+          }
+        });
+        // newarray.forEach(function(a) {
+        //   for (var i = 0; i < length; i++) {
+        //     if (a.user_id == ChatStore.remainparticipants[i].user_id) {
+        //       // console.log("yers");
+        //       ChatStore.remainparticipants[i].present = true;
+        //       // unaddedarray[i].user_id = ChatStore.remainparticipants[i].user_id;
+        //       // unaddedarray[i].name = ChatStore.remainparticipants[i].name;
+        //       // unaddedarray[i].picture = ChatStore.remainparticipants[i].picture;
+        //       filtered = newarray.filter(function(el) {
+        //         return el.user_id != ChatStore.remainparticipants[i].user_id;
+        //       });
+        //     } else {
+        //       var data = {
+        //         user_id: ChatStore.remainparticipants[i].user_id,
+        //         name: ChatStore.remainparticipants[i].name,
+        //         picture: ChatStore.remainparticipants[i].picture
+        //       };
+        //       unaddedarray[i] = data;
+        //       // console.log("running for");
+        //     }
+        //   }
+        // });
+        // ChatStore.unaddedFriends = filtered;
+        // console.log(unaddedarray);
+        // console.log(filtered);
       },
       error: function(err) {
         console.log("error in get of room" + err);

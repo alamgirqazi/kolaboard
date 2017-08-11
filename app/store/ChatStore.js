@@ -12,6 +12,7 @@ class ChatStore {
   @observable notes = [];
   @observable participants = [];
   @observable remainparticipants = [];
+  @observable unaddedFriends = [];
   @observable individualnote = [];
   @observable individualmsg = [];
   @observable favourites = [];
@@ -20,6 +21,7 @@ class ChatStore {
   @observable notescount;
 
   @observable leaveinfo;
+  @observable addUser;
   @observable leavegroupname = "";
 
   // @observable fullscreen = !

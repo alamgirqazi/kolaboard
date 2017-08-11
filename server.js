@@ -575,7 +575,8 @@ io.on("connection", function(socket) {
       time: time,
       picture: data.picture
     };
-    io.emit("chat messagey", msg);
+    socket.broadcast.emit("chat messagey", msg);
+    // io.emit("chat messagey", msg);
     console.log("emitted");
   });
 
@@ -591,12 +592,6 @@ io.on("connection", function(socket) {
       socket.emit("remaining msgs", docs);
     });
   });
-  // socket.on("emt", function(data) {
-  //   console.log("THis is  " + data);
-  //   socket.emit("emtt", "abcd");
-  //   // io.sockets.in(data).emit('roomMsg', data);
-  //   // console.log(socket.rooms[0]);
-  // });
   socket.on("pushingMsg", function(data) {
     socket.join("room", function() {
       console.log("This is socket.id " + socket.id);
@@ -606,6 +601,49 @@ io.on("connection", function(socket) {
       io.sockets.in(socket.rooms.room).emit("roomMsg", data);
     });
   });
+
+  socket.on("add User to Group", function(data) {
+    rooms.update(
+      { _id: data.roomId },
+      {
+        $push: {
+          remainparticipants: {
+            user_id: data.user_id,
+            picture: data.picture,
+            name: data.name
+          }
+        }
+      },
+      function(err, docs) {
+        if (err) console.log("This is errro " + err);
+        else {
+          rooms.find({ _id: data.roomId }, function(err, docs) {
+            console.log(docs);
+            socket.emit("returning participants", docs);
+          });
+          rooms.update(
+            { _id: data.roomId },
+            {
+              $push: {
+                participants: {
+                  user_id: data.user_id,
+                  picture: data.picture,
+                  name: data.name
+                }
+              }
+            },
+            function(err, docs) {
+              if (err) console.log("This is errro " + err);
+              else {
+                console.log("pariciapnts added");
+              }
+            }
+          );
+        }
+      }
+    );
+  });
+
   socket.on("addingnotes", function(data) {
     socket.join("room", function() {
       console.log("This is socket.id " + socket.id);

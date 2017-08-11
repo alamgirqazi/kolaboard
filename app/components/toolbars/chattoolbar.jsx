@@ -6,6 +6,7 @@ import IconMenu from "material-ui/IconMenu";
 import AppBar from "material-ui/AppBar";
 import UserStore from "app/store/UserStore.js";
 import FriendshipStore from "app/store/FriendshipsStore.js";
+import Snackbar from "material-ui/Snackbar";
 
 import {
   grey400,
@@ -20,7 +21,9 @@ import NavigationClose from "material-ui/svg-icons/navigation/close";
 import MenuItem from "material-ui/MenuItem";
 import AlertContainer from "react-alert";
 import ActionInfo from "material-ui/svg-icons/action/account-circle";
-
+const stylebtn = {
+  margin: 12
+};
 import {
   Toolbar,
   ToolbarGroup,
@@ -41,6 +44,10 @@ const customContentStyle = {
   width: "30%",
   maxWidth: "none"
 };
+const customContentWidthStyle = {
+  width: "50%",
+  maxWidth: "none"
+};
 // const style =
 // {
 // left: '35%',
@@ -48,7 +55,9 @@ const customContentStyle = {
 const styleSearch = {
   left: "20%"
 };
-
+const style = {
+  margin: 12
+};
 let users;
 let favourites;
 
@@ -70,6 +79,8 @@ export default class Chatbar extends React.Component {
     super(props);
     this.state = {
       open: false,
+      snackbar: false,
+      openAddUser: false,
       openDialog: false,
       openAdmin: false
     };
@@ -116,6 +127,9 @@ export default class Chatbar extends React.Component {
   handleOpen = () => {
     this.setState({ open: true });
   };
+  handleRequestClose = () => {
+    this.setState({ snackbar: false });
+  };
   handleShowFav = () => {
     var data = ChatStore.groupId;
     socket.emit("Show Favourites", data);
@@ -146,6 +160,28 @@ export default class Chatbar extends React.Component {
   handleCloseFav = () => {
     this.setState({ openDialog: false });
   };
+  _handleClick = Users => {
+    this.setState({ openAddUser: true });
+    // console.log(Users);
+    ChatStore.addUser = Users;
+  };
+  handleAddUserClose = () => {
+    this.setState({ openAddUser: false });
+  };
+  handleAddtoGroup = () => {
+    this.setState({ snackbar: true });
+
+    var user = ChatStore.addUser;
+    var data = {
+      user_id: user.user_id,
+      name: user.name,
+      picture: user.picture,
+      roomId: ChatStore.groupId
+    };
+    socket.emit("add User to Group", data);
+    this.setState({ openAddUser: false });
+  };
+
   SendFile = () => {
     var data, xhr;
 
@@ -178,8 +214,27 @@ export default class Chatbar extends React.Component {
       </IconMenu>
     );
 
+    const actionsAdd = [
+      <RaisedButton
+        label="Cancel"
+        onTouchTap={this.handleAddUserClose}
+        style={stylebtn}
+      />,
+      <RaisedButton
+        primary={true}
+        label="Add to Group"
+        onTouchTap={this.handleAddtoGroup}
+      />
+    ];
+
     return (
       <div>
+        <Snackbar
+          open={this.state.snackbar}
+          message="User has been added to the group"
+          autoHideDuration={2500}
+          onRequestClose={this.handleRequestClose}
+        />
         <Dialog
           modal={false}
           overlay={false}
@@ -226,25 +281,46 @@ export default class Chatbar extends React.Component {
           modal={false}
           overlay={false}
           onRequestClose={this.handleAdminClose}
-          contentStyle={customContentStyle}
+          contentStyle={customContentWidthStyle}
           open={this.state.openAdmin}
         >
           <h5>Add more friends</h5>
           <br />
           <br />
           {FriendshipStore.mappedFriends.map(Users => {
-            return (
-              <div key={Users.user_id}>
-                <ListItem
-                  key={Users.user_id}
-                  leftAvatar={<Avatar size={40} src={Users.picture} />}
-                  primaryText={Users.name}
-                />{" "}
-                <br />
-              </div>
-            );
+            if (Users.present != true) {
+              return (
+                <div key={Users.user_id}>
+                  <ListItem
+                    disabled={true}
+                    key={Users.user_id}
+                    leftAvatar={<Avatar size={40} src={Users.picture} />}
+                    primaryText={Users.name}
+                    rightIconButton={
+                      <RaisedButton
+                        label={"Add To Group"}
+                        primary={true}
+                        key={Users.user_id}
+                        onTouchTap={() => this._handleClick(Users)}
+                        style={style}
+                      />
+                    }
+                  />{" "}
+                  <br />
+                </div>
+              );
+            }
           })}
         </Dialog>
+        <Dialog
+          title="Add User"
+          actions={actionsAdd}
+          modal={false}
+          open={this.state.openAddUser}
+          onRequestClose={this.handleAddUserClose}
+        >
+          Are you sure you want to Add the user?
+        </Dialog>{" "}
         <Dialog
           modal={false}
           overlay={false}
@@ -297,44 +373,3 @@ export default class Chatbar extends React.Component {
     );
   }
 }
-
-// <form
-//           ref="uploadForm"
-//           id="uploadForm"
-//           a`c`tion="http://localhost:3000/upload"
-//           method="post"
-//           encType="multipart/form-data"
-//         >
-//           <input type="file" name="sampleFile" />
-//           <input type="submit" value="Upload!" />
-//         </form>
-//  <ToolbarGroup style={styleSearch}>
-//           <IconButton
-//             tooltip="search..."
-//             touch={true}
-//             tooltipPosition="bottom-center"
-//           >
-//             <svg
-//               xmlns="http://www.w3.org/2000/svg"
-//               width="24"
-//               height="24"
-//               viewBox="0 0 24 24"
-//             >
-//               <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
-//             </svg>
-//           </IconButton>
-//           <IconButton
-//             tooltip="add attachment"
-//             touch={true}
-//             tooltipPosition="bottom-center"
-//           >
-//             <svg
-//               xmlns="http://www.w3.org/2000/svg"
-//               width="18"
-//               height="18"
-//               viewBox="0 0 18 18"
-//             >
-//               <path d="M13 14c0 2.21-1.79 4-4 4s-4-1.79-4-4V3c0-1.66 1.34-3 3-3s3 1.34 3 3v9c0 1.1-.9 2-2 2s-2-.9-2-2V4h1v8c0 .55.45 1 1 1s1-.45 1-1V3c0-1.1-.9-2-2-2s-2 .9-2 2v11c0 1.66 1.34 3 3 3s3-1.34 3-3V4h1v10z" />
-//             </svg>
-//           </IconButton>
-//         </ToolbarGroup>
