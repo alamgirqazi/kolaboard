@@ -226,13 +226,21 @@ export default class Chatbar extends React.Component {
     var user = ChatStore.removeUser;
     var data = {
       user_id: user.user_id,
-      roomId: ChatStore.groupId
+      roomId: ChatStore.groupId,
+      message: "HAS BEEN REMOVED FROM THE GROUP",
+      from: user.name,
+      picture: user.picture
     };
     socket.emit("remove User from Group", data);
 
     socket.on("returning participants", function(data) {
       ChatStore.remainparticipants = data[0].remainparticipants;
       ChatStore.participants = data[0].participants;
+    });
+    // socket.emit("returning message group", docs);
+
+    socket.on("returning message group", function(data) {
+      ChatStore.msgs = data[0].conversation;
     });
 
     this.setState({ openRemoveUser: false });

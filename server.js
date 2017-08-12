@@ -658,11 +658,10 @@ io.on("connection", function(socket) {
               if (err) console.log("This is errro " + err);
               else {
                 console.log("Successful...!");
-                  rooms.find({ _id: data.roomId }, function(err, docs) {
-            // console.log(docs);
-            socket.emit("returning message group", docs);
-          });
-
+                rooms.find({ _id: data.roomId }, function(err, docs) {
+                  // console.log(docs);
+                  socket.emit("returning message group", docs);
+                });
               }
               let val = 0;
               // User.findOneAndUpdate({user_id: data.user_id},
@@ -714,6 +713,24 @@ io.on("connection", function(socket) {
     );
   });
   socket.on("remove User from Group", function(data) {
+    var d = new Date(); // for now
+    d.getHours(); // => 9
+    d.getMinutes(); // =>  30
+    d.getSeconds(); // => 51
+    //console.log(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
+    var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+    var date = mm + "/" + dd + "/" + yyyy;
     rooms.findOneAndUpdate(
       { _id: data.roomId },
       { $pull: { remainparticipants: { user_id: data.user_id } } },
@@ -728,21 +745,47 @@ io.on("connection", function(socket) {
             socket.emit("returning participants", docs);
           });
           let val = 0;
-          // User.findOneAndUpdate({user_id: data.user_id},
-          User.findOneAndUpdate(
+          rooms.update(
+            { _id: data.roomId },
             {
-              user_id: data.user_id
-              // ,
-              // "rooms._id": data.roomId
+              $push: {
+                conversation: {
+                  from: data.from,
+                  message: data.message,
+                  favourite: false,
+                  date: date,
+                  time: time,
+                  picture: data.picture
+                }
+              }
             },
-            { $pull: { rooms: { roomId: data.roomId } } }
-          )
-            .then(docs => {
-              // console.log(docs);
-            })
-            .catch(err => {
-              console.log("err", err.stack);
-            });
+            function(err) {
+              if (err) console.log("This is errro " + err);
+              else {
+                console.log("Successful...!");
+                rooms.find({ _id: data.roomId }, function(err, docs) {
+                  // console.log(docs);
+                  socket.emit("returning message group", docs);
+                });
+
+                // User.findOneAndUpdate({user_id: data.user_id},
+                User.findOneAndUpdate(
+                  {
+                    user_id: data.user_id
+                    // ,
+                    // "rooms._id": data.roomId
+                  },
+                  { $pull: { rooms: { roomId: data.roomId } } }
+                )
+                  .then(docs => {
+                    // console.log(docs);
+                  })
+                  .catch(err => {
+                    console.log("err", err.stack);
+                  });
+              }
+            }
+          );
         }
       }
     );
