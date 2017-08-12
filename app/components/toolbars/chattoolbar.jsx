@@ -176,7 +176,11 @@ export default class Chatbar extends React.Component {
       user_id: user.user_id,
       name: user.name,
       picture: user.picture,
-      roomId: ChatStore.groupId
+      roomId: ChatStore.groupId,
+      roomName: ChatStore.groupname,
+      pic: ChatStore.groupavatar, //GROUP PIC
+      notes_count: ChatStore.totalmsgscount,
+      msgs_count: ChatStore.totalnotescount
     };
     socket.emit("add User to Group", data);
     this.setState({ openAddUser: false });
@@ -209,7 +213,7 @@ export default class Chatbar extends React.Component {
         <MenuItem onTouchTap={this.handleOpen}>Group Info</MenuItem>
         <MenuItem onTouchTap={this.handleShowFav}>Show Favourites</MenuItem>
         {admin
-          ? <MenuItem onTouchTap={this.handleAdmin}>Admin</MenuItem>
+          ? <MenuItem onTouchTap={this.handleAdmin}>Add More Users</MenuItem>
           : <div />}
       </IconMenu>
     );

@@ -22,8 +22,10 @@ class ChatStore {
 
   @observable leaveinfo;
   @observable addUser;
+  @observable totalnotescount;
+  @observable totalmsgscount;
   @observable leavegroupname = "";
-
+  @observable roomInfo;
   // @observable fullscreen = !
 }
 

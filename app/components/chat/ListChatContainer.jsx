@@ -143,6 +143,8 @@ export default class ListChatContainer extends React.Component {
     ChatStore.groupId = Users.roomId;
     ChatStore.groupname = Users.roomName;
     ChatStore.groupavatar = Users.pic;
+    ChatStore.totalmsgscount = Users.total_count;
+    ChatStore.totalnotescount = Users.total_notes_count;
     var roomId = ChatStore.groupId;
     socket.emit("Join room", ChatStore.groupname);
     socket.emit("roomId", roomId);
@@ -185,54 +187,9 @@ export default class ListChatContainer extends React.Component {
             if (a.user_id == FriendshipStore.mappedFriends[i].user_id) {
               // console.log("yers");
               FriendshipStore.mappedFriends[i].present = true;
-              // unaddedarray[i].user_id = ChatStore.remainparticipants[i].user_id;
-              // unaddedarray[i].name = ChatStore.remainparticipants[i].name;
-              // unaddedarray[i].picture = ChatStore.remainparticipants[i].picture;
-              // var data = {
-              //   user_id: FriendshipStore.mappedFriends[i].user_id,
-              //   name: FriendshipStore.mappedFriends[i].name,
-              //   picture: FriendshipStore.mappedFriends[i].picture
-              // };
-              // unaddedarray[i] = data;
-              // filtered = newarray.filter(function(el) {
-              //   return el.user_id != FriendshipStore.mappedFriends[i].user_id;
-              // });
-            } else {
-              // var data = {
-              //   user_id: FriendshipStore.mappedFriends[i].user_id,
-              //   name: FriendshipStore.mappedFriends[i].name,
-              //   picture: FriendshipStore.mappedFriends[i].picture
-              // };
-              // unaddedarray[i] = data;
-              // console.log("running for");
             }
           }
         });
-        // newarray.forEach(function(a) {
-        //   for (var i = 0; i < length; i++) {
-        //     if (a.user_id == ChatStore.remainparticipants[i].user_id) {
-        //       // console.log("yers");
-        //       ChatStore.remainparticipants[i].present = true;
-        //       // unaddedarray[i].user_id = ChatStore.remainparticipants[i].user_id;
-        //       // unaddedarray[i].name = ChatStore.remainparticipants[i].name;
-        //       // unaddedarray[i].picture = ChatStore.remainparticipants[i].picture;
-        //       filtered = newarray.filter(function(el) {
-        //         return el.user_id != ChatStore.remainparticipants[i].user_id;
-        //       });
-        //     } else {
-        //       var data = {
-        //         user_id: ChatStore.remainparticipants[i].user_id,
-        //         name: ChatStore.remainparticipants[i].name,
-        //         picture: ChatStore.remainparticipants[i].picture
-        //       };
-        //       unaddedarray[i] = data;
-        //       // console.log("running for");
-        //     }
-        //   }
-        // });
-        // ChatStore.unaddedFriends = filtered;
-        // console.log(unaddedarray);
-        // console.log(filtered);
       },
       error: function(err) {
         console.log("error in get of room" + err);

@@ -621,6 +621,30 @@ io.on("connection", function(socket) {
             console.log(docs);
             socket.emit("returning participants", docs);
           });
+          let val = 0;
+          // User.findOneAndUpdate({user_id: data.user_id},
+          User.findOneAndUpdate(
+            { user_id: data.user_id },
+            {
+              $push: {
+                rooms: {
+                  roomId: data.roomId,
+                  roomName: data.roomName,
+                  pic: data.pic,
+                  read_notes_count: val,
+                  read_count: val,
+                  total_count: data.msgs_count,
+                  total_notes_count: data.notes_count
+                }
+              }
+            },
+            function(err) {
+              if (err) console.log("This is errro " + err);
+              else {
+                console.log("user added Mashallah");
+              }
+            }
+          );
           rooms.update(
             { _id: data.roomId },
             {

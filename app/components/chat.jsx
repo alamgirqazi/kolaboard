@@ -268,6 +268,8 @@ export default class Chat extends React.Component {
         picture: UserStore.obj.picture
       });
 
+      ChatStore.totalmsgscount++;
+      ChatStore.totalnotescount++;
       // console.log("ChatStore.groupname");
       // console.log(ChatStore.groupname);
       socket.emit("send message", {
