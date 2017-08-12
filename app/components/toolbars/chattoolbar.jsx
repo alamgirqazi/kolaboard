@@ -183,6 +183,30 @@ export default class Chatbar extends React.Component {
       msgs_count: ChatStore.totalnotescount
     };
     socket.emit("add User to Group", data);
+    socket.on("returning participants", function(data) {
+      ChatStore.remainparticipants = data[0].remainparticipants;
+      ChatStore.participants = data[0].participants;
+    });
+    var newarray = FriendshipStore.mappedFriends;
+    var mappedlength = FriendshipStore.mappedFriends.length;
+    var remain = ChatStore.remainparticipants;
+
+    for (var i = 0; i < newarray.length; i++) {
+      if (FriendshipStore.mappedFriends[i].user_id === data.user_id) {
+        // result = array[i];
+        FriendshipStore.mappedFriends[i].present = true;
+        break;
+      }
+    }
+    // console.log(newarray);
+    // remain.forEach(function(a) {
+    //   for (var i = 0; i < mappedlength; i++) {
+    //     if (a.user_id == data.user_id) {
+    //       // console.log("yers");
+    //       FriendshipStore.mappedFriends[i].present = true;
+    //     }
+    //   }
+    // });
     this.setState({ openAddUser: false });
   };
 

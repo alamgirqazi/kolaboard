@@ -618,7 +618,7 @@ io.on("connection", function(socket) {
         if (err) console.log("This is errro " + err);
         else {
           rooms.find({ _id: data.roomId }, function(err, docs) {
-            console.log(docs);
+            // console.log(docs);
             socket.emit("returning participants", docs);
           });
           let val = 0;
