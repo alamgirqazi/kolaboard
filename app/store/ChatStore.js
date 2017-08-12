@@ -22,6 +22,7 @@ class ChatStore {
 
   @observable leaveinfo;
   @observable addUser;
+  @observable removeUser;
   @observable totalnotescount;
   @observable totalmsgscount;
   @observable leavegroupname = "";

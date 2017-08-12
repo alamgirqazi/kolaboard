@@ -667,6 +667,40 @@ io.on("connection", function(socket) {
       }
     );
   });
+  socket.on("remove User from Group", function(data) {
+    rooms.findOneAndUpdate(
+      { _id: data.roomId },
+      { $pull: { remainparticipants: { user_id: data.user_id } } },
+      function(err, docs) {
+        if (err) console.log("This is errro " + err);
+        else {
+          // console.log("docs");
+          // console.log(docs);
+
+          rooms.find({ _id: data.roomId }, function(err, docs) {
+            // console.log(docs);
+            socket.emit("returning participants", docs);
+          });
+          let val = 0;
+          // User.findOneAndUpdate({user_id: data.user_id},
+          User.findOneAndUpdate(
+            {
+              user_id: data.user_id
+              // ,
+              // "rooms._id": data.roomId
+            },
+            { $pull: { rooms: { roomId: data.roomId } } }
+          )
+            .then(docs => {
+              // console.log(docs);
+            })
+            .catch(err => {
+              console.log("err", err.stack);
+            });
+        }
+      }
+    );
+  });
 
   socket.on("addingnotes", function(data) {
     socket.join("room", function() {

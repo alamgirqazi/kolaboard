@@ -82,6 +82,8 @@ export default class Chatbar extends React.Component {
       snackbar: false,
       openAddUser: false,
       openDialog: false,
+      openRemoveAdmin: false,
+      snackbarremove: false,
       openAdmin: false
     };
   }
@@ -130,6 +132,9 @@ export default class Chatbar extends React.Component {
   handleRequestClose = () => {
     this.setState({ snackbar: false });
   };
+  handleRequestSnackbarClose = () => {
+    this.setState({ snackbarremove: false });
+  };
   handleShowFav = () => {
     var data = ChatStore.groupId;
     socket.emit("Show Favourites", data);
@@ -141,14 +146,10 @@ export default class Chatbar extends React.Component {
     this.setState({ openDialog: true });
   };
   handleAdmin = () => {
-    // var data = ChatStore.groupId;
-    // socket.emit("Show Favourites", data);
-
-    // socket.on("returned favs", function(data) {
-    //   // console.log(data.msg);
-    //   ChatStore.favourites = data.msg;
-    // });
     this.setState({ openAdmin: true });
+  };
+  handleRemoveAdmin = () => {
+    this.setState({ openRemoveAdmin: true });
   };
 
   handleClose = () => {
@@ -156,6 +157,9 @@ export default class Chatbar extends React.Component {
   };
   handleAdminClose = () => {
     this.setState({ openAdmin: false });
+  };
+  handleRemoveAdminClose = () => {
+    this.setState({ openRemoveAdmin: false });
   };
   handleCloseFav = () => {
     this.setState({ openDialog: false });
@@ -165,8 +169,17 @@ export default class Chatbar extends React.Component {
     // console.log(Users);
     ChatStore.addUser = Users;
   };
+
+  _handleRemoveClick = Users => {
+    this.setState({ openRemoveUser: true });
+    // console.log(Users);
+    ChatStore.removeUser = Users;
+  };
   handleAddUserClose = () => {
     this.setState({ openAddUser: false });
+  };
+  handleRemoveUserClose = () => {
+    this.setState({ openRemoveUser: false });
   };
   handleAddtoGroup = () => {
     this.setState({ snackbar: true });
@@ -198,16 +211,26 @@ export default class Chatbar extends React.Component {
         break;
       }
     }
-    // console.log(newarray);
-    // remain.forEach(function(a) {
-    //   for (var i = 0; i < mappedlength; i++) {
-    //     if (a.user_id == data.user_id) {
-    //       // console.log("yers");
-    //       FriendshipStore.mappedFriends[i].present = true;
-    //     }
-    //   }
-    // });
+
     this.setState({ openAddUser: false });
+  };
+
+  handleRemovetoGroup = () => {
+    this.setState({ snackbarremove: true });
+
+    var user = ChatStore.removeUser;
+    var data = {
+      user_id: user.user_id,
+      roomId: ChatStore.groupId
+    };
+    socket.emit("remove User from Group", data);
+
+    socket.on("returning participants", function(data) {
+      ChatStore.remainparticipants = data[0].remainparticipants;
+      ChatStore.participants = data[0].participants;
+    });
+
+    this.setState({ openRemoveUser: false });
   };
 
   SendFile = () => {
@@ -239,6 +262,11 @@ export default class Chatbar extends React.Component {
         {admin
           ? <MenuItem onTouchTap={this.handleAdmin}>Add More Users</MenuItem>
           : <div />}
+        {admin
+          ? <MenuItem onTouchTap={this.handleRemoveAdmin}>
+              Remove Users
+            </MenuItem>
+          : <div />}
       </IconMenu>
     );
 
@@ -255,6 +283,19 @@ export default class Chatbar extends React.Component {
       />
     ];
 
+    const actionsRemove = [
+      <RaisedButton
+        label="Cancel"
+        onTouchTap={this.handleRemoveUserClose}
+        style={stylebtn}
+      />,
+      <RaisedButton
+        secondary={true}
+        label="Remove from Group"
+        onTouchTap={this.handleRemovetoGroup}
+      />
+    ];
+
     return (
       <div>
         <Snackbar
@@ -262,6 +303,12 @@ export default class Chatbar extends React.Component {
           message="User has been added to the group"
           autoHideDuration={2500}
           onRequestClose={this.handleRequestClose}
+        />
+        <Snackbar
+          open={this.state.snackbarremove}
+          message="User has been removed from the group"
+          autoHideDuration={2500}
+          onRequestClose={this.handleRequestSnackbarClose}
         />
         <Dialog
           modal={false}
@@ -341,11 +388,71 @@ export default class Chatbar extends React.Component {
           })}
         </Dialog>
         <Dialog
+          modal={false}
+          overlay={false}
+          onRequestClose={this.handleRemoveAdminClose}
+          contentStyle={customContentWidthStyle}
+          open={this.state.openRemoveAdmin}
+        >
+          <h5>Remove User from the group</h5>
+
+          <br />
+          {ChatStore.remainparticipants.map(Users => {
+            if (Users.user_id == ChatStore.admin_id) {
+              return (
+                <div key={Users.user_id}>
+                  <div className="" key={Users.user_id}>
+                    <ListItem
+                      key={Users.user_id}
+                      leftAvatar={<Avatar size={40} src={Users.picture} />}
+                      primaryText={Users.name}
+                      disabled={true}
+                      rightIcon={<ActionInfo />}
+                    />
+                  </div>
+                </div>
+              );
+            } else {
+              return (
+                <div key={Users.user_id}>
+                  <div className="" key={Users.user_id}>
+                    <ListItem
+                      disabled={true}
+                      key={Users.user_id}
+                      leftAvatar={<Avatar size={40} src={Users.picture} />}
+                      primaryText={Users.name}
+                      rightIconButton={
+                        <RaisedButton
+                          label={"Remove From Group"}
+                          secondary={true}
+                          key={Users.user_id}
+                          onTouchTap={() => this._handleRemoveClick(Users)}
+                          style={style}
+                        />
+                      }
+                    />
+                  </div>
+                </div>
+              );
+            }
+          })}
+          <br />
+        </Dialog>
+        <Dialog
           title="Add User"
           actions={actionsAdd}
           modal={false}
           open={this.state.openAddUser}
           onRequestClose={this.handleAddUserClose}
+        >
+          Are you sure you want to Remove the user?
+        </Dialog>{" "}
+        <Dialog
+          title="Remove User"
+          actions={actionsRemove}
+          modal={false}
+          open={this.state.openRemoveUser}
+          onRequestClose={this.handleRemoveUserClose}
         >
           Are you sure you want to Add the user?
         </Dialog>{" "}
