@@ -72,7 +72,22 @@ const leftGroup = {
   textAlign: "center",
   fontStyle: "italic",
   fontSize: "16px",
-  color: "#F44336"
+  color: "#F44336",
+  fontWeight: "bold"
+};
+const hasbeenadded = {
+  textAlign: "center",
+  fontStyle: "italic",
+  fontSize: "16px",
+  color: "#00E676",
+  fontWeight: "bold"
+};
+const hasbeenremoved = {
+  textAlign: "center",
+  fontStyle: "italic",
+  fontSize: "16px",
+  color: "#F44336",
+  fontWeight: "bold"
 };
 
 const fixedPosition = {
@@ -352,6 +367,14 @@ export default class Chat extends React.Component {
                   if (Users.message == "HAS LEFT THE GROUP") {
                     left = true;
                   }
+                  var add;
+                  if (Users.message == "HAS BEEN ADDED TO THE GROUP") {
+                    add = true;
+                  }
+                  var remove;
+                  if (Users.message == "HAS BEEN REMOVED FROM THE GROUP") {
+                    remove = true;
+                  }
 
                   if (Users.favourite == false) {
                     Users.color = "#ccc";
@@ -399,12 +422,39 @@ export default class Chat extends React.Component {
                       </li>
                     );
                   } else {
-                    if (Users.message == "USER HAS LEFT THE GROUP") {
-                      return (
-                        <div>
-                          {Users.from + " has left the group"}
-                        </div>
-                      );
+                    if (
+                      Users.message == "USER HAS LEFT THE GROUP" ||
+                      "HAS BEEN ADDED TO THE GROUP" ||
+                      "HAS BEEN REMOVED FROM THE GROUP"
+                    ) {
+                      if (Users.message == "USER HAS LEFT THE GROUP") {
+                        return (
+                          <div>
+                            <br />
+
+                            {Users.from + " has left the group"}
+                            <br />
+                          </div>
+                        );
+                      }
+                      if (Users.message == "HAS BEEN ADDED TO THE GROUP") {
+                        return (
+                          <div style={hasbeenadded}>
+                            <br />
+
+                            {Users.from + " has been added to the group"}
+                            <br />
+                          </div>
+                        );
+                      }
+                      if (Users.message == "HAS BEEN REMOVED FROM THE GROUP") {
+                        return (
+                          <div style={hasbeenremoved}>
+                            {Users.from + " has been removed from the group"}
+                            <br />
+                          </div>
+                        );
+                      }
                     }
                     return (
                       <div>

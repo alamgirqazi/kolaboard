@@ -45,7 +45,7 @@ const customContentStyle = {
   maxWidth: "none"
 };
 const customContentWidthStyle = {
-  width: "50%",
+  width: "45%",
   maxWidth: "none"
 };
 // const style =
@@ -193,12 +193,17 @@ export default class Chatbar extends React.Component {
       roomName: ChatStore.groupname,
       pic: ChatStore.groupavatar, //GROUP PIC
       notes_count: ChatStore.totalmsgscount,
-      msgs_count: ChatStore.totalnotescount
+      msgs_count: ChatStore.totalnotescount,
+      from: UserStore.userrealname,
+      message: "HAS BEEN ADDED TO THE GROUP"
     };
     socket.emit("add User to Group", data);
     socket.on("returning participants", function(data) {
       ChatStore.remainparticipants = data[0].remainparticipants;
       ChatStore.participants = data[0].participants;
+    });
+    socket.on("returning message group", function(data) {
+      ChatStore.msgs = data[0].conversation;
     });
     var newarray = FriendshipStore.mappedFriends;
     var mappedlength = FriendshipStore.mappedFriends.length;

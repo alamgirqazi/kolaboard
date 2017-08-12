@@ -603,6 +603,24 @@ io.on("connection", function(socket) {
   });
 
   socket.on("add User to Group", function(data) {
+    var d = new Date(); // for now
+    d.getHours(); // => 9
+    d.getMinutes(); // =>  30
+    d.getSeconds(); // => 51
+    //console.log(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
+    var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+    var date = mm + "/" + dd + "/" + yyyy;
     rooms.update(
       { _id: data.roomId },
       {
@@ -621,30 +639,58 @@ io.on("connection", function(socket) {
             // console.log(docs);
             socket.emit("returning participants", docs);
           });
-          let val = 0;
-          // User.findOneAndUpdate({user_id: data.user_id},
-          User.findOneAndUpdate(
-            { user_id: data.user_id },
+
+          rooms.update(
+            { _id: data.roomId },
             {
               $push: {
-                rooms: {
-                  roomId: data.roomId,
-                  roomName: data.roomName,
-                  pic: data.pic,
-                  read_notes_count: val,
-                  read_count: val,
-                  total_count: data.msgs_count,
-                  total_notes_count: data.notes_count
+                conversation: {
+                  from: data.name,
+                  message: data.message,
+                  favourite: false,
+                  date: date,
+                  time: time,
+                  picture: data.picture
                 }
               }
             },
             function(err) {
               if (err) console.log("This is errro " + err);
               else {
-                console.log("user added Mashallah");
+                console.log("Successful...!");
+                  rooms.find({ _id: data.roomId }, function(err, docs) {
+            // console.log(docs);
+            socket.emit("returning message group", docs);
+          });
+
               }
+              let val = 0;
+              // User.findOneAndUpdate({user_id: data.user_id},
+              User.findOneAndUpdate(
+                { user_id: data.user_id },
+                {
+                  $push: {
+                    rooms: {
+                      roomId: data.roomId,
+                      roomName: data.roomName,
+                      pic: data.pic,
+                      read_notes_count: val,
+                      read_count: val,
+                      total_count: data.msgs_count,
+                      total_notes_count: data.notes_count
+                    }
+                  }
+                },
+                function(err) {
+                  if (err) console.log("This is errro " + err);
+                  else {
+                    console.log("user added Mashallah");
+                  }
+                }
+              );
             }
           );
+
           rooms.update(
             { _id: data.roomId },
             {
@@ -1557,39 +1603,6 @@ io.on("connection", function(socket) {
     }
   });
 
-  // socket.on("calculate conversations", function(data) {
-  //   // console.log("THis is data coming from roomId " + data);
-  //   let final = [];
-
-  //   for (var i = 0; i < data.length; i++) {
-  //     rooms.find({ _id: data[i] }, function(err, rooms) {
-  //       if (err) {
-  //         console.log("There is an error");
-  //       } else {
-  //         // console.log("rooms[0].conversation.length");
-  //         //  console.log(rooms[0].conversation);
-  //         // final[i]= ;
-  //         final[i] = rooms[0].conversation.length;
-  //         console.log(final.length);
-  //         if (final.length - 1 == data.length) {
-  //           console.log("nechay wlifinal");
-  //           //    console.log(final);
-
-  //           socket.emit("calculated conversations", {
-  //             final: final
-  //           });
-  //         } else {
-  //         }
-  //       }
-  //     });
-  //   }
-  // socket.emit(
-  //   "calculated conversations",
-  //   {
-  //     // dbnotes: rooms[0].conversation.length
-  //   }
-  //);
-  // });
   socket.on("createpnotes", function(data) {
     // console.log("Creating pnotes");
     // console.log(JSON.stringify(data.desc));
