@@ -176,11 +176,23 @@ export default class ListChatContainer extends React.Component {
         };
 
         socket.emit("readcountmsg", data);
-        var filtered = [];
-        var unaddedarray = [];
+        // // var filtered = [];
+        // // var unaddedarray = [];
+        // // var newarray = FriendshipStore.mappedFriends;
+        // // var mappedlength = FriendshipStore.mappedFriends.length;
+        // // var length = ChatStore.remainparticipants.length;
+        // // var remain = ChatStore.remainparticipants;
+        // // remain.forEach(function(a) {
+        // //   for (var i = 0; i < mappedlength; i++) {
+        // //     if (a.user_id == FriendshipStore.mappedFriends[i].user_id) {
+        // //       // console.log("yers");
+        // //       FriendshipStore.mappedFriends[i].present = true;
+        // //     }
+        // //   }
+        // });
         var newarray = FriendshipStore.mappedFriends;
         var mappedlength = FriendshipStore.mappedFriends.length;
-        var length = ChatStore.remainparticipants.length;
+        // var length = ChatStore.remainparticipants.length;
         var remain = ChatStore.remainparticipants;
         remain.forEach(function(a) {
           for (var i = 0; i < mappedlength; i++) {
