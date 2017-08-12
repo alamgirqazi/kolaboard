@@ -73,21 +73,27 @@ const leftGroup = {
   fontStyle: "italic",
   fontSize: "16px",
   color: "#F44336",
-  fontWeight: "bold"
+  fontWeight: "bold",
+  paddingLeft: "10px",
+  paddingRight: "10px"
 };
 const hasbeenadded = {
   textAlign: "center",
   fontStyle: "italic",
   fontSize: "16px",
   color: "#00E676",
-  fontWeight: "bold"
+  fontWeight: "bold",
+  paddingLeft: "10px",
+  paddingRight: "10px"
 };
 const hasbeenremoved = {
   textAlign: "center",
   fontStyle: "italic",
   fontSize: "16px",
   color: "#F44336",
-  fontWeight: "bold"
+  fontWeight: "bold",
+  paddingLeft: "10px",
+  paddingRight: "10px"
 };
 
 const fixedPosition = {
