@@ -126,6 +126,7 @@ export default class ToolbarExamplesSimple extends React.Component {
       open: false,
       openDialog: false,
       obj: {},
+      openInvites: false,
       yay: true
     };
     this.showApp = this.showApp.bind(this);
@@ -145,6 +146,20 @@ export default class ToolbarExamplesSimple extends React.Component {
 
   handleDialogClose = () => {
     this.setState({ openDialog: false });
+  };
+  handleDialogInvitesClose = () => {
+    Store.goToInvites = false;
+  };
+  goToInvites = () => {
+    Store.goToInvites = false;
+
+    Store.app = false;
+    Store.events = false;
+    Store.timetable = false;
+    Store.privatenote = false;
+    Store.dashboard = false;
+    Store.invites = true;
+    browserHistory.replace("/invites");
   };
 
   profile() {
@@ -315,6 +330,17 @@ export default class ToolbarExamplesSimple extends React.Component {
 
         friendlistcount = Object.keys(friendlist).length;
         FriendshipsStore.friendlistcount = friendlistcount;
+        setTimeout(
+          function() {
+            if (Store.invitescount < 1) {
+              if (FriendshipsStore.friendlistcount == 0) {
+                Store.goToInvites = true;
+                Store.invitescount++;
+              }
+            }
+          }.bind(this),
+          2500
+        );
       })
       .fail(function(jqXhr) {
         //   console.log("friendlist mai msla");
@@ -501,6 +527,24 @@ export default class ToolbarExamplesSimple extends React.Component {
           onRequestClose={this.handleDialogClose}
         >
           Are you sure you want to Log Out?
+        </Dialog>
+        <Dialog
+          title="Welcome to Kolaboard"
+          modal={false}
+          open={Store.goToInvites}
+          onRequestClose={this.handleDialogInvitesClose}
+        >
+          Since you have no friends, Lets head over to Invites to find and add
+          new friends
+          <br />
+          <br />
+          <br />
+          <RaisedButton
+            label="Go to Invites"
+            primary={true}
+            onTouchTap={this.goToInvites}
+            style={buttonMargin}
+          />
         </Dialog>
 
         <Drawer open={this.state.open} containerStyle={{ height: "100%" }}>

@@ -16,6 +16,8 @@ class Store {
   @observable newchatdrawer = false;
   @observable notedetails = false;
   @observable msgdetails = false;
+  @observable goToInvites = false;
+  @observable invitescount = 0;
 
   // @observable fullscreen = !
 }
