@@ -430,7 +430,7 @@ export default class PrivateNotes extends React.Component {
                     >
                       <TextField
                         ref="txttitle"
-                        maxLength="10"
+                        maxLength="25"
                         floatingLabelText="Name"
                         hintText="Enter title here ..."
                         floatingLabelFixed={true}
@@ -438,7 +438,7 @@ export default class PrivateNotes extends React.Component {
                       />{" "}
                       <TextField
                         ref="txtdesc"
-                        maxLength="20"
+                        maxLength="30"
                         floatingLabelText="Description"
                         hintText="Enter Description here ..."
                         floatingLabelFixed={true}

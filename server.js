@@ -1804,12 +1804,12 @@ io.on("connection", function(socket) {
             break;
           }
         }
-        console.log("This is index1", index1);
-        console.log("This is index2", index2);
+        // console.log("This is index1", index1);
+        // console.log("This is index2", index2);
         doc.privatenotes[index1].notes[index2].title = data.note;
-        console.log("Title");
-        console.log(doc.privatenotes[index1].notes[index2].title);
-        console.log(doc.privatenotes);
+        // console.log("Title");
+        // console.log(doc.privatenotes[index1].notes[index2].title);
+        // console.log(doc.privatenotes);
 
         User.update(
           { _id: data.id },
@@ -1824,7 +1824,7 @@ io.on("connection", function(socket) {
                   if (err) {
                     console.log(err);
                   } else {
-                    console.log(docs.privatenotes[0].notes);
+                    // console.log(docs.privatenotes[0].notes);
                     socket.emit("editedPnotes", docs);
                   }
                 }
@@ -1878,14 +1878,14 @@ io.on("connection", function(socket) {
             break;
           }
         }
-        console.log("This is index1", index1);
-        console.log("This is index2", index2);
+        // console.log("This is index1", index1);
+        // console.log("This is index2", index2);
       }
       // doc.privatenotes[index1].notes[index2].title = data.data;
-      console.log("doc.privatenotes[index1].notes[index2].title");
-      console.log(doc.privatenotes[index1].notes[index2].title);
-      doc.privatenotes[index1].notes[index2].title = data.data;
-      User.update({}, doc, { upsert: true });
+      // console.log("doc.privatenotes[index1].notes[index2].title");
+      // console.log(doc.privatenotes[index1].notes[index2].title);
+      // doc.privatenotes[index1].notes[index2].title = data.data;
+      // User.update({}, doc, { upsert: true });
     });
     // User.update(
     //   { _id: data.id, "privatenotes.$._id": data.folder },
