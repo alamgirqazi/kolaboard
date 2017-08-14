@@ -299,15 +299,15 @@ export default class Chat extends React.Component {
         picture: UserStore.obj.picture,
         sendTo: ChatStore.groupname
       });
-      socket.on("chat messagey", function(msg) {
-        ChatStore.msgs.push(msg);
-        // ChatStore.msgs = docs[0].conversation;
-        // console.log("docs[0].conversation");
-        // console.log(docs[0].conversation);
-        // socket.on("remaining msgs", function(data) {
-        //   ChatStore.msgs = data[0].conversation;
-        // });
-      });
+      // socket.on("chat messagey", function(msg) {
+      //   ChatStore.msgs.push(msg);
+      //   // ChatStore.msgs = docs[0].conversation;
+      //   // console.log("docs[0].conversation");
+      //   // console.log(docs[0].conversation);
+      //   // socket.on("remaining msgs", function(data) {
+      //   //   ChatStore.msgs = data[0].conversation;
+      //   // });
+      // });s
       socket.emit("recieving msgs", ChatStore.groupId);
       socket.on("remaining msgs", function(data) {
         ChatStore.msgs = data[0].conversation;
@@ -318,7 +318,8 @@ export default class Chat extends React.Component {
       var data = {
         user_id: UserStore.obj.user_id,
         _id: ChatStore.groupId,
-        count: ChatStore.msgs.length + 1,
+        count: ChatStore.msgs.length,
+        // count: ChatStore.msgs.length + 1,
         participants: ChatStore.participants
 
         //ChatStore.readcount = Object.keys(data[0].conversation).length;

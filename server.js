@@ -818,7 +818,7 @@ io.on("connection", function(socket) {
       function(err) {
         if (err) console.log("This is errro " + err);
         else {
-          console.log("Successful...!");
+          // console.log("Successful...!");
           socket.broadcast.emit("note messagey", {
             from: data.from,
             text: data.text,
@@ -917,7 +917,9 @@ io.on("connection", function(socket) {
           {
             $set: {
               "rooms.$.total_count": data.count,
-              "rooms.$.read_count": data.count
+              "rooms.$.read_count": data.count,
+              "rooms.$.total_notes_count": data.notescount,
+              "rooms.$.read_notes_count": data.notescount
             }
           }
         )
