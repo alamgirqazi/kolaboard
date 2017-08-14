@@ -44,6 +44,13 @@ import ContentAdd from "material-ui/svg-icons/content/add";
 
 // var socket;
 var note;
+const noteName = {
+  fontSize: "0.7rem",
+  left: "0",
+  bottom: "20px",
+  color: "#777",
+  position: "absolute"
+};
 const muiTheme = getMuiTheme({
   palette: {
     //   textColor: greenA400,
@@ -140,9 +147,14 @@ export default class PrivateNotes extends React.Component {
       open: false,
       snackbaropen: false,
       openDelete: false,
-      opennotes: false
+      opennotes: false,
+      openRename: false,
+      editingNotes: false
     };
     // socket = io.connect();
+  }
+  componentWillMount() {
+    UserStore.obj.privatenotes = [];
   }
   add(text) {
     var d = new Date(); // for now
@@ -172,19 +184,95 @@ export default class PrivateNotes extends React.Component {
       date: date,
       time: time
     };
-    socket.emit("addingprivatenotes", { data: data, id: UserStore.obj._id });
+    console.log("THis is Chatstore.note ", ChatStore.folderId);
+    socket.emit("addingprivatenotes", {
+      data: data,
+      id: UserStore.obj._id,
+      folder: ChatStore.folderId
+    });
     arr.push(data);
   }
   handleTouchTap = () => {
-    this.setState({ open: true, snackbaropen: false });
+    this.setState({ open: true });
+    // this.setState({ open: true, snackbaropen: false });
+    console.log("New note is opening");
   };
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({
+      open: false,
+      openRename: false,
+      editingNotes: false
+    });
+  };
+  delete = Users => {
+    console.log("Delete is called ");
+    socket.emit("deleteFolder", { note: Users, id: UserStore.obj._id });
+
+    socket.on("remainingpnotes", function(data) {
+      console.log("THis is data.privatenotes ", data[0].privatenotes);
+      UserStore.obj.privatenotes = data[0].privatenotes;
+    });
+  };
+  back = () => {
+    this.setState({
+      opennotes: false
+    });
+  };
+  editNote = Users => {
+    ChatStore.noteName = Users.title;
+    ChatStore.noteId = Users._id;
+    console.log("This is users " + ChatStore.noteName);
+    this.setState({ editingNotes: true });
+    console.log("Rename is called ");
+    // socket.emit('deleteFolder',{ data: data, id: UserStore.obj._id,folder:ChatStore.folderId });
+  };
+  detailNote = Users => {
+    console.log("Rename is called ");
+    socket.emit("deleteFolder", {
+      data: data,
+      id: UserStore.obj._id,
+      folder: ChatStore.folderId
+    });
+  };
+  deletenote = Users => {
+    ChatStore.pull(Users);
+    console.log("Rename is called ");
+    socket.emit("deletepnote", {
+      data: Users._id,
+      id: UserStore.obj._id,
+      folder: ChatStore.folderId
+    });
+  };
+  rename = Users => {
+    ChatStore.editedNote = Users;
+    console.log("Rename is called ");
+    this.setState({ openRename: true, snackbaropen: false });
+    // socket.emit('deleteFolder',{note:Users,id:UserStore.obj._id});
+  };
+  saveRename = () => {
+    console.log("save Rename is called ");
+    this.setState({ openRename: false });
+    // socket.emit('deleteFolder',{note:Users,id:UserStore.obj._id});
+  };
+  handleEditing = () => {
+    console.log("save Rename is called ");
+    console.log("This is noteId " + ChatStore.noteId);
+    console.log("This is folderId " + ChatStore.folderId);
+    this.setState({ editingNotes: false });
+    socket.emit("editingInsideNote", {
+      note: this.refs.txttitleEdit.getValue(),
+      noteId: ChatStore.noteId,
+      id: UserStore.obj._id,
+      folderId: ChatStore.folderId
+    });
   };
   handleOpen = notes => {
-    alert(notes.notes[0]);
     note = notes.notes;
     ChatStore.note = note;
+    ChatStore.folderId = notes._id;
+    ChatStore.folderName = notes.title;
+    console.log("THis is folder id " + ChatStore.folderId);
+    console.log("THis is folder title " + ChatStore.folderName);
     // socket.emit('getting private notes',notes);
     this.setState({ opennotes: true });
   };
@@ -196,6 +284,7 @@ export default class PrivateNotes extends React.Component {
       title: this.refs.txttitle.getValue(),
       desc: this.refs.txtdesc.getValue()
     };
+
     console.log("THis is data " + data);
     socket.emit("createpnotes", data);
     this.setState({ open: false });
@@ -219,121 +308,74 @@ export default class PrivateNotes extends React.Component {
         onTouchTap={this.handleSave}
       />
     ];
+    const editActions = [
+      <RaisedButton
+        label="Cancel"
+        style={spacing}
+        keyboardFocused={false}
+        onTouchTap={this.handleClose}
+      />,
+      <RaisedButton
+        label="Save"
+        keyboardFocused={false}
+        onTouchTap={this.handleEditing}
+      />
+    ];
+    // const actionsRename = [
+    //   <RaisedButton
+    //     label="Cancel"
+    //     style={spacing}
+    //     keyboardFocused={false}
+    //     onTouchTap={this.handleClose}
+    //   />,
+    //   <RaisedButton
+    //     label="Save"
+    //     keyboardFocused={false}
+    //     onTouchTap={this.saveRename}
+    //   />
+    // ];
     // Store.timetable = true;
     if (!this.state.opennotes) {
       var pnotes = UserStore.obj.privatenotes;
       console.log("Ths " + pnotes);
       return (
         <MuiThemeProvider muiTheme={muiTheme}>
-          <div>
-            <Toolbar />
-            <br />
-            <h2 style={header}>Private Notes</h2>
+          <Scrollbars style={{ width: "100%", height: "100%" }}>
+            <div>
+              <Toolbar />
+              <br />
+              <h2 style={header}>Private Notes</h2>
 
-            <br />
-            <br />
-            <br />
-            <br />
-            <div className="row fullwidth">
-              <div className="columns medium-12 large-12">
-                <div style={inlinedisplay}>
-                  <Card className="displ" style={cardwidth}>
-                    <CardTitle title="Add New Note" subtitle="" />
+              <br />
+              <br />
+              <br />
+              <br />
+              <div className="row fullwidth">
+                <div className="columns medium-12 large-12">
+                  <div style={inlinedisplay}>
+                    <Card className="displ" style={cardwidth}>
+                      <CardTitle title="Add New Note" subtitle="" />
+                      <center>
+                        {" "}<IconButton
+                          iconStyle={styles.largeIcon}
+                          style={styles.large}
+                          onTouchTap={this.handleTouchTap}
+                        >
+                          <HomeIcon style={iconStyles} />
+                        </IconButton>
+                      </center>
+                    </Card>
 
-                    <IconButton
-                      iconStyle={styles.largeIcon}
-                      style={styles.large}
-                      onTouchTap={this.handleTouchTap}
-                    >
-                      <HomeIcon style={iconStyles} />
-                    </IconButton>
-                  </Card>
-
-                  {pnotes.map(Users => {
-                    return (
-                      <Card className="displ" style={cardwidth}>
-                        <CardTitle
-                          title={Users.title}
-                          subtitle="Card subtitle"
-                        />
-                        <CardText>
-                          {Users.desc}
-                        </CardText>
-                        <CardActions>
-                          <FlatButton
-                            label="Open"
-                            onTouchTap={() => this.handleOpen(Users)}
-                          />
-                        </CardActions>
-                      </Card>
-                    );
-                  })}
-
-                  <Dialog
-                    title="New Note"
-                    actions={actions}
-                    modal={false}
-                    open={this.state.open}
-                    onRequestClose={this.handleClose}
-                  >
-                    <TextField
-                      ref="txttitle"
-                      floatingLabelText="Name"
-                      hintText="Enter title here ..."
-                      floatingLabelFixed={true}
-                      fullWidth={true}
-                    />{" "}
-                    <TextField
-                      ref="txtdesc"
-                      floatingLabelText="Description"
-                      hintText="Enter Description here ..."
-                      floatingLabelFixed={true}
-                      fullWidth={true}
-                    />{" "}
-                  </Dialog>
-                </div>
-              </div>
-            </div>
-          </div>
-        </MuiThemeProvider>
-      );
-    } else {
-      return (
-        <MuiThemeProvider muiTheme={muiTheme}>
-          <div>
-            <Toolbar />
-            <br />
-            <h2 style={header}>Private Notes</h2>
-
-            <br />
-            <br />
-            <br />
-            <br />
-            <div className="row fullwidth">
-              <div className="columns medium-12 large-12">
-                {note.map(Users => {
-                  return (
-                    <div className="">
-                      <div
-                        className="note"
-                        style={{ backgroundColor: "#dcf8c6" }}
-                      >
-                        <div className="" style={{ display: "inline" }}>
-                          {" "}<img
-                            style={{
-                              display: "inline-block",
-                              margin: "0 30px"
-                            }}
-                            src="assets/images/pin-icon.png"
-                            style={pinstyle}
-                          />
+                    {pnotes.map(Users => {
+                      return (
+                        <Card className="displ" style={cardwidth}>
                           <IconMenu
                             iconButtonElement={
                               <IconButton
                                 style={{
                                   display: "inline",
                                   float: "right",
-                                  width: "22px",
+                                  width: "78px",
                                   height: "22px",
                                   padding: "0px"
                                 }}
@@ -354,73 +396,188 @@ export default class PrivateNotes extends React.Component {
                             }}
                           >
                             <MenuItem
-                              primaryText="Details"
-                              onTouchTap={this.details}
+                              primaryText="Delete"
+                              onTouchTap={this.delete.bind(this, Users)}
                             />
                           </IconMenu>
-                        </div>
-                        <Scrollbars
-                          autoHeightMax={20}
-                          renderTrackHorizontal={props =>
-                            <div
-                              {...props}
-                              className="track-horizontal"
-                              style={{ display: "none" }}
-                            />}
-                          renderThumbHorizontal={props =>
-                            <div
-                              {...props}
-                              className="thumb-horizontal"
-                              style={{ display: "none" }}
-                            />}
-                        >
-                          <p style={{ backgroundColor: "#dcf8c6" }}>
-                            <Linkifier>
-                              {Users.title}
-                            </Linkifier>
-                          </p>
-                          <time>{Users.time}</time>&emsp;
-                        </Scrollbars>
-                      </div>
-                      <div className="fixedbutton">
-                        <FloatingActionButton
-                          // style={style}
-                          // onTouchTap={this.handleTouchTap}
-                          label="yo"
-                          onClick={this.add.bind(null, "new note")}
-                        >
-                          <ContentAdd />
-                        </FloatingActionButton>
-                      </div>
-                    </div>
-                  );
-                })}
-
-                <Dialog
-                  title="New Note"
-                  actions={actions}
-                  modal={false}
-                  open={this.state.open}
-                  onRequestClose={this.handleClose}
-                >
-                  <TextField
-                    ref="txttitle"
-                    floatingLabelText="Name"
-                    hintText="Enter title here ..."
-                    floatingLabelFixed={true}
-                    fullWidth={true}
-                  />{" "}
-                  <TextField
-                    ref="txtdesc"
-                    floatingLabelText="Description"
-                    hintText="Enter Description here ..."
-                    floatingLabelFixed={true}
-                    fullWidth={true}
-                  />{" "}
-                </Dialog>
+                          <CardTitle title={Users.title} />
+                          <CardText>
+                            {Users.desc}
+                          </CardText>
+                          <CardActions>
+                            <center>
+                              {" "}<FlatButton
+                                label="Open"
+                                onTouchTap={() => this.handleOpen(Users)}
+                              />
+                            </center>
+                          </CardActions>
+                        </Card>
+                      );
+                    })}
+                    <Dialog
+                      title="New Note"
+                      actions={actions}
+                      modal={false}
+                      open={this.state.open}
+                      onRequestClose={this.handleClose}
+                    >
+                      <TextField
+                        ref="txttitle"
+                        maxLength="10"
+                        floatingLabelText="Name"
+                        hintText="Enter title here ..."
+                        floatingLabelFixed={true}
+                        fullWidth={true}
+                      />{" "}
+                      <TextField
+                        ref="txtdesc"
+                        maxLength="20"
+                        floatingLabelText="Description"
+                        hintText="Enter Description here ..."
+                        floatingLabelFixed={true}
+                        fullWidth={true}
+                      />{" "}
+                    </Dialog>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </Scrollbars>
+        </MuiThemeProvider>
+      );
+    } else {
+      return (
+        <MuiThemeProvider muiTheme={muiTheme}>
+          <Scrollbars style={{ width: "100%", height: "100%" }}>
+            <div>
+              <Toolbar />
+              <RaisedButton
+                label="Back"
+                style={{ float: "left" }}
+                onTouchTap={this.back}
+              />
+              <br />
+              <h2 style={header}>Private Notes</h2>
+
+              <br />
+              <br />
+              <br />
+              <br />
+              <div className="row fullwidth">
+                <h3>
+                  {ChatStore.folderName}
+                </h3>
+                <div className="columns medium-12 large-12">
+                  {note.map(Users => {
+                    return (
+                      <div className="pdispl">
+                        <div
+                          className="note"
+                          style={{
+                            backgroundColor: "#dcf8c6",
+                            width: "200px",
+                            height: "200px"
+                          }}
+                        >
+                          <div className="" style={{ display: "inline" }}>
+                            {" "}<img
+                              style={{
+                                display: "inline-block",
+                                margin: "0 30px"
+                              }}
+                              src="assets/images/pin-icon.png"
+                              style={pinstyle}
+                            />
+                            <IconMenu
+                              iconButtonElement={
+                                <IconButton
+                                  style={{
+                                    display: "inline",
+                                    float: "right",
+                                    width: "78px",
+                                    height: "22px",
+                                    padding: "0px"
+                                  }}
+                                  tooltip="more"
+                                  touch={true}
+                                  tooltipPosition="bottom-center"
+                                >
+                                  <ContentMore />
+                                </IconButton>
+                              }
+                              anchorOrigin={{
+                                horizontal: "left",
+                                vertical: "bottom"
+                              }}
+                              targetOrigin={{
+                                horizontal: "left",
+                                vertical: "bottom"
+                              }}
+                            >
+                              <MenuItem
+                                primaryText="Edit"
+                                onTouchTap={this.editNote.bind(this, Users)}
+                              />
+                              <MenuItem
+                                primaryText="Delete"
+                                onTouchTap={this.deletenote.bind(this, Users)}
+                              />
+                            </IconMenu>
+                          </div>
+                          <Scrollbars
+                            autoHeightMax={20}
+                            renderTrackHorizontal={props =>
+                              <div
+                                {...props}
+                                className="track-horizontal"
+                                style={{ display: "none" }}
+                              />}
+                            renderThumbHorizontal={props =>
+                              <div
+                                {...props}
+                                className="thumb-horizontal"
+                                style={{ display: "none" }}
+                              />}
+                          >
+                            <p style={{ backgroundColor: "#dcf8c6" }}>
+                              <Linkifier>
+                                {Users.title}
+                              </Linkifier>
+                            </p>
+                            <time style={noteName}>{Users.time}</time>&emsp;
+                          </Scrollbars>
+                        </div>
+                      </div>
+                    );
+                  })}
+                  <div className="fixedbutton">
+                    <FloatingActionButton
+                      label="yo"
+                      onClick={this.add.bind(null, "new note")}
+                    >
+                      <ContentAdd />
+                    </FloatingActionButton>
+                  </div>
+                  <Dialog
+                    title="Edit Note"
+                    actions={editActions}
+                    modal={false}
+                    open={this.state.editingNotes}
+                    onRequestClose={this.handleClose}
+                  >
+                    <TextField
+                      ref="txttitleEdit"
+                      floatingLabelText="Title"
+                      hintText={ChatStore.noteName}
+                      floatingLabelFixed={true}
+                      fullWidth={true}
+                    />{" "}
+                  </Dialog>
+                </div>
+              </div>
+            </div>
+          </Scrollbars>
         </MuiThemeProvider>
       );
     }

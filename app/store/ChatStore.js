@@ -19,6 +19,10 @@ class ChatStore {
   @observable note = [];
   @observable readcount;
   @observable notescount;
+  @observable folderId;
+  @observable folderName;
+  @observable editedNote;
+  @observable noteId;
 
   @observable leaveinfo;
   @observable addUser;

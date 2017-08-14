@@ -83,6 +83,10 @@ class Note extends React.Component {
     };
     socket.emit("individualnote edit", data);
     this.props.children.text = data.newnote;
+    socket.on("Savenotes", function(data) {
+      ChatStore.notes = data[0].notes;
+    });
+
     this.setState({
       editing: false,
       open: false
@@ -357,6 +361,7 @@ export default class Boards extends React.Component {
     // socket.emit("addingnotes", data);
     // arr.push(data);
     ChatStore.notes.push(data);
+    console.log("Note pushed");
     // socket.on("roomNotes", function(data) {
 
     // });
@@ -370,8 +375,18 @@ export default class Boards extends React.Component {
     });
     socket.on("note messagey", function(msg) {
       //  console.log("data[0].noteskkkkkkkkkkkkkkkkkkkkkkk");
-
-      ChatStore.notes.push(msg);
+      console.log("This is notes ", msg);
+      if (
+        chatstore.notes[chatstore.notes.length - 1].from != msg.from ||
+        chatstore.notes[chatstore.notes.length - 1].text != msg.text ||
+        chatstore.notes[chatstore.notes.length - 1].date != msg.date ||
+        chatstore.notes[chatstore.notes.length - 1].time != msg.time
+      ) {
+        console.log("Note pushed messagy");
+        ChatStore.notes.push(msg);
+      } else {
+        console.log("Note is already pushed");
+      }
       // arr.push(data);
     });
     socket.emit("recieving msgs", ChatStore.groupId);

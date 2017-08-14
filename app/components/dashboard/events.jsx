@@ -209,6 +209,9 @@ export default class Events extends React.Component {
         console.log("failed to register");
       });
   };
+  componentWillMount() {
+    EventStore.event = [];
+  }
   componentDidMount() {
     $.ajax({
       type: "GET",

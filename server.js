@@ -590,6 +590,7 @@ io.on("connection", function(socket) {
   socket.on("recieving msgs", function(data) {
     rooms.find({ _id: data }, function(err, docs) {
       socket.emit("remaining msgs", docs);
+      socket.broadcast.to(socket.id).emit("Message for my own", docs);
     });
   });
   socket.on("pushingMsg", function(data) {
@@ -848,7 +849,15 @@ io.on("connection", function(socket) {
       )
       .then(() => {
         console.log("Success! new note saved");
-        // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+        rooms.find({ _id: data.roomId }, function(err, docs) {
+          //   var a = docs.from;
+          //   console.log(docs.from);
+          //   b = a.split(/\s(.+)/)[0]; //everything before the first space
+          //   // Users.firstname = b;
+          socket.broadcast.emit("Savenotes", docs);
+
+          // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
+        });
       })
       .catch(err => {
         console.log("err", err.stack);
@@ -1233,7 +1242,12 @@ io.on("connection", function(socket) {
         }
       });
     });
-
+    User.find({
+      user_id: data.id
+    }).then(docs => {
+      console.log("event");
+      socket.emit("refresh group list", docs);
+    });
     // console.log("add notes");
     // console.log(data);
     // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
@@ -1682,17 +1696,11 @@ io.on("connection", function(socket) {
     });
   });
   socket.on("addingprivatenotes", function(data) {
-    // console.log("inside adding notes " + JSON.stringify(data));
-    // console.log("inside adding notes " + JSON.stringify(data));
     User.update(
-      { _id: data.id },
+      { _id: data.id, "privatenotes._id": data.folder },
       {
         $push: {
-          privatenotes: {
-            $push: {
-              notes: data.data
-            }
-          }
+          "privatenotes.$.notes": data.data
         }
       },
       function(err) {
@@ -1717,6 +1725,244 @@ io.on("connection", function(socket) {
       }
     });
   });
+
+  socket.on("deleteFolder", function(data) {
+    User.findOneAndUpdate(
+      {
+        _id: data.id
+        // ,
+        // "rooms._id": data.roomId
+      },
+      { $pull: { privatenotes: { _id: data.note._id } } }
+    )
+      .then(docs => {
+        User.find({ _id: data.id }, function(err, docs) {
+          socket.emit("remainingpnotes", docs);
+        });
+      })
+      .catch(err => {
+        console.log("err", err.stack);
+      });
+  });
+  socket.on("editingInsideNote", function(data) {
+    console.log("THis is data in editing note ", data);
+    // User.findOneAndUpdate({
+    //         "_id": data.id,
+    //         "privatenotes._id": data.folderId,
+    //         "privatenotes.notes._id": data.noteId,
+    //     }, { $set: { "privatenotes.notes.$.title": data.note } }, { upsert: true },
+    //     function(err, doc) {
+    //         if (err) {
+    //             console.log("Something wrong when updating data!", err);
+    //         } else {
+    //             console.log('Successfully updated');
+    //             // doc.update({});
+    //             // console.log(doc);
+    //         }
+    //     }
+    // );
+    // User.update({ "_id": data.id, "privatenotes._id": data.folderId, "privatenotes.notes._id": data.noteId, }, {
+    //         // "$push": {
+    //         //     "privatenotes.$.notes": data.data
+    //         // }
+    //         $set: {
+    //             "notes.$.title": data.note
+    //         }
+    //     },
+    //     function(err, docs) {
+    //         if (err) console.log("This is errro " + err);
+    //         else {
+    //             console.log("Successful...!", docs);
+    //         }
+    //     }
+    // );
+
+    User.findOne({ _id: data.id }, function(err, doc) {
+      // console.log(doc);
+      if (doc) {
+        //use a for loop over doc.replies to find the index(index1) of ObjectId("53dd4b67f0f23cad267f9d8b") at replies[index]._id
+        var index1;
+        for (var i = 0; i < doc.privatenotes.length; i++) {
+          if (doc.privatenotes[i]._id == data.folderId) {
+            index1 = i;
+            break;
+          }
+        }
+        var index2;
+        //use a for loop over doc.replies[index1].to and find the index(index2) of "UserA" at replies[index1].to[index2]
+        for (var j = 0; j < doc.privatenotes[index1].notes.length; j++) {
+          if (doc.privatenotes[index1].notes[j]._id == data.noteId) {
+            index2 = j;
+            break;
+          }
+        }
+        console.log("This is index1", index1);
+        console.log("This is index2", index2);
+        doc.privatenotes[index1].notes[index2].title = data.note;
+        console.log("Title");
+        console.log(doc.privatenotes[index1].notes[index2].title);
+        doc.save(function(err) {
+          if (err) {
+            console.log(err);
+            //  return handleError(err);
+          } else {
+            console.log("Successfull thank God");
+          }
+        });
+        // doc.markModified('privatenotes')
+        // User.save(function(err, doc2)
+        // {
+        //   if(err)
+        //   {
+        //     console.log(err)
+        //   } else {
+        //   console.log("successfull ",doc2);
+        // } })
+      }
+    });
+  });
+  socket.on("deletepnote", function(data) {
+    // User.update({ '_id': data.id }, { $pull: { 'privatenotes.$.notes': { '_id': data.data.id } } }, function(err, docs) {
+    //     if (err) {
+    //         console.log("This is errro " + err);
+    //     } else {
+    //         console.log('Successfullllll');
+    //         User.find({ _id: data.id }, function(err, docs) {
+    //             // /  socket.emit("remainingpnotes", docs);
+
+    //         });
+    //     }
+    // });
+    console.log("THis is user id " + data.id);
+    console.log("Thiss is notes Id " + data.data);
+    console.log("This is folder id " + data.folder);
+    User.findOne({ _id: data.id }, function(err, doc) {
+      // console.log(doc);
+      if (doc) {
+        //use a for loop over doc.replies to find the index(index1) of ObjectId("53dd4b67f0f23cad267f9d8b") at replies[index]._id
+        var index1;
+        for (var i = 0; i < doc.privatenotes.length; i++) {
+          if (doc.privatenotes[i]._id == data.folder) {
+            index1 = i;
+            break;
+          }
+        }
+        var index2;
+        //use a for loop over doc.replies[index1].to and find the index(index2) of "UserA" at replies[index1].to[index2]
+        for (var j = 0; j < doc.privatenotes[index1].notes.length; j++) {
+          if (doc.privatenotes[index1].notes[j]._id == data.data) {
+            index2 = j;
+            break;
+          }
+        }
+        console.log("This is index1", index1);
+        console.log("This is index2", index2);
+      }
+    });
+    User.update(
+      { _id: data.id, "privatenotes.$._id": data.folder },
+      {
+        $pull: {
+          "privatenotes.index1.notes.index2._id": data.data
+        }
+      },
+      function(err) {
+        if (err) console.log("This is errro " + err);
+        else {
+          console.log("Successful...!");
+          console.log("Note is saved");
+        }
+      }
+    );
+  });
+  socket.on("renameFolder", function(data) {
+    console.log("THis is folder name in renaming" + data.note.title);
+    // User.findOneAndUpdate({
+    //         user_id: data.id,
+    //         "privaten notes._id": data.notes._id
+    //     }, {
+    //         $set: {
+    //             "privatenotes.$.title": data.value
+    //         }
+    //     })
+    //     .then(docs => {
+    //         User.find({
+    //             user_id: data.user_id
+    //         }).then(docs => {
+    //             console.log("user find");
+    //             console.log(docs);
+    //             socket.emit("timetable", docs);
+    //         });
+    //     })
+    //     .catch(err => {
+    //         console.log("err", err.stack);
+    //     });
+  });
+  // socket.on("manipulate group", function(data) {
+  //     // console.log("THis is data coming from roomId " + data);
+  //     var d = new Date(); // for now
+  //     d.getHours(); // => 9
+  //     d.getMinutes(); // =>  30
+  //     d.getSeconds(); // => 51
+  //     //console.log(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
+  //     time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+  //     var today = new Date();
+  //     var dd = today.getDate();
+  //     var mm = today.getMonth() + 1; //January is 0!
+  //     var yyyy = today.getFullYear();
+
+  //     if (dd < 10) {
+  //         dd = "0" + dd;
+  //     }
+  //     if (mm < 10) {
+  //         mm = "0" + mm;
+  //     }
+  //     date = mm + "/" + dd + "/" + yyyy;
+  //     rooms.update({ _id: data.roomId }, {
+  //             $push: {
+  //                 conversation: {
+  //                     from: data.user_name,
+  //                     message: data.message,
+  //                     favourite: false,
+  //                     date: date,
+  //                     time: time
+  //                 }
+  //             }
+  //         },
+  //         function(err) {
+  //             if (err) console.log("This is errro " + err);
+  //             else {
+  //                 console.log("Successful...!");
+  //                 // console.log(data.user_id);
+  //                 // rooms.find(
+  //                 //   {
+  //                 //     _id: data.roomId,
+  //                 //     "participants0].$.user_id": data.user_id
+  //                 //   },
+  //                 //   // {
+  //                 //   //   $push: {
+  //                 //   //     conversation: {
+  //                 //   //       from: data.user_name,
+  //                 //   //       message: data.message,
+  //                 //   //       favourite: false,
+  //                 //   //       date: date,
+  //                 //   //       time: time
+  //                 //   //     }
+  //                 //   //   }
+  //                 //   // }
+
+  //                 //   function(err, docs) {
+  //                 //     if (err) console.log("This is errro " + err);
+  //                 //     else {
+  //                 //       console.log(docs);
+  //                 //     }
+  //                 //   }
+  //                 // );
+  //             }
+  //         }
+  //     );
+  // });
+
   socket.on("manipulate group", function(data) {
     rooms.update(
       { _id: data.roomId },
