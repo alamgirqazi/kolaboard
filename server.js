@@ -593,6 +593,12 @@ io.on("connection", function(socket) {
       socket.broadcast.to(socket.id).emit("Message for my own", docs);
     });
   });
+  socket.on("notesadding", function(data) {
+    rooms.find({ _id: data.roomId }, function(err, docs) {
+      // socket.emit("remaining msgs", docs);
+      socket.broadcast.to(socket.id).emit("Note for my own", docs);
+    });
+  });
   socket.on("pushingMsg", function(data) {
     socket.join("room", function() {
       console.log("This is socket.id " + socket.id);
@@ -854,6 +860,8 @@ io.on("connection", function(socket) {
           //   console.log(docs.from);
           //   b = a.split(/\s(.+)/)[0]; //everything before the first space
           //   // Users.firstname = b;
+          // socket.broadcast.emit("Savenotes", docs);
+          // socket.broadcast.to(socket.id).emit("Savenotes", docs);
           socket.broadcast.emit("Savenotes", docs);
 
           // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
@@ -1801,14 +1809,29 @@ io.on("connection", function(socket) {
         doc.privatenotes[index1].notes[index2].title = data.note;
         console.log("Title");
         console.log(doc.privatenotes[index1].notes[index2].title);
-        doc.save(function(err) {
-          if (err) {
-            console.log(err);
-            //  return handleError(err);
-          } else {
-            console.log("Successfull thank God");
+        console.log(doc.privatenotes);
+
+        User.update(
+          { _id: data.id },
+          { $set: { privatenotes: doc.privatenotes } },
+          { new: true },
+          function(err, doc) {
+            if (err) console.log(err);
+            else {
+              User.find(
+                { _id: data.id, "privatenotes._id": data.folderId },
+                function(err, docs) {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    console.log(docs.privatenotes[0].notes);
+                    socket.emit("editedPnotes", docs);
+                  }
+                }
+              );
+            }
           }
-        });
+        );
         // doc.markModified('privatenotes')
         // User.save(function(err, doc2)
         // {
@@ -1858,22 +1881,27 @@ io.on("connection", function(socket) {
         console.log("This is index1", index1);
         console.log("This is index2", index2);
       }
+      // doc.privatenotes[index1].notes[index2].title = data.data;
+      console.log("doc.privatenotes[index1].notes[index2].title");
+      console.log(doc.privatenotes[index1].notes[index2].title);
+      doc.privatenotes[index1].notes[index2].title = data.data;
+      User.update({}, doc, { upsert: true });
     });
-    User.update(
-      { _id: data.id, "privatenotes.$._id": data.folder },
-      {
-        $pull: {
-          "privatenotes.index1.notes.index2._id": data.data
-        }
-      },
-      function(err) {
-        if (err) console.log("This is errro " + err);
-        else {
-          console.log("Successful...!");
-          console.log("Note is saved");
-        }
-      }
-    );
+    // User.update(
+    //   { _id: data.id, "privatenotes.$._id": data.folder },
+    //   {
+    //     $pull: {
+    //       "privatenotes.index1.notes.index2._id": data.data
+    //     }
+    //   },
+    //   function(err) {
+    //     if (err) console.log("This is errro " + err);
+    //     else {
+    //       console.log("Successful...!");
+    //       console.log("Note is saved");
+    //     }
+    //   }
+    // );
   });
   socket.on("renameFolder", function(data) {
     console.log("THis is folder name in renaming" + data.note.title);

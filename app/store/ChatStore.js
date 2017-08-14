@@ -17,6 +17,7 @@ class ChatStore {
   @observable individualmsg = [];
   @observable favourites = [];
   @observable note = [];
+  @observable mappingnotes = [];
   @observable readcount;
   @observable notescount;
   @observable folderId;

@@ -83,9 +83,6 @@ class Note extends React.Component {
     };
     socket.emit("individualnote edit", data);
     this.props.children.text = data.newnote;
-    socket.on("Savenotes", function(data) {
-      ChatStore.notes = data[0].notes;
-    });
 
     this.setState({
       editing: false,
@@ -100,6 +97,10 @@ class Note extends React.Component {
       //ChatStore.readcount = Object.keys(data[0].conversation).length;
     };
     socket.emit("readnotes edit", data);
+    socket.on("Savenotes", function(data) {
+      console.log("save notes");
+      ChatStore.notes = data[0].notes;
+    });
   }
   details() {
     UIStore.notedetails = true;
@@ -360,8 +361,8 @@ export default class Boards extends React.Component {
     };
     // socket.emit("addingnotes", data);
     // arr.push(data);
-    ChatStore.notes.push(data);
-    console.log("Note pushed");
+    // ChatStore.notes.push(data);
+    // console.log("Note pushed");
     // socket.on("roomNotes", function(data) {
 
     // });
@@ -375,7 +376,7 @@ export default class Boards extends React.Component {
     });
     socket.on("note messagey", function(msg) {
       //  console.log("data[0].noteskkkkkkkkkkkkkkkkkkkkkkk");
-      console.log("This is notes ", msg);
+      // console.log("This is notes ", msg);
       if (
         chatstore.notes[chatstore.notes.length - 1].from != msg.from ||
         chatstore.notes[chatstore.notes.length - 1].text != msg.text ||
@@ -396,6 +397,7 @@ export default class Boards extends React.Component {
 
       ChatStore.notes = data[0].notes;
     });
+
     var data = {
       user_id: UserStore.obj.user_id,
       _id: ChatStore.groupId,
@@ -405,7 +407,16 @@ export default class Boards extends React.Component {
       //ChatStore.readcount = Object.keys(data[0].conversation).length;
     };
     socket.emit("readnotes send", data);
-    // socket.emit("emt", "aq");
+
+    var e = { roomId: ChatStore.groupId };
+
+    socket.emit("notesadding", e);
+    socket.on("Note for my own", function(data) {
+      ///   console.log("da");
+      // console.log(data[0].notes);
+
+      ChatStore.notes = data[0].notes;
+    });
     //     var roomId = ChatStore.groupId;
     // var interval =  setTimeout(function(){ socket.emit('gettingnotes', roomId); }, 1000);
     // socket.emit('gettingnotes', roomId);

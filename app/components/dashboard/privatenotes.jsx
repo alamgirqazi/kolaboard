@@ -235,7 +235,7 @@ export default class PrivateNotes extends React.Component {
     });
   };
   deletenote = Users => {
-    ChatStore.pull(Users);
+    // ChatStore.pull(Users);
     console.log("Rename is called ");
     socket.emit("deletepnote", {
       data: Users._id,
@@ -265,9 +265,15 @@ export default class PrivateNotes extends React.Component {
       id: UserStore.obj._id,
       folderId: ChatStore.folderId
     });
+    socket.on("editedPnotes", function(data) {
+      UserStore.obj.privatenotes = data[0].privatenotes;
+
+      console.log("eventcalled");
+    });
   };
   handleOpen = notes => {
     note = notes.notes;
+    ChatStore.mappingnotes = notes.notes;
     ChatStore.note = note;
     ChatStore.folderId = notes._id;
     ChatStore.folderName = notes.title;
@@ -337,7 +343,7 @@ export default class PrivateNotes extends React.Component {
     // Store.timetable = true;
     if (!this.state.opennotes) {
       var pnotes = UserStore.obj.privatenotes;
-      console.log("Ths " + pnotes);
+      // console.log("Ths " + pnotes);
       return (
         <MuiThemeProvider muiTheme={muiTheme}>
           <Scrollbars style={{ width: "100%", height: "100%" }}>
@@ -366,7 +372,7 @@ export default class PrivateNotes extends React.Component {
                       </center>
                     </Card>
 
-                    {pnotes.map(Users => {
+                    {UserStore.obj.privatenotes.map(Users => {
                       return (
                         <Card className="displ" style={cardwidth}>
                           <IconMenu
@@ -469,7 +475,7 @@ export default class PrivateNotes extends React.Component {
                   {ChatStore.folderName}
                 </h3>
                 <div className="columns medium-12 large-12">
-                  {note.map(Users => {
+                  {ChatStore.mappingnotes.map(Users => {
                     return (
                       <div className="pdispl">
                         <div
