@@ -24,6 +24,7 @@ class ChatStore {
   @observable folderName;
   @observable editedNote;
   @observable noteId;
+  @observable notestitleprivate;
 
   @observable leaveinfo;
   @observable addUser;

@@ -311,19 +311,15 @@ export default class Events extends React.Component {
                             actAsExpander={true}
                             showExpandableButton={true}
                           />
-                          <img
-                            src="https://thumb.ibb.co/iq4Jjk/homepage_futsalarena_pitch_01.jpg"
-                            alt="homepage futsalarena pitch 01"
-                            border="0"
-                          />
-                          <CardText key={event._id} expandable={true}>
-                            <h5 className="pull-right">
+
+                          <CardText expandable={true}>
+                            <h6 className="pull-right">
                               {" "}{"Event Date: " + event.date}
-                            </h5>
+                            </h6>
                             <div />
-                            <h5 className="pull-left">
+                            <h6 className="pull-left">
                               {"Created by: " + event.user_name}
-                            </h5>
+                            </h6>
                           </CardText>
                         </Card>
 
@@ -346,12 +342,12 @@ export default class Events extends React.Component {
                           />
 
                           <CardText expandable={true}>
-                            <h5 className="pull-right">
+                            <h6 className="pull-right">
                               {" "}{"Event Date: " + event.date}
-                            </h5>
-                            <h5 className="pull-left">
+                            </h6>
+                            <h6 className="pull-left">
                               {"Created by: " + event.user_name}
-                            </h5>
+                            </h6>
                           </CardText>
                         </Card>
 
@@ -394,7 +390,6 @@ export default class Events extends React.Component {
                     hintText="Enter Event Date"
                     onChange={this.formatDate}
                   />
-                  <input type="file" ref="file" multiple />
                   <br />
                 </Dialog>
                 <div className="fixedbutton">
@@ -419,3 +414,10 @@ export default class Events extends React.Component {
     );
   }
 }
+// <img
+//                           src="https://thumb.ibb.co/iq4Jjk/homepage_futsalarena_pitch_01.jpg"
+//                           alt="homepage futsalarena pitch 01"
+//                           border="0"
+//                         />
+// <input type="file" ref="file" multiple />
+//

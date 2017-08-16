@@ -579,6 +579,13 @@ io.on("connection", function(socket) {
     // io.emit("chat messagey", msg);
     console.log("emitted");
   });
+  // socket.on("refreshpnotes", function(data) {
+  //   User.find({_id:data.id }, function(err,docs)
+  // {
+
+  // })
+  // socket.broadcast.to(socket.id).emit("refreshedpnotes", docs);
+  // });
 
   socket.on("Join room", function(data) {
     room = data;
@@ -1711,10 +1718,17 @@ io.on("connection", function(socket) {
           "privatenotes.$.notes": data.data
         }
       },
-      function(err) {
+      function(err, docs) {
         if (err) console.log("This is errro " + err);
         else {
           console.log("Successful...!");
+          User.find({ _id: data.id }, function(err, _user) {
+            if (err) {
+              console.log(err);
+            } else {
+              socket.emit("refreshprinotes", _user);
+            }
+          });
         }
       }
     );
@@ -1753,95 +1767,84 @@ io.on("connection", function(socket) {
       });
   });
   socket.on("editingInsideNote", function(data) {
-    console.log("THis is data in editing note ", data);
-    // User.findOneAndUpdate({
-    //         "_id": data.id,
-    //         "privatenotes._id": data.folderId,
-    //         "privatenotes.notes._id": data.noteId,
-    //     }, { $set: { "privatenotes.notes.$.title": data.note } }, { upsert: true },
-    //     function(err, doc) {
-    //         if (err) {
-    //             console.log("Something wrong when updating data!", err);
-    //         } else {
-    //             console.log('Successfully updated');
-    //             // doc.update({});
-    //             // console.log(doc);
-    //         }
-    //     }
-    // );
-    // User.update({ "_id": data.id, "privatenotes._id": data.folderId, "privatenotes.notes._id": data.noteId, }, {
-    //         // "$push": {
-    //         //     "privatenotes.$.notes": data.data
-    //         // }
-    //         $set: {
-    //             "notes.$.title": data.note
-    //         }
-    //     },
-    //     function(err, docs) {
-    //         if (err) console.log("This is errro " + err);
-    //         else {
-    //             console.log("Successful...!", docs);
-    //         }
-    //     }
-    // );
-
     User.findOne({ _id: data.id }, function(err, doc) {
       // console.log(doc);
-      if (doc) {
-        //use a for loop over doc.replies to find the index(index1) of ObjectId("53dd4b67f0f23cad267f9d8b") at replies[index]._id
-        var index1;
+      if (err) console.log(err);
+      else {
+        var pushData = {
+          title: data.note,
+          time: data.time
+        };
+        console.log(doc);
+        // console.log(doc[0].privatenotes.length);
         for (var i = 0; i < doc.privatenotes.length; i++) {
           if (doc.privatenotes[i]._id == data.folderId) {
-            index1 = i;
-            break;
+            doc.privatenotes[i].notes.push(pushData);
+            console.log("found match server");
           }
         }
-        var index2;
-        //use a for loop over doc.replies[index1].to and find the index(index2) of "UserA" at replies[index1].to[index2]
-        for (var j = 0; j < doc.privatenotes[index1].notes.length; j++) {
-          if (doc.privatenotes[index1].notes[j]._id == data.noteId) {
-            index2 = j;
-            break;
-          }
-        }
-        // console.log("This is index1", index1);
-        // console.log("This is index2", index2);
-        doc.privatenotes[index1].notes[index2].title = data.note;
-        // console.log("Title");
-        // console.log(doc.privatenotes[index1].notes[index2].title);
-        // console.log(doc.privatenotes);
-
-        User.update(
-          { _id: data.id },
-          { $set: { privatenotes: doc.privatenotes } },
-          { new: true },
-          function(err, doc) {
-            if (err) console.log(err);
-            else {
-              User.find(
-                { _id: data.id, "privatenotes._id": data.folderId },
-                function(err, docs) {
-                  if (err) {
-                    console.log(err);
-                  } else {
-                    // console.log(docs.privatenotes[0].notes);
-                    socket.emit("editedPnotes", docs);
-                  }
-                }
-              );
-            }
-          }
-        );
-        // doc.markModified('privatenotes')
-        // User.save(function(err, doc2)
-        // {
-        //   if(err)
-        //   {
-        //     console.log(err)
-        //   } else {
-        //   console.log("successfull ",doc2);
-        // } })
       }
+      // if (doc) {
+      //   //use a for loop over doc.replies to find the index(index1) of ObjectId("53dd4b67f0f23cad267f9d8b") at replies[index]._id
+      //   var index1;
+      //   for (var i = 0; i < doc.privatenotes.length; i++) {
+      //     if (doc.privatenotes[i]._id == data.folderId) {
+      //       index1 = i;
+      //       break;
+      //     }
+      //   }
+      //   var index2;
+      //   //use a for loop over doc.replies[index1].to and find the index(index2) of "UserA" at replies[index1].to[index2]
+      //   for (var j = 0; j < doc.privatenotes[index1].notes.length; j++) {
+      //     if (doc.privatenotes[index1].notes[j]._id == data.noteId) {
+      //       index2 = j;
+      //       break;
+      //     }
+      //   }
+      //   // console.log("This is index1", index1);
+      //   // console.log("This is index2", index2);
+      //   if (data.note == "" || data.note == undefined || data.note == null) {
+      //     // doc.privatenotes[index1].notes[index2].title = " ";
+      //   } else {
+      //     console.log(index1);
+      //     console.log(index2);
+
+      //     doc.privatenotes[index1].notes[index2].title = data.note;
+      //   }
+      // console.log("Title");
+      // console.log(doc.privatenotes[index1].notes[index2].title);
+      // console.log(doc.privatenotes);
+
+      User.update(
+        { _id: data.id },
+        { $set: { privatenotes: doc.privatenotes } },
+        { new: true },
+        function(err, doc) {
+          if (err) console.log(err);
+          else {
+            User.find(
+              { _id: data.id, "privatenotes._id": data.folderId },
+              function(err, docs) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  // console.log(docs.privatenotes[0].notes);
+                  socket.emit("editedPnotes", docs);
+                }
+              }
+            );
+          }
+        }
+      );
+      // doc.markModified('privatenotes')
+      // User.save(function(err, doc2)
+      // {
+      //   if(err)
+      //   {
+      //     console.log(err)
+      //   } else {
+      //   console.log("successfull ",doc2);
+      // } })
     });
   });
   socket.on("deletepnote", function(data) {
