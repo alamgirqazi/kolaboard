@@ -1726,6 +1726,7 @@ io.on("connection", function(socket) {
             if (err) {
               console.log(err);
             } else {
+              // console.log(_user);
               socket.emit("refreshprinotes", _user);
             }
           });
@@ -1767,22 +1768,52 @@ io.on("connection", function(socket) {
       });
   });
   socket.on("editingInsideNote", function(data) {
+    console.log(" eventhit");
     User.findOne({ _id: data.id }, function(err, doc) {
       // console.log(doc);
       if (err) console.log(err);
       else {
-        var pushData = {
-          title: data.note,
-          time: data.time
-        };
-        console.log(doc);
-        // console.log(doc[0].privatenotes.length);
+        // var pushData = {
+        //   title: data.note,
+        //   time: data.time,
+        //   date: data.date
+        // };
+        // console.log(doc);
+        console.log("eventE");
+        // console.log(doc.privatenotes.length);
         for (var i = 0; i < doc.privatenotes.length; i++) {
           if (doc.privatenotes[i]._id == data.folderId) {
-            doc.privatenotes[i].notes.push(pushData);
-            console.log("found match server");
+            for (var j = 0; j < doc.privatenotes[i].notes.length; j++) {
+              // console.log("length", doc.privatenotes[i].notes.length);
+              if (doc.privatenotes[i].notes[j]._id == data.noteId) {
+                doc.privatenotes[i].notes[j].title = data.note;
+                // console.log("found match server yersss");
+              }
+            }
+            // console.log("found match server");
           }
         }
+        User.update(
+          { _id: data.id },
+          { $set: { privatenotes: doc.privatenotes } },
+          { new: true },
+          function(err, doc) {
+            if (err) console.log(err);
+            else {
+              User.find(
+                { _id: data.id, "privatenotes._id": data.folderId },
+                function(err, docs) {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    // console.log(docs.privatenotes[0].notes);
+                    socket.emit("editedPnotes", docs);
+                  }
+                }
+              );
+            }
+          }
+        );
       }
       // if (doc) {
       //   //use a for loop over doc.replies to find the index(index1) of ObjectId("53dd4b67f0f23cad267f9d8b") at replies[index]._id
@@ -1815,27 +1846,6 @@ io.on("connection", function(socket) {
       // console.log(doc.privatenotes[index1].notes[index2].title);
       // console.log(doc.privatenotes);
 
-      User.update(
-        { _id: data.id },
-        { $set: { privatenotes: doc.privatenotes } },
-        { new: true },
-        function(err, doc) {
-          if (err) console.log(err);
-          else {
-            User.find(
-              { _id: data.id, "privatenotes._id": data.folderId },
-              function(err, docs) {
-                if (err) {
-                  console.log(err);
-                } else {
-                  // console.log(docs.privatenotes[0].notes);
-                  socket.emit("editedPnotes", docs);
-                }
-              }
-            );
-          }
-        }
-      );
       // doc.markModified('privatenotes')
       // User.save(function(err, doc2)
       // {

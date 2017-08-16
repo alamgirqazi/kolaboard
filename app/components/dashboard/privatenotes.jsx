@@ -184,7 +184,7 @@ export default class PrivateNotes extends React.Component {
       date: date,
       time: time
     };
-    console.log("THis is Chatstore.note ", ChatStore.folderId);
+    // console.log("THis is Chatstore.note ", ChatStore.folderId);
     socket.emit("addingprivatenotes", {
       data: data,
       id: UserStore.obj._id,
@@ -195,19 +195,19 @@ export default class PrivateNotes extends React.Component {
       id: UserStore.obj._id,
       folder: ChatStore.folderId
     };
-    arr.push(data);
+    // arr.push(data);
     socket.on("refreshprinotes", function(data) {
       for (var i = 0; i < data[0].privatenotes.length; i++) {
         if (data[0].privatenotes[i]._id == ChatStore.folderId) {
-          ChatStore.mappingnotes = UserStore.obj.privatenotes[i].notes;
+          ChatStore.mappingnotes = data[0].privatenotes[i].notes;
           console.log("found match");
         }
       }
-      console.log("THis is store sssssssssssssss", UserStore.obj.privatenotes);
-      console.log("THis is db sssssssssssssss", data[0].privatenotes);
+      // console.log("THis is store sssssssssssssss", UserStore.obj.privatenotes);
+      // console.log("THis is db sssssssssssssss", data[0].privatenotes);
       // UserStore.obj.privatenotes = data[0].privatenotes;
-      console.log("docs[0].privatenotes");
-      console.log(data[0].privatenotes);
+      // console.log("docs[0].privatenotes");
+      // console.log(data[0].privatenotes);
     });
   }
 
@@ -274,20 +274,21 @@ export default class PrivateNotes extends React.Component {
     // socket.emit('deleteFolder',{note:Users,id:UserStore.obj._id});
   };
   handleEditing = () => {
-    console.log("save Rename is called ");
-    console.log("This is noteId " + ChatStore.noteId);
-    console.log("This is folderId " + ChatStore.folderId);
+    // console.log("save Rename is called ");
+    // console.log("This is noteId " + ChatStore.noteId);
+    // console.log("This is folderId " + ChatStore.folderId);
     this.setState({ editingNotes: false });
 
     ChatStore.notestitleprivate = this.refs.txttitleEdit.getValue();
     socket.emit("editingInsideNote", {
       note: ChatStore.notestitleprivate,
+
       noteId: ChatStore.noteId,
       id: UserStore.obj._id,
       folderId: ChatStore.folderId
     });
     // this.props.children.text = this.refs.txttitleEdit.getValue();
-
+    console.log("editing");
     socket.on("editedPnotes", function(data) {
       UserStore.obj.privatenotes = data[0].privatenotes;
       for (var i = 0; i < data[0].privatenotes.length; i++) {
@@ -296,17 +297,17 @@ export default class PrivateNotes extends React.Component {
           // console.log(data[0].privatenotes[i].notes.length);
 
           for (var j = 0; j < data[0].privatenotes[i].notes.length; j++) {
-            console.log(data[0].privatenotes[i].notes[j]._id);
+            // console.log(data[0].privatenotes[i].notes[j]._id);
             if (data[0].privatenotes[i].notes[j]._id == ChatStore.noteId) {
               ChatStore.mappingnotes[j].title = ChatStore.notestitleprivate;
 
-              console.log("j", j);
+              // console.log("j", j);
             }
           }
           // console.log(ChatStore.mappingnotes);
         }
       }
-      console.log("eventcalled");
+      // console.log("eventcalled");
     });
   };
   handleOpen = notes => {
