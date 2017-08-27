@@ -225,7 +225,13 @@ export default class PrivateNotes extends React.Component {
   };
   delete = Users => {
     console.log("Delete is called ");
-    socket.emit("deleteFolder", { note: Users, id: UserStore.obj._id });
+    socket.emit("deleteFolder", {
+      note: ChatStore.notestitleprivate,
+
+      noteId: ChatStore.noteId,
+      id: UserStore.obj._id,
+      folderId: ChatStore.folderId
+    });
 
     socket.on("remainingpnotes", function(data) {
       console.log("THis is data.privatenotes ", data[0].privatenotes);
@@ -255,11 +261,53 @@ export default class PrivateNotes extends React.Component {
   };
   deletenote = Users => {
     // ChatStore.pull(Users);
+    ChatStore.noteId = Users._id;
+
     console.log("Rename is called ");
     socket.emit("deletepnote", {
       data: Users._id,
       id: UserStore.obj._id,
-      folder: ChatStore.folderId
+      folder: ChatStore.folderId,
+      noteId: ChatStore.noteId
+    });
+    socket.on("editedDnotes", function(data) {
+      UserStore.obj.privatenotes = data[0].privatenotes;
+      console.log("socket delete");
+      for (var i = 0; i < data[0].privatenotes.length; i++) {
+        if (data[0].privatenotes[i]._id == ChatStore.folderId) {
+          // console.log(i);
+          // console.log(data[0].privatenotes[i].notes.length);
+          ChatStore.mappingnotes = data[0].privatenotes[i].notes;
+          console.log("doneee");
+          // for (var j = 0; j < data[0].privatenotes[i].notes.length; j++) {
+          //   // console.log(data[0].privatenotes[i].notes[j]._id);
+          //   if (ChatStore.mappingnotes[j]._id == ChatStore.noteId) {
+          //     // ChatStore.mappingnotes.splice(j, 1);
+          //     // ChatStore.mappingnotes[j].title = ChatStore.notestitleprivate;
+          //   }
+          // }
+        }
+      }
+    });
+    socket.on("editedPnotes", function(data) {
+      UserStore.obj.privatenotes = data[0].privatenotes;
+      for (var i = 0; i < data[0].privatenotes.length; i++) {
+        if (data[0].privatenotes[i]._id == ChatStore.folderId) {
+          // console.log(i);
+          // console.log(data[0].privatenotes[i].notes.length);
+          ChatStore.mapping = data[0].privatenotes[i].notes;
+          for (var j = 0; j < data[0].privatenotes[i].notes.length; j++) {
+            // console.log(data[0].privatenotes[i].notes[j]._id);
+            if (data[0].privatenotes[i].notes[j]._id == ChatStore.noteId) {
+              ChatStore.mappingnotes[j].title = ChatStore.notestitleprivate;
+
+              // console.log("j", j);
+            }
+          }
+          // console.log(ChatStore.mappingnotes);
+        }
+      }
+      // console.log("eventcalled");
     });
   };
   rename = Users => {

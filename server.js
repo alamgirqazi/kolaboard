@@ -1858,63 +1858,48 @@ io.on("connection", function(socket) {
     });
   });
   socket.on("deletepnote", function(data) {
-    // User.update({ '_id': data.id }, { $pull: { 'privatenotes.$.notes': { '_id': data.data.id } } }, function(err, docs) {
-    //     if (err) {
-    //         console.log("This is errro " + err);
-    //     } else {
-    //         console.log('Successfullllll');
-    //         User.find({ _id: data.id }, function(err, docs) {
-    //             // /  socket.emit("remainingpnotes", docs);
-
-    //         });
-    //     }
-    // });
-    console.log("THis is user id " + data.id);
-    console.log("Thiss is notes Id " + data.data);
-    console.log("This is folder id " + data.folder);
+    // console.log(data);
     User.findOne({ _id: data.id }, function(err, doc) {
       // console.log(doc);
-      if (doc) {
-        //use a for loop over doc.replies to find the index(index1) of ObjectId("53dd4b67f0f23cad267f9d8b") at replies[index]._id
-        var index1;
+      if (err) console.log(err);
+      else {
+        console.log("eventDelete");
+        // console.log(doc.privatenotes.length);
+        // var k = doc.privatenotes;
         for (var i = 0; i < doc.privatenotes.length; i++) {
           if (doc.privatenotes[i]._id == data.folder) {
-            index1 = i;
-            break;
+            console.log("found folder");
+            for (var j = 0; j < doc.privatenotes[i].notes.length; j++) {
+              console.log("searching notes");
+
+              // console.log("length", doc.privatenotes[i].notes.length);
+              if (doc.privatenotes[i].notes[j]._id == data.noteId) {
+                doc.privatenotes[i].notes.splice(j, 1);
+              }
+            }
           }
         }
-        var index2;
-        //use a for loop over doc.replies[index1].to and find the index(index2) of "UserA" at replies[index1].to[index2]
-        for (var j = 0; j < doc.privatenotes[index1].notes.length; j++) {
-          if (doc.privatenotes[index1].notes[j]._id == data.data) {
-            index2 = j;
-            break;
+        User.update(
+          { _id: data.id },
+          { $set: { privatenotes: doc.privatenotes } },
+          { new: true },
+          function(err, doc) {
+            if (err) console.log(err);
+            else {
+              User.find({ _id: data.id }, function(err, docs) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  // console.log(docs.privatenotes[0].notes);
+                  console.log("emiting result");
+                  socket.emit("editedDnotes", docs);
+                }
+              });
+            }
           }
-        }
-        // console.log("This is index1", index1);
-        // console.log("This is index2", index2);
+        );
       }
-      // doc.privatenotes[index1].notes[index2].title = data.data;
-      // console.log("doc.privatenotes[index1].notes[index2].title");
-      // console.log(doc.privatenotes[index1].notes[index2].title);
-      // doc.privatenotes[index1].notes[index2].title = data.data;
-      // User.update({}, doc, { upsert: true });
     });
-    // User.update(
-    //   { _id: data.id, "privatenotes.$._id": data.folder },
-    //   {
-    //     $pull: {
-    //       "privatenotes.index1.notes.index2._id": data.data
-    //     }
-    //   },
-    //   function(err) {
-    //     if (err) console.log("This is errro " + err);
-    //     else {
-    //       console.log("Successful...!");
-    //       console.log("Note is saved");
-    //     }
-    //   }
-    // );
   });
   socket.on("renameFolder", function(data) {
     console.log("THis is folder name in renaming" + data.note.title);
