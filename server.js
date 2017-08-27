@@ -1750,13 +1750,14 @@ io.on("connection", function(socket) {
   });
 
   socket.on("deleteFolder", function(data) {
+    console.log(data);
     User.findOneAndUpdate(
       {
         _id: data.id
         // ,
         // "rooms._id": data.roomId
       },
-      { $pull: { privatenotes: { _id: data.note._id } } }
+      { $pull: { privatenotes: { _id: data.folderid } } }
     )
       .then(docs => {
         User.find({ _id: data.id }, function(err, docs) {

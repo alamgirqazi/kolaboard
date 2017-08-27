@@ -71,7 +71,7 @@ const avatar = {
   display: "block"
 };
 const userRealName = {
-  fontSize: "22px",
+  fontSize: "18px",
   textAlign: "center"
 };
 const wordwrap = {

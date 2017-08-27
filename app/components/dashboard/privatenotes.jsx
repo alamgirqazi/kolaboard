@@ -230,6 +230,7 @@ export default class PrivateNotes extends React.Component {
 
       noteId: ChatStore.noteId,
       id: UserStore.obj._id,
+      folderid: Users._id,
       folderId: ChatStore.folderId
     });
 
@@ -377,6 +378,7 @@ export default class PrivateNotes extends React.Component {
       title: this.refs.txttitle.getValue(),
       desc: this.refs.txtdesc.getValue()
     };
+    console.log(";handlesave");
 
     console.log("THis is data " + data);
     socket.emit("createpnotes", data);
