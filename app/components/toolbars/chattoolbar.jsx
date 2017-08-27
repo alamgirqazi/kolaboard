@@ -458,7 +458,7 @@ export default class Chatbar extends React.Component {
           open={this.state.openAddUser}
           onRequestClose={this.handleAddUserClose}
         >
-          Are you sure you want to Remove the user?
+          Are you sure you want to Add the user?
         </Dialog>{" "}
         <Dialog
           title="Remove User"

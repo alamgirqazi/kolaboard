@@ -468,10 +468,10 @@ export default class PrivateNotes extends React.Component {
                             iconButtonElement={
                               <IconButton
                                 style={{
-                                  display: "inline",
+                                  display: "inline-flex",
                                   float: "right",
-                                  width: "78px",
-                                  height: "22px",
+                                  width: "29px",
+                                  height: "29px",
                                   padding: "0px"
                                 }}
                                 tooltip="more"
@@ -547,12 +547,7 @@ export default class PrivateNotes extends React.Component {
           <Scrollbars style={{ width: "100%", height: "100%" }}>
             <div>
               <Toolbar />
-              <RaisedButton
-                label="Back"
-                style={{ float: "left" }}
-                onTouchTap={this.back}
-              />
-              <br />
+
               <h2 style={header}>Private Notes</h2>
 
               <br />
@@ -560,6 +555,14 @@ export default class PrivateNotes extends React.Component {
               <br />
               <br />
               <div className="row fullwidth">
+                <RaisedButton
+                  label="Back"
+                  style={{ float: "left" }}
+                  onTouchTap={this.back}
+                />
+                <br />
+                <br />
+                <br />
                 <h3>
                   {ChatStore.folderName}
                 </h3>
@@ -588,9 +591,9 @@ export default class PrivateNotes extends React.Component {
                               iconButtonElement={
                                 <IconButton
                                   style={{
-                                    display: "inline",
+                                    display: "inline-flex",
                                     float: "right",
-                                    width: "78px",
+                                    width: "22px",
                                     height: "22px",
                                     padding: "0px"
                                   }}
@@ -648,7 +651,7 @@ export default class PrivateNotes extends React.Component {
                   })}
                   <div className="fixedbutton">
                     <FloatingActionButton
-                      label="yo"
+                      label="add"
                       onClick={this.add.bind(null, "new note")}
                     >
                       <ContentAdd />
