@@ -68,8 +68,8 @@ export default class Verify extends React.Component {
                 <br />
                 <CardText>
                   <h4>
-                    Visit your Email to verify you account and then click on
-                    'app' below or refresh the page.
+                    Visit your Email to verify you account and then logout and
+                    sign in again.
                   </h4>
                   <br />
 
@@ -78,7 +78,8 @@ export default class Verify extends React.Component {
                     className="center-block"
                     style={{ display: "table", height: "50px" }}
                   >
-                    {" "}<IndexLink
+                    {" "}
+                    <IndexLink
                       to="/app"
                       activeClassName="active"
                       activeStyle={{
