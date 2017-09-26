@@ -151,53 +151,91 @@ export default class ListChatContainer extends React.Component {
     var location = "/api/rooms/" + roomId;
 
     socket.emit("note map", roomId);
-    $.ajax({
-      url: location,
-      type: "GET",
-      data: {
-        format: "json"
-      },
-      dataType: "json",
-      success: function(data) {
-        ChatStore.participants = data[0].participants;
-        ChatStore.remainparticipants = data[0].remainparticipants;
-        var remain = ChatStore.remainparticipants;
-        var mappedlength = FriendshipStore.mappedFriends.length;
-
-        remain.forEach(function(a) {
-          for (var i = 0; i < mappedlength; i++) {
-            if (a.user_id == FriendshipStore.mappedFriends[i].user_id) {
-              // console.log("yers");
-              FriendshipStore.mappedFriends[i].present = true;
-            }
+    socket.emit("send listchat", roomId);
+    socket.on("recieving listchat rooms", function(data) {
+      ChatStore.participants = data[0].participants;
+      ChatStore.remainparticipants = data[0].remainparticipants;
+      var remain = ChatStore.remainparticipants;
+      var mappedlength = FriendshipStore.mappedFriends.length;
+      console.log("remainss");
+      console.log(remain);
+      remain.forEach(function(a) {
+        for (var i = 0; i < mappedlength; i++) {
+          if (a.user_id == FriendshipStore.mappedFriends[i].user_id) {
+            // console.log("yers");
+            FriendshipStore.mappedFriends[i].present = true;
           }
-        });
-        console.log("remain");
-        console.log(remain);
-        console.log(FriendshipStore.mappedFriends);
-        ChatStore.readcount = Object.keys(data[0].conversation).length;
-        ChatStore.notescount = Object.keys(data[0].notes).length;
-        ChatStore.admin_id = data[0].admin_id;
-        ChatStore.created_on = data[0].created_on;
+        }
+      });
+      // console.log("remain");
+      // console.log(remain);
+      // console.log(FriendshipStore.mappedFriends);
+      ChatStore.readcount = Object.keys(data[0].conversation).length;
+      ChatStore.notescount = Object.keys(data[0].notes).length;
+      ChatStore.admin_id = data[0].admin_id;
+      ChatStore.created_on = data[0].created_on;
 
-        //  console.log("data[0].notes");
-        // console.log(data[0].notes.length);
-        var data = {
-          user_id: UserStore.obj.user_id,
-          _id: Users._id,
-          count: ChatStore.readcount.toString(),
-          notescount: ChatStore.notescount.toString()
-        };
+      //  console.log("data[0].notes");
+      // console.log(data[0].notes.length);
+      var data = {
+        user_id: UserStore.obj.user_id,
+        _id: Users._id,
+        count: ChatStore.readcount.toString(),
+        notescount: ChatStore.notescount.toString()
+      };
 
-        socket.emit("readcountmsg", data);
+      socket.emit("readcountmsg", data);
 
-        var newarray = FriendshipStore.mappedFriends;
-        // var length = ChatStore.remainparticipants.length;
-      },
-      error: function(err) {
-        console.log("error in get of room" + err);
-      }
+      var newarray = FriendshipStore.mappedFriends;
     });
+
+    // $.ajax({
+    //   url: location,
+    //   type: "GET",
+    //   data: {
+    //     format: "json"
+    //   },
+    //   dataType: "json",
+    //   success: function(data) {
+    //     ChatStore.participants = data[0].participants;
+    //     ChatStore.remainparticipants = data[0].remainparticipants;
+    //     var remain = ChatStore.remainparticipants;
+    //     var mappedlength = FriendshipStore.mappedFriends.length;
+
+    //     remain.forEach(function(a) {
+    //       for (var i = 0; i < mappedlength; i++) {
+    //         if (a.user_id == FriendshipStore.mappedFriends[i].user_id) {
+    //           // console.log("yers");
+    //           FriendshipStore.mappedFriends[i].present = true;
+    //         }
+    //       }
+    //     });
+    //     // console.log("remain");
+    //     // console.log(remain);
+    //     // console.log(FriendshipStore.mappedFriends);
+    //     ChatStore.readcount = Object.keys(data[0].conversation).length;
+    //     ChatStore.notescount = Object.keys(data[0].notes).length;
+    //     ChatStore.admin_id = data[0].admin_id;
+    //     ChatStore.created_on = data[0].created_on;
+
+    //     //  console.log("data[0].notes");
+    //     // console.log(data[0].notes.length);
+    //     var data = {
+    //       user_id: UserStore.obj.user_id,
+    //       _id: Users._id,
+    //       count: ChatStore.readcount.toString(),
+    //       notescount: ChatStore.notescount.toString()
+    //     };
+
+    //     socket.emit("readcountmsg", data);
+
+    //     var newarray = FriendshipStore.mappedFriends;
+    //     // var length = ChatStore.remainparticipants.length;
+    //   },
+    //   error: function(err) {
+    //     console.log("error in get of room" + err);
+    //   }
+    // });
   }
   componentDidMount() {
     socket.on("msgs", function(data) {

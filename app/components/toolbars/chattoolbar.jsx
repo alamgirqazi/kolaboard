@@ -272,14 +272,16 @@ export default class Chatbar extends React.Component {
       <IconMenu iconButtonElement={iconButtonElement}>
         <MenuItem onTouchTap={this.handleOpen}>Group Info</MenuItem>
         <MenuItem onTouchTap={this.handleShowFav}>Show Favourites</MenuItem>
-        {admin
-          ? <MenuItem onTouchTap={this.handleAdmin}>Add More Users</MenuItem>
-          : <div />}
-        {admin
-          ? <MenuItem onTouchTap={this.handleRemoveAdmin}>
-              Remove Users
-            </MenuItem>
-          : <div />}
+        {admin ? (
+          <MenuItem onTouchTap={this.handleAdmin}>Add More Users</MenuItem>
+        ) : (
+          <div />
+        )}
+        {admin ? (
+          <MenuItem onTouchTap={this.handleRemoveAdmin}>Remove Users</MenuItem>
+        ) : (
+          <div />
+        )}
       </IconMenu>
     );
 
@@ -361,9 +363,7 @@ export default class Chatbar extends React.Component {
             }
           })}
           <br />
-          <h5>
-            Created on {ChatStore.created_on}
-          </h5>
+          <h5>Created on {ChatStore.created_on}</h5>
         </Dialog>
         <Dialog
           modal={false}
@@ -397,6 +397,32 @@ export default class Chatbar extends React.Component {
                   <br />
                 </div>
               );
+            }
+            if (Users.present == true) {
+              setTimeout(function() {
+                if (Users.present != true) {
+                  return (
+                    <div key={Users.user_id}>
+                      <ListItem
+                        disabled={true}
+                        key={Users.user_id}
+                        leftAvatar={<Avatar size={40} src={Users.picture} />}
+                        primaryText={Users.name}
+                        rightIconButton={
+                          <RaisedButton
+                            label={"Add To Group"}
+                            primary={true}
+                            key={Users.user_id}
+                            onTouchTap={() => this._handleClick(Users)}
+                            style={style}
+                          />
+                        }
+                      />{" "}
+                      <br />
+                    </div>
+                  );
+                }
+              }, 1500);
             }
           })}
         </Dialog>
@@ -497,21 +523,23 @@ export default class Chatbar extends React.Component {
           <br />
         </Dialog>
         <Toolbar>
-          {groupSelected
-            ? <div />
-            : <ToolbarGroup firstChild={true}>
-                <List>
-                  <ListItem
-                    onTouchTap={this.handleOpen}
-                    leftAvatar={
-                      <Avatar size={40} color={darkBlack}>
-                        {ChatStore.groupavatar}
-                      </Avatar>
-                    }
-                    primaryText={ChatStore.groupname}
-                  />
-                </List>
-              </ToolbarGroup>}
+          {groupSelected ? (
+            <div />
+          ) : (
+            <ToolbarGroup firstChild={true}>
+              <List>
+                <ListItem
+                  onTouchTap={this.handleOpen}
+                  leftAvatar={
+                    <Avatar size={40} color={darkBlack}>
+                      {ChatStore.groupavatar}
+                    </Avatar>
+                  }
+                  primaryText={ChatStore.groupname}
+                />
+              </List>
+            </ToolbarGroup>
+          )}
 
           <ToolbarGroup lastChild={true} style={bottomPadding}>
             <ListItem rightIconButton={rightIconMenu} />

@@ -353,9 +353,11 @@ app.get("/api/userall", function(req, res) {
 });
 
 app.get("/api/getEvents", function(req, res) {
-  Events.find({}).sort({ date: "desc" }).exec(function(err, events) {
-    res.send(events);
-  });
+  Events.find({})
+    .sort({ date: "desc" })
+    .exec(function(err, events) {
+      res.send(events);
+    });
 
   // Events.find({}, function(err, events) {
   //   res.send(events);
@@ -406,9 +408,10 @@ app.get("/api/user/friendlist", function(req, res) {
   Friendships.find().or([
     { $and: [{ status: "friend" }, { other_id: myuserid }] },
     { $and: [{ status: "friend" }, { user_id: myuserid }] }
-  ]), function(err, friendship) {
-    res.send(JSON.stringify(friendship));
-  };
+  ]),
+    function(err, friendship) {
+      res.send(JSON.stringify(friendship));
+    };
 });
 
 app.get("/api/userbyuId/:uId", function(req, res) {
@@ -466,6 +469,7 @@ app.get("/api/rooms/:roomId", function(req, res) {
       //  console.log(room);
 
       res.send(room);
+      // socket.emit("sending listchat rooms", room);
     }
   });
 });
@@ -1745,6 +1749,22 @@ io.on("connection", function(socket) {
         // console.log(rooms);
         socket.emit("chat msgs", rooms);
         // res.send(rooms);
+      }
+    });
+  });
+
+  socket.on("send listchat", function(data) {
+    console.log("data listchat");
+    console.log(data);
+    rooms.find({ _id: data }, function(err, room) {
+      if (err) {
+        console.log("There is an error");
+      } else {
+        // console.log("returning room");
+        //  console.log(room);
+
+        // res.send(room);
+        socket.emit("recieving listchat rooms", room);
       }
     });
   });
