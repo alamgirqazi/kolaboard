@@ -256,6 +256,17 @@ export default class Chat extends React.Component {
   //   // this.refs.scrollbars.scrollToTop();
   // };
   sendMsg() {
+    setTimeout(function() {
+      socket.emit("recieving msgs", ChatStore.groupId);
+      socket.on("remaining msgs", function(data) {
+        ChatStore.msgs = data[0].conversation;
+      });
+      socket.on("Message for my own", function(data) {
+        console.log("Pushing into my own");
+        ChatStore.msgs = data[0].conversation;
+      });
+    }, 1000); //
+
     var roomId = ChatStore.groupId;
     socket.emit("add user", UserStore);
     // this.refs.scrollbars.scrollToTop();
@@ -304,7 +315,7 @@ export default class Chat extends React.Component {
       //   //   var n = d.getTime();
       //   picture: UserStore.obj.picture
       // });
-      console.log("Pushed");
+      // console.log("Pushed");
       ChatStore.totalmsgscount++;
       ChatStore.totalnotescount++;
       // console.log("ChatStore.groupname");
@@ -380,10 +391,11 @@ export default class Chat extends React.Component {
       top: "0px",
       position: "fixed"
     };
-    const HomeIcon = props =>
+    const HomeIcon = props => (
       <SvgIcon {...props}>
         <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-      </SvgIcon>;
+      </SvgIcon>
+    );
 
     return (
       <div className="" style={heightchat}>
@@ -495,55 +507,52 @@ export default class Chat extends React.Component {
                     }
                     return (
                       <div>
-                        {left
-                          ? <h6 style={leftGroup}>
-                              <br />
-                              {Users.from} has left the group.
-                              <br />
-                            </h6>
-                          : <div>
-                              <li className="other" key={Users._id}>
-                                <Avatar src={Users.picture} />
-                                <div className="msg" key={Users._id}>
-                                  <IconMenu
-                                    style={{ display: "inline" }}
-                                    iconButtonElement={
-                                      <IconButton
-                                        className="Morebutton"
-                                        style={morestyle}
-                                      >
-                                        <ActionMore />
-                                      </IconButton>
-                                    }
-                                  >
-                                    <MenuItem
-                                      primaryText="Details"
-                                      onTouchTap={this.handleDetails.bind(
-                                        this,
-                                        Users
-                                      )}
-                                    />
-                                  </IconMenu>
-                                  <p>
-                                    {Users.message}
-                                  </p>
-                                  <IconButton
-                                    onTouchTap={this.handleStar.bind(
+                        {left ? (
+                          <h6 style={leftGroup}>
+                            <br />
+                            {Users.from} has left the group.
+                            <br />
+                          </h6>
+                        ) : (
+                          <div>
+                            <li className="other" key={Users._id}>
+                              <Avatar src={Users.picture} />
+                              <div className="msg" key={Users._id}>
+                                <IconMenu
+                                  style={{ display: "inline" }}
+                                  iconButtonElement={
+                                    <IconButton
+                                      className="Morebutton"
+                                      style={morestyle}
+                                    >
+                                      <ActionMore />
+                                    </IconButton>
+                                  }
+                                >
+                                  <MenuItem
+                                    primaryText="Details"
+                                    onTouchTap={this.handleDetails.bind(
                                       this,
                                       Users
                                     )}
-                                    style={starstyle}
-                                  >
-                                    <HomeIcon color={Users.color} />
-                                  </IconButton>
+                                  />
+                                </IconMenu>
+                                <p>{Users.message}</p>
+                                <IconButton
+                                  onTouchTap={this.handleStar.bind(this, Users)}
+                                  style={starstyle}
+                                >
+                                  <HomeIcon color={Users.color} />
+                                </IconButton>
 
-                                  <div style={{ display: "inline" }}>
-                                    <time>{Users.time}</time>&emsp;
-                                    <sender>{Users.from}</sender>&emsp;{" "}
-                                  </div>
+                                <div style={{ display: "inline" }}>
+                                  <time>{Users.time}</time>&emsp;
+                                  <sender>{Users.from}</sender>&emsp;{" "}
                                 </div>
-                              </li>
-                            </div>}
+                              </div>
+                            </li>
+                          </div>
+                        )}
                       </div>
                     );
                   }
@@ -576,48 +585,42 @@ export default class Chat extends React.Component {
             <h5>Msg details</h5>
             <br />
             <div className="">
-              <h5>
-                Creator : {ChatStore.individualmsg.from}
-              </h5>
-              <h5>
-                Date : {ChatStore.individualmsg.date}
-              </h5>
-              <h5>
-                Time : {ChatStore.individualmsg.time}
-              </h5>
-              <h5>
-                msg: {ChatStore.individualmsg.message}
-              </h5>
+              <h5>Creator : {ChatStore.individualmsg.from}</h5>
+              <h5>Date : {ChatStore.individualmsg.date}</h5>
+              <h5>Time : {ChatStore.individualmsg.time}</h5>
+              <h5>msg: {ChatStore.individualmsg.message}</h5>
             </div>
             <br />
           </Dialog>
-          {groupSelected
-            ? <div />
-            : <div style={displayinline}>
-                <textarea
-                  ref="newText"
-                  maxLength="250"
-                  style={chatinputbox}
-                  placeholder="Please Enter Your message......."
-                  className="form-control"
-                />
-                <IconButton
-                  tooltip="Send"
-                  tooltipPosition="top-center"
-                  onClick={this.sendMsg}
+          {groupSelected ? (
+            <div />
+          ) : (
+            <div style={displayinline}>
+              <textarea
+                ref="newText"
+                maxLength="250"
+                style={chatinputbox}
+                placeholder="Please Enter Your message......."
+                className="form-control"
+              />
+              <IconButton
+                tooltip="Send"
+                tooltipPosition="top-center"
+                onClick={this.sendMsg}
+              >
+                <svg
+                  fill="#FFFFFF"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <svg
-                    fill="#FFFFFF"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-                    <path d="M0 0h24v24H0z" fill="none" />
-                  </svg>
-                </IconButton>
-              </div>}
+                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                  <path d="M0 0h24v24H0z" fill="none" />
+                </svg>
+              </IconButton>
+            </div>
+          )}
         </div>
       </div>
     );
