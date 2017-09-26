@@ -1341,17 +1341,17 @@ io.on("connection", function(socket) {
     // users.push(socket.username);
     users.push({ id: socket.id, username: data, pic: data.picture });
   });
-  socket.on("roomId", function(data) {
-    //console.log("THis is data coming from roomId " + data);
-    rooms.find({ _id: data }, function(err, rooms) {
-      if (err) {
-        console.log("There is an error");
-      } else {
-        socket.emit("msgs", { msg: rooms[0].conversation });
-        // res.send(rooms);
-      }
-    });
-  });
+  // socket.on("roomId", function(data) {
+  //   //console.log("THis is data coming from roomId " + data);
+  //   rooms.find({ _id: data }, function(err, rooms) {
+  //     if (err) {
+  //       console.log("There is an error");
+  //     } else {
+  //       socket.emit("msgs", { msg: rooms[0].conversation });
+  //       // res.send(rooms);
+  //     }
+  //   });
+  // });
   socket.on("unfriend user", function(data) {
     // console.log(data);
     // console.log(data.user_id);
@@ -1446,12 +1446,13 @@ io.on("connection", function(socket) {
       {
         $set: {
           "rooms.$.read_count": data.count,
-          "rooms.$.read_notes_count": data.notescount
+          "rooms.$.read_notes_count": data.count
+          // "rooms.$.read_notes_count": data.notescount
         }
       }
     )
       .then(docs => {
-        console.log("Success! count saved");
+        // console.log("Success! count saved");
         //console.log(docs);
         // socket.emit("dbnotes", { dbnotes: rooms[0].notes });
       })
@@ -1466,6 +1467,9 @@ io.on("connection", function(socket) {
       if (err) {
         console.log("There is an error");
       } else {
+        socket.emit("recieving listchat rooms", rooms);
+        socket.emit("msgs", { msg: rooms[0].conversation });
+
         socket.emit("dbnotes", { dbnotes: rooms[0].notes });
         // res.send(rooms);
       }
@@ -1753,21 +1757,21 @@ io.on("connection", function(socket) {
     });
   });
 
-  socket.on("send listchat", function(data) {
-    console.log("data listchat");
-    console.log(data);
-    rooms.find({ _id: data }, function(err, room) {
-      if (err) {
-        console.log("There is an error");
-      } else {
-        // console.log("returning room");
-        //  console.log(room);
+  // socket.on("send listchat", function(data) {
+  //   // console.log("data listchat");
+  //   // console.log(data);
+  //   rooms.find({ _id: data }, function(err, room) {
+  //     if (err) {
+  //       console.log("There is an error");
+  //     } else {
+  //       // console.log("returning room");
+  //       //  console.log(room);
 
-        // res.send(room);
-        socket.emit("recieving listchat rooms", room);
-      }
-    });
-  });
+  //       // res.send(room);
+  //       socket.emit("recieving listchat rooms", room);
+  //     }
+  //   });
+  // });
 
   socket.on("deleteFolder", function(data) {
     console.log(data);

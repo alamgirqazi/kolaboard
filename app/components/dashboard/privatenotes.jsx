@@ -133,11 +133,12 @@ const pinstyle = {
   display: "inline-block",
   transform: "rotate(330deg)"
 };
-const HomeIcon = () =>
+const HomeIcon = () => (
   <SvgIcon style={plusBtn}>
     <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" />
     <path d="M0 0h24v24H0z" fill="none" />
-  </SvgIcon>;
+  </SvgIcon>
+);
 @observer
 export default class PrivateNotes extends React.Component {
   constructor(props) {
@@ -365,18 +366,18 @@ export default class PrivateNotes extends React.Component {
     ChatStore.note = note;
     ChatStore.folderId = notes._id;
     ChatStore.folderName = notes.title;
-    console.log("THis is folder id " + ChatStore.folderId);
-    console.log("THis is folder title " + ChatStore.folderName);
+    // console.log("THis is folder id " + ChatStore.folderId);
+    // console.log("THis is folder title " + ChatStore.folderName);
     // socket.emit('getting private notes',notes);
     this.setState({ opennotes: true });
   };
   handleSave = () => {
-    console.log("inside handlesave");
-    console.log(UserStore.obj._id);
+    // console.log("inside handlesave");
+    // console.log(UserStore.obj._id);
     var data = {
       id: UserStore.obj._id,
       title: this.refs.txttitle.getValue(),
-      desc: this.refs.txtdesc.getValue()
+      desc: ""
     };
     console.log(";handlesave");
 
@@ -385,7 +386,7 @@ export default class PrivateNotes extends React.Component {
     this.setState({ open: false });
     socket.emit("gettingpnotes", UserStore.obj._id);
     socket.on("addingpnotes", function(data) {
-      console.log("Adding notes ddata " + JSON.stringify(data));
+      // console.log("Adding notes ddata " + JSON.stringify(data));
       UserStore.obj.privatenotes = data;
     });
   };
@@ -451,7 +452,8 @@ export default class PrivateNotes extends React.Component {
                     <Card className="displ" style={cardwidth}>
                       <CardTitle title="Add New Note" subtitle="" />
                       <center>
-                        {" "}<IconButton
+                        {" "}
+                        <IconButton
                           iconStyle={styles.largeIcon}
                           style={styles.large}
                           onTouchTap={this.handleTouchTap}
@@ -496,12 +498,10 @@ export default class PrivateNotes extends React.Component {
                             />
                           </IconMenu>
                           <CardTitle title={Users.title} />
-                          <CardText>
-                            {Users.desc}
-                          </CardText>
                           <CardActions>
                             <center>
-                              {" "}<FlatButton
+                              {" "}
+                              <FlatButton
                                 label="Open"
                                 onTouchTap={() => this.handleOpen(Users)}
                               />
@@ -522,14 +522,6 @@ export default class PrivateNotes extends React.Component {
                         maxLength="25"
                         floatingLabelText="Name"
                         hintText="Enter title here ..."
-                        floatingLabelFixed={true}
-                        fullWidth={true}
-                      />{" "}
-                      <TextField
-                        ref="txtdesc"
-                        maxLength="30"
-                        floatingLabelText="Description"
-                        hintText="Enter Description here ..."
                         floatingLabelFixed={true}
                         fullWidth={true}
                       />{" "}
@@ -563,9 +555,7 @@ export default class PrivateNotes extends React.Component {
                 <br />
                 <br />
                 <br />
-                <h3>
-                  {ChatStore.folderName}
-                </h3>
+                <h3>{ChatStore.folderName}</h3>
                 <div className="columns medium-12 large-12">
                   {ChatStore.mappingnotes.map(Users => {
                     return (
@@ -579,7 +569,8 @@ export default class PrivateNotes extends React.Component {
                           }}
                         >
                           <div className="" style={{ display: "inline" }}>
-                            {" "}<img
+                            {" "}
+                            <img
                               style={{
                                 display: "inline-block",
                                 margin: "0 30px"
@@ -625,23 +616,23 @@ export default class PrivateNotes extends React.Component {
                           </div>
                           <Scrollbars
                             autoHeightMax={20}
-                            renderTrackHorizontal={props =>
+                            renderTrackHorizontal={props => (
                               <div
                                 {...props}
                                 className="track-horizontal"
                                 style={{ display: "none" }}
-                              />}
-                            renderThumbHorizontal={props =>
+                              />
+                            )}
+                            renderThumbHorizontal={props => (
                               <div
                                 {...props}
                                 className="thumb-horizontal"
                                 style={{ display: "none" }}
-                              />}
+                              />
+                            )}
                           >
                             <p style={{ backgroundColor: "#dcf8c6" }}>
-                              <Linkifier>
-                                {Users.title}
-                              </Linkifier>
+                              <Linkifier>{Users.title}</Linkifier>
                             </p>
                             <time style={noteName}>{Users.time}</time>&emsp;
                           </Scrollbars>
@@ -681,3 +672,13 @@ export default class PrivateNotes extends React.Component {
     }
   }
 }
+
+// <TextField
+//   ref="txtdesc"
+//   maxLength="30"
+//   floatingLabelText="Description"
+//   hintText="Enter Description here ..."
+//   floatingLabelFixed={true}
+//   fullWidth={true}
+// />{" "}
+// <CardText>{Users.desc}</CardText>

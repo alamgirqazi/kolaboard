@@ -147,18 +147,23 @@ export default class ListChatContainer extends React.Component {
     ChatStore.totalnotescount = Users.total_notes_count;
     var roomId = ChatStore.groupId;
     socket.emit("Join room", ChatStore.groupname);
-    socket.emit("roomId", roomId);
+    // socket.emit("roomId", roomId);
     var location = "/api/rooms/" + roomId;
 
     socket.emit("note map", roomId);
-    socket.emit("send listchat", roomId);
+    // socket.emit("send listchat", roomId);
     socket.on("recieving listchat rooms", function(data) {
       ChatStore.participants = data[0].participants;
       ChatStore.remainparticipants = data[0].remainparticipants;
       var remain = ChatStore.remainparticipants;
       var mappedlength = FriendshipStore.mappedFriends.length;
-      console.log("remainss");
-      console.log(remain);
+      // console.log("remainss");
+      socket.emit("read sync", UserStore.obj.user_id);
+
+      socket.on("sync success", function(data) {
+        UserStore.obj.rooms = data[0].rooms;
+      });
+      // console.log(remain);
       remain.forEach(function(a) {
         for (var i = 0; i < mappedlength; i++) {
           if (a.user_id == FriendshipStore.mappedFriends[i].user_id) {
@@ -186,7 +191,7 @@ export default class ListChatContainer extends React.Component {
 
       socket.emit("readcountmsg", data);
 
-      var newarray = FriendshipStore.mappedFriends;
+      // var newarray = FriendshipStore.mappedFriends;
     });
 
     // $.ajax({

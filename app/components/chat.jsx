@@ -256,16 +256,16 @@ export default class Chat extends React.Component {
   //   // this.refs.scrollbars.scrollToTop();
   // };
   sendMsg() {
-    setTimeout(function() {
-      socket.emit("recieving msgs", ChatStore.groupId);
-      socket.on("remaining msgs", function(data) {
-        ChatStore.msgs = data[0].conversation;
-      });
-      socket.on("Message for my own", function(data) {
-        console.log("Pushing into my own");
-        ChatStore.msgs = data[0].conversation;
-      });
-    }, 1000); //
+    // setTimeout(function() {
+    //   socket.emit("recieving msgs", ChatStore.groupId);
+    //   socket.on("remaining msgs", function(data) {
+    //     ChatStore.msgs = data[0].conversation;
+    //   });
+    //   socket.on("Message for my own", function(data) {
+    //     console.log("Pushing into my own");
+    //     ChatStore.msgs = data[0].conversation;
+    //   });
+    // }, 3000); //
 
     var roomId = ChatStore.groupId;
     socket.emit("add user", UserStore);
