@@ -28,7 +28,6 @@ lock.on("authenticated", authResult => {
     }
     localStorage.setItem("accessToken", authResult.accessToken);
     localStorage.setItem("profile", JSON.stringify(profile));
-    // console.log(JSON.stringify(profile));
     userstore.obj = JSON.stringify(profile);
 
     user_id = profile["user_id"];
@@ -63,7 +62,6 @@ export function logout() {
   clearIdToken();
   clearLocalStorage();
   browserHistory.replace("/");
-  // myFunc;
   location.reload();
 }
 
@@ -71,11 +69,9 @@ export function redirectVerify(nextState, replace) {
   lock.on("authenticated", authResult => {
     lock.getUserInfo(authResult.accessToken, function(error, profile) {
       if (error) {
-        // Handle error
         return;
       }
       localStorage.setItem("profile", JSON.stringify(profile));
-
       emailverified = profile["email_verified"];
       localStorage.setItem("ev", emailverified);
 
@@ -121,7 +117,6 @@ function clearIdToken() {
 function clearLocalStorage() {
   localStorage.removeItem(userid);
   localStorage.removeItem(everified);
-  // localStorage.removeItem(profile);
 }
 
 export function isLoggedIn() {
