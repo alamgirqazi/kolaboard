@@ -1,17 +1,12 @@
 import React from "react";
 import Drawer from "material-ui/Drawer";
 import MenuItem from "material-ui/MenuItem";
-// import RaisedButton from "material-ui/RaisedButton";
-// import muiThemeable from "material-ui/styles/muiThemeable";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
 import IconButton from "material-ui/IconButton";
 import IconMenu from "material-ui/IconMenu";
 import Toolbar from "app/components/toolbar.jsx";
 import Boards from "app/components/Note.jsx";
-// import Main from "app/components/main.jsx"
-// import Store from "app/store/UIstore.js";
-// import { observer } from "mobx-react";
 import Chat from "app/components/chat.jsx";
 import Board from "app/components/board.jsx";
 import { greenA400, red500 } from "material-ui/styles/colors";
@@ -36,14 +31,8 @@ import Avatar from "material-ui/Avatar";
 
 const muiTheme = getMuiTheme({
   palette: {
-    //   textColor: greenA400,
     primary1Color: greenA400,
-    //  primary3Color:greenA400,
     accent1Color: red500
-    //   accent2Color: greenA400,
-    //   accent3Color: greenA400
-
-    //this is for changing the theme
   },
   toggle: {
     thumbOnColor: "yellow",
@@ -122,22 +111,10 @@ export default class Settings extends React.Component {
       url: "/api/user/emailnotif",
       data: data
     })
-      .done(function(data) {
-        alert("its all over");
-      })
-      .fail(function(jqXhr) {
-        // console.log("failed to register POST REQ");
-      });
+      .done(function(data) {})
+      .fail(function(jqXhr) {});
     console.log(this.state.snackbaropen);
     this.setState({ snackbaropen: true });
-
-    // this.setState({ open: false });
-    // if (UserStore.obj.desc == this.refs.txtDesc.getValue()) {
-    // } else {
-    //   UserStore.obj.desc = this.refs.txtDesc.getValue();
-    //   this.setState({
-    //     snackbaropen: true
-    //   });
   };
   render() {
     const actions = [
@@ -152,7 +129,7 @@ export default class Settings extends React.Component {
         onTouchTap={this.handleClose}
       />
     ];
-    // Store.timetable = true;
+
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>

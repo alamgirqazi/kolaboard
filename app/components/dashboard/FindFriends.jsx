@@ -18,9 +18,6 @@ import Badge from "material-ui/Badge";
 import NotificationsIcon from "material-ui/svg-icons/action/check-circle";
 import Dialog from "material-ui/Dialog";
 import Snackbar from "material-ui/Snackbar";
-
-// import Main from "app/components/main.jsx"
-// import Store from "app/store/UIstore.js";
 import { observer } from "mobx-react";
 import { greenA400, red500 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
@@ -31,7 +28,6 @@ import CommunicationChatBubble from "material-ui/svg-icons/communication/chat-bu
 import UserStore from "app/store/UserStore.js";
 import FriendshipsStore from "app/store/FriendshipsStore.js";
 
-// const KEYS_TO_FILTERS = ["user.name", "subject", "dest.name"];
 const KEYS_TO_FILTERS = ["email", "name", "nickname"];
 
 const style = {
@@ -43,14 +39,8 @@ const header = {
 
 const muiTheme = getMuiTheme({
   palette: {
-    //   textColor: greenA400,
     primary1Color: greenA400,
-    //  primary3Color:greenA400,
     accent1Color: red500
-    //   accent2Color: greenA400,
-    //   accent3Color: greenA400
-
-    //this is for changing the theme
   },
   toggle: {
     thumbOnColor: "yellow",
@@ -88,7 +78,6 @@ export default class FindFriends extends React.Component {
       url: "/api/userall"
     })
       .done(function(data) {
-        // console.log(data)
         users = data;
         var index = users.findIndex(function(o) {
           return o.user_id === userid;
@@ -99,7 +88,6 @@ export default class FindFriends extends React.Component {
         var secondarray = [];
         users.forEach(function(a) {
           for (var i = 0; i < FriendshipStore.myfriendslist.length; i++) {
-            //console.log(FriendshipStore.myfriendslist.length);
             if (
               a.user_id == FriendshipStore.myfriendslist[i].other_id ||
               a.user_id == FriendshipStore.myfriendslist[i].user_id
@@ -114,9 +102,7 @@ export default class FindFriends extends React.Component {
             }
           }
         });
-        // console.log("array");
-        // console.log(array);
-        // console.log(secondarray);
+
         FriendshipsStore.mappedFriends = secondarray;
         array.forEach(function(a) {
           for (var i = 0; i < users.length; i++) {
@@ -128,13 +114,9 @@ export default class FindFriends extends React.Component {
 
         UserStore.flisty = true;
       })
-      .fail(function(jqXhr) {
-        console.log("failed to register findfriends");
-      });
+      .fail(function(jqXhr) {});
   }
   _handleRemove(user) {
-    // alert(user.user_id);
-    // console.log(user);
     this.setState({ openDelete: true });
     var data = {
       other_id: user.user_id,
@@ -161,7 +143,6 @@ export default class FindFriends extends React.Component {
     socket.on("return remain users", function(data) {
       var users = UserStore.allUsers;
 
-      // console.log(data);
       FriendshipsStore.myfriendslist = data;
       var friendlistcount = Object.keys(data).length;
       FriendshipsStore.friendlistcount = friendlistcount;
@@ -173,7 +154,6 @@ export default class FindFriends extends React.Component {
       var array = [];
       users.forEach(function(a) {
         for (var i = 0; i < FriendshipStore.myfriendslist.length; i++) {
-          //console.log(FriendshipStore.myfriendslist.length);
           if (
             a.user_id == FriendshipStore.myfriendslist[i].other_id ||
             a.user_id == FriendshipStore.myfriendslist[i].user_id
@@ -187,7 +167,6 @@ export default class FindFriends extends React.Component {
         for (var i = 0; i < users.length; i++) {
           if (a == UserStore.allUsers[i].user_id) {
             UserStore.allUsers[i].nickname = "bla";
-            // console.log("in socket 6");
           }
         }
       });
@@ -199,9 +178,6 @@ export default class FindFriends extends React.Component {
     let realuserid = localStorage.getItem("userid");
     this.setState({ snackbarsendreq: true });
 
-    // console.log(user.name);
-    // console.log(user.picture);
-
     var data = {
       user_id: realuserid,
       status: "pending",
@@ -211,18 +187,14 @@ export default class FindFriends extends React.Component {
       user_id_name: UserStore.userrealname,
       other_id: user.user_id
     };
-    // Submit form via jQuery/AJAX
+
     $.ajax({
       type: "POST",
       url: "/api/user/friendrequest",
       data: data
     })
-      .done(function(data) {
-        console.log("POST req sent");
-      })
-      .fail(function(jqXhr) {
-        console.log("failed to register POST REQ");
-      });
+      .done(function(data) {})
+      .fail(function(jqXhr) {});
   }
 
   searchUpdated(term) {
@@ -277,18 +249,20 @@ export default class FindFriends extends React.Component {
                 />
                 <Scrollbars
                   style={{ height: 380 }}
-                  renderTrackHorizontal={props =>
+                  renderTrackHorizontal={props => (
                     <div
                       {...props}
                       className="track-horizontal"
                       style={{ display: "none" }}
-                    />}
-                  renderThumbHorizontal={props =>
+                    />
+                  )}
+                  renderThumbHorizontal={props => (
                     <div
                       {...props}
                       className="thumb-horizontal"
                       style={{ display: "none" }}
-                    />}
+                    />
+                  )}
                 >
                   {filteredEmails.map(user => {
                     if (user.nickname == "bla") {
@@ -310,8 +284,6 @@ export default class FindFriends extends React.Component {
                                   style={style}
                                 />
                               }
-                              // rightIconButton={<RaisedButton label="Send Request" primary={true} onClick={this.btnClick(user)} style={style} />
-                              // }
                             >
                               <div className="searchContent" key={user.user_id}>
                                 <div className="subject">
@@ -324,13 +296,9 @@ export default class FindFriends extends React.Component {
                                 </div>
 
                                 <br />
-                                <div className="from">
-                                  {}
-                                </div>
+                                <div className="from">{}</div>
                                 <br />
-                                <div className="subject">
-                                  {}
-                                </div>
+                                <div className="subject">{}</div>
                               </div>
                             </ListItem>
                           </div>
@@ -355,21 +323,13 @@ export default class FindFriends extends React.Component {
                                   style={style}
                                 />
                               }
-                              // rightIconButton={<RaisedButton label="Send Request" primary={true} onClick={this.btnClick(user)} style={style} />
-                              // }
                             >
                               <div className="searchContent" key={user.user_id}>
-                                <div className="subject">
-                                  {user.name}
-                                </div>
+                                <div className="subject">{user.name}</div>
                                 <br />
-                                <div className="from">
-                                  {}
-                                </div>
+                                <div className="from">{}</div>
                                 <br />
-                                <div className="subject">
-                                  {}
-                                </div>
+                                <div className="subject">{}</div>
                               </div>
                             </ListItem>
                           </div>

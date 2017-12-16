@@ -1,4 +1,4 @@
-## A Real-time chat, collaboration and productivity enhancement application for teams built using React.js, Node.js, MobX, MongoDB.  
+## A Real-time chat, collaboration and productivity enhancement application for teams built using React.js, Node.js, Socket.IO, MobX and MongoDB.  
 
 ### Major features include
 
@@ -23,8 +23,6 @@ Clone the repo
 
    $ node server
   
-   $ webpack -w (only for dev)
-
 
 Go to localhost:3000
 

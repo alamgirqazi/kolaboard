@@ -22,21 +22,13 @@ import { greenA400 } from "material-ui/styles/colors";
 
 import { browserHistory } from "react-router";
 
-// import Store from "app/store/UIstore.js";
 const tableDisplay = {
   display: "table"
 };
 import { Card, CardHeader, CardTitle, CardText } from "material-ui/Card";
 const muiTheme = getMuiTheme({
   palette: {
-    //   textColor: greenA400,
     primary1Color: greenA400
-    //  primary3Color:greenA400,
-    //   accent1Color: greenA400,
-    //   accent2Color: greenA400,
-    //   accent3Color: greenA400
-
-    //this is for changing the theme
   },
   toggle: {
     thumbOnColor: "yellow",
@@ -86,7 +78,8 @@ export default class NotFound extends React.Component {
                 <br />
                 <CardText>
                   <h2>
-                    {" "}Oops… looks like something went wrong! This page does<br />
+                    {" "}
+                    Oops… looks like something went wrong! This page does<br />
                     not exist or has been moved.
                   </h2>
                   <br />

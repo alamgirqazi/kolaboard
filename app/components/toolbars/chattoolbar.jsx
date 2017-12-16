@@ -48,13 +48,11 @@ const customContentWidthStyle = {
   width: "45%",
   maxWidth: "none"
 };
-// const style =
-// {
-// left: '35%',
-// };
+
 const styleSearch = {
   left: "20%"
 };
+
 const style = {
   margin: 12
 };
@@ -94,23 +92,19 @@ export default class Chatbar extends React.Component {
       type: "GET",
       url: "/api/userall"
     }).done(function(data) {
-      // console.log(data)
       users = data;
       var index = users.findIndex(function(o) {
         return o.user_id === userid;
       });
       users.splice(index, 1);
       UserStore.allUsers = users;
-      // var array = [];
       var secondarray = [];
       users.forEach(function(a) {
         for (var i = 0; i < FriendshipStore.myfriendslist.length; i++) {
-          //console.log(FriendshipStore.myfriendslist.length);
           if (
             a.user_id == FriendshipStore.myfriendslist[i].other_id ||
             a.user_id == FriendshipStore.myfriendslist[i].user_id
           ) {
-            // array[i] = a.user_id;
             secondarray[i] = {
               picture: a.picture,
               name: a.name,
@@ -120,9 +114,7 @@ export default class Chatbar extends React.Component {
           }
         }
       });
-      // console.log("array");
-      // console.log(array);
-      // console.log(secondarray);
+
       FriendshipStore.mappedFriends = secondarray;
     });
   }
@@ -140,7 +132,6 @@ export default class Chatbar extends React.Component {
     socket.emit("Show Favourites", data);
 
     socket.on("returned favs", function(data) {
-      // console.log(data.msg);
       ChatStore.favourites = data.msg;
     });
     this.setState({ openDialog: true });
@@ -166,13 +157,11 @@ export default class Chatbar extends React.Component {
   };
   _handleClick = Users => {
     this.setState({ openAddUser: true });
-    // console.log(Users);
     ChatStore.addUser = Users;
   };
 
   _handleRemoveClick = Users => {
     this.setState({ openRemoveUser: true });
-    // console.log(Users);
     ChatStore.removeUser = Users;
   };
   handleAddUserClose = () => {
@@ -211,7 +200,6 @@ export default class Chatbar extends React.Component {
 
     for (var i = 0; i < newarray.length; i++) {
       if (FriendshipStore.mappedFriends[i].user_id === data.user_id) {
-        // result = array[i];
         FriendshipStore.mappedFriends[i].present = true;
         break;
       }
@@ -237,7 +225,6 @@ export default class Chatbar extends React.Component {
       ChatStore.remainparticipants = data[0].remainparticipants;
       ChatStore.participants = data[0].participants;
     });
-    // socket.emit("returning message group", docs);
 
     socket.on("returning message group", function(data) {
       ChatStore.msgs = data[0].conversation;
@@ -251,13 +238,11 @@ export default class Chatbar extends React.Component {
 
     data = new FormData();
     data.append("file", $("#file")[0].files[0]);
-    console.log(data);
   };
 
   render() {
     var groupSelected;
     var admin;
-    // var admin_id = ChatStore.admin_id;
     if (ChatStore.groupname == " ") {
       groupSelected = true;
     } else false;
@@ -266,8 +251,6 @@ export default class Chatbar extends React.Component {
       admin = true;
     } else false;
 
-    // users = ChatStore.participants;
-    // favourites = ChatStore.favourites.msgs;
     const rightIconMenu = (
       <IconMenu iconButtonElement={iconButtonElement}>
         <MenuItem onTouchTap={this.handleOpen}>Group Info</MenuItem>

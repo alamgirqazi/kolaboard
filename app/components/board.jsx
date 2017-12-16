@@ -27,9 +27,6 @@ const panel = {
   boxShadow: "none",
   webkitBoxShadow: "none"
 };
-// let scrolling = {
-//   marginBottom: "15%"
-// };
 @observer
 export default class Board extends React.Component {
   constructor() {
@@ -39,14 +36,8 @@ export default class Board extends React.Component {
   handle() {
     if (Store.full == "fullScreen") {
       Store.full = "";
-      // scrolling = {
-      //   marginBottom: "0%"
-      // };
     } else {
       Store.full = "fullScreen";
-      // scrolling = {
-      //   marginBottom: "15%"
-      // };
     }
   }
 
@@ -61,21 +52,22 @@ export default class Board extends React.Component {
             autoHeightMin={0}
             autoHeightMax={300}
             thumbMinSize={30}
-            renderTrackHorizontal={props =>
+            renderTrackHorizontal={props => (
               <div
                 {...props}
                 className="track-horizontal"
                 style={{ display: "none" }}
-              />}
-            renderThumbHorizontal={props =>
+              />
+            )}
+            renderThumbHorizontal={props => (
               <div
                 {...props}
                 className="thumb-horizontal"
                 style={{ display: "none" }}
-              />}
+              />
+            )}
             renderView={props => <div {...props} className="view BoardClass" />}
           >
-            {/*<h4 style={align}>Noteboard</h4>*/}
             <br />
             <div className="panel" className="">
               <Boards count={10} />
@@ -95,8 +87,6 @@ export default class Board extends React.Component {
               <br />
             </div>
           </Scrollbars>
-
-          {/*</Infinite>*/}
         </div>
       );
     else
@@ -109,21 +99,22 @@ export default class Board extends React.Component {
             autoHeightMin={0}
             autoHeightMax={300}
             thumbMinSize={30}
-            renderTrackHorizontal={props =>
+            renderTrackHorizontal={props => (
               <div
                 {...props}
                 className="track-horizontal"
                 style={{ display: "none" }}
-              />}
-            renderThumbHorizontal={props =>
+              />
+            )}
+            renderThumbHorizontal={props => (
               <div
                 {...props}
                 className="thumb-horizontal"
                 style={{ display: "none" }}
-              />}
+              />
+            )}
             renderView={props => <div {...props} className="view FullHeight" />}
           >
-            {/*<h4 style={align}>Noteboard</h4>*/}
             <br />
             <div className="panel" className="">
               <Boards count={10} />
@@ -143,8 +134,6 @@ export default class Board extends React.Component {
               <br />
             </div>
           </Scrollbars>
-
-          {/*</Infinite>*/}
         </div>
       );
   }

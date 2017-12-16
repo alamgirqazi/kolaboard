@@ -14,13 +14,8 @@ import Avatar from "material-ui/Avatar";
 import FriendshipStore from "app/store/FriendshipsStore.js";
 import Dialog from "material-ui/Dialog";
 import Snackbar from "material-ui/Snackbar";
-
 import ListItem from "material-ui/List/ListItem";
-// import Main from "app/components/main.jsx"
-// import Store from "app/store/UIstore.js";
-// import { observer } from "mobx-react";
 import Badge from "material-ui/Badge";
-
 import { greenA400, red500 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import Store from "app/store/UIstore.js";
@@ -41,14 +36,8 @@ const KEYS_TO_FILTERS = [
 
 const muiTheme = getMuiTheme({
   palette: {
-    //   textColor: greenA400,
     primary1Color: greenA400,
-    //  primary3Color:greenA400,
     accent1Color: red500
-    //   accent2Color: greenA400,
-    //   accent3Color: greenA400
-
-    //this is for changing the theme
   },
   toggle: {
     thumbOnColor: "yellow",
@@ -90,24 +79,16 @@ export default class FriendList extends React.Component {
       .done(function(data) {
         friendlist = data;
         FriendshipsStore.mylist = data;
-
-        // console.log("meri friendlist");
-        // console.log(data);
         friendlistcount = Object.keys(friendlist).length;
         FriendshipsStore.friendlistcount = friendlistcount;
-        // console.log(friendlistcount);
       })
-      .fail(function(jqXhr) {
-        console.log("friendlist request fail");
-      });
+      .fail(function(jqXhr) {});
   }
   searchUpdated(term) {
     this.setState({ searchTerm: term });
   }
 
   _handleClick = Friendship => {
-    // console.log(Friendship);
-
     var data = {
       user_id: UserStore.obj.user_id,
       other_id: Friendship.other_id
@@ -127,15 +108,10 @@ export default class FriendList extends React.Component {
       .done(function(data) {
         friendlist = data;
         FriendshipsStore.mylist = data;
-        // console.log("meri friendlist");
-        // console.log(data);
         friendlistcount = Object.keys(friendlist).length;
         FriendshipsStore.friendlistcount = friendlistcount;
-        // console.log(friendlistcount);
       })
-      .fail(function(jqXhr) {
-        console.log("friendlist request fail");
-      });
+      .fail(function(jqXhr) {});
     this.setState({ snackbarsendreq: true });
 
     this.setState({ openDelete: false });
@@ -148,14 +124,6 @@ export default class FriendList extends React.Component {
   };
 
   render() {
-    // setTimeout(
-    //   function() {
-    //     this.setState({
-    //       yay: false
-    //     });
-    //   }.bind(this),
-    //   7000
-    // );
     const actionsDelete = [
       <RaisedButton
         label="Cancel"
@@ -213,23 +181,24 @@ export default class FriendList extends React.Component {
 
               <Scrollbars
                 style={{ height: 380 }}
-                renderTrackHorizontal={props =>
+                renderTrackHorizontal={props => (
                   <div
                     {...props}
                     className="track-horizontal"
                     style={{ display: "none" }}
-                  />}
-                renderThumbHorizontal={props =>
+                  />
+                )}
+                renderThumbHorizontal={props => (
                   <div
                     {...props}
                     className="thumb-horizontal"
                     style={{ display: "none" }}
-                  />}
+                  />
+                )}
               >
                 {filteredEmails.map(Friendlist => {
                   var id;
                   if (Friendlist.user_id == UserStore.obj.user_id) {
-                    // console.log(Friendlist.user_id);
                     id = Friendlist.other_id;
 
                     return (
@@ -262,13 +231,9 @@ export default class FriendList extends React.Component {
                                 {Friendlist.other_id_name}
                               </div>
                               <br />
-                              <div className="from">
-                                {}
-                              </div>
+                              <div className="from">{}</div>
                               <br />
-                              <div className="subject">
-                                {}
-                              </div>
+                              <div className="subject">{}</div>
                             </div>
                           </ListItem>
                         </List>
@@ -307,13 +272,9 @@ export default class FriendList extends React.Component {
                                 {Friendlist.user_id_name}
                               </div>
                               <br />
-                              <div className="from">
-                                {}
-                              </div>
+                              <div className="from">{}</div>
                               <br />
-                              <div className="subject">
-                                {}
-                              </div>
+                              <div className="subject">{}</div>
                             </div>
                           </ListItem>
                         </List>

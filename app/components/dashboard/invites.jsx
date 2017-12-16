@@ -9,9 +9,6 @@ import IconButton from "material-ui/IconButton";
 import IconMenu from "material-ui/IconMenu";
 import Toolbar from "app/components/toolbar.jsx";
 import Boards from "app/components/Note.jsx";
-// import Main from "app/components/main.jsx"
-// import Store from "app/store/UIstore.js";
-// import { observer } from "mobx-react";
 import { greenA400 } from "material-ui/styles/colors";
 import { lightBlue500, blue500 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
@@ -29,16 +26,10 @@ import { observer } from "mobx-react";
 import UIStore from "app/store/UIstore.js";
 const muiTheme = getMuiTheme({
   palette: {
-    //   textColor: greenA400,
     primary1Color: greenA400,
     primary2Color: lightBlue500,
     secondary1Color: lightBlue500,
-    //  primary3Color:greenA400,
     accent1Color: blue500
-    //   accent2Color: greenA400,
-    //   accent3Color: greenA400
-
-    //this is for changing the theme
   },
   toggle: {
     thumbOnColor: "yellow",
@@ -63,18 +54,13 @@ export default class Invites extends React.Component {
 
   componentDidMount() {
     var data = { id: UserStore.obj.user_id };
-    // console.log("userstore.obj.user_id" + data);
     $.ajax({
       type: "POST",
       url: "/api/user/myuserid",
       data: data
     })
-      .done(function(data) {
-        // console.log("done my user id" + data);
-      })
-      .fail(function(jqXhr) {
-        console.log("failed to register");
-      });
+      .done(function(data) {})
+      .fail(function(jqXhr) {});
   }
   render() {
     return (
@@ -94,7 +80,8 @@ export default class Invites extends React.Component {
             <Tab
               icon={
                 <FontIcon className="material-icons">
-                  {" "}Accept / Reject Requests<Badge
+                  {" "}
+                  Accept / Reject Requests<Badge
                     badgeContent={FriendshipsStore.acceptrequestscount}
                     secondary={true}
                   />
@@ -107,7 +94,8 @@ export default class Invites extends React.Component {
             <Tab
               icon={
                 <FontIcon className="material-icons">
-                  {" "}Friend List<Badge
+                  {" "}
+                  Friend List<Badge
                     badgeContent={FriendshipsStore.friendlistcount}
                     secondary={true}
                   />

@@ -1,8 +1,6 @@
 import React from "react";
 import Drawer from "material-ui/Drawer";
 import MenuItem from "material-ui/MenuItem";
-// import RaisedButton from "material-ui/RaisedButton";
-// import muiThemeable from "material-ui/styles/muiThemeable";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
 import IconButton from "material-ui/IconButton";
@@ -15,9 +13,7 @@ import Dialog from "material-ui/Dialog";
 import TextField from "material-ui/TextField";
 import Snackbar from "material-ui/Snackbar";
 import Toggle from "material-ui/Toggle";
-// import Main from "app/components/main.jsx"
-// import Store from "app/store/UIstore.js";
-// import { observer } from "mobx-react";
+
 import {
   Card,
   CardActions,
@@ -39,14 +35,8 @@ import RaisedButton from "material-ui/RaisedButton";
 
 const muiTheme = getMuiTheme({
   palette: {
-    //   textColor: greenA400,
     primary1Color: greenA400,
-    //  primary3Color:greenA400,
     accent1Color: red500
-    //   accent2Color: greenA400,
-    //   accent3Color: greenA400
-
-    //this is for changing the theme
   },
   toggle: {
     thumbOnColor: "yellow",
@@ -123,13 +113,8 @@ export default class Profile extends React.Component {
       url: "/api/user/emailnotif",
       data: data
     })
-      .done(function(data) {
-        alert("its all over");
-      })
-      .fail(function(jqXhr) {
-        // console.log("failed to register POST REQ");
-      });
-    //  console.log(this.state.snackbardeleteopen);
+      .done(function(data) {})
+      .fail(function(jqXhr) {});
     this.setState({ snackbardeleteopen: true });
   };
 
@@ -147,12 +132,8 @@ export default class Profile extends React.Component {
       url: "/api/user/changedesc",
       data: data
     })
-      .done(function(data) {
-        alert("its all over");
-      })
-      .fail(function(jqXhr) {
-        // console.log("failed to register POST REQ");
-      });
+      .done(function(data) {})
+      .fail(function(jqXhr) {});
     this.setState({ open: false });
     if (UserStore.obj.desc == this.refs.txtDesc.getValue()) {
     } else {
@@ -214,7 +195,6 @@ export default class Profile extends React.Component {
       />
     ];
 
-    // Store.timetable = true;
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
@@ -231,9 +211,7 @@ export default class Profile extends React.Component {
               <Avatar size={100} src={UserStore.obj.picture} />
               <br />
               <br />
-              <h3 style={greyColor}>
-                {UserStore.obj.name}
-              </h3>
+              <h3 style={greyColor}>{UserStore.obj.name}</h3>
               <br />
               <Snackbar
                 open={this.state.snackbardeleteopen}

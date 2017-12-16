@@ -1,17 +1,12 @@
 import React from "react";
 import Drawer from "material-ui/Drawer";
 import MenuItem from "material-ui/MenuItem";
-// import RaisedButton from "material-ui/RaisedButton";
-// import muiThemeable from "material-ui/styles/muiThemeable";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
 import IconButton from "material-ui/IconButton";
 import IconMenu from "material-ui/IconMenu";
 import Toolbar from "app/components/toolbar.jsx";
 import Boards from "app/components/Note.jsx";
-// import Main from "app/components/main.jsx"
-// import Store from "app/store/UIstore.js";
-// import { observer } from "mobx-react";
 import ContentMore from "material-ui/svg-icons/navigation/expand-more";
 import { Scrollbars } from "react-custom-scrollbars";
 import Linkifier from "react-linkifier";
@@ -42,7 +37,6 @@ import TextField from "material-ui/TextField";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
 
-// var socket;
 var note;
 const noteName = {
   fontSize: "0.7rem",
@@ -53,14 +47,7 @@ const noteName = {
 };
 const muiTheme = getMuiTheme({
   palette: {
-    //   textColor: greenA400,
     primary1Color: greenA400
-    //  primary3Color:greenA400,
-    //   accent1Color: greenA400,
-    //   accent2Color: greenA400,
-    //   accent3Color: greenA400
-
-    //this is for changing the theme
   },
   toggle: {
     thumbOnColor: "yellow",
@@ -122,7 +109,6 @@ const inlinedisplay = {
   display: "inline"
 };
 const iconStyles = {
-  // marginRight: 24,
   marginLeft: "auto",
   marginRight: "auto"
 };
@@ -152,7 +138,6 @@ export default class PrivateNotes extends React.Component {
       openRename: false,
       editingNotes: false
     };
-    // socket = io.connect();
   }
   componentWillMount() {
     UserStore.obj.privatenotes = [];
@@ -185,7 +170,6 @@ export default class PrivateNotes extends React.Component {
       date: date,
       time: time
     };
-    // console.log("THis is Chatstore.note ", ChatStore.folderId);
     socket.emit("addingprivatenotes", {
       data: data,
       id: UserStore.obj._id,
@@ -196,26 +180,17 @@ export default class PrivateNotes extends React.Component {
       id: UserStore.obj._id,
       folder: ChatStore.folderId
     };
-    // arr.push(data);
     socket.on("refreshprinotes", function(data) {
       for (var i = 0; i < data[0].privatenotes.length; i++) {
         if (data[0].privatenotes[i]._id == ChatStore.folderId) {
           ChatStore.mappingnotes = data[0].privatenotes[i].notes;
-          console.log("found match");
         }
       }
-      // console.log("THis is store sssssssssssssss", UserStore.obj.privatenotes);
-      // console.log("THis is db sssssssssssssss", data[0].privatenotes);
-      // UserStore.obj.privatenotes = data[0].privatenotes;
-      // console.log("docs[0].privatenotes");
-      // console.log(data[0].privatenotes);
     });
   }
 
   handleTouchTap = () => {
     this.setState({ open: true });
-    // this.setState({ open: true, snackbaropen: false });
-    console.log("New note is opening");
   };
   handleClose = () => {
     this.setState({
@@ -225,7 +200,6 @@ export default class PrivateNotes extends React.Component {
     });
   };
   delete = Users => {
-    console.log("Delete is called ");
     socket.emit("deleteFolder", {
       note: ChatStore.notestitleprivate,
 
@@ -236,7 +210,6 @@ export default class PrivateNotes extends React.Component {
     });
 
     socket.on("remainingpnotes", function(data) {
-      console.log("THis is data.privatenotes ", data[0].privatenotes);
       UserStore.obj.privatenotes = data[0].privatenotes;
     });
   };
@@ -248,10 +221,7 @@ export default class PrivateNotes extends React.Component {
   editNote = Users => {
     ChatStore.noteName = Users.title;
     ChatStore.noteId = Users._id;
-    console.log("This is users " + ChatStore.noteName);
     this.setState({ editingNotes: true });
-    console.log("Rename is called ");
-    // socket.emit('deleteFolder',{ data: data, id: UserStore.obj._id,folder:ChatStore.folderId });
   };
   detailNote = Users => {
     console.log("Rename is called ");
@@ -262,10 +232,8 @@ export default class PrivateNotes extends React.Component {
     });
   };
   deletenote = Users => {
-    // ChatStore.pull(Users);
     ChatStore.noteId = Users._id;
 
-    console.log("Rename is called ");
     socket.emit("deletepnote", {
       data: Users._id,
       id: UserStore.obj._id,
@@ -274,20 +242,9 @@ export default class PrivateNotes extends React.Component {
     });
     socket.on("editedDnotes", function(data) {
       UserStore.obj.privatenotes = data[0].privatenotes;
-      console.log("socket delete");
       for (var i = 0; i < data[0].privatenotes.length; i++) {
         if (data[0].privatenotes[i]._id == ChatStore.folderId) {
-          // console.log(i);
-          // console.log(data[0].privatenotes[i].notes.length);
           ChatStore.mappingnotes = data[0].privatenotes[i].notes;
-          console.log("doneee");
-          // for (var j = 0; j < data[0].privatenotes[i].notes.length; j++) {
-          //   // console.log(data[0].privatenotes[i].notes[j]._id);
-          //   if (ChatStore.mappingnotes[j]._id == ChatStore.noteId) {
-          //     // ChatStore.mappingnotes.splice(j, 1);
-          //     // ChatStore.mappingnotes[j].title = ChatStore.notestitleprivate;
-          //   }
-          // }
         }
       }
     });
@@ -295,38 +252,24 @@ export default class PrivateNotes extends React.Component {
       UserStore.obj.privatenotes = data[0].privatenotes;
       for (var i = 0; i < data[0].privatenotes.length; i++) {
         if (data[0].privatenotes[i]._id == ChatStore.folderId) {
-          // console.log(i);
-          // console.log(data[0].privatenotes[i].notes.length);
           ChatStore.mapping = data[0].privatenotes[i].notes;
           for (var j = 0; j < data[0].privatenotes[i].notes.length; j++) {
-            // console.log(data[0].privatenotes[i].notes[j]._id);
             if (data[0].privatenotes[i].notes[j]._id == ChatStore.noteId) {
               ChatStore.mappingnotes[j].title = ChatStore.notestitleprivate;
-
-              // console.log("j", j);
             }
           }
-          // console.log(ChatStore.mappingnotes);
         }
       }
-      // console.log("eventcalled");
     });
   };
   rename = Users => {
     ChatStore.editedNote = Users;
-    console.log("Rename is called ");
     this.setState({ openRename: true, snackbaropen: false });
-    // socket.emit('deleteFolder',{note:Users,id:UserStore.obj._id});
   };
   saveRename = () => {
-    console.log("save Rename is called ");
     this.setState({ openRename: false });
-    // socket.emit('deleteFolder',{note:Users,id:UserStore.obj._id});
   };
   handleEditing = () => {
-    // console.log("save Rename is called ");
-    // console.log("This is noteId " + ChatStore.noteId);
-    // console.log("This is folderId " + ChatStore.folderId);
     this.setState({ editingNotes: false });
 
     ChatStore.notestitleprivate = this.refs.txttitleEdit.getValue();
@@ -337,27 +280,17 @@ export default class PrivateNotes extends React.Component {
       id: UserStore.obj._id,
       folderId: ChatStore.folderId
     });
-    // this.props.children.text = this.refs.txttitleEdit.getValue();
-    console.log("editing");
     socket.on("editedPnotes", function(data) {
       UserStore.obj.privatenotes = data[0].privatenotes;
       for (var i = 0; i < data[0].privatenotes.length; i++) {
         if (data[0].privatenotes[i]._id == ChatStore.folderId) {
-          // console.log(i);
-          // console.log(data[0].privatenotes[i].notes.length);
-
           for (var j = 0; j < data[0].privatenotes[i].notes.length; j++) {
-            // console.log(data[0].privatenotes[i].notes[j]._id);
             if (data[0].privatenotes[i].notes[j]._id == ChatStore.noteId) {
               ChatStore.mappingnotes[j].title = ChatStore.notestitleprivate;
-
-              // console.log("j", j);
             }
           }
-          // console.log(ChatStore.mappingnotes);
         }
       }
-      // console.log("eventcalled");
     });
   };
   handleOpen = notes => {
@@ -366,27 +299,19 @@ export default class PrivateNotes extends React.Component {
     ChatStore.note = note;
     ChatStore.folderId = notes._id;
     ChatStore.folderName = notes.title;
-    // console.log("THis is folder id " + ChatStore.folderId);
-    // console.log("THis is folder title " + ChatStore.folderName);
-    // socket.emit('getting private notes',notes);
     this.setState({ opennotes: true });
   };
   handleSave = () => {
-    // console.log("inside handlesave");
-    // console.log(UserStore.obj._id);
     var data = {
       id: UserStore.obj._id,
       title: this.refs.txttitle.getValue(),
       desc: ""
     };
-    console.log(";handlesave");
 
-    console.log("THis is data " + data);
     socket.emit("createpnotes", data);
     this.setState({ open: false });
     socket.emit("gettingpnotes", UserStore.obj._id);
     socket.on("addingpnotes", function(data) {
-      // console.log("Adding notes ddata " + JSON.stringify(data));
       UserStore.obj.privatenotes = data;
     });
   };
@@ -417,23 +342,9 @@ export default class PrivateNotes extends React.Component {
         onTouchTap={this.handleEditing}
       />
     ];
-    // const actionsRename = [
-    //   <RaisedButton
-    //     label="Cancel"
-    //     style={spacing}
-    //     keyboardFocused={false}
-    //     onTouchTap={this.handleClose}
-    //   />,
-    //   <RaisedButton
-    //     label="Save"
-    //     keyboardFocused={false}
-    //     onTouchTap={this.saveRename}
-    //   />
-    // ];
-    // Store.timetable = true;
+
     if (!this.state.opennotes) {
       var pnotes = UserStore.obj.privatenotes;
-      // console.log("Ths " + pnotes);
       return (
         <MuiThemeProvider muiTheme={muiTheme}>
           <Scrollbars style={{ width: "100%", height: "100%" }}>
@@ -672,13 +583,3 @@ export default class PrivateNotes extends React.Component {
     }
   }
 }
-
-// <TextField
-//   ref="txtdesc"
-//   maxLength="30"
-//   floatingLabelText="Description"
-//   hintText="Enter Description here ..."
-//   floatingLabelFixed={true}
-//   fullWidth={true}
-// />{" "}
-// <CardText>{Users.desc}</CardText>

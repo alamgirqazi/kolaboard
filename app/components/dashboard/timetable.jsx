@@ -1,20 +1,14 @@
 import React from "react";
 import Drawer from "material-ui/Drawer";
 import MenuItem from "material-ui/MenuItem";
-// import RaisedButton from "material-ui/RaisedButton";
-// import muiThemeable from "material-ui/styles/muiThemeable";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
 import IconButton from "material-ui/IconButton";
 import IconMenu from "material-ui/IconMenu";
 import Toolbar from "app/components/toolbar.jsx";
 import Boards from "app/components/Note.jsx";
-// import Main from "app/components/main.jsx"
-// import Store from "app/store/UIstore.js";
-// import { observer } from "mobx-react";
 import Dialog from "material-ui/Dialog";
 import RaisedButton from "material-ui/RaisedButton";
-
 import Chat from "app/components/chat.jsx";
 import Board from "app/components/board.jsx";
 import { greenA400 } from "material-ui/styles/colors";
@@ -38,14 +32,7 @@ const spacing = {
 };
 const muiTheme = getMuiTheme({
   palette: {
-    //   textColor: greenA400,
     primary1Color: greenA400
-    //  primary3Color:greenA400,
-    //   accent1Color: greenA400,
-    //   accent2Color: greenA400,
-    //   accent3Color: greenA400
-
-    //this is for changing the theme
   },
   toggle: {
     thumbOnColor: "yellow",
@@ -67,14 +54,13 @@ const topdiv = {
 const width = {
   width: "700px"
 };
-// let socket;
+
 var mydata = [];
 @observer
 export default class TimeTable extends React.Component {
   constructor(props) {
     super(props);
-    // socket = io.connect();
-    // UserStore.obj.timetable[0].monday = [{"":""}];
+
     this.state = {
       open: false,
       fixedHeader: true,
@@ -90,13 +76,7 @@ export default class TimeTable extends React.Component {
     };
   }
   componentDidMount() {
-    //    socket.emit("timetable", UserStore.obj.user_id);
     Store.timetable = true;
-    // socket.on("timetable send", function(data) {
-    //   console.log(data);
-    //   console.log("data");
-    // mydata = data;
-    //    });
   }
   handleClose = () => {
     this.setState({
@@ -114,51 +94,15 @@ export default class TimeTable extends React.Component {
       value: this.refs.txtname.getValue(),
       currentFunction: UserStore.currentFunction
     };
-    // console.log("data");
     UserStore.currentValue = this.refs.txtname.getValue();
     socket.emit("HandleOpen", data);
 
     socket.on("timetable", function(data) {
-      console.log("data");
-      console.log(data);
       UserStore.obj.timetable = data[0].timetable;
     });
   };
-  // handleOpenM = row => {
-  //   console.log(row);
-  //   alert(row.M);
 
-  //   UserStore.currentValue = row.M;
-  //   UserStore.currentId = row.id;
-  //   UserStore.currentFunction = "M";
-
-  //   var data = {
-  //     user_id: UserStore.obj.user_id,
-  //     row: row
-  //   };
-  //   console.log("data");
-  //   console.log(data);
-  //   socket.emit("HandleOpenM", data);
-  // };
-  // handleOpenM = row => {
-  //   console.log(row);
-  //   alert(row.M);
-
-  //   UserStore.currentValue = row.M;
-  //   UserStore.currentId = row.id;
-  //   UserStore.currentFunction = "M";
-
-  //   var data = {
-  //     user_id: UserStore.obj.user_id,
-  //     row: row
-  //   };
-  //   console.log("data");
-  //   console.log(data);
-  //   socket.emit("HandleOpenM", data);
-  // };
   handleOpenM = row => {
-    console.log(row);
-
     UserStore.currentValue = row.M;
     UserStore.currentId = row.id;
     UserStore.currentFunction = "M";
@@ -169,12 +113,8 @@ export default class TimeTable extends React.Component {
       user_id: UserStore.obj.user_id,
       row: row
     };
-    console.log("data");
-    console.log(data);
-    // socket.emit("HandleOpenM", data);
   };
   handleOpenF = row => {
-    console.log(row);
     this.setState({
       open: true
     });
@@ -186,12 +126,9 @@ export default class TimeTable extends React.Component {
       user_id: UserStore.obj.user_id,
       row: row
     };
-    console.log("data");
-    console.log(data);
-    //    socket.emit("HandleOpenM", data);
   };
+
   handleOpenT = row => {
-    console.log(row);
     this.setState({
       open: true
     });
@@ -203,12 +140,9 @@ export default class TimeTable extends React.Component {
       user_id: UserStore.obj.user_id,
       row: row
     };
-    console.log("data");
-    console.log(data);
-    //socket.emit("HandleOpenM", data);
   };
+
   handleOpenW = row => {
-    console.log(row);
     this.setState({
       open: true
     });
@@ -220,12 +154,9 @@ export default class TimeTable extends React.Component {
       user_id: UserStore.obj.user_id,
       row: row
     };
-    console.log("data");
-    console.log(data);
-    //  socket.emit("HandleOpenM", data);
   };
+
   handleOpenTh = row => {
-    console.log(row);
     this.setState({
       open: true
     });
@@ -237,15 +168,14 @@ export default class TimeTable extends React.Component {
       user_id: UserStore.obj.user_id,
       row: row
     };
-    console.log("data");
-    console.log(data);
+
     socket.emit("HandleOpenM", data);
   };
   handleOpenS = row => {
-    console.log(row);
     this.setState({
       open: true
     });
+
     UserStore.currentValue = row.S;
     UserStore.currentId = row.id;
     UserStore.currentFunction = "S";
@@ -254,16 +184,13 @@ export default class TimeTable extends React.Component {
       user_id: UserStore.obj.user_id,
       row: row
     };
-    console.log("data");
-    console.log(data);
-    ///  socket.emit("HandleOpenM", data);
   };
-  handleOpenSu = row => {
-    console.log(row);
 
+  handleOpenSu = row => {
     this.setState({
       open: true
     });
+
     UserStore.currentValue = row.Su;
     UserStore.currentId = row.id;
     UserStore.currentFunction = "Su";
@@ -272,31 +199,7 @@ export default class TimeTable extends React.Component {
       user_id: UserStore.obj.user_id,
       row: row
     };
-    console.log("data");
-    console.log(data);
-    //  socket.emit("HandleOpenM", data);
   };
-  // handleOpen = row => {
-  //   // socket.emit("handleOpenTime", row);
-  //   console.log(row);
-  //   var data = {
-  //     user_id: UserStore.obj.user_id,
-  //     row: row
-  //   };
-  //   console.log("data");
-  //   console.log(data);
-  //   socket.emit("HandleOpenM", data);
-  // };
-  // handleOpenTime = row => {
-  //   // socket.emit("handleOpenTime", row);
-  //   var data = {
-  //     user_id: UserStore.obj.user_id,
-  //     row: row
-  //   };
-  //   console.log("data");
-  //   console.log(data);
-  //   socket.emit("HandleOpenM", data);
-  // };
 
   render() {
     const actions = [
@@ -367,7 +270,7 @@ export default class TimeTable extends React.Component {
               showRowHover={this.state.showRowHover}
               stripedRows={this.state.stripedRows}
             >
-              {UserStore.obj.timetable.day.map((row, index) =>
+              {UserStore.obj.timetable.day.map((row, index) => (
                 <TableRow key={index}>
                   <TableRowColumn className="eachRow">
                     {row.time}{" "}
@@ -520,7 +423,7 @@ export default class TimeTable extends React.Component {
                     </IconButton>
                   </TableRowColumn>
                 </TableRow>
-              )}
+              ))}
             </TableBody>
           </Table>
         </div>

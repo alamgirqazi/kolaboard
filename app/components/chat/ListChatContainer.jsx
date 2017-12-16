@@ -5,7 +5,6 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
 import Snackbar from "material-ui/Snackbar";
 import FriendshipStore from "app/store/FriendshipsStore.js";
-
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import MobileTearSheet from "app/api/MobileTearSheet.js";
@@ -43,14 +42,8 @@ import ChatStore from "app/store/ChatStore.js";
 import Dialog from "material-ui/Dialog";
 const muiTheme = getMuiTheme({
   palette: {
-    //   textColor: greenA400,
     primary1Color: greenA400,
-    //  primary3Color:greenA400,
     accent1Color: red500
-    //   accent2Color: greenA400,
-    //   accent3Color: greenA400
-
-    //this is for changing the theme
   },
   toggle: {
     thumbOnColor: "yellow",
@@ -80,7 +73,6 @@ function wrapState(ComposedComponent) {
       this.setState({
         selectedIndex: index
       });
-      // console.log("list clickedeed");
     };
 
     render() {
@@ -106,26 +98,20 @@ const style = {
 };
 var listmap;
 let users = [];
-// let otherusers = [];
 let realusers = [];
 
-// var socket;
 @observer
 export default class ListChatContainer extends React.Component {
   constructor(props) {
     super(props);
     this._handleClick = this._handleClick.bind(this);
-    // socket = io.connect();
     this.state = {
       data: [],
       openDelete: false
     };
-    // UserStore.obj.rooms = [];
   }
 
   _handleLeave(Users) {
-    //alert(Users._id);
-    // console.log(Users);
     this.setState({
       openDelete: true
     });
@@ -138,50 +124,43 @@ export default class ListChatContainer extends React.Component {
   }
   _handleClick(Users) {
     ChatStore.btnClick = true;
-    // console.log(JSON.stringify(Users));
-    // ChatStore.sendTo = Users.roomName;
     ChatStore.groupId = Users.roomId;
     ChatStore.groupname = Users.roomName;
     ChatStore.groupavatar = Users.pic;
     ChatStore.totalmsgscount = Users.total_count;
     ChatStore.totalnotescount = Users.total_notes_count;
     var roomId = ChatStore.groupId;
+
     socket.emit("Join room", ChatStore.groupname);
-    // socket.emit("roomId", roomId);
     var location = "/api/rooms/" + roomId;
 
     socket.emit("note map", roomId);
-    // socket.emit("send listchat", roomId);
+
     socket.on("recieving listchat rooms", function(data) {
       ChatStore.participants = data[0].participants;
       ChatStore.remainparticipants = data[0].remainparticipants;
       var remain = ChatStore.remainparticipants;
       var mappedlength = FriendshipStore.mappedFriends.length;
-      // console.log("remainss");
+
       socket.emit("read sync", UserStore.obj.user_id);
 
       socket.on("sync success", function(data) {
         UserStore.obj.rooms = data[0].rooms;
       });
-      // console.log(remain);
+
       remain.forEach(function(a) {
         for (var i = 0; i < mappedlength; i++) {
           if (a.user_id == FriendshipStore.mappedFriends[i].user_id) {
-            // console.log("yers");
             FriendshipStore.mappedFriends[i].present = true;
           }
         }
       });
-      // console.log("remain");
-      // console.log(remain);
-      // console.log(FriendshipStore.mappedFriends);
+
       ChatStore.readcount = Object.keys(data[0].conversation).length;
       ChatStore.notescount = Object.keys(data[0].notes).length;
       ChatStore.admin_id = data[0].admin_id;
       ChatStore.created_on = data[0].created_on;
 
-      //  console.log("data[0].notes");
-      // console.log(data[0].notes.length);
       var data = {
         user_id: UserStore.obj.user_id,
         _id: Users._id,
@@ -190,57 +169,7 @@ export default class ListChatContainer extends React.Component {
       };
 
       socket.emit("readcountmsg", data);
-
-      // var newarray = FriendshipStore.mappedFriends;
     });
-
-    // $.ajax({
-    //   url: location,
-    //   type: "GET",
-    //   data: {
-    //     format: "json"
-    //   },
-    //   dataType: "json",
-    //   success: function(data) {
-    //     ChatStore.participants = data[0].participants;
-    //     ChatStore.remainparticipants = data[0].remainparticipants;
-    //     var remain = ChatStore.remainparticipants;
-    //     var mappedlength = FriendshipStore.mappedFriends.length;
-
-    //     remain.forEach(function(a) {
-    //       for (var i = 0; i < mappedlength; i++) {
-    //         if (a.user_id == FriendshipStore.mappedFriends[i].user_id) {
-    //           // console.log("yers");
-    //           FriendshipStore.mappedFriends[i].present = true;
-    //         }
-    //       }
-    //     });
-    //     // console.log("remain");
-    //     // console.log(remain);
-    //     // console.log(FriendshipStore.mappedFriends);
-    //     ChatStore.readcount = Object.keys(data[0].conversation).length;
-    //     ChatStore.notescount = Object.keys(data[0].notes).length;
-    //     ChatStore.admin_id = data[0].admin_id;
-    //     ChatStore.created_on = data[0].created_on;
-
-    //     //  console.log("data[0].notes");
-    //     // console.log(data[0].notes.length);
-    //     var data = {
-    //       user_id: UserStore.obj.user_id,
-    //       _id: Users._id,
-    //       count: ChatStore.readcount.toString(),
-    //       notescount: ChatStore.notescount.toString()
-    //     };
-
-    //     socket.emit("readcountmsg", data);
-
-    //     var newarray = FriendshipStore.mappedFriends;
-    //     // var length = ChatStore.remainparticipants.length;
-    //   },
-    //   error: function(err) {
-    //     console.log("error in get of room" + err);
-    //   }
-    // });
   }
   componentDidMount() {
     socket.on("msgs", function(data) {
@@ -249,22 +178,8 @@ export default class ListChatContainer extends React.Component {
     socket.on("dbnotes", function(data) {
       ChatStore.notes = data.dbnotes;
     });
-    // this.state.data = UserStore.obj.rooms;
-
-    // setInterval(
-    //   function() {
-    //     socket.emit("read sync", UserStore.obj.user_id);
-
-    //     socket.on("sync success", function(data) {
-    //       UserStore.obj.rooms = data[0].rooms;
-    //     });
-    //   }.bind(this),
-    //   2000
-    // );
   }
   handleLeaveDialog = () => {
-    //  console.log(ChatStore.leaveinfo);
-
     var data = ChatStore.leaveinfo;
     socket.emit("room leave", ChatStore.leaveinfo);
     socket.on("remaininggroups", function(data) {
@@ -312,22 +227,12 @@ export default class ListChatContainer extends React.Component {
       }.bind(this),
       1500
     ); //
-
-    // var tempTimer = 0;
-    // var startedTimer = Date.now();
-    // setInterval(this.goTimer(), 250); // a little more often in case of drift
   };
-  // goTimer = () => {
-  //   tempTimer = Math.floor((Date.now() - startedTimer) / 500);
-  //   // $("#timer").val(tempTimer);
-  //   console.log("yesss");
-  // };
+
   handleDeleteClose = () => {
     this.setState({ openDelete: false });
   };
-  // _handleContinuousRender() {
-  //   //alert(Users._id);
-  // }
+
   render() {
     const actionsDelete = [
       <RaisedButton
@@ -352,15 +257,6 @@ export default class ListChatContainer extends React.Component {
       rooms = [];
     else rooms = UserStore.obj.rooms;
 
-    // setTimeout(
-    //   function() {
-    //     if (UserStore.obj.rooms == null || UserStore.obj.rooms == undefined)
-    //       rooms = [];
-    //     else rooms = UserStore.obj.rooms;
-    //   }.bind(this),
-    //   1000
-    // ); //
-    //  console.log(rooms);
     return (
       <MobileTearSheet muiTheme={muiTheme}>
         <div>
@@ -525,7 +421,6 @@ export default class ListChatContainer extends React.Component {
               <br />
               <br />
               <br />
-              {/*</Infinite>*/}
             </Scrollbars>
           </div>
           );{" "}

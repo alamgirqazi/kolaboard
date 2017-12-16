@@ -1,7 +1,6 @@
 import React from "react";
 
 var { Link, IndexLink } = require("react-router");
-import RaisedButton from "material-ui/RaisedButton";
 import { redirectVerify } from "auth.js";
 import { Card, CardHeader, CardTitle, CardText } from "material-ui/Card";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
@@ -27,14 +26,7 @@ const tableDisplay = {
 };
 const muiTheme = getMuiTheme({
   palette: {
-    //   textColor: greenA400,
     primary1Color: greenA400
-    //  primary3Color:greenA400,
-    //   accent1Color: greenA400,
-    //   accent2Color: greenA400,
-    //   accent3Color: greenA400
-
-    //this is for changing the theme
   },
   toggle: {
     thumbOnColor: "yellow",

@@ -10,9 +10,6 @@ import IconMenu from "material-ui/IconMenu";
 import Toolbar from "app/components/toolbar.jsx";
 import Boards from "app/components/Note.jsx";
 import { Scrollbars } from "react-custom-scrollbars";
-// import Main from "app/components/main.jsx"
-// import Store from "app/store/UIstore.js";
-// import { observer } from "mobx-react";
 import Dialog from "material-ui/Dialog";
 import TextField from "material-ui/TextField";
 import { greenA400, red500 } from "material-ui/styles/colors";
@@ -51,14 +48,8 @@ const tableDisplay = {
 
 const muiTheme = getMuiTheme({
   palette: {
-    //   textColor: greenA400,
     primary1Color: greenA400,
-    //  primary3Color:greenA400,
     accent1Color: red500
-    //   accent2Color: greenA400,
-    //   accent3Color: greenA400
-
-    //this is for changing the theme
   },
   toggle: {
     thumbOnColor: "yellow",
@@ -81,7 +72,6 @@ export default class Events extends React.Component {
   constructor(props) {
     super(props);
 
-    // EventStore.event = [{ title: "" }];
     this.state = {
       expanded: false,
       open: false,
@@ -111,18 +101,13 @@ export default class Events extends React.Component {
       user_name: UserStore.userrealname
     };
 
-    // console.log(data);
     $.ajax({
       type: "POST",
       url: "/api/user/createevent",
       data: data
     })
-      .done(function(data) {
-        alert("its all over");
-      })
-      .fail(function(jqXhr) {
-        // console.log("failed to register POST REQ");
-      });
+      .done(function(data) {})
+      .fail(function(jqXhr) {});
 
     this.setState({ open: false, snackbaropen: true });
     $.ajax({
@@ -130,32 +115,18 @@ export default class Events extends React.Component {
       url: "/api/getEvents"
     })
       .done(function(data) {
-        // console.log(data);
         EventStore.event = data;
         totalEvents = data;
-
-        // users.splice(_.indexOf(users, _.findWhere(users, { uId : 117175967810648931400})), 1);
       })
-      .fail(function(jqXhr) {
-        console.log("failed to register");
-      });
+      .fail(function(jqXhr) {});
   };
 
   handleExpand = () => {
     this.setState({ expanded: true });
   };
-  // formatDate = (null,date) => {
-  //   theDate = date;
-  //   // theDate =
-  //   //   date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-  //   console.log(theDate);
-  // };
 
   formatDate(e, date) {
-    // console.log(date);
     theDate = date;
-    //   date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-    // console.log(theDate);
   }
 
   handleReduce = () => {
@@ -170,7 +141,6 @@ export default class Events extends React.Component {
     });
   };
   handleDelete = event => {
-    // alert(event._id);
     data = {
       _id: event._id
     };
@@ -185,29 +155,21 @@ export default class Events extends React.Component {
       url: "/api/deleteEvent",
       data: data
     })
-      .done(function(data) {
-        alert("its all over");
-      })
-      .fail(function(jqXhr) {
-        // console.log("failed to register POST REQ");
-      });
+      .done(function(data) {})
+      .fail(function(jqXhr) {});
     this.setState({
       openDelete: false
     });
+
     $.ajax({
       type: "GET",
       url: "/api/getEvents"
     })
       .done(function(data) {
-        // console.log(data);
         EventStore.event = data;
         totalEvents = data;
-
-        // users.splice(_.indexOf(users, _.findWhere(users, { uId : 117175967810648931400})), 1);
       })
-      .fail(function(jqXhr) {
-        console.log("failed to register");
-      });
+      .fail(function(jqXhr) {});
   };
   componentWillMount() {
     EventStore.event = [];
@@ -218,22 +180,16 @@ export default class Events extends React.Component {
       url: "/api/getEvents"
     })
       .done(function(data) {
-        // console.log(data);
         EventStore.event = data;
         totalEvents = data;
-
-        // users.splice(_.indexOf(users, _.findWhere(users, { uId : 117175967810648931400})), 1);
       })
-      .fail(function(jqXhr) {
-        console.log("failed to register");
-      });
+      .fail(function(jqXhr) {});
   }
   handleDeleteClose = () => {
     this.setState({ openDelete: false });
   };
   render() {
     totalEvents = EventStore.event;
-    // Store.events = true;
     const actions = [
       <RaisedButton
         label="Cancel"
@@ -314,7 +270,8 @@ export default class Events extends React.Component {
 
                           <CardText expandable={true}>
                             <h6 className="pull-right">
-                              {" "}{"Event Date: " + event.date}
+                              {" "}
+                              {"Event Date: " + event.date}
                             </h6>
                             <div />
                             <h6 className="pull-left">
@@ -331,9 +288,7 @@ export default class Events extends React.Component {
                     return (
                       <div>
                         <Card key={event._id}>
-                          <h3>
-                            {event.title}
-                          </h3>
+                          <h3>{event.title}</h3>
 
                           <CardHeader
                             title={event.description}
@@ -343,7 +298,8 @@ export default class Events extends React.Component {
 
                           <CardText expandable={true}>
                             <h6 className="pull-right">
-                              {" "}{"Event Date: " + event.date}
+                              {" "}
+                              {"Event Date: " + event.date}
                             </h6>
                             <h6 className="pull-left">
                               {"Created by: " + event.user_name}
@@ -414,10 +370,3 @@ export default class Events extends React.Component {
     );
   }
 }
-// <img
-//                           src="https://thumb.ibb.co/iq4Jjk/homepage_futsalarena_pitch_01.jpg"
-//                           alt="homepage futsalarena pitch 01"
-//                           border="0"
-//                         />
-// <input type="file" ref="file" multiple />
-//

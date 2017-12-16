@@ -4,11 +4,8 @@ import Toolbar from "Toolbar";
 import { Scrollbars } from "react-custom-scrollbars";
 import Avatar from "material-ui/Avatar";
 import FloatingActionButton from "material-ui/FloatingActionButton";
-// import ContentAdd from "material-ui/svg-icons/content/add";
 import Chatbar from "app/components/toolbars/chattoolbar.jsx";
 var ReactDOM = require("react-dom");
-
-//import ReactScrollbar from 'react-scrollbar-js';
 import { observer } from "mobx-react";
 import IconButton from "material-ui/IconButton";
 import UserStore from "app/store/UserStore.js";
@@ -21,10 +18,9 @@ import SvgIcon from "material-ui/SvgIcon";
 import { blue500, red500, grey300 } from "material-ui/styles/colors";
 import Dialog from "material-ui/Dialog";
 import chatstore from "../store/ChatStore";
-
 import IconMenu from "material-ui/IconMenu";
 import MenuItem from "material-ui/MenuItem";
-// var socket;
+
 var today;
 var msgs;
 var adding;
@@ -117,7 +113,6 @@ export default class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.sendMsg = this.sendMsg.bind(this);
-    // socket = io.connect();
     this.scrollToBottom = this.scrollToBottom.bind(this);
 
     var data = {
@@ -158,25 +153,7 @@ export default class Chat extends React.Component {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
   };
 
-  // componentDidUpdate() {
-  //   this.scrollToBottom();
-  // }
-
-  // setInterval(
-  //   function() {
-  //     var data = {
-  //       roomId: ChatStore.groupId
-  //     };
-  //     socket.emit("retrieve msgs", data);
-  //     socket.on("chat msgs", function(data) {
-  //       ChatStore.msgs = data[0].conversation;
-  //     });
-  //   }.bind(this),
-  //   1500
-  // );
-
   handleStar = Users => {
-    //    console.log(Users.favourite.toString());
     var result;
     if (Users.favourite == true) {
       result = false;
@@ -192,14 +169,10 @@ export default class Chat extends React.Component {
       status: true
     });
     socket.on("remainingmsgs", function(data) {
-      ///   console.log("da");
-      // console.log(data[0].conversation);
-
       ChatStore.msgs = data[0].conversation;
     });
   };
   handleDelete = Users => {
-    // alert(Users._id);
     var data = {
       _id: Users._id,
       roomId: ChatStore.groupId
@@ -215,8 +188,6 @@ export default class Chat extends React.Component {
     };
     socket.emit("readcount delete", data1);
 
-    // socket.emit("readcount send", data1);
-
     socket.on("remainingmsgs", function(data) {
       ChatStore.msgs = data[0].conversation;
     });
@@ -227,9 +198,6 @@ export default class Chat extends React.Component {
     ChatStore.individualmsg = Users;
   };
   handleNote = Users => {
-    // Store.msgdetails = true;
-    // ChatStore.individualmsg = Users;
-    // console.log(Users);
     var data = {
       roomId: ChatStore.groupId,
       from: Users.from,
@@ -238,7 +206,6 @@ export default class Chat extends React.Component {
       time: Users.time
     };
     socket.emit("addnote", data);
-    // ChatStore.notes.push(data);
     socket.emit("recieving msgs", ChatStore.groupId);
     socket.on("remaining msgs", function(data) {
       ChatStore.notes = data[0].notes;
@@ -252,24 +219,9 @@ export default class Chat extends React.Component {
       showfav: false
     });
   };
-  // renderView = () => {
-  //   // this.refs.scrollbars.scrollToTop();
-  // };
   sendMsg() {
-    // setTimeout(function() {
-    //   socket.emit("recieving msgs", ChatStore.groupId);
-    //   socket.on("remaining msgs", function(data) {
-    //     ChatStore.msgs = data[0].conversation;
-    //   });
-    //   socket.on("Message for my own", function(data) {
-    //     console.log("Pushing into my own");
-    //     ChatStore.msgs = data[0].conversation;
-    //   });
-    // }, 3000); //
-
     var roomId = ChatStore.groupId;
     socket.emit("add user", UserStore);
-    // this.refs.scrollbars.scrollToTop();
     var d = new Date(); // for now
     d.getHours(); // => 9
     d.getMinutes(); // =>  30
@@ -288,8 +240,6 @@ export default class Chat extends React.Component {
       mm = "0" + mm;
     }
     var date = mm + "/" + dd + "/" + yyyy;
-    // console.log("Send button is pressed");
-    // console.log("This is the text " + this.refs.newText.value);
     if (this.refs.newText.value == "") {
     } else {
       ChatStore.msgs.push({
@@ -300,26 +250,9 @@ export default class Chat extends React.Component {
         message: this.refs.newText.value,
         picture: UserStore.obj.picture,
         time: time
-        //   var d = new Date();
-        //   var n = d.getTime();
-        // _id: "No id till now" + count
       });
-      // count++;
-      //  ChatStore.msgs.push({
-      //   from: UserStore.userrealname,
-      //   message: this.refs.newText.value,
-      //   favourite: false,
-      //   date: date,
-      //   time: time,
-      //   //   var d = new Date();
-      //   //   var n = d.getTime();
-      //   picture: UserStore.obj.picture
-      // });
-      // console.log("Pushed");
       ChatStore.totalmsgscount++;
       ChatStore.totalnotescount++;
-      // console.log("ChatStore.groupname");
-      // console.log(ChatStore.groupname);
       socket.emit("send message", {
         msg: this.refs.newText.value,
         roomId: roomId,
@@ -327,9 +260,6 @@ export default class Chat extends React.Component {
         sendTo: ChatStore.groupname
       });
       socket.on("chat messagey", function(msg) {
-        // console.log("Messagy");
-        // console.log("length ", chatstore.msgs.length);
-        // console.log(chatstore.msgs[chatstore.msgs.length - 1]);
         if (
           chatstore.msgs[chatstore.msgs.length - 1].message != msg.message ||
           chatstore.msgs[chatstore.msgs.length - 1].from != msg.from ||
@@ -337,21 +267,13 @@ export default class Chat extends React.Component {
         ) {
           ChatStore.msgs.push(msg);
         } else {
-          // console.log("Message is already Pushed");
         }
-        // ChatStore.msgs = docs[0].conversation;
-        // console.log("docs[0].conversation");
-        // console.log(docs[0].conversation);
-        // socket.on("remaining msgs", function(data) {
-        //   ChatStore.msgs = data[0].conversation;
-        // });
       });
       socket.emit("recieving msgs", ChatStore.groupId);
       socket.on("remaining msgs", function(data) {
         ChatStore.msgs = data[0].conversation;
       });
       socket.on("Message for my own", function(data) {
-        console.log("Pushing into my own");
         ChatStore.msgs = data[0].conversation;
       });
 
@@ -362,12 +284,8 @@ export default class Chat extends React.Component {
         _id: ChatStore.groupId,
         count: ChatStore.msgs.length,
         participants: ChatStore.participants
-
-        //ChatStore.readcount = Object.keys(data[0].conversation).length;
       };
       socket.emit("readcount send", data);
-
-      // socket.emit("calculate conversations", result);
     }
   }
 
@@ -377,12 +295,9 @@ export default class Chat extends React.Component {
       groupSelected = true;
     } else false;
 
-    //  console.log("This is data in store chat " + ChatStore.msgs);
     var users = ChatStore.msgs;
     const liststatus = UserStore.listy;
-    // const numbers = [1, 2, 3, 4, 5];
-    // console.log("THis is users  " + users);
-    // console.log("THis is users  " + users);
+
     const myScrollbar = {
       width: 400,
       height: 400
@@ -400,7 +315,6 @@ export default class Chat extends React.Component {
     return (
       <div className="" style={heightchat}>
         <Chatbar style={toolbarstyle} />
-        {/*<Infinite containerHeight={500} elementHeight={4} displayBottomUpwards style={styling}> */}
         <Scrollbars
           ref="scrollbars"
           style={{ height: "100%" }}

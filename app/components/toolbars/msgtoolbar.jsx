@@ -38,11 +38,6 @@ const iconButtonElement = (
   </IconButton>
 );
 
-// const style =
-// {
-// left: '45%',
-// };
-
 @observer
 export default class Msgbar extends React.Component {
   constructor(props) {
@@ -51,7 +46,6 @@ export default class Msgbar extends React.Component {
     this.profile = this.profile.bind(this);
     this.settings = this.settings.bind(this);
     this.logout = this.logout.bind(this);
-    // this.handleToggle = this.handleToggle.bind(this);
     this.handleToggl = this.handleToggl.bind(this);
   }
 
@@ -63,28 +57,12 @@ export default class Msgbar extends React.Component {
   }
 
   profile() {
-    // Store.app = false;
-    // Store.events = false;
-    // Store.timetable = false;
-    // Store.invites = false;
-
-    // Store.privatenote = false;
-    // Store.dashboard = false;
     browserHistory.replace("/profile");
   }
   settings() {
-    // Store.app = false;
-    // Store.events = false;
-    // Store.timetable = false;
-    // Store.privatenote = false;
-    // Store.invites = false;
-
-    // Store.dashboard = false;
     browserHistory.replace("/settings");
   }
-  logout() {
-    alert("logout");
-  }
+
   render() {
     const rightIconMenu = (
       <IconMenu iconButtonElement={iconButtonElement}>

@@ -16,10 +16,6 @@ import Badge from "material-ui/Badge";
 import Avatar from "material-ui/Avatar";
 import UserStore from "app/store/UserStore.js";
 import Snackbar from "material-ui/Snackbar";
-
-// import Main from "app/components/main.jsx"
-// import Store from "app/store/UIstore.js";
-// import { observer } from "mobx-react";
 import { greenA400 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import Store from "app/store/UIstore.js";
@@ -31,14 +27,7 @@ const KEYS_TO_FILTERS = ["email", "name", "nickname", "user_id"];
 
 const muiTheme = getMuiTheme({
   palette: {
-    //   textColor: greenA400,
     primary1Color: greenA400
-    //  primary3Color:greenA400,
-    //   accent1Color: greenA400,
-    //   accent2Color: greenA400,
-    //   accent3Color: greenA400
-
-    //this is for changing the theme
   },
   toggle: {
     thumbOnColor: "yellow",
@@ -75,7 +64,6 @@ export default class AcceptRequests extends React.Component {
     this.setState({ snackbarsendreq: false });
   };
   _handleClick(acceptrequests) {
-    // console.log(acceptrequests.other_id);
     this.setState({
       snackbarsendreq: true
     });
@@ -91,9 +79,7 @@ export default class AcceptRequests extends React.Component {
       data: data
     })
       .done(function(data) {})
-      .fail(function(jqXhr) {
-        console.log("failed to register");
-      });
+      .fail(function(jqXhr) {});
 
     $.ajax({
       type: "GET",
@@ -111,38 +97,26 @@ export default class AcceptRequests extends React.Component {
             FriendshipsStore.acceptrequests = data;
             FriendshipsStore.acceptrequestscount = Object.keys(data).length;
             FriendshipsStore.stateAcceptRequest = true;
-            //   FriendshipsStore.acceptrequestscount = acceptrequestscount;
           })
-          .fail(function(jqXhr) {
-            console.log("failed to register");
-          });
+          .fail(function(jqXhr) {});
       })
-      .fail(function(jqXhr) {
-        console.log("friendlist request fail");
-      });
+      .fail(function(jqXhr) {});
   }
 
   componentDidMount() {
-    // let userid = localStorage.getItem('userid');
-
     $.ajax({
       type: "GET",
       url: "/api/user/acceptrequest"
     })
       .done(function(data) {
-        // console.log(data)
         acceptrequests = data;
         FriendshipsStore.acceptrequests = data;
-        //    console.log("accept requests array");
-        //    console.log(data);
+
         acceptrequestscount = Object.keys(acceptrequests).length;
-        //     console.log(acceptrequestscount);
         FriendshipsStore.stateAcceptRequest = true;
         FriendshipsStore.acceptrequestscount = acceptrequestscount;
       })
-      .fail(function(jqXhr) {
-        console.log("failed to register");
-      });
+      .fail(function(jqXhr) {});
   }
 
   searchUpdated(term) {
@@ -181,18 +155,20 @@ export default class AcceptRequests extends React.Component {
 
               <Scrollbars
                 style={{ height: 300 }}
-                renderTrackHorizontal={props =>
+                renderTrackHorizontal={props => (
                   <div
                     {...props}
                     className="track-horizontal"
                     style={{ display: "none" }}
-                  />}
-                renderThumbHorizontal={props =>
+                  />
+                )}
+                renderThumbHorizontal={props => (
                   <div
                     {...props}
                     className="thumb-horizontal"
                     style={{ display: "none" }}
-                  />}
+                  />
+                )}
               >
                 {filteredEmails.map(Acceptrequests => {
                   return (
@@ -213,7 +189,8 @@ export default class AcceptRequests extends React.Component {
                               primary={true}
                               key={Acceptrequests.user_id}
                               onTouchTap={() =>
-                                this._handleClick(Acceptrequests)}
+                                this._handleClick(Acceptrequests)
+                              }
                               style={style}
                             />
                           }
@@ -227,13 +204,9 @@ export default class AcceptRequests extends React.Component {
                               {Acceptrequests.status}
                             </div>
                             <br />
-                            <div className="from">
-                              {}
-                            </div>
+                            <div className="from">{}</div>
                             <br />
-                            <div className="subject">
-                              {}
-                            </div>
+                            <div className="subject">{}</div>
                           </div>
                         </ListItem>
                       </List>

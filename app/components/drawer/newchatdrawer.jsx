@@ -17,7 +17,6 @@ import ContentAdd from "material-ui/svg-icons/image/navigate-next";
 import ContentPlus from "material-ui/svg-icons/content/add-circle-outline";
 import Snackbar from "material-ui/Snackbar";
 import AlertContainer from "react-alert";
-
 import ListItem from "material-ui/List/ListItem";
 import TextField from "material-ui/TextField";
 
@@ -31,7 +30,6 @@ const topStyle = {
 };
 
 let friendlist = [];
-// let friendlistcount;
 let userrealname;
 let userpicture;
 let userid;
@@ -48,12 +46,10 @@ const styles = {
 const style = {
   margin: 12
 };
-// var socket;
 @observer
 export default class NewChatDrawer extends React.Component {
   constructor(props) {
     super(props);
-    // socket = io.connect();
     this.state = {
       open: false,
       snackbaropen: false,
@@ -89,23 +85,21 @@ export default class NewChatDrawer extends React.Component {
       buttonStatus: false
     });
   };
-  // handleToggle = () => this.setState({ open: !this.state.open });
+
   handleToggle = () => {
     UIStore.newchatdrawer = true;
   };
+
   handleCloseToggle = () => {
     UIStore.newchatdrawer = false;
     this.refs.groupname.getInputNode().value = "";
     mapping = [];
   };
   Next = () => {
-    //error handling here
     this.setState({
       buttonStatus: true
     });
     if (this.refs.groupname.getInputNode().value == "" || mapping.length == 0) {
-      // console.log("mapping at imp time");
-      // console.log(mapping.length);
       {
         if (mapping.length == 0) this.showSecondAlert();
         else this.showAlert();
@@ -118,15 +112,12 @@ export default class NewChatDrawer extends React.Component {
       };
 
       mapping.push(myinfo);
-      // console.log("myinfo");
-      // console.log(myinfo);
 
       var str = this.refs.groupname.getValue();
       var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
       var avatarletterlower = matches.join("");
       var avatarletter = avatarletterlower.toUpperCase();
-      // console.log(avatarletter);
-      // console.log("mapping.length" + mapping.length);
+
       var today = new Date();
       var dd = today.getDate();
       var mm = today.getMonth() + 1; //January is 0!
@@ -147,24 +138,12 @@ export default class NewChatDrawer extends React.Component {
         created_on: date
       };
 
-      // $.ajax({
-      //   type: "POST",
-      //   url: "/api/createGroup",
-      //   data: data
-      // })
-      //   .done(function(data) {
-      //     alert("its all over");
-      //     // console.log(data);
-      //   })
-      //   .fail(function(jqXhr) {
-      //     // console.log("failed to register POST REQ");
-      //   });
       socket.emit("create group event", data);
 
       this.setState({
         snackbaropen: true
       });
-      // console.log(data);
+
       setTimeout(
         function() {
           UIStore.newchatdrawer = false;
@@ -195,8 +174,6 @@ export default class NewChatDrawer extends React.Component {
       return o._id === chipMap._id;
     });
     mapping.splice(index, 1);
-
-    // UIStore.newchatdrawer = false;
   };
   handleClose = () => this.setState({ open: false });
 
@@ -209,9 +186,7 @@ export default class NewChatDrawer extends React.Component {
         FriendshipsStore.totalfriends = data;
         friendlist = FriendshipsStore.totalfriends;
       })
-      .fail(function(jqXhr) {
-        console.log("friendlist mai msla");
-      });
+      .fail(function(jqXhr) {});
   }
 
   _handleClick(Friendlist) {
@@ -297,18 +272,20 @@ export default class NewChatDrawer extends React.Component {
           />
           <Scrollbars
             style={{ height: 300 }}
-            renderTrackHorizontal={props =>
+            renderTrackHorizontal={props => (
               <div
                 {...props}
                 className="track-horizontal"
                 style={{ display: "none" }}
-              />}
-            renderThumbHorizontal={props =>
+              />
+            )}
+            renderThumbHorizontal={props => (
               <div
                 {...props}
                 className="thumb-horizontal"
                 style={{ display: "none" }}
-              />}
+              />
+            )}
           >
             {filteredEmails.map(Friendlist => {
               var id;

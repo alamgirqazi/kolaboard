@@ -9,12 +9,6 @@ import { Scrollbars } from "react-custom-scrollbars";
 import { greenA400 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 
-/**
- * Dialog with action buttons. The actions are passed in as an array of React objects,
- * in this example [FlatButtons](/#/components/flat-button).
- *
- * You can also close this dialog by clicking outside the dialog, or with the 'Esc' key.
- */
 const styleimg = {
   width: "30%",
   height: "350px"
@@ -39,14 +33,7 @@ const aligncentercollaborate = {
 
 const muiTheme = getMuiTheme({
   palette: {
-    //   textColor: greenA400,
     primary1Color: greenA400
-    //  primary3Color:greenA400,
-    //   accent1Color: greenA400,
-    //   accent2Color: greenA400,
-    //   accent3Color: greenA400
-
-    //this is for changing the theme
   }
 });
 
@@ -70,7 +57,6 @@ export default class Homepage extends React.Component {
         emailInputPlaceholder: "something@youremail.com",
         title: "Signup / Login"
       },
-      //  allowSignUp: false,
 
       theme: {
         logo: "https://image.ibb.co/mMtqJF/Klogo_Original_Green_K.png",
@@ -85,7 +71,6 @@ export default class Homepage extends React.Component {
       allowSignUp: false,
 
       theme: {
-        // logo: "http://icons.iconarchive.com/icons/custom-icon-design/flatastic-11/48/Customer-service-icon.png",
         logo: "https://image.ibb.co/mMtqJF/Klogo_Original_Green_K.png",
         primaryColor: "#00E676"
       }
@@ -130,12 +115,10 @@ export default class Homepage extends React.Component {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div style={scrollx}>
-          {/*<Scrollbars style={{  }}>*/}
-
           <div className="firstPage">
             <h2 style={style}>
-              {" "}A Collaboration app{" "}
-              <strong className="element typewriteColor" />
+              {" "}
+              A Collaboration app <strong className="element typewriteColor" />
             </h2>
             <br />
             <br />
@@ -150,7 +133,6 @@ export default class Homepage extends React.Component {
               primary1Color={true}
               lock={this.lock}
             />
-            {/*labelColor="white"*/}
             <br />
             <br />
             <p style={aligncenter}>
@@ -162,14 +144,12 @@ export default class Homepage extends React.Component {
           <br />
 
           <div className="secondPage">
-            {/*<h2 style={style}>Another heading probably?</h2>*/}
             <h4 style={aligncentercollaborate}>
               Easier to communicate and collaborate<br />with noteboards
             </h4>
             <br />
             <br />
             <img src="noticeboard2.png" alt="Mountain View" style={styleimg} />
-            {/*<img src="noticeboard.jpg" alt="Mountain View" style={styleimg}/>*/}
           </div>
 
           <div className="fourthPage">

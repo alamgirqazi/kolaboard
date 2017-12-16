@@ -9,18 +9,20 @@ var FirstPage = props => {
   return (
     <Scrollbars
       style={{ height: "100vh" }}
-      renderTrackHorizontal={props =>
+      renderTrackHorizontal={props => (
         <div
           {...props}
           className="track-horizontal"
           style={{ display: "none" }}
-        />}
-      renderThumbHorizontal={props =>
+        />
+      )}
+      renderThumbHorizontal={props => (
         <div
           {...props}
           className="thumb-horizontal"
           style={{ display: "none" }}
-        />}
+        />
+      )}
     >
       <Nav />
       <Homepage />

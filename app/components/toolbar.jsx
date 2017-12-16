@@ -44,19 +44,13 @@ let friendlist = [];
 let friendlistcount;
 var localprofileparse;
 
-// const backgroundhover = {
-//   backgroundColor: 'E8E8E8',
-// }
-
 const materialbackground = {
   backgroundImage: 'url("assets/images/materialpic.png")',
   width: "256px",
   height: "180px"
 };
 const style = {
-  // backgroundColor: '#D0E9EA',
   backgroundColor: "$secondaryColor"
-  // backgroundColor: '#dcf8c6',
 };
 
 const buttonMargin = {
@@ -93,24 +87,10 @@ const customContentStyle = {
   width: "30%",
   maxWidth: "none"
 };
-// var socket;
-// const style = {
-//   margin: 12,
-//   marginRight: 20
-// };
+
 const paddingIcon = {
   paddingBottom: "48px"
 };
-// const iconButtonElement = (
-//   <IconButton
-//     style={paddingIcon}
-//     touch={true}
-//     tooltip="more"
-//     tooltipPosition="bottom-left"
-//   >
-//     <MoreVertIcon color={darkBlack} />
-//   </IconButton>
-// );
 
 const menuStyle = {
   height: "20px",
@@ -249,7 +229,6 @@ export default class ToolbarExamplesSimple extends React.Component {
     } else {
     }
     user_id = localStorage.getItem("userid");
-    //console.log("userid " + user_id);
 
     var location = "api/user/" + user_id;
 
@@ -274,8 +253,6 @@ export default class ToolbarExamplesSimple extends React.Component {
           localprofileparse == "facebook" ||
           localprofileparse == "google-oauth2"
         )
-          // if(localprofileparse.identities[0].provider=="facebook" || localprofileparse.identities[0].provider=="google-oauth2")
-
           UserStore.userrealname = UserStore.obj.name;
         else UserStore.userrealname = UserStore.obj.nickname;
 
@@ -286,25 +263,13 @@ export default class ToolbarExamplesSimple extends React.Component {
             UserStore.useraccount = "Google";
           }
         } else UserStore.useraccount = "Email Account";
-
-        // setTimeout(
-        //   function() {
-        //     this.setState({
-        //       yay: true
-        //     });
-        //   }.bind(this),
-        //   3000
-        // );
       },
 
-      error: function() {
-        console.log("error in get");
-      }
+      error: function() {}
     });
   }
 
   componentDidMount() {
-    // this.newfunc();
     var profile = localStorage.getItem("profile");
     var newprofile = JSON.parse(profile);
 
@@ -313,12 +278,8 @@ export default class ToolbarExamplesSimple extends React.Component {
       url: "/api/user",
       data: newprofile
     })
-      .done(function(data) {
-        //console.log("done" + profile);
-      })
-      .fail(function(jqXhr) {
-        // console.log("failed to register");
-      });
+      .done(function(data) {})
+      .fail(function(jqXhr) {});
 
     $.ajax({
       type: "GET",
@@ -342,31 +303,18 @@ export default class ToolbarExamplesSimple extends React.Component {
           2500
         );
       })
-      .fail(function(jqXhr) {
-        //   console.log("friendlist mai msla");
-      });
+      .fail(function(jqXhr) {});
 
     $.ajax({
       type: "GET",
       url: "/api/getEvents"
     })
       .done(function(data) {
-        //   console.log(data);
         EventStore.event = data;
-        // users.splice(_.indexOf(users, _.findWhere(users, { uId : 117175967810648931400})), 1);
       })
-      .fail(function(jqXhr) {
-        console.log("failed to register");
-      });
+      .fail(function(jqXhr) {});
     this.newfunc();
-    // setTimeout(
-    //   function() {
-    //     this.setState({
-    //       yay: false
-    //     });
-    //   }.bind(this),
-    //   4000
-    // ); // wait 5 seconds, then reset to false  }
+
     if (Store.yum) {
       setTimeout(
         function() {
@@ -374,21 +322,11 @@ export default class ToolbarExamplesSimple extends React.Component {
           Store.yum = false;
         }.bind(this),
         4000
-      ); // wait 5 seconds, then reset to false  }
+      );
     }
   }
 
   render() {
-    // this.newfunc();
-    // setTimeout(
-    //   function() {
-    //     this.setState({
-    //       yay: false
-    //     });
-    //   }.bind(this),
-    //   5000
-    // ); // wait 5 seconds, then reset to false  }
-
     const actions = [
       <RaisedButton
         label="Cancel"
@@ -630,20 +568,3 @@ export default class ToolbarExamplesSimple extends React.Component {
     );
   }
 }
-// <MenuItem
-//   style={backgroundhoverevents}
-//   onTouchTap={this.showEvents}
-//   primaryText="Events"
-//   leftIcon={
-//     <svg
-//       xmlns="http://www.w3.org/2000/svg"
-//       width="24"
-//       height="24"
-//       viewBox="0 0 24 24"
-//     >
-//       <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z" />
-//     </svg>
-//   }
-// >
-//   {" "}
-// </MenuItem>

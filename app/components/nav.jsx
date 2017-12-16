@@ -8,7 +8,6 @@ import FirstPage from "app/components/firstpage.jsx";
 import { AppBar, IconButton, MenuItem } from "material-ui";
 
 import muiThemeable from "material-ui/styles/muiThemeable";
-// import { login } from "auth.js";
 const greenbutton = {
   backgroundColor: "#00E676"
 };
@@ -27,9 +26,6 @@ export default class NewNav extends React.Component {
         title: "Log In"
       },
       allowSignUp: false,
-
-      // allowLogin: false,
-
       theme: {
         logo: "https://image.ibb.co/mMtqJF/Klogo_Original_Green_K.png",
         primaryColor: "#00E676"

@@ -75,7 +75,6 @@ class Note extends React.Component {
   }
 
   save() {
-    // socket = io.connect();
     var data = {
       newnote: this.refs.newText.value,
       _id: this.props.children._id,
@@ -93,20 +92,15 @@ class Note extends React.Component {
       _id: ChatStore.groupId,
       count: ChatStore.notes,
       participants: ChatStore.participants
-
-      //ChatStore.readcount = Object.keys(data[0].conversation).length;
     };
     socket.emit("readnotes edit", data);
     socket.on("Savenotes", function(data) {
-      console.log("save notes");
       ChatStore.notes = data[0].notes;
     });
   }
   details() {
     UIStore.notedetails = true;
-    //console.log(this.props.children);
     ChatStore.individualnote = this.props.children;
-    //individualnotes = this.props.children;
   }
   remove() {
     var data = {
@@ -120,17 +114,11 @@ class Note extends React.Component {
       _id: ChatStore.groupId,
       count: ChatStore.notes,
       participants: ChatStore.participants
-
-      //ChatStore.readcount = Object.keys(data[0].conversation).length;
     };
     socket.emit("readnotes delete", data1);
     socket.on("remainingnotes", function(data) {
-      // console.log("da");
-      // console.log(data[0].notes);
-
       ChatStore.notes = data[0].notes;
     });
-    // this.props.onRemove(this.props.index);
   }
 
   renderDisplay() {
@@ -142,7 +130,8 @@ class Note extends React.Component {
             style={{ backgroundColor: this.props.children.color }}
           >
             <div className="" style={{ display: "inline" }}>
-              {" "}<img
+              {" "}
+              <img
                 style={{ display: "inline-block", margin: "0 30px" }}
                 src="assets/images/pin-icon.png"
                 style={pinstyle}
@@ -174,23 +163,23 @@ class Note extends React.Component {
             </div>
             <Scrollbars
               autoHeightMax={20}
-              renderTrackHorizontal={props =>
+              renderTrackHorizontal={props => (
                 <div
                   {...props}
                   className="track-horizontal"
                   style={{ display: "none" }}
-                />}
-              renderThumbHorizontal={props =>
+                />
+              )}
+              renderThumbHorizontal={props => (
                 <div
                   {...props}
                   className="thumb-horizontal"
                   style={{ display: "none" }}
-                />}
+                />
+              )}
             >
               <p style={{ backgroundColor: this.props.children.color }}>
-                <Linkifier>
-                  {this.props.children.text}
-                </Linkifier>
+                <Linkifier>{this.props.children.text}</Linkifier>
               </p>
             </Scrollbars>
           </div>
@@ -204,7 +193,8 @@ class Note extends React.Component {
             style={{ backgroundColor: this.props.children.color }}
           >
             <div className="" style={{ display: "inline" }}>
-              {" "}<img
+              {" "}
+              <img
                 style={{ display: "inline-block", margin: "0 30px" }}
                 src="assets/images/pin-icon.png"
                 style={pinstyle}
@@ -234,27 +224,25 @@ class Note extends React.Component {
             </div>
             <Scrollbars
               autoHeightMax={20}
-              renderTrackHorizontal={props =>
+              renderTrackHorizontal={props => (
                 <div
                   {...props}
                   className="track-horizontal"
                   style={{ display: "none" }}
-                />}
-              renderThumbHorizontal={props =>
+                />
+              )}
+              renderThumbHorizontal={props => (
                 <div
                   {...props}
                   className="thumb-horizontal"
                   style={{ display: "none" }}
-                />}
+                />
+              )}
             >
               <p style={{ backgroundColor: this.props.children.color }}>
-                <Linkifier>
-                  {this.props.children.text}
-                </Linkifier>
+                <Linkifier>{this.props.children.text}</Linkifier>
               </p>
-              <div style={noteName}>
-                {this.props.children.from}
-              </div>
+              <div style={noteName}>{this.props.children.from}</div>
             </Scrollbars>
           </div>
         </div>
@@ -293,7 +281,6 @@ class Note extends React.Component {
 export default class Boards extends React.Component {
   constructor() {
     super();
-    // socket = io.connect();
 
     this.state = {
       notes: [{ text: "yo" }],
@@ -320,7 +307,6 @@ export default class Boards extends React.Component {
 
   update(newText, i) {
     var arr = ChatStore.notes;
-    // var arr = this.state.notes;
     arr[i].text = newText;
     ChatStore.notes[i].text = newText;
     this.setState({
@@ -334,7 +320,6 @@ export default class Boards extends React.Component {
     d.getHours(); // => 9
     d.getMinutes(); // =>  30
     d.getSeconds(); // => 51
-    //console.log(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
     var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
     var today = new Date();
     var dd = today.getDate();
@@ -359,13 +344,6 @@ export default class Boards extends React.Component {
       time: time,
       text: text
     };
-    // socket.emit("addingnotes", data);
-    // arr.push(data);
-    // ChatStore.notes.push(data);
-    // console.log("Note pushed");
-    // socket.on("roomNotes", function(data) {
-
-    // });
 
     socket.emit("addnote", {
       roomId: ChatStore.groupId,
@@ -375,26 +353,18 @@ export default class Boards extends React.Component {
       text: text
     });
     socket.on("note messagey", function(msg) {
-      //  console.log("data[0].noteskkkkkkkkkkkkkkkkkkkkkkk");
-      // console.log("This is notes ", msg);
       if (
         chatstore.notes[chatstore.notes.length - 1].from != msg.from ||
         chatstore.notes[chatstore.notes.length - 1].text != msg.text ||
         chatstore.notes[chatstore.notes.length - 1].date != msg.date ||
         chatstore.notes[chatstore.notes.length - 1].time != msg.time
       ) {
-        console.log("Note pushed messagy");
         ChatStore.notes.push(msg);
       } else {
-        console.log("Note is already pushed");
       }
-      // arr.push(data);
     });
     socket.emit("recieving msgs", ChatStore.groupId);
     socket.on("remaining msgs", function(data) {
-      ///   console.log("da");
-      // console.log(data[0].notes);
-
       ChatStore.notes = data[0].notes;
     });
 
@@ -403,8 +373,6 @@ export default class Boards extends React.Component {
       _id: ChatStore.groupId,
       count: ChatStore.notes,
       participants: ChatStore.participants
-
-      //ChatStore.readcount = Object.keys(data[0].conversation).length;
     };
     socket.emit("readnotes send", data);
 
@@ -412,22 +380,8 @@ export default class Boards extends React.Component {
 
     socket.emit("notesadding", e);
     socket.on("Note for my own", function(data) {
-      ///   console.log("da");
-      // console.log(data[0].notes);
-
       ChatStore.notes = data[0].notes;
     });
-    //     var roomId = ChatStore.groupId;
-    // var interval =  setTimeout(function(){ socket.emit('gettingnotes', roomId); }, 1000);
-    // socket.emit('gettingnotes', roomId);
-    // socket.on('catching notes',function(data){
-    //   ChatStore.notes = data;
-    //   clearInterval(interval);
-    // })
-
-    // this.setState({
-    //   notes: arr
-    // });
 
     setTimeout(
       function() {
@@ -450,12 +404,9 @@ export default class Boards extends React.Component {
     this.setState({
       notes: ChatStore.notes
     });
-    // console.log("heloooo");
     if (note.from == UserStore.userrealname) {
-      //  console.log("wohi bnda");
     }
 
-    //  else console.log("dusra");
     return (
       <div className="displ">
         <Note
@@ -471,11 +422,9 @@ export default class Boards extends React.Component {
   }
   componentDidMount() {
     var board = ReactDOM.findDOMNode(this);
-    // var board = React.findDOMNode(this);
     dragula([board]);
   }
   handleClose = () => {
-    // this.setState({ openDialog: false });
     UIStore.notedetails = false;
   };
   render() {
@@ -484,20 +433,12 @@ export default class Boards extends React.Component {
       groupSelected = true;
     } else false;
     var variable = ChatStore.notes;
-    // console.log("variable");
-    // va = ChatStore.individualnote;
-    // console.log(variable);
     var b;
     return (
       <div>
         {variable.map(Users => {
           if (Users.from == UserStore.userrealname) {
             Users.color = "#DCF8C6";
-            //  console.log(Users.color);
-            // var a = Users.from;
-
-            // b = a.split(/\s(.+)/)[0]; //everything before the first space
-            // Users.firstname = b;
             return (
               <div
                 className="displ"
@@ -517,12 +458,6 @@ export default class Boards extends React.Component {
             );
           } else {
             Users.color = "#FFF9C4";
-            //   console.log(Users.color);
-            // var a = Users.from;
-
-            // b = a.split(/\s(.+)/)[0]; //everything before the first space
-            // Users.firstname = b;
-            //console.log(b);
             return (
               <div
                 className="displ"
@@ -544,16 +479,18 @@ export default class Boards extends React.Component {
         })}
 
         <div className="fixedbutton">
-          {groupSelected
-            ? <div />
-            : <FloatingActionButton
-                style={style}
-                onTouchTap={this.handleTouchTap}
-                label="yo"
-                onClick={this.add.bind(null, "new note")}
-              >
-                <ContentAdd />
-              </FloatingActionButton>}
+          {groupSelected ? (
+            <div />
+          ) : (
+            <FloatingActionButton
+              style={style}
+              onTouchTap={this.handleTouchTap}
+              label="yo"
+              onClick={this.add.bind(null, "new note")}
+            >
+              <ContentAdd />
+            </FloatingActionButton>
+          )}
 
           <Dialog
             modal={false}
@@ -565,18 +502,10 @@ export default class Boards extends React.Component {
             <h5>Note details</h5>
             <br />
             <div className="">
-              <h5>
-                Creator : {ChatStore.individualnote.from}
-              </h5>
-              <h5>
-                Date : {ChatStore.individualnote.date}
-              </h5>
-              <h5>
-                Time : {ChatStore.individualnote.time}
-              </h5>
-              <h5>
-                Note: {ChatStore.individualnote.text}
-              </h5>
+              <h5>Creator : {ChatStore.individualnote.from}</h5>
+              <h5>Date : {ChatStore.individualnote.date}</h5>
+              <h5>Time : {ChatStore.individualnote.time}</h5>
+              <h5>Note: {ChatStore.individualnote.text}</h5>
             </div>
             <br />
           </Dialog>
@@ -585,20 +514,8 @@ export default class Boards extends React.Component {
             message="New Note Added"
             autoHideDuration={1200}
           />
-          {/*onRequestClose={this.handleRequestClose}*/}
         </div>
       </div>
     );
   }
 }
-
-// Boards.propTypes = {
-//   count: function(props, propName) {
-//     if (typeof props[propName] !== "number") {
-//       return new Error("The count property must be a number");
-//     }
-//     if (props[propName] > 100) {
-//       return new Error("Creating " + props[propName] + "notes is ridiculous");
-//     }
-//   }
-// };

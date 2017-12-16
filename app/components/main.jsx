@@ -12,21 +12,10 @@ import MainContainer from "app/components/MainContainer.jsx";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import { cyan500, red500 } from "material-ui/styles/colors";
 import { greenA400 } from "material-ui/styles/colors";
-
-// This replaces the textColor value on the palette
-// and then update the keys for each component that depends on it.
-// More on Colors: http://www.material-ui.com/#/customization/colors
 const muiTheme = getMuiTheme({
   palette: {
-    //   textColor: greenA400,
     primary1Color: greenA400,
-    //   primary2Color: greenA400,
-    //  primary3Color:greenA400,
     accent1Color: red500
-    //   accent2Color: greenA400,
-    //   accent3Color: greenA400
-
-    //this is for changing the theme
   },
   toggle: {
     thumbOnColor: "yellow",
@@ -46,10 +35,7 @@ var Main = () => {
   return (
     <MuiThemeProvider muiTheme={muiTheme}>
       <div style={style}>
-        {/*<NewNav />*/}
         <Toolbar />
-
-        {/*<FirstPage/>*/}
         <MainContainer />
       </div>
     </MuiThemeProvider>

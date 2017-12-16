@@ -43,6 +43,4 @@ var roomsSchema = new Schema({
   remainparticipants: [{}]
 });
 
-// groupListSchema.index({ "user_id": 1, "other_id": 1 }, { "unique": true });
-
 module.exports = mongoose.model("rooms", roomsSchema);
