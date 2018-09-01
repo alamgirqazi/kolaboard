@@ -33,7 +33,9 @@ const customContentStyle = {
 };
 const displayinline = {
   display: "flex",
-  backgroundColor: "#00E676"
+  backgroundColor: "#00E676",
+  marginLeft:"1%",
+  borderRadius:"5px"
 };
 const chatinputbox = {
   height: "3.5rem",
@@ -516,11 +518,13 @@ export default class Chat extends React.Component {
                 style={chatinputbox}
                 placeholder="Please Enter Your message......."
                 className="form-control"
+                id="messagetextarea"
               />
               <IconButton
                 tooltip="Send"
                 tooltipPosition="top-center"
                 onClick={this.sendMsg}
+                style = {{marginTop:"1.4%"}}
               >
                 <svg
                   fill="#FFFFFF"

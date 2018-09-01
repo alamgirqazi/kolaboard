@@ -34,7 +34,7 @@ mongoose.connect("mongodb://localhost/kola");
 var db = mongoose.Connection;
 
 // must use cookieParser before expressSession
-var mongo = require("mongodb");
+// var mongo = require("mongodb");
 var fs = require("fs");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

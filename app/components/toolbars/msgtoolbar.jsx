@@ -45,7 +45,6 @@ export default class Msgbar extends React.Component {
     this.state = {};
     this.profile = this.profile.bind(this);
     this.settings = this.settings.bind(this);
-    this.logout = this.logout.bind(this);
     this.handleToggl = this.handleToggl.bind(this);
   }
 
