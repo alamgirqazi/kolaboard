@@ -1,7 +1,7 @@
 import React from "react";
 
 var { Link, IndexLink } = require("react-router");
-import { redirectVerify } from "auth.js";
+import { redirectVerify } from "../../api/auth.js";
 import { Card, CardHeader, CardTitle, CardText } from "material-ui/Card";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 

@@ -11,7 +11,7 @@ var Main = require("Main");
 import injectTapEventPlugin from "react-tap-event-plugin";
 import FirstPage from "app/components/firstpage.jsx";
 import Verify from "app/components/authentication/verify.jsx";
-import { requireAuth, requireVerification, redirect } from "auth.js";
+import { requireAuth, requireVerification, redirect } from "./api/auth.js";
 import NotFound from "app/components/dashboard/NotFound.jsx";
 import TimeTable from "app/components/dashboard/timetable.jsx";
 import Settings from "app/components/dashboard/settings.jsx";

@@ -26,7 +26,7 @@ import {
   ToolbarTitle
 } from "material-ui/Toolbar";
 var { Link, IndexLink, browserHistory } = require("react-router");
-import { logout, userProfile } from "auth.js";
+import { logout, userProfile } from "../api/auth.js";
 import { AppBar, Drawer } from "material-ui";
 import UserStore from "app/store/UserStore.js";
 import Store from "app/store/UIstore.js";
