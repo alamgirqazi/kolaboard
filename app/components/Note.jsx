@@ -22,7 +22,8 @@ var ReactDOM = require("react-dom");
 let individualnotes;
 const wordwrap = {
   wordWrap: "breakWord",
-  overflow: "hidden"
+  overflow: "hidden",
+  backgroundColor:"#DCF8C6"
 };
 
 const savebtn = {
@@ -258,6 +259,7 @@ class Note extends React.Component {
           maxLength="210"
           defaultValue={this.props.children.text}
           className="form-control"
+          id="messagetextarea"
         />
 
         <button

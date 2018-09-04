@@ -115,7 +115,7 @@ const iconStyles = {
 const pinstyle = {
   width: "22px",
   height: "22px",
-  margin: "0 50px",
+  margin: "0 75px",
   display: "inline-block",
   transform: "rotate(330deg)"
 };
