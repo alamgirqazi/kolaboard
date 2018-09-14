@@ -1,16 +1,9 @@
 import React from "react";
-import Drawer from "material-ui/Drawer";
-import MenuItem from "material-ui/MenuItem";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import AppBar from "material-ui/AppBar";
 import IconButton from "material-ui/IconButton";
-import IconMenu from "material-ui/IconMenu";
 import Toolbar from "app/components/toolbar.jsx";
-import Boards from "app/components/Note.jsx";
 import Dialog from "material-ui/Dialog";
 import RaisedButton from "material-ui/RaisedButton";
-import Chat from "app/components/chat.jsx";
-import Board from "app/components/board.jsx";
 import { greenA400 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import Store from "app/store/UIstore.js";

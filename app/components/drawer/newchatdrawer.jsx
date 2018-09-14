@@ -1,6 +1,5 @@
 import React from "react";
 import { AppBar, Drawer } from "material-ui";
-import MenuItem from "material-ui/MenuItem";
 import RaisedButton from "material-ui/RaisedButton";
 import UIStore from "app/store/UIstore.js";
 import { observer } from "mobx-react";

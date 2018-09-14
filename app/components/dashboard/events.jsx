@@ -1,39 +1,26 @@
 import React from "react";
-import Drawer from "material-ui/Drawer";
-import MenuItem from "material-ui/MenuItem";
 import RaisedButton from "material-ui/RaisedButton";
-import muiThemeable from "material-ui/styles/muiThemeable";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import AppBar from "material-ui/AppBar";
 import IconButton from "material-ui/IconButton";
-import IconMenu from "material-ui/IconMenu";
 import Toolbar from "app/components/toolbar.jsx";
-import Boards from "app/components/Note.jsx";
 import { Scrollbars } from "react-custom-scrollbars";
 import Dialog from "material-ui/Dialog";
 import TextField from "material-ui/TextField";
 import { greenA400, red500 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
-import Store from "app/store/UIstore.js";
 import UserStore from "app/store/UserStore.js";
 import EventStore from "app/store/EventStore.js";
 import { observer } from "mobx-react";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
-import ContentFileUpload from "material-ui/svg-icons/file/file-upload";
 import DatePicker from "material-ui/DatePicker";
 import Snackbar from "material-ui/Snackbar";
 import ActionHome from "material-ui/svg-icons/action/delete";
 import {
   Card,
-  CardActions,
   CardHeader,
-  CardMedia,
-  CardTitle,
   CardText
 } from "material-ui/Card";
-import FlatButton from "material-ui/FlatButton";
-import Toggle from "material-ui/Toggle";
 
 const header = {
   textAlign: "center"

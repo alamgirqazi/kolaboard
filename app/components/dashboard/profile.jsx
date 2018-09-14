@@ -1,34 +1,21 @@
 import React from "react";
-import Drawer from "material-ui/Drawer";
-import MenuItem from "material-ui/MenuItem";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import AppBar from "material-ui/AppBar";
 import IconButton from "material-ui/IconButton";
-import IconMenu from "material-ui/IconMenu";
 import Toolbar from "app/components/toolbar.jsx";
 import { Scrollbars } from "react-custom-scrollbars";
 import FriendshipsStore from "app/store/FriendshipsStore.js";
-import Boards from "app/components/Note.jsx";
 import Dialog from "material-ui/Dialog";
 import TextField from "material-ui/TextField";
 import Snackbar from "material-ui/Snackbar";
-import Toggle from "material-ui/Toggle";
 
 import {
   Card,
-  CardActions,
-  CardHeader,
-  CardMedia,
   CardTitle,
   CardText
 } from "material-ui/Card";
 import Avatar from "material-ui/Avatar";
-import FlatButton from "material-ui/FlatButton";
-import Chat from "app/components/chat.jsx";
-import Board from "app/components/board.jsx";
 import { greenA400, red500 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
-import Store from "app/store/UIstore.js";
 import UserStore from "app/store/UserStore.js";
 import { observer } from "mobx-react";
 import RaisedButton from "material-ui/RaisedButton";

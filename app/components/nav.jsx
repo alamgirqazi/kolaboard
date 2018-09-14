@@ -1,13 +1,8 @@
 var React = require("react");
-var { Link, IndexLink } = require("react-router");
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import RaisedButton from "material-ui/RaisedButton";
 import LoginDialog from "app/components/loginmodal.jsx";
 import SignupDialog from "app/components/signupmodal.jsx";
-import FirstPage from "app/components/firstpage.jsx";
-import { AppBar, IconButton, MenuItem } from "material-ui";
 
-import muiThemeable from "material-ui/styles/muiThemeable";
 const greenbutton = {
   backgroundColor: "#00E676"
 };
@@ -70,15 +65,15 @@ export default class NewNav extends React.Component {
     return (
       <MuiThemeProvider>
         <div className="top-bar">
-          <div className="top-bar-left">
-            <ul className="menu">
+          <div className="pull-left">
+            <ul className="nav navbar-nav">
               <li>
                 <img src="Klogo.png" style={style} />
               </li>
             </ul>
           </div>
-          <div className="top-bar-right">
-            <ul className="menu">
+          <div className="pull-right">
+            <ul className="nav navbar-nav">
               <li>
                 <LoginDialog title="Log In" lock={this.lockLogin} />
               </li>

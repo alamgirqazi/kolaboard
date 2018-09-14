@@ -1,36 +1,23 @@
 import React from "react";
-import Drawer from "material-ui/Drawer";
 import MenuItem from "material-ui/MenuItem";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import AppBar from "material-ui/AppBar";
 import IconButton from "material-ui/IconButton";
 import IconMenu from "material-ui/IconMenu";
 import Toolbar from "app/components/toolbar.jsx";
-import Boards from "app/components/Note.jsx";
 import ContentMore from "material-ui/svg-icons/navigation/expand-more";
 import { Scrollbars } from "react-custom-scrollbars";
 import Linkifier from "react-linkifier";
-import Chat from "app/components/chat.jsx";
-import Board from "app/components/board.jsx";
-import Note from "app/components/Note.jsx";
 import { greenA400 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
-import Store from "app/store/UIstore.js";
 import {
   Card,
   CardActions,
-  CardHeader,
-  CardMedia,
-  CardTitle,
-  CardText
+  CardTitle
 } from "material-ui/Card";
-import FlatButton from "material-ui/FlatButton";
-import Toggle from "material-ui/Toggle";
 import SvgIcon from "material-ui/SvgIcon";
 import UserStore from "app/store/UserStore.js";
 import ChatStore from "app/store/ChatStore.js";
 import { observer } from "mobx-react";
-import { map } from "mobx";
 import RaisedButton from "material-ui/RaisedButton";
 import Dialog from "material-ui/Dialog";
 import TextField from "material-ui/TextField";
@@ -357,7 +344,7 @@ export default class PrivateNotes extends React.Component {
               <br />
               <br />
               <br />
-              <div className="row fullwidth">
+              <div className="row container fullwidth">
                 <div className="columns medium-12 large-12">
                   <div style={inlinedisplay}>
                     <Card className="displ" style={cardwidth}>
@@ -377,15 +364,15 @@ export default class PrivateNotes extends React.Component {
                     {UserStore.obj.privatenotes.map(Users => {
                       return (
                         <Card className="displ" style={cardwidth}>
-                          <IconMenu
+                          <IconMenu style={{marginLeft:"80%",marginTop: "-5%"}}
                             iconButtonElement={
                               <IconButton
                                 style={{
                                   display: "inline-flex",
                                   float: "right",
-                                  width: "29px",
-                                  height: "29px",
-                                  padding: "0px"
+                                  // width: "29px",
+                                  // height: "29px",
+                                  // padding: "0px"
                                 }}
                                 tooltip="more"
                                 touch={true}
@@ -412,10 +399,12 @@ export default class PrivateNotes extends React.Component {
                           <CardActions>
                             <center>
                               {" "}
-                              <FlatButton
+                              <RaisedButton
                                 label="Open"
                                 onTouchTap={() => this.handleOpen(Users)}
-                              />
+                                primary={true}
+                              >
+                              </RaisedButton>
                             </center>
                           </CardActions>
                         </Card>
@@ -453,11 +442,7 @@ export default class PrivateNotes extends React.Component {
 
               <h2 style={header}>Private Notes</h2>
 
-              <br />
-              <br />
-              <br />
-              <br />
-              <div className="row fullwidth">
+              <div className="row fullwidth" style = {{marginLeft:"5%"}}>
                 <RaisedButton
                   label="Back"
                   style={{ float: "left" }}

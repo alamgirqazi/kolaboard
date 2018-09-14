@@ -1,14 +1,6 @@
 import React from "react";
-import Drawer from "material-ui/Drawer";
-import MenuItem from "material-ui/MenuItem";
 import RaisedButton from "material-ui/RaisedButton";
-import muiThemeable from "material-ui/styles/muiThemeable";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import AppBar from "material-ui/AppBar";
-import IconButton from "material-ui/IconButton";
-import IconMenu from "material-ui/IconMenu";
-import Toolbar from "app/components/toolbar.jsx";
-import Boards from "app/components/Note.jsx";
 import Avatar from "material-ui/Avatar";
 import List from "material-ui/List/List";
 import ListItem from "material-ui/List/ListItem";
@@ -21,10 +13,7 @@ import Snackbar from "material-ui/Snackbar";
 import { observer } from "mobx-react";
 import { greenA400, red500 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
-import Store from "app/store/UIstore.js";
 import SearchInput, { createFilter } from "react-search-input";
-import FontIcon from "material-ui/FontIcon";
-import CommunicationChatBubble from "material-ui/svg-icons/communication/chat-bubble";
 import UserStore from "app/store/UserStore.js";
 import FriendshipsStore from "app/store/FriendshipsStore.js";
 

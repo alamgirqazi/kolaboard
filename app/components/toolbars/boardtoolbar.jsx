@@ -1,25 +1,16 @@
 import React from "react";
-import Avatar from "material-ui/Avatar";
 import IconButton from "material-ui/IconButton";
 import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert";
 import IconMenu from "material-ui/IconMenu";
 import {
-  grey400,
-  darkBlack,
-  lightBlack,
-  blue300
+  darkBlack
 } from "material-ui/styles/colors";
-import { List, ListItem } from "material-ui/List";
-import RaisedButton from "material-ui/RaisedButton";
-import NavigationExpandMoreIcon from "material-ui/svg-icons/navigation/expand-more";
 import MenuItem from "material-ui/MenuItem";
 import {
   Toolbar,
   ToolbarGroup,
-  ToolbarSeparator,
   ToolbarTitle
 } from "material-ui/Toolbar";
-import FontIcon from "material-ui/FontIcon";
 import Store from "app/store/UIstore.js";
 import ChatStore from "app/store/ChatStore.js";
 import { observer } from "mobx-react";

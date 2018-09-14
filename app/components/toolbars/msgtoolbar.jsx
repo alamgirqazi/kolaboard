@@ -1,5 +1,4 @@
 import React from "react";
-import Avatar from "material-ui/Avatar";
 import IconButton from "material-ui/IconButton";
 import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert";
 import IconMenu from "material-ui/IconMenu";
@@ -11,19 +10,14 @@ import {
 } from "material-ui/styles/colors";
 import { observer } from "mobx-react";
 import { List, ListItem } from "material-ui/List";
-import RaisedButton from "material-ui/RaisedButton";
-import NavigationExpandMoreIcon from "material-ui/svg-icons/navigation/expand-more";
 import MenuItem from "material-ui/MenuItem";
 import UIStore from "app/store/UIstore.js";
-var { Link, IndexLink, browserHistory } = require("react-router");
+var { browserHistory } = require("react-router");
 
 import {
   Toolbar,
-  ToolbarGroup,
-  ToolbarSeparator,
-  ToolbarTitle
+  ToolbarGroup
 } from "material-ui/Toolbar";
-import FontIcon from "material-ui/FontIcon";
 
 const styleSearch = {
   left: "35%"

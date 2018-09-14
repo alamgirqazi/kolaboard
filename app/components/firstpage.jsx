@@ -1,6 +1,4 @@
 import React from "react";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import RaisedButton from "material-ui/RaisedButton";
 import Nav from "app/components/nav.jsx";
 import Homepage from "app/components/homepage.jsx";
 import { Scrollbars } from "react-custom-scrollbars";

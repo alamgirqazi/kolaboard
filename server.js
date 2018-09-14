@@ -13,8 +13,10 @@ var cookieParser = require("cookie-parser");
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT);
+require('dotenv').config()
 
-mongoose.connect("mongodb://localhost/kola");
+//Connect to mongodb
+mongoose.connect(process.env.DB_URL);
 
 // must use cookieParser before expressSession
 app.use(bodyParser.json());

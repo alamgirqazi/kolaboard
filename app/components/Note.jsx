@@ -1,5 +1,4 @@
 import React from "react";
-import RaisedButton from "material-ui/RaisedButton";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
 import Snackbar from "material-ui/Snackbar";
@@ -11,12 +10,10 @@ import { observer } from "mobx-react";
 import UserStore from "app/store/UserStore.js";
 import UIStore from "app/store/UIstore.js";
 import ContentMore from "material-ui/svg-icons/navigation/expand-more";
-import ActionDelete from "material-ui/svg-icons/action/delete";
 import IconButton from "material-ui/IconButton";
 import IconMenu from "material-ui/IconMenu";
 import MenuItem from "material-ui/MenuItem";
 import Dialog from "material-ui/Dialog";
-import { List, ListItem } from "material-ui/List";
 var ReactDOM = require("react-dom");
 
 let individualnotes;

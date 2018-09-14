@@ -3,8 +3,6 @@ import Chat from "app/components/chat.jsx";
 import Board from "app/components/board.jsx";
 import ListChatContainer from "app/components/chat/ListChatContainer.jsx";
 import NewChatDrawer from "app/components/drawer/newchatdrawer.jsx";
-import ChatStore from "app/store/ChatStore.js";
-import { observer } from "mobx-react";
 
 const style = {
   height: "100%"

@@ -10,7 +10,6 @@ users = [];
 connections = [];
 let user_id_server;
 var myuserid;
-console.log("This is api.js");
     app.get("/", function(req, res) {
     });
 

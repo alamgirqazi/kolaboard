@@ -1,0 +1,3 @@
+module.exports = {
+    dburl:"ds123790.mlab.com:23790/kolaboard -u kolaboard -p kolaboard_fyp123"
+}

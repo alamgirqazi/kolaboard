@@ -1,6 +1,5 @@
 import React from "react";
 import IconMenu from "material-ui/IconMenu";
-import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert";
 import {
   grey400,
   darkBlack,
@@ -10,35 +9,26 @@ import {
 import { List, ListItem } from "material-ui/List";
 import Avatar from "material-ui/Avatar";
 import IconButton from "material-ui/IconButton";
-import FontIcon from "material-ui/FontIcon";
 import NavigationExpandMoreIcon from "material-ui/svg-icons/navigation/expand-more";
 import SocialPeople from "material-ui/svg-icons/social/person-add";
-import ActionAssignment from "material-ui/svg-icons/action/assignment";
-import { Menu, MenuItem } from "material-ui/Menu";
-import DropDownMenu from "material-ui/DropDownMenu";
+import { MenuItem } from "material-ui/Menu";
 import RaisedButton from "material-ui/RaisedButton";
 import EventStore from "app/store/EventStore.js";
 
 import {
   Toolbar,
-  ToolbarGroup,
-  ToolbarSeparator,
-  ToolbarTitle
+  ToolbarGroup
 } from "material-ui/Toolbar";
-var { Link, IndexLink, browserHistory } = require("react-router");
-import { logout, userProfile } from "../api/auth.js";
+var { browserHistory } = require("react-router");
+import { logout } from "../api/auth.js";
 import { AppBar, Drawer } from "material-ui";
 import UserStore from "app/store/UserStore.js";
 import Store from "app/store/UIstore.js";
 import { observer } from "mobx-react";
 import NavigationClose from "material-ui/svg-icons/navigation/close";
-import Divider from "material-ui/Divider";
-import Profile from "app/components/dashboard/profile.jsx";
-import Settings from "app/components/dashboard/settings.jsx";
-import chatstore from "../store/ChatStore";
 import Dialog from "material-ui/Dialog";
-import FlatButton from "material-ui/FlatButton";
 import FriendshipsStore from "app/store/FriendshipsStore.js";
+
 var user_id;
 let friendlist = [];
 let friendlistcount;

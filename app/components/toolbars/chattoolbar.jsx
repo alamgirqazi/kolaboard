@@ -1,25 +1,17 @@
 import React from "react";
 import Avatar from "material-ui/Avatar";
 import IconButton from "material-ui/IconButton";
-import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert";
 import IconMenu from "material-ui/IconMenu";
-import AppBar from "material-ui/AppBar";
 import UserStore from "app/store/UserStore.js";
 import FriendshipStore from "app/store/FriendshipsStore.js";
 import Snackbar from "material-ui/Snackbar";
 
 import {
-  grey400,
   darkBlack,
-  lightBlack,
-  blue300
 } from "material-ui/styles/colors";
 import { List, ListItem } from "material-ui/List";
 import RaisedButton from "material-ui/RaisedButton";
-import NavigationExpandMoreIcon from "material-ui/svg-icons/navigation/expand-more";
-import NavigationClose from "material-ui/svg-icons/navigation/close";
 import MenuItem from "material-ui/MenuItem";
-import AlertContainer from "react-alert";
 import ActionInfo from "material-ui/svg-icons/action/account-circle";
 const stylebtn = {
   margin: 12
@@ -27,15 +19,10 @@ const stylebtn = {
 import {
   Toolbar,
   ToolbarGroup,
-  ToolbarSeparator,
-  ToolbarTitle
 } from "material-ui/Toolbar";
-import FontIcon from "material-ui/FontIcon";
-import ActionGrade from "material-ui/svg-icons/action/grade";
 import ChatStore from "app/store/ChatStore.js";
 import { observer } from "mobx-react";
 import Dialog from "material-ui/Dialog";
-import FlatButton from "material-ui/FlatButton";
 
 const bottomPadding = {
   paddingBottom: "12px"
@@ -91,15 +78,15 @@ export default class Chatbar extends React.Component {
     $.ajax({
       type: "GET",
       url: "/api/userall"
-    }).done(function(data) {
+    }).done(function (data) {
       users = data;
-      var index = users.findIndex(function(o) {
+      var index = users.findIndex(function (o) {
         return o.user_id === userid;
       });
       users.splice(index, 1);
       UserStore.allUsers = users;
       var secondarray = [];
-      users.forEach(function(a) {
+      users.forEach(function (a) {
         for (var i = 0; i < FriendshipStore.myfriendslist.length; i++) {
           if (
             a.user_id == FriendshipStore.myfriendslist[i].other_id ||
@@ -131,7 +118,7 @@ export default class Chatbar extends React.Component {
     var data = ChatStore.groupId;
     socket.emit("Show Favourites", data);
 
-    socket.on("returned favs", function(data) {
+    socket.on("returned favs", function (data) {
       ChatStore.favourites = data.msg;
     });
     this.setState({ openDialog: true });
@@ -187,11 +174,11 @@ export default class Chatbar extends React.Component {
       message: "HAS BEEN ADDED TO THE GROUP"
     };
     socket.emit("add User to Group", data);
-    socket.on("returning participants", function(data) {
+    socket.on("returning participants", function (data) {
       ChatStore.remainparticipants = data[0].remainparticipants;
       ChatStore.participants = data[0].participants;
     });
-    socket.on("returning message group", function(data) {
+    socket.on("returning message group", function (data) {
       ChatStore.msgs = data[0].conversation;
     });
     var newarray = FriendshipStore.mappedFriends;
@@ -221,12 +208,12 @@ export default class Chatbar extends React.Component {
     };
     socket.emit("remove User from Group", data);
 
-    socket.on("returning participants", function(data) {
+    socket.on("returning participants", function (data) {
       ChatStore.remainparticipants = data[0].remainparticipants;
       ChatStore.participants = data[0].participants;
     });
 
-    socket.on("returning message group", function(data) {
+    socket.on("returning message group", function (data) {
       ChatStore.msgs = data[0].conversation;
     });
 
@@ -258,13 +245,13 @@ export default class Chatbar extends React.Component {
         {admin ? (
           <MenuItem onTouchTap={this.handleAdmin}>Add More Users</MenuItem>
         ) : (
-          <div />
-        )}
+            <div />
+          )}
         {admin ? (
           <MenuItem onTouchTap={this.handleRemoveAdmin}>Remove Users</MenuItem>
         ) : (
-          <div />
-        )}
+            <div />
+          )}
       </IconMenu>
     );
 
@@ -382,7 +369,7 @@ export default class Chatbar extends React.Component {
               );
             }
             if (Users.present == true) {
-              setTimeout(function() {
+              setTimeout(function () {
                 if (Users.present != true) {
                   return (
                     <div key={Users.user_id}>
@@ -509,20 +496,20 @@ export default class Chatbar extends React.Component {
           {groupSelected ? (
             <div />
           ) : (
-            <ToolbarGroup firstChild={true}>
-              <List>
-                <ListItem
-                  onTouchTap={this.handleOpen}
-                  leftAvatar={
-                    <Avatar size={40} color={darkBlack}>
-                      {ChatStore.groupavatar}
-                    </Avatar>
-                  }
-                  primaryText={ChatStore.groupname}
-                />
-              </List>
-            </ToolbarGroup>
-          )}
+              <ToolbarGroup firstChild={true}>
+                <List>
+                  <ListItem
+                    onTouchTap={this.handleOpen}
+                    leftAvatar={
+                      <Avatar size={40} color={darkBlack}>
+                        {ChatStore.groupavatar}
+                      </Avatar>
+                    }
+                    primaryText={ChatStore.groupname}
+                  />
+                </List>
+              </ToolbarGroup>
+            )}
 
           <ToolbarGroup lastChild={true} style={bottomPadding}>
             <ListItem rightIconButton={rightIconMenu} />

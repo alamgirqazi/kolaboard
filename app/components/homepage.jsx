@@ -1,11 +1,7 @@
 import React from "react";
-var { Link, IndexLink } = require("react-router");
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import RaisedButton from "material-ui/RaisedButton";
 import LoginDialog from "app/components/loginmodal.jsx";
 import SignupDialog from "app/components/signupmodal.jsx";
-import muiThemeable from "material-ui/styles/muiThemeable";
-import { Scrollbars } from "react-custom-scrollbars";
 import { greenA400 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 
