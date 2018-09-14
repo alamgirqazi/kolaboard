@@ -1,18 +1,10 @@
 var express = require("express");
-var path = require("path");
-var http = require("http");
 // Create our app
 var app = express();
 
 const mongoose = require("mongoose");
-const jwt = require("express-jwt");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-var router = express.Router();
-// var User = require("./server/models/User.js");
-// var Friendships = require("./server/models/Friendships.js");
-// var Events = require("./server/models/Events.js");
-// var rooms = require("./server/models/groupList.js");
 
 var server = require("http").Server(app);
 
@@ -24,11 +16,7 @@ server.listen(PORT);
 
 mongoose.connect("mongodb://localhost/kola");
 
-var db = mongoose.Connection;
-
 // must use cookieParser before expressSession
-// var mongo = require("mongodb");
-var fs = require("fs");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
@@ -47,11 +35,6 @@ app.use(function(req, res, next) {
   }
 });
 
-const authCheck = jwt({
-  secret: "AUTH0_CLIENT_SECRET",
-  audience: "AUTH0_CLIENT_ID "
-});
-
 app.use(express.static("public"));
 app.use(cookieParser());
 
@@ -68,8 +51,9 @@ app.use(
   })
 );
 
-var api = require("./server/api/api.js")(app);
-var io = require("./server/events/realtime.js")(server);
+
+require("./server/api/api.js")(app);
+require("./server/events/realtime.js")(server);
 
 
 
