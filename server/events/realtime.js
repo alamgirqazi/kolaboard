@@ -1,15 +1,11 @@
 var User = require("../models/User.js");
 var Friendships = require("../models/Friendships.js");
-var Events = require("../models/Events.js");
 var rooms = require("../models/groupList.js");
 module.exports = function(app) {
     var io = require("socket.io")(app);
     var users, connections, room;
     users = [];
     connections = [];
-    let user_id_server;
-var myuserid;
-console.log("This is realtime.js");
     io.on("connection", function(socket) {
         connections.push(socket);
         socket.on("chat message", function(data) {
@@ -204,10 +200,8 @@ console.log("This is realtime.js");
                       }
                     }
                   },
-                  function(err, docs) {
+                  function(err) {
                     if (err) console.log(err);
-                    else {
-                    }
                   }
                 );
               }
@@ -235,13 +229,12 @@ console.log("This is realtime.js");
           rooms.findOneAndUpdate(
             { _id: data.roomId },
             { $pull: { remainparticipants: { user_id: data.user_id } } },
-            function(err, docs) {
+            function(err) {
               if (err) console.log(err);
               else {
                 rooms.find({ _id: data.roomId }, function(err, docs) {
                   socket.emit("returning participants", docs);
                 });
-                let val = 0;
                 rooms.update(
                   { _id: data.roomId },
                   {
@@ -283,7 +276,6 @@ console.log("This is realtime.js");
       
         socket.on("addingnotes", function(data) {
           socket.join("room", function() {
-            var name = room;
             io.sockets.in(socket.rooms.room).emit("roomNotes", data);
           });
         });
@@ -333,7 +325,7 @@ console.log("This is realtime.js");
               });
             })
             .catch(err => {
-              console.log(rrr.stack);
+              console.log(err.stack);
             });
         });
       
@@ -700,7 +692,7 @@ console.log("This is realtime.js");
                 { user_id: data.user_id, other_id: data.other_id, status: "friend" }
               ]
             },
-            function(err, rooms) {
+            function(err) {
               if (err) {
                 console.log(err);
               } else {
@@ -715,7 +707,8 @@ console.log("This is realtime.js");
                     socket.emit("return remain users", friendship);
                   }
                 );
-                User.find({}, function(err, users) {});
+                //TODO: WHY 
+                // User.find({}, function(err, users) {});
               }
             }
           );
@@ -728,10 +721,9 @@ console.log("This is realtime.js");
                 { user_id: data.other_id, other_id: data.user_id, status: "friend" }
               ]
             },
-            function(err, rooms) {
+            function(err) {
               if (err) {
                 console.log(err);
-              } else {
               }
             }
           );
@@ -984,7 +976,7 @@ console.log("This is realtime.js");
                 "privatenotes.$.notes": data.data
               }
             },
-            function(err, docs) {
+            function(err) {
               if (err) console.log(err);
               else {
                 User.find({ _id: data.id }, function(err, _user) {
