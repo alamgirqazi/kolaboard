@@ -16,8 +16,15 @@ server.listen(PORT);
 require('dotenv').config()
 
 //Connect to mongodb
-mongoose.connect(process.env.DB_URL);
 
+mongoose.createConnection(process.env.DB_URL, {
+  useMongoClient: true,
+  /* other options */
+});
+// promise.then(function(db) {
+// console.log('db',db);
+
+// });
 // must use cookieParser before expressSession
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -57,6 +64,6 @@ app.use(
 require("./server/api/api.js")(app);
 require("./server/events/realtime.js")(server);
 
-
+console.log('server running on Port:',PORT);
 
 
