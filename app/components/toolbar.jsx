@@ -212,7 +212,8 @@ export default class ToolbarExamplesSimple extends React.Component {
     Store.dashboard = false;
     browserHistory.replace("/notes");
   }
-  getEvents() {}
+  // getEvents() {}
+
   newfunc() {
     if (UserStore.email == "") {
       UserStore.picture = "http://lorempixel.com/g/400/200";
@@ -263,29 +264,33 @@ export default class ToolbarExamplesSimple extends React.Component {
     var profile = localStorage.getItem("profile");
     var newprofile = JSON.parse(profile);
 
-    $.ajax({
-      type: "POST",
-      url: "/api/user",
-      data: newprofile
-    })
-      .done(function(data) {})
-      .fail(function(jqXhr) {});
+    //TODO TEst
+
+    // Find a Fix soon 
+
+    // $.ajax({
+    //   type: "POST",
+    //   url: "/api/user",
+    //   data: newprofile
+    // })
+    //   .done(function(data) {})
+    //   .fail(function(jqXhr) {});
 
     $.ajax({
       type: "GET",
       url: "/api/user/friendlist"
     })
       .done(function(data) {
-        friendlist = data;
         FriendshipsStore.myfriendslist = data;
-
-        friendlistcount = Object.keys(friendlist).length;
-        FriendshipsStore.friendlistcount = friendlistcount;
+         
+        FriendshipsStore.friendlistcount = Object.keys(data).length;
         setTimeout(
           function() {
+            console.log('Store.Invites',Store.invites);
             if (Store.invitescount < 1) {
               if (FriendshipsStore.friendlistcount == 0) {
                 Store.goToInvites = true;
+                // check URL
                 Store.invitescount++;
               }
             }
@@ -295,14 +300,14 @@ export default class ToolbarExamplesSimple extends React.Component {
       })
       .fail(function(jqXhr) {});
 
-    $.ajax({
-      type: "GET",
-      url: "/api/getEvents"
-    })
-      .done(function(data) {
-        EventStore.event = data;
-      })
-      .fail(function(jqXhr) {});
+    // $.ajax({
+    //   type: "GET",
+    //   url: "/api/getEvents"
+    // })
+    //   .done(function(data) {
+    //     EventStore.event = data;
+    //   })
+    //   .fail(function(jqXhr) {});
     this.newfunc();
 
     if (Store.yum) {

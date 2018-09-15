@@ -53,7 +53,6 @@ const style = {
 };
 let theDate;
 let totalEvents = [];
-let data;
 @observer
 export default class Events extends React.Component {
   constructor(props) {
@@ -97,16 +96,16 @@ export default class Events extends React.Component {
       .fail(function(jqXhr) {});
 
     this.setState({ open: false, snackbaropen: true });
-    $.ajax({
-      type: "GET",
-      url: "/api/getEvents"
-    })
-      .done(function(data) {
-        EventStore.event = data;
-        totalEvents = data;
-      })
-      .fail(function(jqXhr) {});
-  };
+  //   $.ajax({
+  //     type: "GET",
+  //     url: "/api/getEvents"
+  //   })
+  //     .done(function(data) {
+  //       EventStore.event = data;
+  //       totalEvents = data;
+  //     })
+  //     .fail(function(jqXhr) {});
+  // };
 
   handleExpand = () => {
     this.setState({ expanded: true });
@@ -148,29 +147,29 @@ export default class Events extends React.Component {
       openDelete: false
     });
 
-    $.ajax({
-      type: "GET",
-      url: "/api/getEvents"
-    })
-      .done(function(data) {
-        EventStore.event = data;
-        totalEvents = data;
-      })
-      .fail(function(jqXhr) {});
+    // $.ajax({
+    //   type: "GET",
+    //   url: "/api/getEvents"
+    // })
+    //   .done(function(data) {
+    //     EventStore.event = data;
+    //     totalEvents = data;
+    //   })
+    //   .fail(function(jqXhr) {});
   };
   componentWillMount() {
     EventStore.event = [];
   }
   componentDidMount() {
-    $.ajax({
-      type: "GET",
-      url: "/api/getEvents"
-    })
-      .done(function(data) {
-        EventStore.event = data;
-        totalEvents = data;
-      })
-      .fail(function(jqXhr) {});
+    // $.ajax({
+    //   type: "GET",
+    //   url: "/api/getEvents"
+    // })
+    //   .done(function(data) {
+    //     EventStore.event = data;
+    //     totalEvents = data;
+    //   })
+    //   .fail(function(jqXhr) {});
   }
   handleDeleteClose = () => {
     this.setState({ openDelete: false });

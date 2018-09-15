@@ -43,14 +43,14 @@ export default class Invites extends React.Component {
   };
 
   componentDidMount() {
-    var data = { id: UserStore.obj.user_id };
-    $.ajax({
-      type: "POST",
-      url: "/api/user/myuserid",
-      data: data
-    })
-      .done(function(data) {})
-      .fail(function(jqXhr) {});
+    // var data = { id: UserStore.obj.user_id };
+    // $.ajax({
+    //   type: "POST",
+    //   url: "/api/user/myuserid",
+    //   data: data
+    // })
+    //   .done(function(data) {})
+    //   .fail(function(jqXhr) {});
   }
   render() {
     return (

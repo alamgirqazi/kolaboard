@@ -44,7 +44,6 @@ const style = {
   margin: 12
 };
 let users;
-let favourites;
 
 const iconButtonElement = (
   <IconButton touch={true} tooltip="more" tooltipPosition="bottom-left">
@@ -220,24 +219,17 @@ export default class Chatbar extends React.Component {
     this.setState({ openRemoveUser: false });
   };
 
-  SendFile = () => {
-    var data, xhr;
-
-    data = new FormData();
-    data.append("file", $("#file")[0].files[0]);
-  };
-
   render() {
     var groupSelected;
     var admin;
     if (ChatStore.groupname == " ") {
       groupSelected = true;
     } else false;
-
+if(UserStore.obj){
     if (ChatStore.admin_id == UserStore.obj.user_id) {
       admin = true;
     } else false;
-
+  }
     const rightIconMenu = (
       <IconMenu iconButtonElement={iconButtonElement}>
         <MenuItem onTouchTap={this.handleOpen}>Group Info</MenuItem>
