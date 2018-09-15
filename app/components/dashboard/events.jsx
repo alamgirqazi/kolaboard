@@ -105,7 +105,7 @@ export default class Events extends React.Component {
   //       totalEvents = data;
   //     })
   //     .fail(function(jqXhr) {});
-  // };
+  };
 
   handleExpand = () => {
     this.setState({ expanded: true });
@@ -173,7 +173,8 @@ export default class Events extends React.Component {
   }
   handleDeleteClose = () => {
     this.setState({ openDelete: false });
-  };
+  }
+
   render() {
     totalEvents = EventStore.event;
     const actions = [
