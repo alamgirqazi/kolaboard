@@ -1,12 +1,13 @@
 <div align="center">
 	<br>
 	<div>
-		<img width="600" height="600" src="public/assets/Kolaboard.png" alt="kolaboard">
+		<img src="public/Kolaboard.png"  width="600" alt="kolaboard">
 	</div>
 	<br>
 	<br>
-</div>                                                                                      
-## A Real-time chat, collaboration and productivity enhancement application for teams built using React.js, Node.js, Socket.IO, MobX and MongoDB.
+</div>
+
+> A Real-time chat, collaboration and productivity enhancement application for teams built using React.js, Node.js, Socket.IO, MobX and MongoDB.
 
 ### Major features include
 
@@ -25,8 +26,6 @@ Clone the repo
 
 ```sh
    $ npm install
-
-   $ mongod
 
    $ node server
 
