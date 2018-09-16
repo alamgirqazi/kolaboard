@@ -1,42 +1,48 @@
-## A Real-time chat, collaboration and productivity enhancement application for teams built using React.js, Node.js, Socket.IO, MobX and MongoDB.  
+<div align="center">
+	<br>
+	<div>
+		<img width="600" height="600" src="public/assets/Kolaboard.png" alt="kolaboard">
+	</div>
+	<br>
+	<br>
+</div>                                                                                      
+## A Real-time chat, collaboration and productivity enhancement application for teams built using React.js, Node.js, Socket.IO, MobX and MongoDB.
 
 ### Major features include
 
-* Real-time Noteboard / Chat
-* Create/Leave groups
-* Find/Add/Remove Friends
-* Manage Private Notes
-* Arrange Private Notes by folders
-* Set up weekly timetable schedule
-* View Nearby Events
-* Manage Profile
-
+- Real-time Noteboard / Chat
+- Create/Leave groups
+- Find/Add/Remove Friends
+- Manage Private Notes
+- Arrange Private Notes by folders
+- Set up weekly timetable schedule
+- View Nearby Events
+- Manage Profile
 
 ## How to run:
 
 Clone the repo
 
 ```sh
-   $ npm install 
+   $ npm install
 
-   $ mongod 
+   $ mongod
 
    $ node server
-  
+
 
 Go to localhost:3000
-
 ```
 
-## Libs/tools used: 
+## Libs/tools used:
 
-Javascript ES6 
+Javascript ES6
 
-React.js    https://github.com/facebook/react
+React.js https://github.com/facebook/react
 
-Material-UI     http://www.material-ui.com/
+Material-UI http://www.material-ui.com/
 
-SASS for styling    http://sass-lang.com/
+SASS for styling http://sass-lang.com/
 
 Webpack v1 for module bundling https://webpack.github.io/
 
@@ -46,10 +52,9 @@ MobX (State Management) https://mobx.js.org/
 
 Mongoose (ODM for MongoDB) http://mongoosejs.com/
 
-
 ## Screenshots
 
-### Homepage: 
+### Homepage:
 
 <img src="https://image.ibb.co/iRvhRa/kola_homepage.png" width="700" height="450" />
 
@@ -159,7 +164,6 @@ Mongoose (ODM for MongoDB) http://mongoosejs.com/
 
 <br/>
 <br/>
-
 
 ### Timetable:
 
