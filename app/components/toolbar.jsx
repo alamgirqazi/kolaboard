@@ -268,13 +268,13 @@ export default class ToolbarExamplesSimple extends React.Component {
 
     // Find a Fix soon 
 
-    // $.ajax({
-    //   type: "POST",
-    //   url: "/api/user",
-    //   data: newprofile
-    // })
-    //   .done(function(data) {})
-    //   .fail(function(jqXhr) {});
+     $.ajax({
+       type: "POST",
+       url: "/api/user",
+       data: newprofile
+     })
+       .done(function(data) {})
+       .fail(function(jqXhr) {});
 
     $.ajax({
       type: "GET",

@@ -16,15 +16,9 @@ server.listen(PORT);
 require('dotenv').config()
 
 //Connect to mongodb
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.DB_URL,{  useMongoClient: true});
 
-mongoose.createConnection(process.env.DB_URL, {
-  useMongoClient: true,
-  /* other options */
-});
-// promise.then(function(db) {
-// console.log('db',db);
-
-// });
 // must use cookieParser before expressSession
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
