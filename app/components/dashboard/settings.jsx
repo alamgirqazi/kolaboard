@@ -100,7 +100,6 @@ export default class Settings extends React.Component {
     })
       .done(function(data) {})
       .fail(function(jqXhr) {});
-    console.log(this.state.snackbaropen);
     this.setState({ snackbaropen: true });
   };
   render() {

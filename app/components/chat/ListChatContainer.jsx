@@ -174,15 +174,14 @@ export default class ListChatContainer extends React.Component {
       UserStore.obj.rooms = data[0].rooms;
     });
 
-    var d = new Date(); // for now
-    d.getHours(); // => 9
-    d.getMinutes(); // =>  30
-    d.getSeconds(); // => 51
-    //console.log(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
+    var d = new Date();
+    d.getHours();
+    d.getMinutes();
+    d.getSeconds();
     var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
     var today = new Date();
     var dd = today.getDate();
-    var mm = today.getMonth() + 1; //January is 0!
+    var mm = today.getMonth() + 1;
     var yyyy = today.getFullYear();
 
     if (dd < 10) {

@@ -38,7 +38,7 @@ var myuserid;
       Friendships.find({}, function(err, docs) {
         friendship.save(function(err) {
           if (err) {
-            console.log(err);
+res.status(500).send(err);
           }
         });
       });

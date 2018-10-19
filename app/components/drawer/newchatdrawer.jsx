@@ -297,7 +297,7 @@ export default class NewChatDrawer extends React.Component {
                 Friendlist.userrealname = Friendlist.other_id_name;
                 Friendlist.userid = Friendlist.other_id;
                 return (
-                  <div className="mail">
+                  <div className="mail" key={Friendlist.other_id}>
                     <List key={Friendlist.other_id}>
                       <ListItem
                         key={Friendlist.other_id}

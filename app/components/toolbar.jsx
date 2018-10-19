@@ -286,11 +286,9 @@ export default class ToolbarExamplesSimple extends React.Component {
         FriendshipsStore.friendlistcount = Object.keys(data).length;
         setTimeout(
           function() {
-            console.log('Store.Invites',Store.invites);
             if (Store.invitescount < 1) {
               if (FriendshipsStore.friendlistcount == 0) {
                 Store.goToInvites = true;
-                // check URL
                 Store.invitescount++;
               }
             }
