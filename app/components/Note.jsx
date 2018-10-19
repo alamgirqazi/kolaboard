@@ -283,7 +283,8 @@ export default class Boards extends React.Component {
 
     this.state = {
       notes: [{ text: "yo" }],
-      open: false
+      open: false,
+      openasds:false
     };
 
     this.update = this.update.bind(this);
@@ -421,7 +422,14 @@ export default class Boards extends React.Component {
   }
   componentDidMount() {
     var board = ReactDOM.findDOMNode(this);
-    dragula([board]);
+    dragula([board],{
+      moves: function (el, source, handle, sibling) {
+        source.forEach(element => {
+        console.log("source index ",element);          
+        });
+        return true; // elements are always draggable by default
+      },
+    });
   }
   handleClose = () => {
     UIStore.notedetails = false;

@@ -29,6 +29,7 @@ const displayinline = {
   display: "flex",
   backgroundColor: "#00E676",
   marginLeft:"1%",
+  marginRight:"3%",
   borderRadius:"5px"
 };
 const chatinputbox = {

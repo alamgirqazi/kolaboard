@@ -94,7 +94,8 @@ export default class ListChatContainer extends React.Component {
     this._handleClick = this._handleClick.bind(this);
     this.state = {
       data: [],
-      openDelete: false
+      openDelete: false,
+      openleavesnack: false
     };
   }
 

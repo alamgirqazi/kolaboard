@@ -65,6 +65,7 @@ export default class Chatbar extends React.Component {
       open: false,
       snackbar: false,
       openAddUser: false,
+      openRemoveUser: false,
       openDialog: false,
       openRemoveAdmin: false,
       snackbarremove: false,
