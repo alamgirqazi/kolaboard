@@ -389,7 +389,7 @@ export default class Chat extends React.Component {
                     ) {
                       if (Users.message == "USER HAS LEFT THE GROUP") {
                         return (
-                          <div>
+                          <div  key={Users._id}>
                             <br />
 
                             {Users.from + " has left the group"}
@@ -399,7 +399,7 @@ export default class Chat extends React.Component {
                       }
                       if (Users.message == "HAS BEEN ADDED TO THE GROUP") {
                         return (
-                          <div style={hasbeenadded}>
+                          <div style={hasbeenadded}  key={Users._id}>
                             <br />
 
                             {Users.from + " has been added to the group"}
@@ -409,7 +409,7 @@ export default class Chat extends React.Component {
                       }
                       if (Users.message == "HAS BEEN REMOVED FROM THE GROUP") {
                         return (
-                          <div style={hasbeenremoved}>
+                          <div style={hasbeenremoved}  key={Users._id}>
                             {Users.from + " has been removed from the group"}
                             <br />
                           </div>
@@ -417,7 +417,7 @@ export default class Chat extends React.Component {
                       }
                     }
                     return (
-                      <div>
+                      <div  key={Users._id}>
                         {left ? (
                           <h6 style={leftGroup}>
                             <br />

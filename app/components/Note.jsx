@@ -422,14 +422,7 @@ export default class Boards extends React.Component {
   }
   componentDidMount() {
     var board = ReactDOM.findDOMNode(this);
-    dragula([board],{
-      moves: function (el, source, handle, sibling) {
-        source.forEach(element => {
-        console.log("source index ",element);          
-        });
-        return true; // elements are always draggable by default
-      },
-    });
+    dragula([board]);
   }
   handleClose = () => {
     UIStore.notedetails = false;
@@ -439,11 +432,11 @@ export default class Boards extends React.Component {
     if (ChatStore.groupname == " ") {
       groupSelected = true;
     } else false;
-    var variable = ChatStore.notes;
+    var notes = ChatStore.notes;
     var b;
     return (
       <div>
-        {variable.map(Users => {
+        {notes.map(Users => {
           if (Users.from == UserStore.userrealname) {
             Users.color = "#DCF8C6";
             return (

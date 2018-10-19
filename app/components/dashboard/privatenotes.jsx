@@ -363,7 +363,7 @@ export default class PrivateNotes extends React.Component {
 
                     {UserStore.obj.privatenotes.map(Users => {
                       return (
-                        <Card className="displ" style={cardwidth}>
+                        <Card className="displ" style={cardwidth} key={Users._id}>
                           <IconMenu style={{marginLeft:"80%",marginTop: "-5%"}}
                             iconButtonElement={
                               <IconButton
@@ -455,7 +455,7 @@ export default class PrivateNotes extends React.Component {
                 <div className="columns medium-12 large-12">
                   {ChatStore.mappingnotes.map(Users => {
                     return (
-                      <div className="pdispl">
+                      <div className="pdispl" key={Users._id}>
                         <div
                           className="note"
                           style={{

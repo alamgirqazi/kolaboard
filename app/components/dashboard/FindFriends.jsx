@@ -49,7 +49,8 @@ export default class FindFriends extends React.Component {
 
     this.state = {
       searchTerm: "",
-      openDelete: false
+      openDelete: false,
+      snackbarsendreq:false
     };
 
     this._handleClick = this._handleClick.bind(this);
